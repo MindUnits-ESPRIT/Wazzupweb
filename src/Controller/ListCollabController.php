@@ -9,11 +9,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class ListCollabController extends AbstractController
 {
     /**
-     * @Route("/list/collab", name="app_list_collab")
+     * @Route("/listcollab", name="app_list_collab")
      */
     public function index(): Response
     {
-        return $this->render('list_collab/index.html.twig', [
+        return $this->render('listcollab/index.html.twig', [
             'controller_name' => 'ListCollabController',
         ]);
     }
