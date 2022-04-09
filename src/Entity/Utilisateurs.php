@@ -2,18 +2,22 @@
 
 namespace App\Entity;
 
+use Serializable;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Utilisateurs
  *
  * @ORM\Table(name="utilisateurs")
+ * @UniqueEntity("email",message="Votre email existe déja")
  * @ORM\Entity
  */
-class Utilisateurs
+class Utilisateurs implements UserInterface
 {
     /**
      * @var int
@@ -25,23 +29,25 @@ class Utilisateurs
     private $idUtilisateur;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="nom", type="string", length=30)
+     * @Assert\NotBlank(message="Veuillez insérer votre nom")
      */
     private $nom;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="prenom", type="string", length=30)
-     */
+     * @Assert\NotBlank(message="Veuillez insérer votre prenom")     */
     private $prenom;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="datenaissance", type="string", length=30, nullable=false)
+     * @ORM\Column(name="datenaissance", type="string", length=30, nullable=true)
+     * @Assert\NotBlank(message="Veuillez insérer votre date de naissance ")
      */
     private $datenaissance;
 
@@ -56,6 +62,7 @@ class Utilisateurs
      * @var string
      *
      * @ORM\Column(name="num_tel", type="string", length=12, nullable=false)
+     * @Assert\NotBlank(message="Veuillez insérer votre numero de telephone ")
      */
     private $numTel;
 
@@ -82,8 +89,17 @@ class Utilisateurs
      *
      * @ORM\Column(name="mdp", type="string", length=220, nullable=false)-
      * @Assert\NotBlank(message="Veuillez insérer votre mot de passe ")
+     * @Assert\NotCompromisedPassword(message="Veuillez choisir un mot de passe plus fort")
+     * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*\d).{6,}$/i", message="Votre mot de passe doit comporter au moins 6 caractères et inclure au moins une lettre et un chiffre.")
+     * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe ne correspond pas a votre confirmation")
+     * 
      */
     private $mdp;
+    /**
+     * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe doit etre le meme que le mot de passe saisie précedement")
+     */
+
+    public $mdpconfirm;
 
     /**
      * @var string
@@ -200,9 +216,11 @@ class Utilisateurs
         return $this->datenaissance;
     }
 
-    public function setDatenaissance(object $datenaissance): self
+    public function setDatenaissance(object $datenaissance= null): self
     {
-        $this->datenaissance = $datenaissance->format('Y-m-d');
+        if(!($datenaissance==null)){
+        $this->datenaissance = $datenaissance->format('d-m-Y');
+    }
 
         return $this;
     }
@@ -401,5 +419,20 @@ class Utilisateurs
 
         return $this;
     }
-
+    public function eraseCredentials()
+{
+}
+public function getSalt()
+{
+}
+public function getRoles()
+{
+    return ['ROLE_USER'];
+}
+public function getPassword()
+{
+}
+public function getUsername()
+{
+}
 }

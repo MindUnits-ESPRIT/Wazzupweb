@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 Configuration::instance([
     'cloud' => [
       'cloud_name' => 'duqo08ysi',
@@ -25,24 +27,20 @@ class SignupController extends AbstractController
     /**
      * @Route("/signup", name="app_signup", methods={"GET", "POST"})
      */
-    public function signup(Request $request, EntityManagerInterface $entityManager): Response
+    public function signup(Request $request, EntityManagerInterface $entityManager,UserPasswordEncoderInterface $encoder): Response
     {
         $user=new Utilisateurs();
-        $form=$this->createForm(SignupType::class);
+        $form=$this->createForm(SignupType::class,$user);
         $form->handleRequest($request);
         dump($form->getData());
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setNom($form->get('nom')->getData());
-            $user->setPrenom($form->get('prenom')->getData());
-            $user->setMdp($form->get('mdp')->getData());
-            $user->setGenre($form->get('genre')->getData());
-            $user->setNumTel($form->get('numTel')->getData());
-            $user->setEmail($form->get('email')->getData());
-            $user->setDatenaissance($form->get('datenaissance')->getData());
-            // dd($user);
+             $hash= $encoder->encodePassword($user,$user->getMdp());
+             $user->setmdp($hash);
+             // dd($user);
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('success', 'Compte creé !');
+            
 
 
             return $this->redirectToRoute('app_auth', [], Response::HTTP_SEE_OTHER);
