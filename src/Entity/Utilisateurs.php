@@ -165,7 +165,12 @@ class Utilisateurs
         $this->creationDate = new \DateTime();
         $this->idCollab = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    public function setIdUtilisateur(?int $idUtilisateur): self
+    {
+        $this->idUtilisateur = $idUtilisateur;
 
+        return $this;
+    }
     public function getIdUtilisateur(): ?int
     {
         return $this->idUtilisateur;
