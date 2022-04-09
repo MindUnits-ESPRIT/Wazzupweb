@@ -67,17 +67,7 @@
                                     <div class="col-md-5 col-12 budget-wrapper">                                       
                                         <h4 class="card-title mb-50 mb-sm-0">Créer une collaboration</h4>
                    <div style = "margin-top:100%">
-                                           {{ form_start(collab_form,{attr:{'novalidate':'novalidate'}}) }}
-				        {{ form_errors(collab_form) }}
-				<div class="form-wrapper">
-					{# <input type="text" placeholder="Nom" class="form-control"> #}
-					{{form_row(collab_form.nomCollab,{'attr': {'class': 'form-control','placeholder':'Wazzup'}})}}
-					
-				</div>
-				<br><br>
-                <div style = "margin-bottom:-12%">{{ form_row(collab_form.Submit, { 'label': 'Créer', 'attr':{'class':'btn btn-primary' } }) }} </div>
-		
-		 {{ form_end(collab_form) }}   </div>                                   
+                                             </div>                                   
                                     </div>
                                 </div>
                             </div>
@@ -95,8 +85,8 @@
                                    <img src="{{ asset('collab/globe.png') }}" height ="80%" width="170%" style = "margin-left:-30%" alt="Logo"> 
                                     </div>
                                     <div class="col-md-5 col-12 budget-wrapper">                                       
-                                        <h4 class="card-title mb-50 mb-sm-0">Lister vos collaboration</h4><a  href="{{ path('app_list_collab') }}">
-                                        <button type="button" class="btn btn-primary" style = "margin-top:165%">Afficher</button></a>
+                                        <h4 class="card-title mb-50 mb-sm-0">Lister vos collaboration</h4>
+                                        <button type="button" class="btn btn-primary" style = "margin-top:165%">Afficher</button>
                                     </div>
                                 </div>
                             </div>
