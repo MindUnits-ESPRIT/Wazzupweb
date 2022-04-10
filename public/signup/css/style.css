@@ -360,3 +360,6 @@ canvas {
 .signup-titre{
 	COLOR: TEAL;
 }
+.errorlabel{
+	margin-top: -20px;
+}

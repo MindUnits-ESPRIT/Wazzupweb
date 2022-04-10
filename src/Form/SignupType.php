@@ -39,7 +39,7 @@ class SignupType extends AbstractType
             ->add('email')
             // ->add('avatar',FileType::class)
             ->add('mdp',PasswordType::class)
-            // ->add('mdpconfirm',PasswordType::class)
+            ->add('mdpconfirm',PasswordType::class)
             ->add('Submit',SubmitType::class)
 
         ;
