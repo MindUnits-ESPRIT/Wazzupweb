@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/pages/dashboard-ecommerce.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/charts/chart-apex.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/pages/app-chat-list.css')}}">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -51,47 +52,329 @@
             </div>
             <div class="content-body">
              <h4 class="card-title mb-50 mb-sm-0" style = "margin-left:2%">Collaboration</h4>
-            <br><br><br>
-                        <div class="row mx-0">
-                 <!-- creer collab Card -->
-                        <div class="col-lg-6 col-12">
-                            <div class="card card-revenue-budget">
-                                <div class="row mx-0">
-                                    <div class="col-md-7 col-12 revenue-report-wrapper">
-                                        <div class="d-sm-flex justify-content-between align-items-center mb-3">
-                                            <div class="d-flex align-items-center">                                            
-                                            </div>
+            <br><br>
+                          <div class="row match-height">
+                 
+ <!-- Employee Task Card -->
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="card card-employee-task">
+                            <div class="card-header">
+                                <h4 class="card-title">Employee Task</h4>
+                                <i data-feather="more-vertical" class="font-medium-3 cursor-pointer"></i>
+                            </div>
+                            <div class="card-body">
+                                <div class="employee-task d-flex justify-content-between align-items-center">
+                                    <div class="media">
+                                        <div class="avatar mr-75">
+                                            <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-9.jpg')}}" class="rounded" width="42" height="42" alt="Avatar" />
                                         </div>
-                                       <img src="{{ asset('collab/log-removebg-preview.png') }}" height ="85%" width="120%" style = "margin-left:-5%;margin-top:-10%"alt="Logo">    
+                                        <div class="media-body my-auto">
+                                            <h6 class="mb-0">Ryan Harrington</h6>
+                                            <small>iOS Developer</small>
+                                        </div>
                                     </div>
-                                    <div class="col-md-5 col-12 budget-wrapper">                                       
-                                        <h4 class="card-title mb-50 mb-sm-0">Créer une collaboration</h4>
-                   <div style = "margin-top:100%">
-                                              </div>                                   
+                                    <div class="d-flex align-items-center">
+                                        <small class="text-muted mr-75">9hr 20m</small>
+                                        <div class="employee-task-chart-primary-1"></div>
+                                    </div>
+                                </div>
+                                <div class="employee-task d-flex justify-content-between align-items-center">
+                                    <div class="media">
+                                        <div class="avatar mr-75">
+                                            <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" class="rounded" width="42" height="42" alt="Avatar" />
+                                        </div>
+                                        <div class="media-body my-auto">
+                                            <h6 class="mb-0">Louisa Norton</h6>
+                                            <small>UI Designer</small>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <small class="text-muted mr-75">4hr 17m</small>
+                                        <div class="employee-task-chart-danger"></div>
+                                    </div>
+                                </div>
+                                <div class="employee-task d-flex justify-content-between align-items-center">
+                                    <div class="media">
+                                        <div class="avatar mr-75">
+                                            <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-1.jpg')}}" class="rounded" width="42" height="42" alt="Avatar" />
+                                        </div>
+                                        <div class="media-body my-auto">
+                                            <h6 class="mb-0">Jayden Duncan</h6>
+                                            <small>Java Developer</small>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <small class="text-muted mr-75">12hr 8m</small>
+                                        <div class="employee-task-chart-success"></div>
+                                    </div>
+                                </div>
+                                <div class="employee-task d-flex justify-content-between align-items-center">
+                                    <div class="media">
+                                        <div class="avatar mr-75">
+                                            <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" class="rounded" width="42" height="42" alt="Avatar" />
+                                        </div>
+                                        <div class="media-body my-auto">
+                                            <h6 class="mb-0">Cynthia Howell</h6>
+                                            <small>Anguler Developer</small>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <small class="text-muted mr-75">3hr 19m</small>
+                                        <div class="employee-task-chart-secondary"></div>
+                                    </div>
+                                </div>
+                                <div class="employee-task d-flex justify-content-between align-items-center">
+                                    <div class="media">
+                                        <div class="avatar mr-75">
+                                            <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-16.jpg')}}" class="rounded" width="42" height="42" alt="Avatar" />
+                                        </div>
+                                        <div class="media-body my-auto">
+                                            <h6 class="mb-0">Helena Payne</h6>
+                                            <small>Marketing</small>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <small class="text-muted mr-75">9hr 50m</small>
+                                        <div class="employee-task-chart-warning"></div>
+                                    </div>
+                                </div>
+                                <div class="employee-task d-flex justify-content-between align-items-center">
+                                    <div class="media">
+                                        <div class="avatar mr-75">
+                                            <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-13.jpg')}}" class="rounded" width="42" height="42" alt="Avatar" />
+                                        </div>
+                                        <div class="media-body my-auto">
+                                            <h6 class="mb-0">Troy Jensen</h6>
+                                            <small>iOS Developer</small>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <small class="text-muted mr-75">4hr 48m</small>
+                                        <div class="employee-task-chart-primary-2"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                  <!--/ creer collab Card -->
-                  <!-- Lister collab Card -->
-                        <div class="col-lg-6 col-12">
-                            <div class="card card-revenue-budget">
-                                <div class="row mx-0">
-                                    <div class="col-md-7 col-12 revenue-report-wrapper">
-                                        <div class="d-sm-flex justify-content-between align-items-center mb-3">
-                                            <div class="d-flex align-items-center">                                            
+                    </div>
+                    <!--/ Employee Task Card -->
+
+
+
+  <!-- Chat Card -->
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="card chat-widget">
+                            <div class="card-header">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar mr-2">
+                                        <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="Avatar" width="34" height="34" />
+                                        <span class="avatar-status-online"></span>
+                                    </div>
+                                    <h5 class="mb-0">Carrie Hawkins</h5>
+                                </div>
+                                <i data-feather="more-vertical" class="font-medium-3 cursor-pointer"></i>
+                            </div>
+                            <!-- User Chat messages -->
+                            <section class="chat-app-window">
+                                <div class="user-chats">
+                                    <div class="chats">
+                                        <div class="chat">
+                                            <div class="chat-avatar">
+                                                <span class="avatar box-shadow-1 cursor-pointer">
+                                                    <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-11.jpg')}}" alt="avatar" height="36" width="36" />
+                                                </span>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content">
+                                                    <p>How can we help? We're here for you! 😄</p>
+                                                </div>
                                             </div>
                                         </div>
-                                   <img src="{{ asset('collab/globe.png') }}" height ="80%" width="170%" style = "margin-left:-30%" alt="Logo"> 
+                                        <div class="chat chat-left">
+                                            <div class="chat-avatar">
+                                                <span class="avatar box-shadow-1 cursor-pointer">
+                                                    <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="avatar" height="36" width="36" />
+                                                </span>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content">
+                                                    <p>Hey John, I am looking for the best admin template.</p>
+                                                    <p>Could you please help me to find it out? 🤔</p>
+                                                </div>
+                                                <div class="chat-content">
+                                                    <p>It should be Bootstrap 4 compatible.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chat">
+                                            <div class="chat-avatar">
+                                                <span class="avatar box-shadow-1 cursor-pointer">
+                                                    <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-11.jpg')}}" alt="avatar" height="36" width="36" />
+                                                </span>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content">
+                                                    <p>Absolutely!</p>
+                                                </div>
+                                                <div class="chat-content">
+                                                    <p>Vuexy admin is the responsive bootstrap 4 admin template.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chat chat-left">
+                                            <div class="chat-avatar">
+                                                <span class="avatar box-shadow-1 cursor-pointer">
+                                                    <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="avatar" height="36" width="36" />
+                                                </span>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content">
+                                                    <p>Looks clean and fresh UI. 😃</p>
+                                                </div>
+                                                <div class="chat-content">
+                                                    <p>It's perfect for my next project.</p>
+                                                </div>
+                                                <div class="chat-content">
+                                                    <p>How can I purchase it?</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chat">
+                                            <div class="chat-avatar">
+                                                <span class="avatar box-shadow-1 cursor-pointer">
+                                                    <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-11.jpg')}}" alt="avatar" height="36" width="36" />
+                                                </span>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content">
+                                                    <p>Thanks, from ThemeForest.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chat chat-left">
+                                            <div class="chat-avatar">
+                                                <span class="avatar box-shadow-1 cursor-pointer">
+                                                    <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="avatar" height="36" width="36" />
+                                                </span>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content">
+                                                    <p>I will purchase it for sure. 👍</p>
+                                                </div>
+                                                <div class="chat-content">
+                                                    <p>Thanks.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="chat">
+                                            <div class="chat-avatar">
+                                                <span class="avatar box-shadow-1 cursor-pointer">
+                                                    <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-11.jpg')}}" alt="avatar" height="36" width="36" />
+                                                </span>
+                                            </div>
+                                            <div class="chat-body">
+                                                <div class="chat-content">
+                                                    <p>Great, Feel free to get in touch on</p>
+                                                </div>
+                                                <div class="chat-content">
+                                                    <p>https://pixinvent.ticksy.com/</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-5 col-12 budget-wrapper">                                       
-                                        <h4 class="card-title mb-50 mb-sm-0">Lister vos collaboration</h4><a  href="{{ path('app_list_collab') }}">
-                                        <button type="button" class="btn btn-primary" style = "margin-top:165%">Afficher</button></a>
+                                </div>
+                                <!-- Submit Chat form -->
+                                <form class="chat-app-form" action="javascript:void(0);" onsubmit="enterChat();">
+                                    <div class="input-group input-group-merge mr-50 w-75 form-send-message">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <label for="attach-doc" class="attachment-icon mb-0">
+                                                    <i data-feather="image" class="cursor-pointer lighten-2 text-secondary"></i>
+                                                    <input type="file" id="attach-doc" hidden /> </label></span>
+                                        </div>
+                                        <input type="text" class="form-control message" placeholder="Type your message" />
                                     </div>
+                                    <button type="button" class="btn btn-primary send" onclick="enterChat();">
+                                        <i data-feather="send" class="d-lg-none"></i>
+                                        <span class="d-none text-nowrap d-lg-block">Send</span>
+                                    </button>
+                                </form>
+                                <!--/ Submit Chat form -->
+                            </section>
+                            <!-- User Chat messages -->
+                        </div>
+                    </div>
+                    <!--/ Chat Card -->
+
+
+ <!-- Developer Meetup Card -->
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="card card-developer-meetup">
+                            <div class="meetup-img-wrapper rounded-top text-center">
+                                <img src="{{asset('collab/prjtdef.png')}}" alt="Meeting Pic" height="170" />
+                            </div>
+                            <div class="card-body">
+                                <div class="meetup-header d-flex align-items-center">
+                                    <div class="meetup-day">
+                                        <h6 class="mb-0">THU</h6>
+                                        <h3 class="mb-0">24</h3>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="card-title mb-25">Developer Meetup</h4>
+                                        <p class="card-text mb-0">Meet world popular developers</p>
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <div class="avatar bg-light-primary rounded mr-1">
+                                        <div class="avatar-content">
+                                            <i data-feather="calendar" class="avatar-icon font-medium-3"></i>
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        <h6 class="mb-0">Sat, May 25, 2020</h6>
+                                        <small>10:AM to 6:PM</small>
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <div class="avatar bg-light-primary rounded mr-1">
+                                        <div class="avatar-content">
+                                            <i data-feather="map-pin" class="avatar-icon font-medium-3"></i>
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        <h6 class="mb-0">Central Park</h6>
+                                        <small>Manhattan, New york City</small>
+                                    </div>
+                                </div>
+                                <div class="avatar-group">
+                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Billy Hopkins" class="avatar pull-up">
+                                        <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-9.jpg')}}" alt="Avatar" width="33" height="33" />
+                                    </div>
+                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Amy Carson" class="avatar pull-up">
+                                        <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-6.jpg')}}" alt="Avatar" width="33" height="33" />
+                                    </div>
+                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Brandon Miles" class="avatar pull-up">
+                                        <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-8.jpg')}}" alt="Avatar" width="33" height="33" />
+                                    </div>
+                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Daisy Weber" class="avatar pull-up">
+                                        <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="Avatar" width="33" height="33" />
+                                    </div>
+                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Jenny Looper" class="avatar pull-up">
+                                        <img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="Avatar" width="33" height="33" />
+                                    </div>
+                                    <h6 class="align-self-center cursor-pointer ml-50 mb-0">+42</h6>
                                 </div>
                             </div>
                         </div>
-                        <!--/ Lister collab Card -->
+                    </div>
+                    <!--/ Developer Meetup Card -->
+
+
+
+
+
+
+
+
                         </div>
 
 
@@ -129,6 +412,7 @@
 
     <!-- BEGIN: Page JS-->
     <script src="dashboard/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script>
+    <script src="dashboard/app-assets/js/scripts/cards/card-advance.js"></script>
     <!-- END: Page JS-->
 
     <script>

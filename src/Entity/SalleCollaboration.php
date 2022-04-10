@@ -4,12 +4,15 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * SalleCollaboration
  *
  * @ORM\Table(name="salle_collaboration", indexes={@ORM\Index(name="ID_Utilisateur", columns={"ID_Utilisateur"})})
+ * @UniqueEntity("nomCollab",message="Votre Collab existe déja")
  * @ORM\Entity
  */
 class SalleCollaboration
@@ -27,6 +30,7 @@ class SalleCollaboration
      * @var string
      *
      * @ORM\Column(name="Nom_Collab", type="string", length=20, nullable=false)
+     * @Assert\NotBlank(message="Veuillez choisir un nom ")
      */
     private $nomCollab;
 
@@ -34,6 +38,7 @@ class SalleCollaboration
      * @var string
      *
      * @ORM\Column(name="URL_Collab", type="string", length=60, nullable=false)
+     * @Assert\NotBlank(message="Veuillez choisir un nom ")
      */
     private $urlCollab;
 

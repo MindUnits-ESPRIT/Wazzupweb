@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SalleCollabController extends AbstractController
 {
     /**
-     * @Route("/salle/collab", name="app_salle_collab")
+     * @Route("/sallecollab", name="app_salle_collab")
      */
     public function index(): Response
     {
