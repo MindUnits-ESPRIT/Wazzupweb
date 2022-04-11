@@ -2,31 +2,31 @@
 
 namespace App\Repository;
 
-use App\Entity\Utilisateurs;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Query\Expr\Join;
+use App\Entity\SalleCollaboration;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
- * @method Utilisateurs|null find($id, $lockMode = null, $lockVersion = null)
- * @method Utilisateurs|null findOneBy(array $criteria, array $orderBy = null)
- * @method Utilisateurs[]    findAll()
- * @method Utilisateurs[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method SalleCollaboration|null find($id, $lockMode = null, $lockVersion = null)
+ * @method SalleCollaboration|null findOneBy(array $criteria, array $orderBy = null)
+ * @method SalleCollaboration[]    findAll()
+ * @method SalleCollaboration[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UtilisateursRepository extends ServiceEntityRepository
+class SalleCollabRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Utilisateurs::class);
+        parent::__construct($registry, SalleCollaboration::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Utilisateurs $entity, bool $flush = true): void
+    public function add(SalleCollaboration $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -38,7 +38,7 @@ class UtilisateursRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Utilisateurs $entity, bool $flush = true): void
+    public function remove(SalleCollaboration $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -50,25 +50,26 @@ class UtilisateursRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function showCollabUsers(int $id)
+    public function showUserCollabs(int $id)
     {
         $q = $this->createQueryBuilder('g')
-        ->innerJoin('App\Entity\CollabMembers', 's', Join::WITH,  'g.idUtilisateur = s.ID_Utlisateur')
-        ->where('s.id_collab = :id')
+        ->innerJoin('App\Entity\CollabMembers', 's', Join::WITH,  'g.idCollab = s.id_collab')
+        ->where('s.ID_Utlisateur = :id')
+        ->groupBy('s.id_collab')
         ->setParameter('id', $id);  
     return ($q->getQuery()->getResult());       
     }
 
     // /**
-    //  * @return Utilisateurs[] Returns an array of Utilisateurs objects
+    //  * @return SalleCollaboration[] Returns an array of SalleCollaboration objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
+            ->orderBy('s.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -77,10 +78,10 @@ class UtilisateursRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Utilisateurs
+    public function findOneBySomeField($value): ?SalleCollaboration
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

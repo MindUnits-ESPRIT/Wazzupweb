@@ -9,13 +9,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use App\Repository\UtilisateursRepository;
 /**
  * Utilisateurs
  *
  * @ORM\Table(name="utilisateurs")
  * @UniqueEntity("email",message="Votre email existe déja")
+<<<<<<< HEAD
+ * @ORM\Entity(repositoryClass=UtilisateursRepository::class)
+=======
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateursRepository")
+>>>>>>> 0ba8bdace6d76add8833e20bef83934118b6a773
  */
 class Utilisateurs implements UserInterface
 {
@@ -169,7 +173,7 @@ class Utilisateurs implements UserInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="SalleCollaboration", mappedBy="idUtlisateur")
+     * @ORM\ManyToMany(targetEntity="SalleCollaboration", mappedBy="idUtlisateur",cascade={"all"})
      */
     private $idCollab;
 
