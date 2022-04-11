@@ -2,6 +2,7 @@
 {% include 'home/sidebar.html.twig' %}
 {% block head %}
 <head>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
@@ -12,6 +13,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/rowGroup.bootstrap4.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/vendors.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/charts/apexcharts.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/toastr.min.css')}}">
@@ -52,51 +58,75 @@
             <div class="content-body">
              <h4 class="card-title mb-50 mb-sm-0" style = "margin-left:2%">Collaboration</h4>
             <br><br><br>
-                        <div class="row mx-0">
-                 <!-- creer collab Card -->
-                        <div class="col-lg-6 col-12">
-                            <div class="card card-revenue-budget">
-                                <div class="row mx-0">
-                                    <div class="col-md-7 col-12 revenue-report-wrapper">
-                                        <div class="d-sm-flex justify-content-between align-items-center mb-3">
-                                            <div class="d-flex align-items-center">                                            
-                                            </div>
-                                        </div>
-                                       <img src="{{ asset('collab/log-removebg-preview.png') }}" height ="85%" width="120%" style = "margin-left:-5%;margin-top:-10%"alt="Logo">    
-                                    </div>
-                                    <div class="col-md-5 col-12 budget-wrapper">                                       
-                                        <h4 class="card-title mb-50 mb-sm-0">Créer une collaboration</h4>
-                   <div style = "margin-top:100%">
-                                             </div>                                   
-                                    </div>
-                                </div>
+                        
+                
+
+
+                <!-- Basic table -->
+                <section id="basic-datatable">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <table class="datatables-basic table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th>id</th>
+                                            <th>Name</th>
+                                            <th>URL</th>                              
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>                                 
+                                </table>
                             </div>
                         </div>
-                  <!--/ creer collab Card -->
-                  <!-- Lister collab Card -->
-                        <div class="col-lg-6 col-12">
-                            <div class="card card-revenue-budget">
-                                <div class="row mx-0">
-                                    <div class="col-md-7 col-12 revenue-report-wrapper">
-                                        <div class="d-sm-flex justify-content-between align-items-center mb-3">
-                                            <div class="d-flex align-items-center">                                            
-                                            </div>
-                                        </div>
-                                   <img src="{{ asset('collab/globe.png') }}" height ="80%" width="170%" style = "margin-left:-30%" alt="Logo"> 
-                                    </div>
-                                    <div class="col-md-5 col-12 budget-wrapper">                                       
-                                        <h4 class="card-title mb-50 mb-sm-0">Lister vos collaboration</h4>
-                                        <button type="button" class="btn btn-primary" style = "margin-top:165%">Afficher</button>
-                                    </div>
+                    </div>
+                    <!-- Modal to add new record -->
+                    <div class="modal modal-slide-in fade" id="modals-slide-in">
+                        <div class="modal-dialog sidebar-sm">
+                            <form class="add-new-record modal-content pt-0">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
+                                <div class="modal-header mb-1">
+                                    <h5 class="modal-title" id="exampleModalLabel">New Record</h5>
                                 </div>
-                            </div>
+                                <div class="modal-body flex-grow-1">
+                                    <div class="form-group">
+                                        <label class="form-label" for="basic-icon-default-fullname">Full Name</label>
+                                        <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" placeholder="John Doe" aria-label="John Doe" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="basic-icon-default-post">Post</label>
+                                        <input type="text" id="basic-icon-default-post" class="form-control dt-post" placeholder="Web Developer" aria-label="Web Developer" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="basic-icon-default-email">Email</label>
+                                        <input type="text" id="basic-icon-default-email" class="form-control dt-email" placeholder="john.doe@example.com" aria-label="john.doe@example.com" />
+                                        <small class="form-text text-muted"> You can use letters, numbers & periods </small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="basic-icon-default-date">Joining Date</label>
+                                        <input type="text" class="form-control dt-date" id="basic-icon-default-date" placeholder="MM/DD/YYYY" aria-label="MM/DD/YYYY" />
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="form-label" for="basic-icon-default-salary">Salary</label>
+                                        <input type="text" id="basic-icon-default-salary" class="form-control dt-salary" placeholder="$12000" aria-label="$12000" />
+                                    </div>
+                                    <button type="button" class="btn btn-primary data-submit mr-1">Submit</button>
+                                    <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
                         </div>
-                        <!--/ Lister collab Card -->
-                        </div>
+                    </div>
+                </section>
+                <!--/ Basic table -->
+                     
 
 
 
 
+
+                      
             </div>
         </div>
     </div>
@@ -120,6 +150,19 @@
     <!-- BEGIN: Page Vendor JS-->
     <script src="dashboard/app-assets/vendors/js/charts/apexcharts.min.js"></script>
     <script src="dashboard/app-assets/vendors/js/extensions/toastr.min.js"></script>
+    <script src="dashboard/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
+    <script src="dashboard/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script>
+    <script src="dashboard/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
+    <script src="dashboard/app-assets/vendors/js/tables/datatable/responsive.bootstrap4.js"></script>
+    <script src="dashboard/app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js"></script>
+    <script src="dashboard/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js"></script>
+    <script src="dashboard/app-assets/vendors/js/tables/datatable/jszip.min.js"></script>
+    <script src="dashboard/app-assets/vendors/js/tables/datatable/pdfmake.min.js"></script>
+    <script src="dashboard/app-assets/vendors/js/tables/datatable/vfs_fonts.js"></script>
+    <script src="dashboard/app-assets/vendors/js/tables/datatable/buttons.html5.min.js"></script>
+    <script src="dashboard/app-assets/vendors/js/tables/datatable/buttons.print.min.js"></script>
+    <script src="dashboard/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js"></script>
+    <script src="dashboard/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -129,6 +172,7 @@
 
     <!-- BEGIN: Page JS-->
     <script src="dashboard/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script>
+    <script src="dashboard/app-assets/js/scripts/tables/table-datatables-basic.js"></script>
     <!-- END: Page JS-->
 
     <script>

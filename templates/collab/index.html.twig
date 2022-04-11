@@ -52,32 +52,31 @@
             <div class="content-body">
              <h4 class="card-title mb-50 mb-sm-0" style = "margin-left:2%">Collaboration</h4>
             <br><br><br>
-                        <div class="row mx-0">
+                         <div class="row match-height">
                  <!-- creer collab Card -->
                         <div class="col-lg-6 col-12">
-                            <div class="card card-revenue-budget">
+                            <div class="card card-revenue-budget"     >
                                 <div class="row mx-0">
                                     <div class="col-md-7 col-12 revenue-report-wrapper">
                                         <div class="d-sm-flex justify-content-between align-items-center mb-3">
                                             <div class="d-flex align-items-center">                                            
                                             </div>
                                         </div>
-                                       <img src="{{ asset('collab/log-removebg-preview.png') }}" height ="85%" width="120%" style = "margin-left:-5%;margin-top:-10%"alt="Logo">    
+                                       <img src="{{ asset('collab/log-removebg-preview.png') }}" height ="80%" width="120%" style = "margin-left:-5%;margin-top: 0%"alt="Logo">    
                                     </div>
                                     <div class="col-md-5 col-12 budget-wrapper">                                       
                                         <h4 class="card-title mb-50 mb-sm-0">Créer une collaboration</h4>
-                   <div style = "margin-top:100%">
+                                       
+                   <div style = "margin-top:80%">
                                            {{ form_start(collab_form,{attr:{'novalidate':'novalidate'}}) }}
-				        {{ form_errors(collab_form) }}
+				       
 				<div class="form-wrapper">
 					{# <input type="text" placeholder="Nom" class="form-control"> #}
-					{{form_row(collab_form.nomCollab,{'attr': {'class': 'form-control','placeholder':'Wazzup'}})}}
-					
-				</div>
-				<br><br>
-                <div style = "margin-bottom:-12%">{{ form_row(collab_form.Submit, { 'label': 'Créer', 'attr':{'class':'btn btn-primary' } }) }} </div>
+				<div  style = "max-height: 50px; min-height:50px" >	{{form_row(collab_form.nomCollab,{'attr': {'class': 'form-control','placeholder':'Wazzup'}})}}</div>					
+				</div>		
+                <div style = "margin-bottom:-12%; margin-top:50%">{{ form_row(collab_form.Submit, { 'label': 'Créer', 'attr':{'class':'btn btn-primary' } }) }} </div>
 		
-		 {{ form_end(collab_form) }}   </div>                                   
+		      {{ form_end(collab_form) }}   </div>                                   
                                     </div>
                                 </div>
                             </div>
