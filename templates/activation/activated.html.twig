@@ -1,0 +1,40 @@
+{% block head %}
+<meta charset="utf-8">
+	<!-- STYLE CSS -->
+	<link rel="stylesheet" href="{{ asset('activation/css/style.css') }}">
+    <link rel="shortcut icon" href="{{ asset('signup/img/favicon.ico') }}">
+	<script src="{{ asset('activation/js/script.js') }}"></script>
+	<script src="{{ asset('signup/js/Jquery.js') }}"></script>
+{% endblock %}
+{% block body %}
+<div id="part" class="wrapper">
+	<div id="particles-js"></div>
+     <!-- Latest compiled and minified JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src='https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
+		<script src="{{ asset('signup/js/app.js') }}"></script>
+
+
+<div class="logo">
+  <div></div>
+  <div></div>
+  <div></div>
+  <svg viewBox="0 0 200 300">
+   <img style="height: 25vh;" src="{{ asset('signup/img/logo.png') }}" alt="logo_wazzup">
+   </svg>
+</div>
+<div class="sidebar">
+
+		<ul>
+			<li class="notification notification-activated">
+				
+				<h4>Votre compte a été activé!</h4>			
+			</li>
+			<li class="notification notification-welcome">
+				
+				<h4>Bienvenue sur Wazzup!</h4>
+				<p>Vous pouvez maintenant accéder a votre compte</p></li>
+		</ul>
+	</div>
+    </div>
+{% endblock %}

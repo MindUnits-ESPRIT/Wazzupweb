@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * PublicationSignaler
  *
  * @ORM\Table(name="publication_signaler", indexes={@ORM\Index(name="signaler_Foreign_pub", columns={"Id_publication"}), @ORM\Index(name="signaler_Foreign_uti", columns={"Id_utilisateur"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PublicationSignalerRepository")
  */
 class PublicationSignaler
 {
