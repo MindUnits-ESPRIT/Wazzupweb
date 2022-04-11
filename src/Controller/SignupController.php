@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Controller;
-use Swift_Mailer;
 use App\Form\SignupType;
 
 use Cloudinary\Cloudinary;
 use App\Entity\Utilisateurs;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UtilisateursRepository;
 use Cloudinary\Configuration\Configuration;
@@ -45,7 +45,7 @@ class SignupController extends AbstractController
             $entityManager->flush();
             // L'envoi de token
             $email = (new TemplatedEmail())
-            ->from('wazzupverif@gmail.com')
+            ->from(new Address('wazzupverif@gmail.com','Wazzup'))
             ->to($user->getEmail())
             ->subject("Activation du compte Wazzup")
            ->htmlTemplate('Mail_templates/token.html.twig')
@@ -67,6 +67,7 @@ class SignupController extends AbstractController
             'signup_form' => $form ->createView(),
         ]);
     }
+
     public function upload()
     {
                   $cld = new Cloudinary([
@@ -80,12 +81,12 @@ class SignupController extends AbstractController
                     ]   
                 ]);
         $res = $cld->uploadApi()->upload('C:\Users\malek\Desktop\wazzupwebapp\src\Controller\xdd.jpg');
-        dd($res);
+        // dd($res);
 }
 /**
  * @Route("/activation/{token}",name="activation")
  */
-public function activation($token , UtilisateursRepository $userrepo,EntityManagerInterface $em){
+public function activation($token , UtilisateursRepository $userrepo,EntityManagerInterface $em,MailerInterface $mailer){
   //Verification de la possession du token
   $user=$userrepo->findOneBy(['token'=>$token]);
   
@@ -94,6 +95,17 @@ public function activation($token , UtilisateursRepository $userrepo,EntityManag
       return $this->redirectToRoute('app_error');
     }
   //Succés d'activation
+        // L'envoi d'un mail de confirmation
+        $email = (new TemplatedEmail())
+        ->from(new Address('wazzupverif@gmail.com','Wazzup'))
+        ->to($user->getEmail())
+        ->subject("Votre compte a été activé")
+        ->htmlTemplate('Mail_templates/verified.html.twig')
+        ->context([
+        'nom' => $user->getNom(),
+    ])
+  ;
+        $mailer->send($email);
   // si le token trouvé on supprime le token
   $user->setToken(null);
   $user->setActivated(true);
@@ -104,6 +116,7 @@ public function activation($token , UtilisateursRepository $userrepo,EntityManag
       'message',
       'Vous avez bien activé votre compte !'
     );
+
   return $this->redirectToRoute('activation-success',['user' => $user->getEmail()]);
 
 }

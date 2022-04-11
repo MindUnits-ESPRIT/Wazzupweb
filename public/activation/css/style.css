@@ -179,15 +179,15 @@
     fill: #fff;
   }
   .logo div {
-    width: 182px;
-    height: 182px;
-    margin: 20px;
-  
+    width: 159px;
+    height: 159px;
+    margin: 12px;
     border-radius: 20%;
-    transform: rotate(45deg);
+    transform: rotate(
+45deg);
     mix-blend-mode: multiply;
     -webkit-animation: 2s cubic-bezier(0.66, -0.7, 0.27, 1.6) infinite;
-            animation: 2s cubic-bezier(0.66, -0.7, 0.27, 1.6) infinite;
+    animation: 2s cubic-bezier(0.66, -0.7, 0.27, 1.6) infinite;
   }
   .logo div:nth-child(1) {
     background-color: #ffffff00;
