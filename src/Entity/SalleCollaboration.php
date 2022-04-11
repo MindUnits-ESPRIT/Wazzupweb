@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * SalleCollaboration
  *
  * @ORM\Table(name="salle_collaboration", indexes={@ORM\Index(name="ID_Utilisateur", columns={"ID_Utilisateur"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\SalleCollaborationRepository")
  */
 class SalleCollaboration
 {

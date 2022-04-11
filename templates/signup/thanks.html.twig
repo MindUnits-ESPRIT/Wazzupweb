@@ -1,0 +1,28 @@
+{% block head %}
+<head>
+<link rel='stylesheet' id='main-style-css'  href="{{asset('thanks/css/style.css')}}" type='text/css' media='all' />
+</head>
+{% endblock %}
+{% block body %}
+<body style="background:linear-gradient(90deg, rgba(0,119,119,1) 64%, rgba(200,200,200,1) 100%);">
+
+<section class="main h-100">
+<div class="pv3 pv0-ns ph3 ph0-ns page-container">
+            <div id="form" class="pv5 tc">
+                <div class="f4 mt4 tc subtitle">
+                    <h2 class="mb2 pb0">Merci pour votre confiance ! 🖐 </h2>
+                    <p class="pt0 mt0">Votre compte à été créé avec succès</p>
+                  </div>
+                  <img class="mt4" src="{{asset('thanks/img/sent.gif')}}" width="20%">
+                  <h3 class="mt4 mb3">Veuillez vérifier votre boîte de réception<br>pour bien <span style="color:greenyellow;">activer votre compte !</span></h3>
+                <div class="success">
+                  <p class="text">
+                    Si vous ne le voyez pas, vérifiez le dossier SPAM<br>
+                    Comme parfois notre e-mail d'activation reste bloqué ici
+                  </p>
+                </div>              
+            </div>
+</section>
+</body>
+{% endblock %}
+  
