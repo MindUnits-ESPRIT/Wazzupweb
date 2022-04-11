@@ -9,13 +9,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use App\Repository\UtilisateursRepository;
 /**
  * Utilisateurs
  *
  * @ORM\Table(name="utilisateurs")
  * @UniqueEntity("email",message="Votre email existe déja")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=UtilisateursRepository::class)
  */
 class Utilisateurs implements UserInterface
 {
