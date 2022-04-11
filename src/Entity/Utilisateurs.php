@@ -169,7 +169,7 @@ class Utilisateurs implements UserInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="SalleCollaboration", mappedBy="idUtlisateur")
+     * @ORM\ManyToMany(targetEntity="SalleCollaboration", mappedBy="idUtlisateur",cascade={"all"})
      */
     private $idCollab;
 
