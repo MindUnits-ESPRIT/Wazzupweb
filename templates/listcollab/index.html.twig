@@ -60,20 +60,6 @@
             <br><br><br>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                          <div class="row match-height">
                                     
                                     {% for c in collabs %}                                                                   
@@ -99,10 +85,10 @@
                                      <a href="{{ path('app_salle_collab',{'collabn':c.getNomCollab()}) }}" class="btn btn-outline-primary">Accéder</a>
                                      {% if c.getIdUtilisateur() == user  %}
                                   
-                                   <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modif" >
+                                   <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#f{% set cunt1 = cunt1 + 1 %}{{cunt1}}" >
                                                 Modifier
                                             </button>   
-                                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#danger" style="margin-top:3%; min-width:105px">
+                                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#{{c.getNomCollab()}}" style="margin-top:3%; min-width:105px">
                                                 Effacer
                                             </button>           
                                 {% endif %} 
@@ -111,73 +97,125 @@
                                 </div>
                             </div>
                         </div>
- {% endfor %}
 
 
-  <div class="modal fade text-left" id="danger" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+
+
+
+
+
+
+
+
+<div class="modal fade text-left" id="{{c.getNomCollab()}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h4 class="modal-title" style="color:red" id="myModalLabel33">Confirmer la suppression</h4>
+                                                            <h4 class="modal-title" style="color:red" id="myModalLabel33">Confirmer la suppression du {{c.getNomCollab()}}</h4>
                                                             <button type="button" style="color:red" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
-                                                        </div>
-                                                        <form action="#">
+                                                        </div>                                                    
                                                             <div class="modal-body">
                                                                   <p class="card-text">
-                                        Veuillez confirmer le nom du collaboration a supprimer
-                                    </p>
-
-                                                                <label>Nom: </label>
+                                                 Veuillez confirmer le nom du collaboration a supprimer   </p>
+                                                              
+                                                            <p style="color:red" id="{% set cunt = cunt + 1 %}{{cunt}}" ></p>
                                                                 <div class="form-group">
-                                                                    <input type="text" placeholder="Nom Collab" class="form-control" />
+                                                                <p style=" visibility:hidden" id="{{c.getUrlCollab()}}">{{c.getNomCollab()}}</p>  
+                                                             
                                                                 </div>
                                                             </div>
-                                                            <div class="modal-footer">
-                                                              <button type="button" class="btn btn-danger waves-effect waves-float waves-light" data-dismiss="modal">Supprimer</button>
-                                                            </div>
-                                                        </form>
+                                                            <div class="modal-footer">  
+                                                             <input type="text" placeholder="Nouveau nom" id="{{c.getIdCollab()}}" class="form-control" />                                   
+                                                          
+                                                           <button type="button" class="btn btn-danger waves-effect waves-float waves-light" onclick="{{c.getNomCollab(c)}}()">Supprimer</button>
+                                                                    <script>
+                                                                    function {{c.getNomCollab(c)}}() {
+                                                                    var vali = document.getElementById('{{c.getIdCollab()}}').value;
+                                                                    var valo = document.getElementById('{{c.getUrlCollab()}}').innerHTML;
+                                                                    if (vali == valo){
+                                                                        location.href = "{{ path('deleteC',{'name':'val'}) }}".replace('val', vali);}
+                                                                    else {
+                                                                        document.getElementById('{{cunt}}').innerHTML="Nom incorrect"; }}
+                                                                    </script>
+                                                            </div>           
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
 
 
-  <div class="modal fade text-left" id="modif" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+
+
+
+
+
+
+
+
+  <div class="modal fade text-left" id="f{{cunt1}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h4 class="modal-title" id="myModalLabel33">Confirmer la modification</h4>
+                                                            <h4 class="modal-title" id="myModalLabel33">Confirmer la modification du {{c.getNomCollab()}}</h4>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
                                                         <form action="#">
                                                             <div class="modal-body">
-                                                                <label>Nom: </label>
-                                                                <div class="form-group">
-                                                                    <input type="text" placeholder="Nom Collab" class="form-control" />
-                                                                </div>
+                                                                
 
                                                                 <label>Nouveau Nom: </label>
+                                                                 <p style="color:red" id="{% set cunt4 = cunt2 ~"c" %}{{cunt4}}" ></p>
                                                                 <div class="form-group">
-                                                                    <input type="text" placeholder="Nouveau nom" class="form-control" />
+                                                                    <input type="text" placeholder="Nouveau nom" id ="{% set cunt3 = cunt2 ~"b" %}{{cunt3}}"class="form-control" />
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Modifier</button>
+                                                                <button type="button" class="btn btn-primary"  onclick="{% set cunt2 = cunt2 ~"a" %}{{cunt2}}()" >Modifier</button>
                                                             </div>
                                                         </form>
+                                                          <script>
+                                                                    function {{cunt2}}() {
+                       
+                                                                    var vali = document.getElementById('{{cunt3}}').value;
+                                                                if  (vali == "")   {  
+                                                                      document.getElementById('{{cunt4}}').innerHTML="s.v.p introduire un nom";
+                                                                 }  
+                                                                  else {
+                                                                       //    location.href = "{{ path('deleteC',{'name':'val'}) }}".replace('val', vali);}
+                                                                       }
+                                                                    }
+                                                                    </script>
                                                     </div>
                                                 </div>
                                             </div>
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                             {% endfor %}
                                         </div>
-
-
-
-
+</div>
 
 
                 </div>      

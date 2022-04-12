@@ -8,14 +8,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
-class CollabType extends AbstractType
+class SuppcollabType extends AbstractType
 {
     public function buildForm(
         FormBuilderInterface $builder,
         array $options
     ): void {
         $builder
+
             ->add('nomCollab', TextType::class)
             ->add('Submit', SubmitType::class);
     }

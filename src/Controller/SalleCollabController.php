@@ -17,16 +17,21 @@ class SalleCollabController extends AbstractController
     /**
      * @Route("/sallecollab{collabn}", name="app_salle_collab")
      */
-    public function index($collabn,UtilisateursRepository $s,Request $req): Response
-    {
-        $collab = new SalleCollaboration(); 
-        $collab = $this->getDoctrine()->getRepository(SalleCollaboration::class)->findBy(['nomCollab'=>$collabn])[0];
-       
-        $users=$s->showCollabUsers($collab->getIdCollab());
+    public function index(
+        $collabn,
+        UtilisateursRepository $s,
+        Request $req
+    ): Response {
+        $collab = new SalleCollaboration();
+        $collab = $this->getDoctrine()
+            ->getRepository(SalleCollaboration::class)
+            ->findBy(['nomCollab' => $collabn])[0];
+
+        $users = $s->showCollabUsers($collab->getIdCollab());
         return $this->render('salle_collab/index.html.twig', [
             'controller_name' => 'SalleCollabController',
-            'collab'=>$collab,
-            'users'=>$users
+            'collab' => $collab,
+            'users' => $users,
         ]);
     }
 }
