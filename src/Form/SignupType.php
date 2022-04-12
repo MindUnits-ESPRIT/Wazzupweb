@@ -49,6 +49,7 @@ class SignupType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Utilisateurs::class,
+            'validation_groups' => ['registration'],
         ]);
     }
 }

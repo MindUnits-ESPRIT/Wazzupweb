@@ -14,13 +14,21 @@ use App\Repository\UtilisateursRepository;
  * Utilisateurs
  *
  * @ORM\Table(name="utilisateurs")
- * @UniqueEntity("email",message="Votre email existe déja")
-<<<<<<< HEAD
- * @ORM\Entity(repositoryClass=UtilisateursRepository::class)
-=======
+* @UniqueEntity(
+ *     fields={"email"},
+ *     groups={"registration"},
+ *     message="Votre email est déja utilisé"
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateursRepository")
->>>>>>> 0ba8bdace6d76add8833e20bef83934118b6a773
- */
+ 
+* @UniqueEntity(
+    *     fields={"email"},
+    *     groups={"forgotpassword"},
+    *     message="Email trouvé"
+    * )
+    * @ORM\Entity(repositoryClass="App\Repository\UtilisateursRepository")
+    */
+
 class Utilisateurs implements UserInterface
 {
     /**
