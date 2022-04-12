@@ -14,9 +14,20 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Utilisateurs
  *
  * @ORM\Table(name="utilisateurs")
- * @UniqueEntity("email",message="Votre email existe déja")
+* @UniqueEntity(
+ *     fields={"email"},
+ *     groups={"registration"},
+ *     message="Votre email est déja utilisé"
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateursRepository")
- */
+ 
+* @UniqueEntity(
+    *     fields={"email"},
+    *     groups={"forgotpassword"},
+    *     message="Email trouvé"
+    * )
+    * @ORM\Entity(repositoryClass="App\Repository\UtilisateursRepository")
+    */
 class Utilisateurs implements UserInterface
 {
     /**
