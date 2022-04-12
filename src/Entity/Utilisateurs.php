@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use App\Repository\UtilisateursRepository;
 /**
  * Utilisateurs
  *
@@ -28,6 +28,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     * )
     * @ORM\Entity(repositoryClass="App\Repository\UtilisateursRepository")
     */
+
 class Utilisateurs implements UserInterface
 {
     /**
@@ -180,7 +181,7 @@ class Utilisateurs implements UserInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="SalleCollaboration", mappedBy="idUtlisateur")
+     * @ORM\ManyToMany(targetEntity="SalleCollaboration", mappedBy="idUtlisateur",cascade={"all"})
      */
     private $idCollab;
 

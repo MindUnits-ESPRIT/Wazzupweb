@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * SalleCollaboration
  *
  * @ORM\Table(name="salle_collaboration", indexes={@ORM\Index(name="ID_Utilisateur", columns={"ID_Utilisateur"})})
+ * @ORM\Entity(repositoryClass="App\Repository\SalleCollabRepository")
  * @UniqueEntity("nomCollab",message="Votre Collab existe déja")
- * @ORM\Entity
  */
 class SalleCollaboration
 {
@@ -38,7 +38,6 @@ class SalleCollaboration
      * @var string
      *
      * @ORM\Column(name="URL_Collab", type="string", length=60, nullable=false)
-     * @Assert\NotBlank(message="Veuillez choisir un nom ")
      */
     private $urlCollab;
 
@@ -62,7 +61,7 @@ class SalleCollaboration
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Utilisateurs", inversedBy="idCollab")
+     * @ORM\ManyToMany(targetEntity="Utilisateurs", inversedBy="idCollab", cascade={"all"})
      * @ORM\JoinTable(name="collab_members",
      *   joinColumns={
      *     @ORM\JoinColumn(name="ID_Collab", referencedColumnName="ID_Collab")
