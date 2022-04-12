@@ -38,6 +38,7 @@ class SalleCollaboration
      * @var string
      *
      * @ORM\Column(name="URL_Collab", type="string", length=60, nullable=false)
+
      */
     private $urlCollab;
 
@@ -45,6 +46,8 @@ class SalleCollaboration
      * @var string|null
      *
      * @ORM\Column(name="Chat", type="text", length=0, nullable=true)
+    
+
      */
     private $chat;
 
@@ -61,7 +64,7 @@ class SalleCollaboration
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Utilisateurs", inversedBy="idCollab", cascade={"all"})
+     * @ORM\ManyToMany(targetEntity="Utilisateurs", inversedBy="idCollab")
      * @ORM\JoinTable(name="collab_members",
      *   joinColumns={
      *     @ORM\JoinColumn(name="ID_Collab", referencedColumnName="ID_Collab")
@@ -158,5 +161,4 @@ class SalleCollaboration
 
         return $this;
     }
-
 }
