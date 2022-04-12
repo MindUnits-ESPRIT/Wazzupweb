@@ -1,0 +1,39 @@
+{#{% extends 'base.html.twig' %}#}
+
+{% block title %}OffrePublicitaire index{% endblock %}
+
+{% block body %}
+    <h1>OffrePublicitaire index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdOffre</th>
+                <th>NomOffre</th>
+                <th>ContenuOffre</th>
+                <th>NbrMaxOffre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for offre_publicitaire in offre_publicitaires %}
+            <tr>
+                <td>{{ offre_publicitaire.idOffre }}</td>
+                <td>{{ offre_publicitaire.nomOffre }}</td>
+                <td>{{ offre_publicitaire.contenuOffre }}</td>
+                <td>{{ offre_publicitaire.nbrMaxOffre }}</td>
+                <td>
+                    <a href="{{ path('app_offre_publicitaire_show', {'idOffre': offre_publicitaire.idOffre}) }}">show</a>
+                    <a href="{{ path('app_offre_publicitaire_edit', {'idOffre': offre_publicitaire.idOffre}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_offre_publicitaire_new') }}">Create new</a>
+{% endblock %}

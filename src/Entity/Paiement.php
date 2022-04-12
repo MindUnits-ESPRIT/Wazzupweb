@@ -24,9 +24,9 @@ class Paiement
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Date_paiement", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="Date_paiement", type="datetime_immutable", nullable=true)
      */
-    private $datePaiement = 'CURRENT_TIMESTAMP';
+    private $datePaiement;
 
     /**
      * @var string
@@ -47,14 +47,15 @@ class Paiement
         return $this->idPaiement;
     }
 
-    public function getDatePaiement(): ?\DateTimeInterface
+
+    public function getDatePaiement()
     {
         return $this->datePaiement;
     }
 
-    public function setDatePaiement(\DateTimeInterface $datePaiement): self
+    public function setDatePaiement(\DateTimeInterface $datePaiement)
     {
-        $this->datePaiement = $datePaiement;
+        $this->setDatePaiement(new \DateTime());
 
         return $this;
     }
@@ -83,5 +84,16 @@ class Paiement
         return $this;
     }
 
+    public function getNomOffre(): ?string
+    {
+        return $this->nomOffre;
+    }
+
+    public function setNomOffre(?string $nomOffre): self
+    {
+        $this->nomOffre = $nomOffre;
+
+        return $this;
+    }
 
 }
