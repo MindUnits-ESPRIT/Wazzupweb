@@ -14,7 +14,7 @@ use App\Repository\UtilisateursRepository;
  * Utilisateurs
  *
  * @ORM\Table(name="utilisateurs")
-* @UniqueEntity(
+ * @UniqueEntity(
  *     fields={"email"},
  *     groups={"registration"},
  *     message="Votre email est déja utilisé"
