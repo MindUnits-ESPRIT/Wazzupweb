@@ -4,13 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Utilisateurs;
 use App\Entity\SalleCollaboration;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\SalleCollabRepository;
 use App\Repository\UtilisateursRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use App\Repository\SalleCollabRepository;
 
 class SalleCollabController extends AbstractController
 {
@@ -23,6 +23,9 @@ class SalleCollabController extends AbstractController
         Request $req
     ): Response {
         $collab = new SalleCollaboration();
+        $user = $this->getDoctrine()
+            ->getRepository(Utilisateurs::class)
+            ->find(60);
         $collab = $this->getDoctrine()
             ->getRepository(SalleCollaboration::class)
             ->findBy(['nomCollab' => $collabn])[0];
@@ -32,6 +35,7 @@ class SalleCollabController extends AbstractController
             'controller_name' => 'SalleCollabController',
             'collab' => $collab,
             'users' => $users,
+            'user' => $user,
         ]);
     }
 }

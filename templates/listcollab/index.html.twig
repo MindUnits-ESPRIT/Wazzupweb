@@ -1,282 +1,211 @@
 {% include 'home/header.html.twig' %}
 {% include 'home/sidebar.html.twig' %}
 {% block head %}
-<head>
+	<head>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
-    <meta name="author" content="PIXINVENT">
-    <title>Wazzup Collaboration</title>
-    <link rel="apple-touch-icon" href="dashboard/app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="dashboard/app-assets/images/ico/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+		<meta name="author" content="PIXINVENT">
+		<title>Wazzup Collaboration</title>
+		<link rel="apple-touch-icon" href="dashboard/app-assets/images/ico/apple-icon-120.png">
+		<link rel="shortcut icon" type="image/x-icon" href="dashboard/app-assets/images/ico/favicon.ico">
+		<link
+		href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
-    <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/rowGroup.bootstrap4.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/vendors.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/charts/apexcharts.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/toastr.min.css')}}">
-    <!-- END: Vendor CSS-->
+		<!-- BEGIN: Vendor CSS-->
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/rowGroup.bootstrap4.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/vendors.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/charts/apexcharts.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/toastr.min.css')}}">
+		<!-- END: Vendor CSS-->
 
-    <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/bootstrap.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/bootstrap-extended.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/colors.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/components.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/dark-layout.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/bordered-layout.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/semi-dark-layout.css')}}">
+		<!-- BEGIN: Theme CSS-->
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/bootstrap.css')}}"> <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/bootstrap-extended.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/colors.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/components.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/dark-layout.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/bordered-layout.css')}}">
+		<link
+		rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/semi-dark-layout.css')}}">
 
-    <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/pages/dashboard-ecommerce.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/charts/chart-apex.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
-    <!-- END: Page CSS-->
+		<!-- BEGIN: Page CSS-->
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/pages/dashboard-ecommerce.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/charts/chart-apex.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
+		<!-- END: Page CSS-->
 
-    <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/assets/css/style.css')}}">
-    <!-- END: Custom CSS-->
+		<!-- BEGIN: Custom CSS-->
+	<link
+		rel="stylesheet" type="text/css" href="{{asset('dashboard/assets/css/style.css')}}"> <!-- END: Custom CSS-->
 
-</head>
+	</head>
 {% endblock %}
 {% block body %}
-<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+	<body
+		class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
 
-    <!-- BEGIN: Content-->
-    <div class="app-content content ">
-        <div class="content-overlay"></div>
-        <div class="header-navbar-shadow"></div>
-        <div class="content-wrapper">
-            <div class="content-header row">
-            </div>
-            <div class="content-body">
-             <h4 class="card-title mb-50 mb-sm-0" style = "margin-left:2%">Collaboration </h4>
-            <br><br><br>
-
-
-                         <div class="row match-height">
-                                    
-                                    {% for c in collabs %}                                                                   
-                                                   
-                  <div class="col-md-3 col-lg-3">
-                            <div class="card">
-                             <div class="card-header" style="max-height:20px; margin-top:-5% ;margin-bottom:3%">
-                             
-                                {% if c.getIdUtilisateur() == user  %}
-                                   Owner
-                                   {% else %}
-                                    Membre
-                                {% endif %} 
-                                </div>
-                                {%  set srs = "https://placeimg.com/64"~random(9)~"/48"~random(9)~"/tech"  %}
-                                <img class="card-img-top" src="{{srs}}" style="max-height:200px;min-height:200px" alt="Card image cap" />
-                                <div class="card-body">
-                                    <h4 class="card-title"> {{c.getNomCollab()}} </h4>
-                                    <p class="card-text">
-                                        {{c.getUrlCollab()}}
-                                    </p>
-                                   
-                                     <a href="{{ path('app_salle_collab',{'collabn':c.getNomCollab()}) }}" class="btn btn-outline-primary">Accéder</a>
-                                     {% if c.getIdUtilisateur() == user  %}
-                                  
-                                   <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#f{% set cunt1 = cunt1 + 1 %}{{cunt1}}" >
-                                                Modifier
-                                            </button>   
-                                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#{{c.getNomCollab()}}" style="margin-top:3%; min-width:105px">
-                                                Effacer
-                                            </button>           
-                                {% endif %} 
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
+		<!-- BEGIN: Content-->
+		<div class="app-content content ">
+			<div class="content-overlay"></div>
+			<div class="header-navbar-shadow"></div>
+			<div class="content-wrapper">
+				<div class="content-header row"></div>
+				<div class="content-body">
+					<h4 class="card-title mb-50 mb-sm-0" style="margin-left:2%">Collaboration
+					</h4>
+					<br><br><br>
 
 
+					<div class="row match-height">
+
+						{% for c in collabs %}
+
+							<div class="col-md-3 col-lg-3">
+								<div class="card">
+									<div class="card-header" style="max-height:20px; margin-top:-5% ;margin-bottom:3%">
+
+										{% if c.getIdUtilisateur() == user  %}
+											Owner
+										{% else %}
+											Membre
+										{% endif %}
+									</div>
+									{%  set srs = "https://placeimg.com/64"~random(9)~"/48"~random(9)~"/tech"  %}
+									<img class="card-img-top" src="{{srs}}" style="max-height:200px;min-height:200px" alt="Card image cap"/>
+									<div class="card-body">
+										<h4 class="card-title">
+											{{c.getNomCollab()}}
+										</h4>
+										<p class="card-text">
+											{{c.getUrlCollab()}}
+										</p>
+
+										<a href="{{ path('app_salle_collab',{'collabn':c.getNomCollab()}) }}" class="btn btn-outline-primary">Accéder</a>
+										{% if c.getIdUtilisateur() == user  %}
+
+											<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#f{% set cunt1 = cunt1 + 1 %}{{cunt1}}">
+												Modifier
+											</button>
+											<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#{{c.getNomCollab()}}" style="margin-top:3%; min-width:105px">
+												Effacer
+											</button>
+										{% endif %}
 
 
+									</div>
+								</div>
+							</div>
 
 
+							<div class="modal fade text-left" id="{{c.getNomCollab()}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" style="color:red" id="myModalLabel33">Confirmer la suppression du
+												{{c.getNomCollab()}}</h4>
+											<button type="button" style="color:red" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<p class="card-text">
+												Veuillez confirmer le nom du collaboration a supprimer
+											</p>
+											{# 	{{ form_start(collab_formC,{attr:{'novalidate':'novalidate'}}) }}
+																								<div style="visibility: hidden">
+																								{{form_row(collab_formC.nomCollab,{'attr': {'class': 'form-control','placeholder':'Wazzup','value':c.getNomCollab()}})}}</div>
+																								{{form_row(collab_formC.nomconfirm,{'attr': {'class': 'form-control','placeholder':'c.getNomCollab()',}})}}
+																								{{ form_row(collab_formC.Submit, { 'label': 'supprimer', 'attr':{'class':'btn btn-danger' } }) }}
+																								{{ form_end(collab_formC) }} #}
+
+											<p style="color:red" id="{% set cunt = cunt + 1 %}{{cunt}}"></p>
+											<div class="form-group">
+												<p style=" visibility:hidden" id="{{c.getUrlCollab()}}">{{c.getNomCollab()}}</p>
+
+											</div>
+										</div>
+										<div class="modal-footer">
+											<input type="text" placeholder="nom" id="{{c.getIdCollab()}}" class="form-control"/>
+											<button type="button" class="btn btn-danger waves-effect waves-float waves-light" onclick="{{c.getNomCollab(c)}}()">Supprimer</button>
+											<script>
+												function {{ c.getNomCollab(c) }}
+() {
+var vali = document.getElementById('{{ c.getIdCollab() }}').value;
+var valo = document.getElementById('{{ c.getUrlCollab() }}').innerHTML;
+if (vali == valo) {
+location.href = "{{ path('deleteC',{'name':'val'}) }}".replace('val', vali);
+} else {
+document.getElementById('{{ cunt }}').innerHTML = "Nom incorrect";
+}
+}
+											</script>
+										</div>
+									</div>
+								</div>
+							</div>
 
 
+							<div class="modal fade text-left" id="f{{cunt1}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="myModalLabel33">Confirmer la modification du
+												{{c.getNomCollab()}}</h4>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<form action="#">
+											<div class="modal-body">
 
 
-<div class="modal fade text-left" id="{{c.getNomCollab()}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title" style="color:red" id="myModalLabel33">Confirmer la suppression du {{c.getNomCollab()}}</h4>
-                                                            <button type="button" style="color:red" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>                                                    
-                                                            <div class="modal-body">
-                                                                  <p class="card-text">
-                                                 Veuillez confirmer le nom du collaboration a supprimer   </p>
-                                                              
-                                                            <p style="color:red" id="{% set cunt = cunt + 1 %}{{cunt}}" ></p>
-                                                                <div class="form-group">
-                                                                <p style=" visibility:hidden" id="{{c.getUrlCollab()}}">{{c.getNomCollab()}}</p>  
-                                                             
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">  
-                                                             <input type="text" placeholder="Nouveau nom" id="{{c.getIdCollab()}}" class="form-control" />                                   
-                                                          
-                                                           <button type="button" class="btn btn-danger waves-effect waves-float waves-light" onclick="{{c.getNomCollab(c)}}()">Supprimer</button>
-                                                                    <script>
-                                                                    function {{c.getNomCollab(c)}}() {
-                                                                    var vali = document.getElementById('{{c.getIdCollab()}}').value;
-                                                                    var valo = document.getElementById('{{c.getUrlCollab()}}').innerHTML;
-                                                                    if (vali == valo){
-                                                                        location.href = "{{ path('deleteC',{'name':'val'}) }}".replace('val', vali);}
-                                                                    else {
-                                                                        document.getElementById('{{cunt}}').innerHTML="Nom incorrect"; }}
-                                                                    </script>
-                                                            </div>           
-                                                    </div>
-                                                </div>
-                                            </div>
+												<label>Nouveau Nom:
+												</label>
+												<p style="color:red" id="{% set cunt4 = cunt2 ~"c" %}{{cunt4}}"></p>
+												<div class="form-group">
+													<input type="text" placeholder="Nouveau nom" id="{% set cunt3 = cunt2 ~"b" %}{{cunt3}}" class="form-control"/>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-primary" onclick="{% set cunt2 = cunt2 ~"a" %}{{cunt2}}()">Modifier</button>
+											</div>
+										</form>
+										<script>
+											function {{ cunt2 }}
+() {
+
+var vali = document.getElementById('{{ cunt3 }}').value;
+var vallo = '{{ c.getNomCollab }}';
+if (vali == "") {
+document.getElementById('{{ cunt4 }}').innerHTML = "s.v.p introduire un nom";
+} else if (vali == vallo) {
+document.getElementById('{{ cunt4 }}').innerHTML = "il faut choisir un autre nom";
+} else {
+location.href = "{{ path('modC',{'name':'val','oldn':'vall'}) }}".replace('val', vali).replace('vall', vallo);
 
 
+}
+}
+										</script>
+									</div>
+								</div>
+							</div>
 
 
-
-
-
-
-
-
-
-  <div class="modal fade text-left" id="f{{cunt1}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title" id="myModalLabel33">Confirmer la modification du {{c.getNomCollab()}}</h4>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <form action="#">
-                                                            <div class="modal-body">
-                                                                
-
-                                                                <label>Nouveau Nom: </label>
-                                                                 <p style="color:red" id="{% set cunt4 = cunt2 ~"c" %}{{cunt4}}" ></p>
-                                                                <div class="form-group">
-                                                                    <input type="text" placeholder="Nouveau nom" id ="{% set cunt3 = cunt2 ~"b" %}{{cunt3}}"class="form-control" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-primary"  onclick="{% set cunt2 = cunt2 ~"a" %}{{cunt2}}()" >Modifier</button>
-                                                            </div>
-                                                        </form>
-                                                          <script>
-                                                                    function {{cunt2}}() {
-                       
-                                                                    var vali = document.getElementById('{{cunt3}}').value;
-                                                                if  (vali == "")   {  
-                                                                      document.getElementById('{{cunt4}}').innerHTML="s.v.p introduire un nom";
-                                                                 }  
-                                                                  else {
-                                                                       //    location.href = "{{ path('deleteC',{'name':'val'}) }}".replace('val', vali);}
-                                                                       }
-                                                                    }
-                                                                    </script>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                             {% endfor %}
-                                        </div>
-</div>
-
-
-                </div>      
-            </div>
-        </div>
-    </div>
-    <!-- END: Content-->
-
-    <div class="sidenav-overlay"></div>
-    <div class="drag-target"></div>
-
-    <!-- BEGIN: Footer-->
-    <footer class="footer footer-static footer-light">
-        <p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2022<a class="ml-25"  target="_blank"></a><span class="d-none d-sm-inline-block">, All rights Reserved Wazzup</span></span><span class="float-md-right d-none d-md-block"></span></p>
-    </footer>
-    <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
-    <!-- END: Footer-->
-
-
-    <!-- BEGIN: Vendor JS-->
-    <script src="dashboard/app-assets/vendors/js/vendors.min.js"></script>
-    <!-- BEGIN Vendor JS-->
-
-    <!-- BEGIN: Page Vendor JS-->
-    <script src="dashboard/app-assets/vendors/js/charts/apexcharts.min.js"></script>
-    <script src="dashboard/app-assets/vendors/js/extensions/toastr.min.js"></script>
-    <script src="dashboard/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
-    <script src="dashboard/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script>
-    <script src="dashboard/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
-    <script src="dashboard/app-assets/vendors/js/tables/datatable/responsive.bootstrap4.js"></script>
-    <script src="dashboard/app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js"></script>
-    <script src="dashboard/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js"></script>
-    <script src="dashboard/app-assets/vendors/js/tables/datatable/jszip.min.js"></script>
-    <script src="dashboard/app-assets/vendors/js/tables/datatable/pdfmake.min.js"></script>
-    <script src="dashboard/app-assets/vendors/js/tables/datatable/vfs_fonts.js"></script>
-    <script src="dashboard/app-assets/vendors/js/tables/datatable/buttons.html5.min.js"></script>
-    <script src="dashboard/app-assets/vendors/js/tables/datatable/buttons.print.min.js"></script>
-    <script src="dashboard/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js"></script>
-    <script src="dashboard/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
-    <!-- END: Page Vendor JS-->
-
-    <!-- BEGIN: Theme JS-->
-    <script src="dashboard/app-assets/js/core/app-menu.js"></script>
-    <script src="dashboard/app-assets/js/core/app.js"></script>
-    <!-- END: Theme JS-->
-
-    <!-- BEGIN: Page JS-->
-    <script src="dashboard/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script>
-    <script src="dashboard/app-assets/js/scripts/tables/table-datatables-basic.js"></script>
-    <!-- END: Page JS-->
-
-    <script>
-        $(window).on('load', function() {
-            if (feather) {
-                feather.replace({
-                    width: 14,
-                    height: 14
-                });
-            }
-        })
-    </script>
-</body>
-
-{% endblock %}
+						{% endfor %}
+					</div>
+				</div>
+			</body>
+		</div>
+	</body>
+</body></div></body></div></div><!-- END: Content--><div class="sidenav-overlay"></div><div class="drag-target"></div><!-- BEGIN: Footer--><footer class="footer footer-static footer-light"><p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2022<a class="ml-25" target="_blank"></a><span class="d-none d-sm-inline-block">, All rights Reserved Wazzup</span></span><span class="float-md-right d-none d-md-block"></span></p></footer><button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button><!-- END: Footer--><!-- BEGIN: Vendor JS--><script src="dashboard/app-assets/vendors/js/vendors.min.js"></script><!-- BEGIN Vendor JS--><!-- BEGIN: Page Vendor JS--><script src="dashboard/app-assets/vendors/js/charts/apexcharts.min.js"></script><script src="dashboard/app-assets/vendors/js/extensions/toastr.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/responsive.bootstrap4.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/jszip.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/pdfmake.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/vfs_fonts.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/buttons.html5.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/buttons.print.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js"></script><script src="dashboard/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script><!-- END: Page Vendor JS--><!-- BEGIN: Theme JS--><script src="dashboard/app-assets/js/core/app-menu.js"></script><script src="dashboard/app-assets/js/core/app.js"></script><!-- END: Theme JS--><!-- BEGIN: Page JS--><script src="dashboard/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script><script src="dashboard/app-assets/js/scripts/tables/table-datatables-basic.js"></script><!-- END: Page JS--><script>$(window).on('load', function () {
+if (feather) {
+feather.replace({width: 14, height: 14});
+}
+})</script></body>{% endblock %}

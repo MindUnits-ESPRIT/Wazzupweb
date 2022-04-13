@@ -16,6 +16,7 @@ class SuppcollabType extends AbstractType
     ): void {
         $builder
 
+            ->add('nomconfirm', TextType::class)
             ->add('nomCollab', TextType::class)
             ->add('Submit', SubmitType::class);
     }
@@ -24,6 +25,7 @@ class SuppcollabType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => SalleCollaboration::class,
+            'validation_groups' => ['deletec'],
         ]);
     }
 }

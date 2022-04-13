@@ -32,8 +32,10 @@ class UtilisateursController extends AbstractController
     /**
      * @Route("/new", name="app_utilisateurs_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
         $utilisateur = new Utilisateurs();
         $form = $this->createForm(UtilisateursType::class, $utilisateur);
         $form->handleRequest($request);
@@ -42,7 +44,11 @@ class UtilisateursController extends AbstractController
             $entityManager->persist($utilisateur);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_utilisateurs_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                'app_utilisateurs_index',
+                [],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->render('utilisateurs/new.html.twig', [
@@ -64,15 +70,22 @@ class UtilisateursController extends AbstractController
     /**
      * @Route("/{idUtilisateur}/edit", name="app_utilisateurs_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Utilisateurs $utilisateur, EntityManagerInterface $entityManager): Response
-    {
+    public function edit(
+        Request $request,
+        Utilisateurs $utilisateur,
+        EntityManagerInterface $entityManager
+    ): Response {
         $form = $this->createForm(UtilisateursType::class, $utilisateur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_utilisateurs_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                'app_utilisateurs_index',
+                [],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->render('utilisateurs/edit.html.twig', [
@@ -84,13 +97,25 @@ class UtilisateursController extends AbstractController
     /**
      * @Route("/{idUtilisateur}", name="app_utilisateurs_delete", methods={"POST"})
      */
-    public function delete(Request $request, Utilisateurs $utilisateur, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$utilisateur->getIdUtilisateur(), $request->request->get('_token'))) {
+    public function delete(
+        Request $request,
+        Utilisateurs $utilisateur,
+        EntityManagerInterface $entityManager
+    ): Response {
+        if (
+            $this->isCsrfTokenValid(
+                'delete' . $utilisateur->getIdUtilisateur(),
+                $request->request->get('_token')
+            )
+        ) {
             $entityManager->remove($utilisateur);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_utilisateurs_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute(
+            'app_utilisateurs_index',
+            [],
+            Response::HTTP_SEE_OTHER
+        );
     }
 }

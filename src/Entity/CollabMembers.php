@@ -29,33 +29,31 @@ class CollabMembers
         return $this;
     }
 
-
-    /**  
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      */
- 
-private $ID_Utlisateur;
 
+    private $ID_Utlisateur;
 
-public function getID_Utlisateur(): ?int
-{
-    return $this->ID_Utlisateur;
-}
-public function setIdUtilisateur(int $idUtilisateur): self
-{
-    $this->ID_Utlisateur = $idUtilisateur;
+    public function getID_Utlisateur(): ?int
+    {
+        return $this->ID_Utlisateur;
+    }
+    public function setIdUtilisateur(int $idUtilisateur): self
+    {
+        $this->ID_Utlisateur = $idUtilisateur;
 
-    return $this;
-}
+        return $this;
+    }
 
-public function getIdCollab(): ?int
-{
-    return $this->id_collab;
-}
+    public function getIdCollab(): ?int
+    {
+        return $this->id_collab;
+    }
 
-public function getIDUtlisateur(): ?int
-{
-    return $this->ID_Utlisateur;
-}
+    public function getIDUtlisateur(): ?int
+    {
+        return $this->ID_Utlisateur;
+    }
 }

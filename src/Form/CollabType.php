@@ -24,6 +24,7 @@ class CollabType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => SalleCollaboration::class,
+            'validation_groups' => ['deletet'],
         ]);
     }
 }
