@@ -18,9 +18,12 @@ class ListCollabController extends AbstractController
     /**
      * @Route("/listcollab", name="app_list_collab")
      */
-    public function listCollab(SalleCollabRepository $s, Request $req,SessionInterface $session): Response
-    {
-        $user=$session->get('userdata');
+    public function listCollab(
+        SalleCollabRepository $s,
+        Request $req,
+        SessionInterface $session
+    ): Response {
+        $user = $session->get('userdata');
 
         $cnt = 0;
         $cnt1 = 100;
@@ -30,7 +33,7 @@ class ListCollabController extends AbstractController
         //     ->getRepository(Utilisateurs::class)
         //     ->find(58);
         $collabs = $s->showUserCollabs($user->getIdUtilisateur());
-        
+
         $form = $this->createForm(SuppcollabType::class, $collab);
 
         $form->handleRequest($req);
@@ -51,9 +54,10 @@ class ListCollabController extends AbstractController
             'controller_name' => 'ListCollabController',
             'collab_formC' => $form->createView(),
             'collabs' => $collabs,
-            'nom'=>$user->getNom(),
-            'prenom'=>$user->getPrenom(),
-            'role'=>$user->getTypeUser(),
+            'nom' => $user->getNom(),
+            'prenom' => $user->getPrenom(),
+            'role' => $user->getTypeUser(),
+            'picture' => $user->getAvatar(),
             'user' => $user,
             'cunt' => $cnt,
             'cunt1' => $cnt1,
@@ -94,4 +98,3 @@ class ListCollabController extends AbstractController
         return $this->redirectToRoute('app_list_collab');
     }
 }
-

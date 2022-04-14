@@ -18,20 +18,23 @@ class CollabController extends AbstractController
     /**
      * @Route("/collab", name="app_collab" , methods={"GET", "POST"})
      */
-    public function index(Request $request, EntityManagerInterface $entityManager,SessionInterface $session): Response
-    {
-        $user=$session->get('userdata');
-        $collab=new SalleCollaboration();
-        $form = $this->createForm(CollabType::class,$collab);
+    public function index(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        SessionInterface $session
+    ): Response {
+        $user = $session->get('userdata');
+        $collab = new SalleCollaboration();
+        $form = $this->createForm(CollabType::class, $collab);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $collab->setNomCollab($form->get('nomCollab')->getData());
-             $usercollab = $this->getDoctrine()
-                 ->getRepository(Utilisateurs::class)
-                 ->find($user->getIdUtilisateur());
+            $usercollab = $this->getDoctrine()
+                ->getRepository(Utilisateurs::class)
+                ->find($user->getIdUtilisateur());
             $collab->setIdUtilisateur($usercollab);
-            
+
             $collab->setUrlCollab(
                 'www.' . $form->get('nomCollab')->getData() . '.com'
             );
@@ -53,11 +56,12 @@ class CollabController extends AbstractController
         }
         return $this->render('collab/index.html.twig', [
             'controller_name' => 'CollabController',
-            'collab_form' => $form ->createView(),
-            'nom'=>$user->getNom(),
-            'prenom'=>$user->getPrenom(),
-            'role'=>$user->getTypeUser(),
-            'user'=>$user
+            'collab_form' => $form->createView(),
+            'nom' => $user->getNom(),
+            'prenom' => $user->getPrenom(),
+            'role' => $user->getTypeUser(),
+            'picture' => $user->getAvatar(),
+            'user' => $user,
         ]);
     }
 }
