@@ -23,6 +23,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SignupController extends AbstractController
 {
+
     /**
      * @Route("/signup", name="app_signup", methods={"GET", "POST"})
      */

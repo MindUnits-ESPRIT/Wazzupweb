@@ -29,6 +29,11 @@ use App\Repository\UtilisateursRepository;
     * @ORM\Entity(repositoryClass="App\Repository\UtilisateursRepository")
     */
 
+
+
+
+
+
 class Utilisateurs implements UserInterface
 {
     /**
@@ -301,7 +306,17 @@ class Utilisateurs implements UserInterface
 
         return $this;
     }
+    public function getPassword(): ?string
+    {
+        return $this->mdp;
+    }
 
+    public function setPassword(string $mdp): self
+    {
+        $this->mdp = $mdp;
+
+        return $this;
+    }
     public function getTypeUser(): ?string
     {
         return $this->typeUser;
@@ -445,9 +460,6 @@ public function getSalt()
 public function getRoles()
 {
     return ['ROLE_USER'];
-}
-public function getPassword()
-{
 }
 public function getUsername()
 {
