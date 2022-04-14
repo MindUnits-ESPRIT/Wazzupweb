@@ -11,21 +11,25 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Form\SuppcollabType;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 class ListCollabController extends AbstractController
 {
     /**
      * @Route("/listcollab", name="app_list_collab")
      */
-    public function listCollab(SalleCollabRepository $s, Request $req): Response
+    public function listCollab(SalleCollabRepository $s, Request $req,SessionInterface $session): Response
     {
+        // $user=$session->get('userdata');
+
         $cnt = 0;
         $cnt1 = 100;
         $cnt2 = 'A';
         $collab = new SalleCollaboration();
         $user = $this->getDoctrine()
             ->getRepository(Utilisateurs::class)
-            ->find(60);
-        $collabs = $s->showUserCollabs(60);
+            ->find(58);
+        $collabs = $s->showUserCollabs($user->getIdUtilisateur());
 
         $form = $this->createForm(SuppcollabType::class, $collab);
 
@@ -47,6 +51,9 @@ class ListCollabController extends AbstractController
             'controller_name' => 'ListCollabController',
             'collab_formC' => $form->createView(),
             'collabs' => $collabs,
+            'nom'=>$user->getNom(),
+            'prenom'=>$user->getPrenom(),
+            'role'=>$user->getTypeUser(),
             'user' => $user,
             'cunt' => $cnt,
             'cunt1' => $cnt1,

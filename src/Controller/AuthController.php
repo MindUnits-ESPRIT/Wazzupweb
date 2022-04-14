@@ -115,4 +115,11 @@ class AuthController extends AbstractController
             'forgotpw_form' => $form ->createView()
         ]);
     }
+     /**
+     * @Route("/deconnexion", name="deconnexion")
+     */
+    public function deconnexion(Request $request,SessionInterface $session){
+        $session->clear();
+        return $this->redirectToRoute('app_auth');
+    }
 }
