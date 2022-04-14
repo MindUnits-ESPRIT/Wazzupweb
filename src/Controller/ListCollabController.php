@@ -20,17 +20,17 @@ class ListCollabController extends AbstractController
      */
     public function listCollab(SalleCollabRepository $s, Request $req,SessionInterface $session): Response
     {
-        // $user=$session->get('userdata');
+        $user=$session->get('userdata');
 
         $cnt = 0;
         $cnt1 = 100;
         $cnt2 = 'A';
         $collab = new SalleCollaboration();
-        $user = $this->getDoctrine()
-            ->getRepository(Utilisateurs::class)
-            ->find(58);
+        // $user = $this->getDoctrine()
+        //     ->getRepository(Utilisateurs::class)
+        //     ->find(58);
         $collabs = $s->showUserCollabs($user->getIdUtilisateur());
-
+        
         $form = $this->createForm(SuppcollabType::class, $collab);
 
         $form->handleRequest($req);

@@ -45,8 +45,12 @@ class AuthController extends AbstractController
           if ($PasswordCheck){
               $login=true;
               $session->set('userdata',$user);
-              return $this->redirectToRoute('app_home');
-              dd("LA SESSION",$session->get('userdata'));
+              if ($user->getTypeUser()=="User"){
+                return $this->redirectToRoute('app_home');
+              } else if ($user->getTypeUser()=="Admin"){
+                return $this->redirectToRoute('app_admin');
+              }
+
           }
           else{
               $wrongpw=true;

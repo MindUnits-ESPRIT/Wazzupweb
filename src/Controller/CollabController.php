@@ -25,13 +25,13 @@ class CollabController extends AbstractController
         $form = $this->createForm(CollabType::class,$collab);
 
         $form->handleRequest($request);
-        dump($form->getData());
         if ($form->isSubmitted() && $form->isValid()) {
             $collab->setNomCollab($form->get('nomCollab')->getData());
-            $user = $this->getDoctrine()
-                ->getRepository(Utilisateurs::class)
-                ->find(59);
-            $collab->setIdUtilisateur($user);
+             $usercollab = $this->getDoctrine()
+                 ->getRepository(Utilisateurs::class)
+                 ->find($user->getIdUtilisateur());
+            $collab->setIdUtilisateur($usercollab);
+            
             $collab->setUrlCollab(
                 'www.' . $form->get('nomCollab')->getData() . '.com'
             );

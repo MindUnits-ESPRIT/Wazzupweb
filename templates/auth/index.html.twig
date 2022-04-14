@@ -38,9 +38,10 @@
 				<div class="alert alert-info" role="alert">
                  Vous n 'avez pas un compte? , pas de soucis creez un ! 
                 </div>
-				<button class="" href="{{path('app_signup')}}" data-btn>S'inscrire
+				<a href="{{path('app_signup')}}"><button class="" data-btn>S'inscrire
 					<i class="zmdi zmdi-arrow-right"></i>
 				</button>
+				</a>
 			</div>
 	{{ form_start(auth_form,{'attr':{'novalidate':'novalidate'}}) }}
 				<h3 class="loginhead"><i class="fas fa-user-edit"></i>&nbsp;&nbsp;S'identifier</h3>
