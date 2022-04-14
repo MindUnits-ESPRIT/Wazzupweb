@@ -14,7 +14,7 @@ use App\Repository\UtilisateursRepository;
  * Utilisateurs
  *
  * @ORM\Table(name="utilisateurs")
-* @UniqueEntity(
+ * @UniqueEntity(
  *     fields={"email"},
  *     groups={"registration"},
  *     message="Votre email est déja utilisé"
@@ -109,7 +109,7 @@ class Utilisateurs implements UserInterface
      * @Assert\NotCompromisedPassword(message="Veuillez choisir un mot de passe plus fort")
      * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*\d).{6,}$/i", message="Votre mot de passe doit comporter au moins 6 caractères et inclure au moins une lettre et un chiffre.")
      * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe ne correspond pas a votre confirmation")
-     * 
+     *
      */
     private $mdp;
     /**
@@ -180,13 +180,11 @@ class Utilisateurs implements UserInterface
      * @var \DateTime|null
      */
     private $creationDate = 'new \DateTime()';
-  
-
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="SalleCollaboration", mappedBy="idUtlisateur",cascade={"all"})
+     * @ORM\ManyToMany(targetEntity="SalleCollaboration", mappedBy="idUtlisateur")
      */
     private $idCollab;
 
@@ -238,11 +236,11 @@ class Utilisateurs implements UserInterface
         return $this->datenaissance;
     }
 
-    public function setDatenaissance(object $datenaissance= null): self
+    public function setDatenaissance(object $datenaissance = null): self
     {
-        if(!($datenaissance==null)){
-        $this->datenaissance = $datenaissance->format('d-m-Y');
-    }
+        if (!($datenaissance == null)) {
+            $this->datenaissance = $datenaissance->format('d-m-Y');
+        }
 
         return $this;
     }
@@ -334,8 +332,9 @@ class Utilisateurs implements UserInterface
         return $this->passwordrequestedat;
     }
 
-    public function setPasswordrequestedat(?\DateTimeInterface $passwordrequestedat): self
-    {
+    public function setPasswordrequestedat(
+        ?\DateTimeInterface $passwordrequestedat
+    ): self {
         $this->passwordrequestedat = $passwordrequestedat;
 
         return $this;
