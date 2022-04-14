@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Utilisateurs;
 use App\Entity\SalleCollaboration;
+use App\Entity\Projet;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\SalleCollabRepository;
 use App\Repository\UtilisateursRepository;
@@ -29,6 +30,11 @@ class SalleCollabController extends AbstractController
         $collab = $this->getDoctrine()
             ->getRepository(SalleCollaboration::class)
             ->findBy(['nomCollab' => $collabn])[0];
+        $Projet = new Projet();
+
+        $Projet = $this->getDoctrine()
+            ->getRepository(Projet::class)
+            ->findOneBy(['idCollab' => $collab]);
 
         $users = $s->showCollabUsers($collab->getIdCollab());
         return $this->render('salle_collab/index.html.twig', [
@@ -36,6 +42,7 @@ class SalleCollabController extends AbstractController
             'collab' => $collab,
             'users' => $users,
             'user' => $user,
+            'projet' => $Projet,
         ]);
     }
 }
