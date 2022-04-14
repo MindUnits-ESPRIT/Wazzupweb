@@ -42,7 +42,8 @@ class OffrePublicitaireController extends AbstractController
             $entityManager->persist($offrePublicitaire);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_offre_publicitaire_index', [], Response::HTTP_SEE_OTHER);
+//            return $this->redirectToRoute('app_offre_publicitaire_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_paiement_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('offre_publicitaire/new.html.twig', [

@@ -74,7 +74,6 @@ class SalleCollaboration
      */
     public function __construct()
     {
-        //this is a first comment
         $this->idUtlisateur = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

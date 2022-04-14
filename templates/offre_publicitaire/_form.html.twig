@@ -1,4 +1,91 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{% extends 'base.html.twig' %}
+{#{% block title %}New Offre{% endblock %}#}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        {#    <link rel="stylesheet" href="btn.css">#}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{asset('paiement/stylepaiement.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('paiement/btn.css')}}">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+
+    <div class="container">
+
+        {{form_start(form,{attr:{novalidate:'novalidation'}}) }}
+
+        <div class="row">
+
+            <div class="col">
+
+                <p contenteditable spellcheck="false">WAZZUP PREMIUM</p>
+
+                <span>Utilisateur :</span>
+                <div class="Select-dropdown">
+                    {{ form_widget(form.idUtilisateur,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(form.idUtilisateur,{'attr':{'class':'text-danger'}}) }}
+                </div>
+                <div class="inputBox">
+                    <span>nomOffre :</span>
+                    {{ form_widget(form.nomOffre,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(form.nomOffre,{'attr':{'class':'text-danger'}}) }}
+                </div>
+                <div class="formgroup" id="message-form">
+                                        <span>Commentaire</span>
+                    {{ form_widget(form.contenuOffre,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(form.contenuOffre,{'attr':{'class':'text-danger'}}) }}
+                                    </div>
+                <div class="formgroup" id="message-form">
+                    <span>Durée de l'offre(par jour)</span>
+                    {{ form_widget(form.nbrMaxOffre,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(form.nbrMaxOffre,{'attr':{'class':'text-danger'}}) }}
+                </div>
+                <div class="row">
+                    <span>Developpeé par :</span>
+                       <img  src="{{ asset('paiement/images/wazzup_6.png')  }} " style="object-fit:fill;  width:50px; height:50px;"/>
+
+                </div>
+            </div>
+
+            <div class="col">
+
+                <div class="inputBox">
+
+                    <img  src="{{ asset('paiement/images/Mou7awla3 (1).png')  }} " style="object-fit:fill;  width:300px; height:300px;"/>
+
+                </div>
+                <div class="inputBox">
+                    <span>Cartes acceptées :</span>
+                    <img  src="{{ asset('paiement/images/card_img.png')  }} "/>
+                </div>
+            </div>
+        </div>
+
+        {#        <input type="submit" value="Payer" class="submit-btn" onclick="myfunction()" >#}
+        {#    <script>#}
+        {#        function myfunction(){#}
+        {#            window.location.href="https://buy.stripe.com/test_fZeaFI0uf3FR6Z23cc";#}
+
+        {#        }#}
+        {#        </script>#}
+
+        <button href="{{  path('app_paiement_new')   }}" class="btn data-btn">
+            Suivant
+        </button>
+        <div class="checkmark-container">
+            {#        <svg x="0px" y="0px" fill="none" class="checkmark-svg" viewBox="0 0 25 30">#}
+            {#            <path d="M2,19.2C5.9,23.6,9.4,28,9.4,28L23,2"/>#}
+            {#        </svg>#}
+        </div>
+
+        {{form_end(form) }}
+    </div>
+
+    </body>
+    </html>
+{% endblock %}

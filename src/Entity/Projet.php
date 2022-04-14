@@ -31,7 +31,7 @@ class Projet
     /**
      * @var string
      *
-     * @ORM\Column(name="Description_Projet", type="string", length=800, nullable=false)
+     * @ORM\Column(name="Description_Projet", type="string", length=100, nullable=false)
      */
     private $descriptionProjet;
 

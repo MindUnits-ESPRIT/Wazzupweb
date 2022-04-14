@@ -64,11 +64,18 @@ class Evenement
     private $description;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="Date_P", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="Date_P", type="string", length=50, nullable=false)
      */
-    private $dateP = 'CURRENT_TIMESTAMP';
+    private $dateP;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Liste_Utilisateur", type="text", length=0, nullable=false)
+     */
+    private $listeUtilisateur;
 
     /**
      * @var \Utilisateurs
@@ -157,14 +164,26 @@ class Evenement
         return $this;
     }
 
-    public function getDateP(): ?\DateTimeInterface
+    public function getDateP(): ?string
     {
         return $this->dateP;
     }
 
-    public function setDateP(\DateTimeInterface $dateP): self
+    public function setDateP(string $dateP): self
     {
         $this->dateP = $dateP;
+
+        return $this;
+    }
+
+    public function getListeUtilisateur(): ?string
+    {
+        return $this->listeUtilisateur;
+    }
+
+    public function setListeUtilisateur(string $listeUtilisateur): self
+    {
+        $this->listeUtilisateur = $listeUtilisateur;
 
         return $this;
     }

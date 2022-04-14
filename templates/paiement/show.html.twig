@@ -1,20 +1,29 @@
-{% extends 'base.html.twig' %}
+{#{% extends 'base.html.twig' %}#}
 
-{% block title %}Paiement{% endblock %}
+{#{% block title %}Paiement{% endblock %}#}
 
 {% block body %}
-    <h1>Paiement</h1>
 
-    <table class="table">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{asset('paiement/table.css')}}">
+{#    <link rel="stylesheet" type="text/css" href="{{asset('paiement/canvas.css')}}">#}
+{#    <link rel="stylesheet" type="text/css" href="{{asset('paiement/btn.css')}}">#}
+    <script src="script.js" defer></script>
+</head>
+
+   <center> <h1>Paiement NUM{{ paiement.idPaiement }}</h1></center>
+<div class="table-wrapper">
+    <table class="fl-table">
         <tbody>
             <tr>
                 <th>IdPaiement</th>
                 <td>{{ paiement.idPaiement }}</td>
             </tr>
-            <tr>
-                <th>DatePaiement</th>
-                <td>{{ paiement.datePaiement ? paiement.datePaiement|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
+
             <tr>
                 <th>MethodePaiement</th>
                 <td>{{ paiement.methodePaiement }}</td>
@@ -25,10 +34,14 @@
             </tr>
         </tbody>
     </table>
+</div>
+<center>
 
     <a href="{{ path('app_paiement_index') }}">back to list</a>
 
     <a href="{{ path('app_paiement_edit', {'idPaiement': paiement.idPaiement}) }}">edit</a>
 
     {{ include('paiement/_delete_form.html.twig') }}
+</center>
+</html>
 {% endblock %}

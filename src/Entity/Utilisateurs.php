@@ -2,22 +2,17 @@
 
 namespace App\Entity;
 
-use Serializable;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Utilisateurs
  *
  * @ORM\Table(name="utilisateurs")
- * @UniqueEntity("email",message="Votre email existe déja")
  * @ORM\Entity
  */
-class Utilisateurs implements UserInterface
+class Utilisateurs
 {
     /**
      * @var int
@@ -29,27 +24,25 @@ class Utilisateurs implements UserInterface
     private $idUtilisateur;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=30)
-     * @Assert\NotBlank(message="Veuillez insérer votre nom")
+     * @ORM\Column(name="nom", type="string", length=30, nullable=false)
      */
     private $nom;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=30)
-     * @Assert\NotBlank(message="Veuillez insérer votre prenom")     */
+     * @ORM\Column(name="prenom", type="string", length=30, nullable=false)
+     */
     private $prenom;
 
     /**
-     * @var string|null
+     * @var int
      *
-     * @ORM\Column(name="datenaissance", type="string", length=30, nullable=true)
-     * @Assert\NotBlank(message="Veuillez insérer votre date de naissance ")
+     * @ORM\Column(name="age", type="integer", nullable=false)
      */
-    private $datenaissance;
+    private $age;
 
     /**
      * @var string|null
@@ -59,10 +52,9 @@ class Utilisateurs implements UserInterface
     private $genre;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="num_tel", type="string", length=12, nullable=false)
-     * @Assert\NotBlank(message="Veuillez insérer votre numero de telephone ")
+     * @ORM\Column(name="num_tel", type="integer", nullable=false)
      */
     private $numTel;
 
@@ -70,36 +62,22 @@ class Utilisateurs implements UserInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=50, nullable=false)
-     * @Assert\NotBlank(message="Veuillez insérer votre email ")
-     * @Assert\Email(
-     *     message = "Votre email '{{ value }}' n'est pas un email valide."
-     * )
      */
     private $email;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="avatar", type="string", length=200, nullable=true)
-     */
-    private $avatar;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="mdp", type="string", length=220, nullable=false)-
-     * @Assert\NotBlank(message="Veuillez insérer votre mot de passe ")
-     * @Assert\NotCompromisedPassword(message="Veuillez choisir un mot de passe plus fort")
-     * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*\d).{6,}$/i", message="Votre mot de passe doit comporter au moins 6 caractères et inclure au moins une lettre et un chiffre.")
-     * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe ne correspond pas a votre confirmation")
-     * 
+     * @ORM\Column(name="mdp", type="string", length=100, nullable=false)
      */
     private $mdp;
-    /**
-     * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe doit etre le meme que le mot de passe saisie précedement")
-     */
 
-    public $mdpconfirm;
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="Liste_Collaborations", type="text", length=0, nullable=true)
+     */
+    private $listeCollaborations;
 
     /**
      * @var string
@@ -109,34 +87,6 @@ class Utilisateurs implements UserInterface
     private $typeUser = 'User';
 
     /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="passwordRequestedAt", type="datetime", nullable=true)
-     */
-    private $passwordrequestedat;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="Token", type="string", length=200, nullable=true)
-     */
-    private $token;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="activated", type="boolean", nullable=false)
-     */
-    private $activated = 'false';
-
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="nbsignal", type="integer", nullable=true)
-     */
-    private $nbsignal;
-
-    /**
      * @var int|null
      *
      * @ORM\Column(name="evaluation", type="integer", nullable=true)
@@ -144,27 +94,11 @@ class Utilisateurs implements UserInterface
     private $evaluation;
 
     /**
-     * @var bool|null
-     *
-     * @ORM\Column(name="sponsor", type="boolean", nullable=true)
-     */
-    private $sponsor = '0';
-
-    /**
-     * @var bool|null
-     *
-     * @ORM\Column(name="desactivated", type="boolean", nullable=true)
-     */
-    private $desactivated = '0';
-
-    /**
+     * @var \DateTime
      *
      * @ORM\Column(name="creation_date", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
-     * @var \DateTime|null
      */
-    private $creationDate = 'new \DateTime()';
-  
-
+    private $creationDate = 'CURRENT_TIMESTAMP';
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -178,15 +112,9 @@ class Utilisateurs implements UserInterface
      */
     public function __construct()
     {
-        $this->creationDate = new \DateTime();
         $this->idCollab = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    public function setIdUtilisateur(?int $idUtilisateur): self
-    {
-        $this->idUtilisateur = $idUtilisateur;
 
-        return $this;
-    }
     public function getIdUtilisateur(): ?int
     {
         return $this->idUtilisateur;
@@ -216,16 +144,14 @@ class Utilisateurs implements UserInterface
         return $this;
     }
 
-    public function getDatenaissance(): ?string
+    public function getAge(): ?int
     {
-        return $this->datenaissance;
+        return $this->age;
     }
 
-    public function setDatenaissance(object $datenaissance= null): self
+    public function setAge(int $age): self
     {
-        if(!($datenaissance==null)){
-        $this->datenaissance = $datenaissance->format('d-m-Y');
-    }
+        $this->age = $age;
 
         return $this;
     }
@@ -242,12 +168,12 @@ class Utilisateurs implements UserInterface
         return $this;
     }
 
-    public function getNumTel(): ?string
+    public function getNumTel(): ?int
     {
         return $this->numTel;
     }
 
-    public function setNumTel(string $numTel): self
+    public function setNumTel(int $numTel): self
     {
         $this->numTel = $numTel;
 
@@ -266,18 +192,6 @@ class Utilisateurs implements UserInterface
         return $this;
     }
 
-    public function getAvatar(): ?string
-    {
-        return $this->avatar;
-    }
-
-    public function setAvatar(?string $avatar): self
-    {
-        $this->avatar = $avatar;
-
-        return $this;
-    }
-
     public function getMdp(): ?string
     {
         return $this->mdp;
@@ -286,6 +200,18 @@ class Utilisateurs implements UserInterface
     public function setMdp(string $mdp): self
     {
         $this->mdp = $mdp;
+
+        return $this;
+    }
+
+    public function getListeCollaborations(): ?string
+    {
+        return $this->listeCollaborations;
+    }
+
+    public function setListeCollaborations(?string $listeCollaborations): self
+    {
+        $this->listeCollaborations = $listeCollaborations;
 
         return $this;
     }
@@ -302,54 +228,6 @@ class Utilisateurs implements UserInterface
         return $this;
     }
 
-    public function getPasswordrequestedat(): ?\DateTimeInterface
-    {
-        return $this->passwordrequestedat;
-    }
-
-    public function setPasswordrequestedat(?\DateTimeInterface $passwordrequestedat): self
-    {
-        $this->passwordrequestedat = $passwordrequestedat;
-
-        return $this;
-    }
-
-    public function getToken(): ?string
-    {
-        return $this->token;
-    }
-
-    public function setToken(?string $token): self
-    {
-        $this->token = $token;
-
-        return $this;
-    }
-
-    public function getActivated(): ?bool
-    {
-        return $this->activated;
-    }
-
-    public function setActivated(bool $activated): self
-    {
-        $this->activated = $activated;
-
-        return $this;
-    }
-
-    public function getNbsignal(): ?int
-    {
-        return $this->nbsignal;
-    }
-
-    public function setNbsignal(?int $nbsignal): self
-    {
-        $this->nbsignal = $nbsignal;
-
-        return $this;
-    }
-
     public function getEvaluation(): ?int
     {
         return $this->evaluation;
@@ -358,30 +236,6 @@ class Utilisateurs implements UserInterface
     public function setEvaluation(?int $evaluation): self
     {
         $this->evaluation = $evaluation;
-
-        return $this;
-    }
-
-    public function getSponsor(): ?bool
-    {
-        return $this->sponsor;
-    }
-
-    public function setSponsor(?bool $sponsor): self
-    {
-        $this->sponsor = $sponsor;
-
-        return $this;
-    }
-
-    public function getDesactivated(): ?bool
-    {
-        return $this->desactivated;
-    }
-
-    public function setDesactivated(?bool $desactivated): self
-    {
-        $this->desactivated = $desactivated;
 
         return $this;
     }
@@ -424,20 +278,8 @@ class Utilisateurs implements UserInterface
 
         return $this;
     }
-    public function eraseCredentials()
-{
-}
-public function getSalt()
-{
-}
-public function getRoles()
-{
-    return ['ROLE_USER'];
-}
-public function getPassword()
-{
-}
-public function getUsername()
-{
-}
+    public function __toString()
+    {
+        return $this->nom;
+    }
 }
