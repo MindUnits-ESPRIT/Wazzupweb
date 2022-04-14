@@ -1,0 +1,279 @@
+{% block head %}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+		<meta name="author" content="PIXINVENT">
+		<title>Modification compte</title>
+		<link rel="apple-touch-icon" href="dashboard/app-assets/images/ico/apple-icon-120.png">
+	    <link rel="shortcut icon" href="{{ asset('signup/img/favicon.ico') }}">
+
+		<link
+		href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+
+		<!-- BEGIN: Vendor CSS-->
+        <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/forms/wizard/bs-stepper.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/forms/select/select2.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/vendors.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/toastr.min.css')}}">
+		<!-- END: Vendor CSS-->
+
+		<!-- BEGIN: Theme CSS-->
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/bootstrap.css')}}"> <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/bootstrap-extended.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/colors.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/components.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/dark-layout.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/bordered-layout.css')}}">
+		<link
+		rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/semi-dark-layout.css')}}">
+        
+
+		<!-- BEGIN: Page CSS-->
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/form-validation.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/form-wizard.css')}}">
+    <!-- END: Page CSS-->
+		<!-- END: Page CSS-->
+{% endblock %}
+{% include 'home/header.html.twig' %}
+{% include 'home/sidebar.html.twig' %}
+{% block body %}
+
+ <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+                <div class="content-header-left col-md-9 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        <div class="col-12">
+                            <h2 class="content-header-title float-left mb-0">Modification du compte</h2>
+                            <div class="breadcrumb-wrapper">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{path('app_home')}}">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Modification
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+                    <div class="form-group breadcrumb-right">
+                        <div class="dropdown">
+                            <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-feather="grid"></i></button>
+                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="app-todo.html"><i class="mr-1" data-feather="check-square"></i><span class="align-middle">Todo</span></a><a class="dropdown-item" href="app-chat.html"><i class="mr-1" data-feather="message-square"></i><span class="align-middle">Chat</span></a><a class="dropdown-item" href="app-email.html"><i class="mr-1" data-feather="mail"></i><span class="align-middle">Email</span></a><a class="dropdown-item" href="app-calendar.html"><i class="mr-1" data-feather="calendar"></i><span class="align-middle">Calendar</span></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Modern Vertical Wizard -->
+                <section class="modern-vertical-wizard">
+                    <div class="bs-stepper vertical wizard-modern modern-vertical-wizard-example">
+                        <div class="bs-stepper-header">
+                            <div class="step" data-target="#account-details-vertical-modern">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-box">
+                                        <i data-feather="file-text" class="font-medium-3"></i>
+                                    </span>
+                                    <span class="bs-stepper-label">
+                                        <span class="bs-stepper-title">Account Details</span>
+                                        <span class="bs-stepper-subtitle">Setup Account Details</span>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="step" data-target="#personal-info-vertical-modern">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-box">
+                                        <i data-feather="user" class="font-medium-3"></i>
+                                    </span>
+                                    <span class="bs-stepper-label">
+                                        <span class="bs-stepper-title">Personal Info</span>
+                                        <span class="bs-stepper-subtitle">Add Personal Info</span>
+                                    </span>
+                                </button>
+                            </div>
+                           
+                            <div class="step" data-target="#social-links-vertical-modern">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-box">
+                                        <i data-feather="link" class="font-medium-3"></i>
+                                    </span>
+                                    <span class="bs-stepper-label">
+                                        <span class="bs-stepper-title">Social Links</span>
+                                        <span class="bs-stepper-subtitle">Add Social Links</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bs-stepper-content">
+                            <div id="account-details-vertical-modern" class="content">
+                                <div class="content-header">
+                                    <h5 class="mb-0">Details du compte</h5>
+                                    <small class="text-muted">Modifier vos details.</small>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label class="form-label" for="vertical-modern-email">Email</label>
+                                        <input type="email" id="vertical-modern-email" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                   <div class="form-group col-md-4">
+                                    </div>
+                                    <div class="form-group form-password-toggle col-md-4">
+                                        <label class="form-label" for="vertical-modern-password">Mot de passe</label>
+                                        <input type="password" id="vertical-modern-password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+                                    </div>
+                                       <div class="form-group col-md-4">
+                                    </div>
+                                       <div class="form-group col-md-4">
+                                    </div>
+                                    <div class="form-group form-password-toggle col-md-4">
+                                        <label class="form-label" for="vertical-modern-confirm-password">Confirmation</label>
+                                        <input type="password" id="vertical-modern-confirm-password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+                                    </div>
+                                       <div class="form-group col-md-4">
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-outline-secondary btn-prev" disabled>
+                                        <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                                        <span class="align-middle d-sm-inline-block d-none">Précédent</span>
+                                    </button>
+                                    <button class="btn btn-primary btn-next">
+                                        <span class="align-middle d-sm-inline-block d-none">Suivant</span>
+                                        <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="personal-info-vertical-modern" class="content">
+                                <div class="content-header">
+                                    <h5 class="mb-0">Informations personnels</h5>
+                                    <small>Modifier vos informations personnels</small>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="form-label" for="vertical-modern-first-name">Nom</label>
+                                        <input type="text" id="vertical-modern-first-name" class="form-control" placeholder="test" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="form-label" for="vertical-modern-last-name">Prenom</label>
+                                        <input type="text" id="vertical-modern-last-name" class="form-control" placeholder="test2" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                  
+                                    <div class="form-group col-md-6">
+                                        <label class="form-label" for="vertical-modern-language">Language</label>
+                                        <select class="select2 w-100" id="vertical-modern-language" multiple>
+                                            <option>English</option>
+                                            <option>French</option>
+                                            <option>Spanish</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-primary btn-prev">
+                                        <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                    </button>
+                                    <button class="btn btn-primary btn-next">
+                                        <span class="align-middle d-sm-inline-block d-none">Next</span>
+                                        <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="social-links-vertical-modern" class="content">
+                                <div class="content-header">
+                                    <h5 class="mb-0">Social Links</h5>
+                                    <small>Enter Your Social Links.</small>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="form-label" for="vertical-modern-twitter">Twitter</label>
+                                        <input type="text" id="vertical-modern-twitter" class="form-control" placeholder="https://twitter.com/abc" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="form-label" for="vertical-modern-facebook">Facebook</label>
+                                        <input type="text" id="vertical-modern-facebook" class="form-control" placeholder="https://facebook.com/abc" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="form-label" for="vertical-modern-google">Google+</label>
+                                        <input type="text" id="vertical-modern-google" class="form-control" placeholder="https://plus.google.com/abc" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="form-label" for="vertical-modern-linkedin">Linkedin</label>
+                                        <input type="text" id="vertical-modern-linkedin" class="form-control" placeholder="https://linkedin.com/abc" />
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-primary btn-prev">
+                                        <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                    </button>
+                                    <button class="btn btn-success btn-submit">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- /Modern Vertical Wizard -->
+
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+    <!-- BEGIN: Footer-->
+    <footer class="footer footer-static footer-light">
+        <p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2022<a class="ml-25" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Wazzup</a><span class="d-none d-sm-inline-block">, All rights Reserved</span></span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i data-feather="heart"></i></span></p>
+    </footer>
+    <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
+    <!-- END: Footer-->
+
+
+    <!-- BEGIN: Vendor JS-->
+    <script src="{{asset('dashboard/app-assets/vendors/js/vendors.min.js')}}"></script>
+    <!-- BEGIN Vendor JS-->
+
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="{{asset('dashboard/app-assets/vendors/js/forms/wizard/bs-stepper.min.js')}}"></script>
+    <script src="{{asset('dashboard/app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
+    <script src="{{asset('dashboard/app-assets/vendors/js/forms/validation/jquery.validate.min.js')}}"></script>
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="{{asset('dashboard/app-assets/js/core/app-menu.js')}}"></script>
+    <script src="{{asset('dashboard/app-assets/js/core/app.js')}}"></script>
+    <!-- END: Theme JS-->
+
+    <!-- BEGIN: Page JS-->
+    <script src="{{asset('dashboard/app-assets/js/scripts/forms/form-wizard.js')}}"></script>
+    <!-- END: Page JS-->
+
+    <script>
+        $(window).on('load', function() {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+        })
+    </script>
+</body>
+{% endblock %}

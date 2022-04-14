@@ -29,6 +29,11 @@ use App\Repository\UtilisateursRepository;
     * @ORM\Entity(repositoryClass="App\Repository\UtilisateursRepository")
     */
 
+
+
+
+
+
 class Utilisateurs implements UserInterface
 {
     /**
@@ -44,7 +49,9 @@ class Utilisateurs implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="nom", type="string", length=30)
-     * @Assert\NotBlank(message="Veuillez insérer votre nom")
+     * @Assert\NotBlank(message="Veuillez insérer votre nom",
+    *     groups={"registration"},
+    * )
      */
     private $nom;
 
@@ -52,14 +59,18 @@ class Utilisateurs implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="prenom", type="string", length=30)
-     * @Assert\NotBlank(message="Veuillez insérer votre prenom")     */
+          * @Assert\NotBlank(message="Veuillez insérer votre Prenom",
+    *     groups={"registration"},
+    * )    */
     private $prenom;
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="datenaissance", type="string", length=30, nullable=true)
-     * @Assert\NotBlank(message="Veuillez insérer votre date de naissance ")
+     * @Assert\NotBlank(message="Veuillez insérer votre date de naissance ",
+    *     groups={"registration"},
+     * )
      */
     private $datenaissance;
 
@@ -74,7 +85,9 @@ class Utilisateurs implements UserInterface
      * @var string
      *
      * @ORM\Column(name="num_tel", type="string", length=12, nullable=false)
-     * @Assert\NotBlank(message="Veuillez insérer votre numero de telephone ")
+     * @Assert\NotBlank(message="Veuillez insérer votre numero de telephone ",
+    *     groups={"registration"},
+     * )
      */
     private $numTel;
 
@@ -84,7 +97,8 @@ class Utilisateurs implements UserInterface
      * @ORM\Column(name="email", type="string", length=50, nullable=false)
      * @Assert\NotBlank(message="Veuillez insérer votre email ")
      * @Assert\Email(
-     *     message = "Votre email '{{ value }}' n'est pas un email valide."
+     *     message = "Votre email '{{ value }}' n'est pas un email valide.",
+     *     groups={"registration"},
      * )
      */
     private $email;
@@ -100,15 +114,16 @@ class Utilisateurs implements UserInterface
      * @var string
      *
      * @ORM\Column(name="mdp", type="string", length=220, nullable=false)-
-     * @Assert\NotBlank(message="Veuillez insérer votre mot de passe ")
-     * @Assert\NotCompromisedPassword(message="Veuillez choisir un mot de passe plus fort")
-     * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*\d).{6,}$/i", message="Votre mot de passe doit comporter au moins 6 caractères et inclure au moins une lettre et un chiffre.")
-     * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe ne correspond pas a votre confirmation")
+     * @Assert\NotBlank(message="Veuillez insérer votre mot de passe ",
+     *     groups={"registration"},)
+     * @Assert\NotCompromisedPassword(message="Veuillez choisir un mot de passe plus fort", groups={"registration"}))
+     * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*\d).{6,}$/i", message="Votre mot de passe doit comporter au moins 6 caractères et inclure au moins une lettre et un chiffre.", groups={"registration"})
+     * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe ne correspond pas a votre confirmation", groups={"registration"})
      *
      */
     private $mdp;
     /**
-     * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe doit etre le meme que le mot de passe saisie précedement")
+     * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe doit etre le meme que le mot de passe saisie précedement",groups={"registration"})
      */
 
     public $mdpconfirm;
@@ -299,7 +314,17 @@ class Utilisateurs implements UserInterface
 
         return $this;
     }
+    public function getPassword(): ?string
+    {
+        return $this->mdp;
+    }
 
+    public function setPassword(string $mdp): self
+    {
+        $this->mdp = $mdp;
+
+        return $this;
+    }
     public function getTypeUser(): ?string
     {
         return $this->typeUser;
@@ -436,19 +461,16 @@ class Utilisateurs implements UserInterface
         return $this;
     }
     public function eraseCredentials()
-    {
-    }
-    public function getSalt()
-    {
-    }
-    public function getRoles()
-    {
-        return ['ROLE_USER'];
-    }
-    public function getPassword()
-    {
-    }
-    public function getUsername()
-    {
-    }
+{
+}
+public function getSalt()
+{
+}
+public function getRoles()
+{
+    return ['ROLE_USER'];
+}
+public function getUsername()
+{
+}
 }
