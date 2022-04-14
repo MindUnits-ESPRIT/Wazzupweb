@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\ProjetRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Projet
  *
  * @ORM\Table(name="projet", indexes={@ORM\Index(name="ID_Collab", columns={"ID_Collab"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ProjetRepository")
  */
 class Projet
 {
@@ -104,6 +104,4 @@ class Projet
 
         return $this;
     }
-
-
 }

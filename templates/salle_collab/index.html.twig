@@ -90,12 +90,22 @@
 													👋
 												{% endif  %}
 
+
 											</div>
 										</div>
+
 									{% endfor %}
 
 
 								</div>
+								{% if collab.getIdUtilisateur() == user  %}
+
+									{% else %}
+
+										<a href="" class="btn btn-outline-danger">Quitter</a>
+
+
+								{% endif  %}
 							</div>
 						</div>
 						<!--/ Employee Task Card -->
