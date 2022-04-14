@@ -53,15 +53,11 @@ class CollabController extends AbstractController
         }
         return $this->render('collab/index.html.twig', [
             'controller_name' => 'CollabController',
-<<<<<<< HEAD
             'collab_form' => $form ->createView(),
             'nom'=>$user->getNom(),
             'prenom'=>$user->getPrenom(),
             'role'=>$user->getTypeUser(),
             'user'=>$user
-=======
-            'collab_form' => $form->createView(),
->>>>>>> 1dc21bcf6bb8a2db055550f52ace674eceb18f41
         ]);
     }
 }

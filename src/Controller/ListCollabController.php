@@ -87,4 +87,4 @@ class ListCollabController extends AbstractController
         return $this->redirectToRoute('app_list_collab');
     }
 }
-}
+
