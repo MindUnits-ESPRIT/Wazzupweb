@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Utilisateurs;
 use App\Entity\SalleCollaboration;
+use App\Entity\CollabMembers;
 use App\Entity\Projet;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\SalleCollabRepository;
@@ -39,7 +40,9 @@ class SalleCollabController extends AbstractController
         $Projet = $this->getDoctrine()
             ->getRepository(Projet::class)
             ->findOneBy(['idCollab' => $collab]);
-
+        $idc = $collab->getIdCollab();
+        $Notusers = $s->showCollabNotUsers($idc);
+        $cunter = 1;
         $users = $s->showCollabUsers($collab->getIdCollab());
         return $this->render('salle_collab/index.html.twig', [
             'controller_name' => 'SalleCollabController',
@@ -51,6 +54,9 @@ class SalleCollabController extends AbstractController
             'role' => $user->getTypeUser(),
             'picture' => $user->getAvatar(),
             'user' => $user,
+            'notUsers' => $Notusers,
+            'projet' => $Projet,
+            'userCunt' => $cunter,
         ]);
     }
     /**
@@ -62,13 +68,14 @@ class SalleCollabController extends AbstractController
         EntityManagerInterface $entityManager,
         CollabMembersRepository $s
     ) {
-        $u = $s->findBy([
+        $u = $s->findOneBy([
             'id_collab' => $idu,
             'ID_Utlisateur' => $id,
-        ])[0];
-
-        $entityManager->remove($u);
-        $entityManager->flush();
+        ]);
+        if ($u) {
+            $entityManager->remove($u);
+            $entityManager->flush();
+        }
         $collab = $this->getDoctrine()
             ->getRepository(SalleCollaboration::class)
             ->find($idu);
@@ -76,6 +83,34 @@ class SalleCollabController extends AbstractController
             'collabn' => $collab->getnomCollab(),
         ]);
     }
+
+    /**
+     * @Route("/addU{idu},{idc},", name="addU")
+     */
+    public function addU(
+        $idu,
+        $idc,
+        EntityManagerInterface $entityManager,
+        CollabMembersRepository $s,
+        UtilisateursRepository $u
+    ) {
+        $collab = $this->getDoctrine()
+            ->getRepository(SalleCollaboration::class)
+            ->find($idc);
+        $user = $this->getDoctrine()
+            ->getRepository(Utilisateurs::class)
+            ->find($idu);
+        $collab_member = new CollabMembers();
+        $collab_member->setid_collab($collab->getIdCollab());
+        $collab_member->setIdUtilisateur($user->getIdUtilisateur());
+        $entityManager->persist($collab_member);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_salle_collab', [
+            'collabn' => $collab->getnomCollab(),
+        ]);
+    }
+
     /**
      * @Route("/Quitter/{id},{idu}", name="Quitter")
      */
