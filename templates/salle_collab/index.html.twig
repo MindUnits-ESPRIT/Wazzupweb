@@ -9,10 +9,15 @@
 		<link rel="shortcut icon" type="image/x-icon" href="dashboard/app-assets/images/ico/favicon.ico">
 		<link
 		href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
-
 		<!-- BEGIN: Vendor CSS-->
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/vendors.min.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/charts/apexcharts.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/editors/quill/katex.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/editors/quill/monokai-sublime.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/editors/quill/quill.snow.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/forms/select/select2.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/dragula.min.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/toastr.min.css')}}">
 		<!-- END: Vendor CSS-->
 
@@ -31,6 +36,10 @@
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/charts/chart-apex.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/pages/app-chat-list.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/form-quill-editor.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/pickers/form-flat-pickr.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/form-validation.css')}}">
 		<!-- END: Page CSS-->
 
 		<!-- BEGIN: Custom CSS-->
@@ -82,9 +91,11 @@
 													{% if collab.getIdUtilisateur().getIdUtilisateur() == m.getIdUtilisateur()  %}
 														<i data-feather="lock" style="width:17px; height:18px;color:green"></i>
 													{% else %}
-														{# 	<a class="d-flex align-items-center" href="{{ path('app_collab') }}"> #}
-														<i data-feather="user-minus" style="width:18px; height:18px;color:red"></i>
-														{# </a> #}
+
+														<a href="{{ path('deleteU',{'id':m.getIdUtilisateur() ,'idu':collab.getIdCollab()}) }}">
+															<i data-feather="user-minus" style="width:18px; height:18px;color:red"></i>
+														</a>
+
 													{% endif %}
 												{% else %}
 													👋
@@ -99,16 +110,71 @@
 
 								</div>
 								{% if collab.getIdUtilisateur() == user  %}
+									<a href="" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-task-modal">Ajouter</a>
+								{% else %}
 
-									{% else %}
-
-										<a href="" class="btn btn-outline-danger">Quitter</a>
+									<a href="{{ path('Quitter',{'id':user.getIdUtilisateur() ,'idu':collab.getIdCollab()}) }}" class="btn btn-outline-danger">Quitter</a>
 
 
 								{% endif  %}
 							</div>
 						</div>
 						<!--/ Employee Task Card -->
+
+
+						<!-- Right Sidebar starts -->
+						<div class="modal modal-slide-in sidebar-todo-modal fade" id="new-task-modal">
+							<div class="modal-dialog sidebar-sm">
+								<div class="modal-content p-0">
+									<form id="form-modal-todo" class="todo-modal needs-validation" novalidate onsubmit="return false">
+										<div class="modal-header align-items-center mb-1">
+											<h5 class="modal-title">Ajouter Membre</h5>
+											<div class="todo-item-action d-flex align-items-center justify-content-between ml-auto">
+
+												<button type="button" class="close font-large-1 font-weight-normal py-0" data-dismiss="modal" aria-label="Close" style="margin-top:-200%">
+													×
+												</button>
+											</div>
+										</div>
+										<div class="modal-body flex-grow-1 pb-sm-0 pb-3">
+											<div class="action-tags">
+
+												<div class="form-group position-relative">
+													<h6>Utilisateurs</h6>
+													<img src="{{ asset('collab/addU.png') }}" style="min-height:18%;min-width:130%;margin-left:-12%;max-height:18%;max-width:130%;height:30%;margin-top:5%" alt="Logo">
+													<select class="select2 form-control" id="task-assigned" name="task-assigned">
+
+														<option data-img="{{user.getAvatar()}}" value="Phill Buffer" selected>
+															Phill Buffer
+														</option>
+														<option data-img="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-1.jpg')}}" value="Chandler Bing">
+															Chandler Bing
+														</option>
+														<option data-img="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-4.jpg')}}" value="Ross Geller">
+															Ross Geller
+														</option>
+														<option data-img="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-6.jpg')}}" value="Monica Geller">
+															Monica Geller
+														</option>
+														<option data-img="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-2.jpg')}}" value="Joey Tribbiani">
+															Joey Tribbiani
+														</option>
+														<option data-img="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-11.jpg')}}" value="Rachel Green">
+															Rachel Green
+														</option>
+													</select>
+												</div>
+
+
+											</div>
+											<button type="submit" class="btn btn-primary " style="margin-left:35%;margin-top:100%">Ajouter</button>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+						<!-- Right Sidebar ends -->
 
 
 						<!-- Chat Card -->
@@ -347,6 +413,13 @@
 
 <!-- BEGIN: Page Vendor JS-->
 <script src="dashboard/app-assets/vendors/js/charts/apexcharts.min.js"></script>
+<script src="dashboard/app-assets/vendors/js/editors/quill/katex.min.js"></script>
+<script src="dashboard/app-assets/vendors/js/editors/quill/highlight.min.js"></script>
+<script src="dashboard/app-assets/vendors/js/editors/quill/quill.min.js"></script>
+<script src="dashboard/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+<script src="dashboard/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
+<script src="dashboard/app-assets/vendors/js/extensions/dragula.min.js"></script>
+<script src="dashboard/app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script>
 <script src="dashboard/app-assets/vendors/js/extensions/toastr.min.js"></script>
 <!-- END: Page Vendor JS-->
 
@@ -358,6 +431,7 @@
 <!-- BEGIN: Page JS-->
 <script src="dashboard/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script>
 <script src="dashboard/app-assets/js/scripts/cards/card-advance.js"></script>
+<script src="dashboard/app-assets/js/scripts/pages/app-todo.js"></script>
 <!-- END: Page JS-->
 
 <script>

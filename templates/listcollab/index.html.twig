@@ -118,11 +118,11 @@
 												Veuillez confirmer le nom du collaboration a supprimer
 											</p>
 											{# 	{{ form_start(collab_formC,{attr:{'novalidate':'novalidate'}}) }}
-																								<div style="visibility: hidden">
-																								{{form_row(collab_formC.nomCollab,{'attr': {'class': 'form-control','placeholder':'Wazzup','value':c.getNomCollab()}})}}</div>
-																								{{form_row(collab_formC.nomconfirm,{'attr': {'class': 'form-control','placeholder':'c.getNomCollab()',}})}}
-																								{{ form_row(collab_formC.Submit, { 'label': 'supprimer', 'attr':{'class':'btn btn-danger' } }) }}
-																								{{ form_end(collab_formC) }} #}
+																																														<div style="visibility: hidden">
+																																														{{form_row(collab_formC.nomCollab,{'attr': {'class': 'form-control','placeholder':'Wazzup','value':c.getNomCollab()}})}}</div>
+																																														{{form_row(collab_formC.nomconfirm,{'attr': {'class': 'form-control','placeholder':'c.getNomCollab()',}})}}
+																																														{{ form_row(collab_formC.Submit, { 'label': 'supprimer', 'attr':{'class':'btn btn-danger' } }) }}
+																																														{{ form_end(collab_formC) }} #}
 
 											<p style="color:red" id="{% set cunt = cunt + 1 %}{{cunt}}"></p>
 											<div class="form-group">
