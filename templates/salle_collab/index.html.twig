@@ -9,11 +9,17 @@
 		<link rel="shortcut icon" type="image/x-icon" href="dashboard/app-assets/images/ico/favicon.ico">
 		<link
 		href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
-
 		<!-- BEGIN: Vendor CSS-->
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/vendors.min.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/charts/apexcharts.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/editors/quill/katex.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/editors/quill/monokai-sublime.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/editors/quill/quill.snow.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/forms/select/select2.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/dragula.min.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/toastr.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/forms/wizard/bs-stepper.min.css')}}">
 		<!-- END: Vendor CSS-->
 
 		<!-- BEGIN: Theme CSS-->
@@ -31,6 +37,11 @@
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/charts/chart-apex.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/pages/app-chat-list.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/form-quill-editor.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/pickers/form-flat-pickr.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/form-validation.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/form-wizard.css')}}">
 		<!-- END: Page CSS-->
 
 		<!-- BEGIN: Custom CSS-->
@@ -39,6 +50,7 @@
 
 	</head>
 {% endblock %}
+
 {% include 'home/header.html.twig' %}
 {% include 'home/sidebar.html.twig' %}
 {% block body %}
@@ -52,19 +64,33 @@
 			<div class="content-wrapper">
 				<div class="content-header row"></div>
 				<div class="content-body">
-					<h4 class="card-title mb-50 mb-sm-0" style="margin-left:2%">{{collab.getNomCollab()}}</h4>
-					<br><br>
-					<div
-						class="row match-height">
+					<h4 class="card-title mb-50 mb-sm-0" style="margin-left:2%;margin-top:-2%;padding:1%">{{collab.getNomCollab()}}</h4>
 
-						<!-- Employee Task Card -->
-						<div class="col-lg-3 col-md-6 col-12">
-							<div class="card card-employee-task">
-								<div class="card-header">
-									<h4 class="card-title">Liste des membres</h4>
-									<i data-feather="more-vertical" class="font-medium-3 cursor-pointer"></i>
-								</div>
+					<div class="row match-height">
+						<style>
+						/* Scrollbar styles */
+						::-webkit-scrollbar {
+							width: 9px;
+						}
+						::-webkit-scrollbar-thumb {
+							border-radius: 10px;
+							width: 7px;
+						}
+						::-webkit-scrollbar-thumb:hover {
+							background: #ccc;
+						}
+					</style>
+					<!-- Employee Task Card -->
+					<div class="col-lg-3 col-md-6 col-12">
+						<div class="card card-employee-task">
+							<div class="card-header">
+								<h4 class="card-title">Liste des membres</h4>
+								<i data-feather="more-vertical" class="font-medium-3 cursor-pointer"></i>
+							</div>
+							<div style="overflow-y : auto; height:450;background:none">
 								<div class="card-body">
+
+
 									{% for m in users %}
 										<div class="employee-task d-flex justify-content-between align-items-center">
 											<div class="media">
@@ -82,9 +108,11 @@
 													{% if collab.getIdUtilisateur().getIdUtilisateur() == m.getIdUtilisateur()  %}
 														<i data-feather="lock" style="width:17px; height:18px;color:green"></i>
 													{% else %}
-														{# 	<a class="d-flex align-items-center" href="{{ path('app_collab') }}"> #}
-														<i data-feather="user-minus" style="width:18px; height:18px;color:red"></i>
-														{# </a> #}
+
+														<a href="{{ path('deleteU',{'id':m.getIdUtilisateur() ,'idu':collab.getIdCollab()}) }}">
+															<i data-feather="user-minus" style="width:18px; height:18px;color:red"></i>
+														</a>
+
 													{% endif %}
 												{% else %}
 													👋
@@ -96,170 +124,223 @@
 
 									{% endfor %}
 
-
 								</div>
-								{% if collab.getIdUtilisateur() == user  %}
-
-									{% else %}
-
-										<a href="" class="btn btn-outline-danger">Quitter</a>
-
-
-								{% endif  %}
 							</div>
+							{% if collab.getIdUtilisateur() == user  %}
+								{% if notUsers|length > 0 %}
+									<a href="" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-task-modal">Ajouter</a>
+								{% endif %}
+							{% else %}
+
+								<a href="{{ path('Quitter',{'id':user.getIdUtilisateur() ,'idu':collab.getIdCollab()}) }}" class="btn btn-outline-danger">Quitter</a>
+
+
+							{% endif  %}
 						</div>
-						<!--/ Employee Task Card -->
+					</div>
+					<!--/ Employee Task Card -->
 
 
-						<!-- Chat Card -->
-						<div class="col-lg-6 col-md-6 col-12">
-							<div class="card chat-widget">
-								<div class="card-header" style="max-height:20x">
-									<div class="d-flex align-items-center">
+					<!-- Right Sidebar starts -->
+					<div class="modal modal-slide-in sidebar-todo-modal fade" id="new-task-modal">
+						<div class="modal-dialog sidebar-sm">
+							<div class="modal-content p-0">
+								<form id="form-modal-todo" class="todo-modal needs-validation" novalidate onsubmit="return false">
+									<div class="modal-header align-items-center mb-1">
+										<h5 class="modal-title">Ajouter Membre</h5>
+										<div class="todo-item-action d-flex align-items-center justify-content-between ml-auto">
 
-										<img src="{{ asset('collab/wazzup.png') }}" width="50" height="50"/>
-										<span class=" avatar-status-online"></span>
-
-										<h5 class="mb-0">Collab Chat</h5>
-									</div>
-									<i data-feather="more-vertical" class="font-medium-3 cursor-pointer"></i>
-								</div>
-								<!-- User Chat messages -->
-								<section class="chat-app-window">
-									<div class="user-chats">
-										<div class="chats">
-											<div class="chat">
-												<div class="chat-avatar">
-													<span class="avatar box-shadow-1 cursor-pointer">
-														<img src="{{user.getAvatar()}}" alt="avatar" height="36" width="36"/>
-													</span>
-												</div>
-												<div class="chat-body">
-													<div class="chat-content">
-														<p>How can we help? We're here for you!
-														</p>
-													</div>
-												</div>
-											</div>
-											<div class="chat chat-left">
-												<div class="chat-avatar">
-													<span class="avatar box-shadow-1 cursor-pointer">
-														<img src="{{user.getAvatar()}}" alt="avatar" height="36" width="36"/>
-													</span>
-												</div>
-												<div class="chat-body">
-													<div class="chat-content">
-														<p>Hey John, I am looking for the best admin template.</p>
-														<p>Could you please help me to find it out? 🤔</p>
-													</div>
-													<div class="chat-content">
-														<p>It should be Bootstrap 4 compatible.</p>
-													</div>
-												</div>
-											</div>
-											<div class="chat">
-												<div class="chat-avatar">
-													<span class="avatar box-shadow-1 cursor-pointer">
-														<img src="{{user.getAvatar()}}" alt="avatar" height="36" width="36"/>
-													</span>
-												</div>
-												<div class="chat-body">
-													<div class="chat-content">
-														<p>Absolutely!</p>
-													</div>
-													<div class="chat-content">
-														<p>Vuexy admin is the responsive bootstrap 4 admin template.</p>
-													</div>
-												</div>
-											</div>
-											<div class="chat chat-left">
-												<div class="chat-avatar">
-													<span class="avatar box-shadow-1 cursor-pointer">
-														<img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="avatar" height="36" width="36"/>
-													</span>
-												</div>
-												<div class="chat-body">
-													<div class="chat-content">
-														<p>Looks clean and fresh UI. 😃</p>
-													</div>
-													<div class="chat-content">
-														<p>It's perfect for my next project.</p>
-													</div>
-													<div class="chat-content">
-														<p>How can I purchase it?</p>
-													</div>
-												</div>
-											</div>
-											<div class="chat">
-												<div class="chat-avatar">
-													<span class="avatar box-shadow-1 cursor-pointer">
-														<img src="{{user.getAvatar()}}" alt="avatar" height="36" width="36"/>
-													</span>
-												</div>
-												<div class="chat-body">
-													<div class="chat-content">
-														<p>Thanks, from ThemeForest.</p>
-													</div>
-												</div>
-											</div>
-											<div class="chat chat-left">
-												<div class="chat-avatar">
-													<span class="avatar box-shadow-1 cursor-pointer">
-														<img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="avatar" height="36" width="36"/>
-													</span>
-												</div>
-												<div class="chat-body">
-													<div class="chat-content">
-														<p>I will purchase it for sure. 👍</p>
-													</div>
-													<div class="chat-content">
-														<p>Thanks.</p>
-													</div>
-												</div>
-											</div>
-											<div class="chat">
-												<div class="chat-avatar">
-													<span class="avatar box-shadow-1 cursor-pointer">
-														<img src="{{user.getAvatar()}}" alt="avatar" height="36" width="36"/>
-													</span>
-												</div>
-												<div class="chat-body">
-													<div class="chat-content">
-														<p>Great, Feel free to get in touch on</p>
-													</div>
-													<div class="chat-content">
-														<p>https://pixinvent.ticksy.com/</p>
-													</div>
-												</div>
-											</div>
+											<button type="button" class="close font-large-1 font-weight-normal py-0" data-dismiss="modal" aria-label="Close" style="margin-top:-200%">
+												×
+											</button>
 										</div>
 									</div>
-									<!-- Submit Chat form -->
-									<form class="chat-app-form" action="javascript:void(0);" onsubmit="enterChat();">
-										<div class="input-group input-group-merge mr-50 w-75 form-send-message">
-											<div class="input-group-prepend">
-												<span class="input-group-text">
-													<label for="attach-doc" class="attachment-icon mb-0">
-														<i data-feather="image" class="cursor-pointer lighten-2 text-secondary"></i>
-														<input type="file" id="attach-doc" hidden/>
-													</label>
+									<div class="modal-body flex-grow-1 pb-sm-0 pb-3">
+
+
+										<h6>Utilisateurs</h6>
+										<img src="{{ asset('collab/addU.png') }}" style="min-height:18%;min-width:130%;margin-left:-12%;max-height:18%;max-width:130%;height:30%;margin-top:5%" alt="Logo">
+										<select class="select2 form-control" id="task-assigned" name="task-assigned">
+											{% for n in notUsers %}
+												<option data-img="{{n.getAvatar()}}" value="{{n.getIdUtilisateur()}}" selected>
+													{{n.getPrenom()}}{% set pi = " " %}{{pi}}{{n.getNom()}}
+												</option>
+											{% endfor %}
+
+
+										</select>
+
+
+										<button type="submit" class="btn btn-primary " style="margin-left:35%;margin-top:100%" onclick="addU()">Ajouter</button>
+										<script>
+											function addU() {
+var e = document.getElementById("task-assigned");
+var User = e.value;
+if (User == "") {} else {
+var cid = '{{ collab.getIdCollab() }}'
+location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', User).replace('frttr', cid);
+}
+}
+										</script>
+
+									</div>
+
+								</form>
+							</div>
+						</div>
+					</div>
+					<!-- Right Sidebar ends -->
+
+
+					<!-- Chat Card -->
+					<div class="col-lg-6 col-md-6 col-12">
+						<div class="card chat-widget">
+							<div class="card-header" style="max-height:20x">
+								<div class="d-flex align-items-center">
+
+									<img src="{{ asset('collab/wazzup.png') }}" width="50" height="50"/>
+									<span class=" avatar-status-online"></span>
+
+									<h5 class="mb-0">Collab Chat</h5>
+								</div>
+								<i data-feather="more-vertical" class="font-medium-3 cursor-pointer"></i>
+							</div>
+							<!-- User Chat messages -->
+							<section class="chat-app-window">
+								<div class="user-chats">
+									<div class="chats">
+										<div class="chat">
+											<div class="chat-avatar">
+												<span class="avatar box-shadow-1 cursor-pointer">
+													<img src="{{user.getAvatar()}}" alt="avatar" height="36" width="36"/>
 												</span>
 											</div>
-											<input type="text" class="form-control message" placeholder="Type your message"/>
+											<div class="chat-body">
+												<div class="chat-content">
+													<p>How can we help? We're here for you!
+													</p>
+												</div>
+											</div>
 										</div>
-										<button type="button" class="btn btn-primary send" onclick="enterChat();">
-											<i data-feather="send" class="d-lg-none"></i>
-											<span class="d-none text-nowrap d-lg-block">Send</span>
-										</button>
-									</form>
-									<!--/ Submit Chat form -->
-								</section>
-								<!-- User Chat messages -->
-							</div>
+										<div class="chat chat-left">
+											<div class="chat-avatar">
+												<span class="avatar box-shadow-1 cursor-pointer">
+													<img src="{{user.getAvatar()}}" alt="avatar" height="36" width="36"/>
+												</span>
+											</div>
+											<div class="chat-body">
+												<div class="chat-content">
+													<p>Hey John, I am looking for the best admin template.</p>
+													<p>Could you please help me to find it out? 🤔</p>
+												</div>
+												<div class="chat-content">
+													<p>It should be Bootstrap 4 compatible.</p>
+												</div>
+											</div>
+										</div>
+										<div class="chat">
+											<div class="chat-avatar">
+												<span class="avatar box-shadow-1 cursor-pointer">
+													<img src="{{user.getAvatar()}}" alt="avatar" height="36" width="36"/>
+												</span>
+											</div>
+											<div class="chat-body">
+												<div class="chat-content">
+													<p>Absolutely!</p>
+												</div>
+												<div class="chat-content">
+													<p>Vuexy admin is the responsive bootstrap 4 admin template.</p>
+												</div>
+											</div>
+										</div>
+										<div class="chat chat-left">
+											<div class="chat-avatar">
+												<span class="avatar box-shadow-1 cursor-pointer">
+													<img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="avatar" height="36" width="36"/>
+												</span>
+											</div>
+											<div class="chat-body">
+												<div class="chat-content">
+													<p>Looks clean and fresh UI. 😃</p>
+												</div>
+												<div class="chat-content">
+													<p>It's perfect for my next project.</p>
+												</div>
+												<div class="chat-content">
+													<p>How can I purchase it?</p>
+												</div>
+											</div>
+										</div>
+										<div class="chat">
+											<div class="chat-avatar">
+												<span class="avatar box-shadow-1 cursor-pointer">
+													<img src="{{user.getAvatar()}}" alt="avatar" height="36" width="36"/>
+												</span>
+											</div>
+											<div class="chat-body">
+												<div class="chat-content">
+													<p>Thanks, from ThemeForest.</p>
+												</div>
+											</div>
+										</div>
+										<div class="chat chat-left">
+											<div class="chat-avatar">
+												<span class="avatar box-shadow-1 cursor-pointer">
+													<img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="avatar" height="36" width="36"/>
+												</span>
+											</div>
+											<div class="chat-body">
+												<div class="chat-content">
+													<p>I will purchase it for sure. 👍</p>
+												</div>
+												<div class="chat-content">
+													<p>Thanks.</p>
+												</div>
+											</div>
+										</div>
+										<div class="chat">
+											<div class="chat-avatar">
+												<span class="avatar box-shadow-1 cursor-pointer">
+													<img src="{{user.getAvatar()}}" alt="avatar" height="36" width="36"/>
+												</span>
+											</div>
+											<div class="chat-body">
+												<div class="chat-content">
+													<p>Great, Feel free to get in touch on</p>
+												</div>
+												<div class="chat-content">
+													<p>https://pixinvent.ticksy.com/</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Submit Chat form -->
+								<form class="chat-app-form" action="javascript:void(0);" onsubmit="enterChat();">
+									<div class="input-group input-group-merge mr-50 w-75 form-send-message">
+										<div class="input-group-prepend">
+											<span class="input-group-text">
+												<label for="attach-doc" class="attachment-icon mb-0">
+													<i data-feather="image" class="cursor-pointer lighten-2 text-secondary"></i>
+													<input type="file" id="attach-doc" hidden/>
+												</label>
+											</span>
+										</div>
+										<input type="text" class="form-control message" placeholder="Type your message"/>
+									</div>
+									<button type="button" class="btn btn-primary send" onclick="enterChat();">
+										<i data-feather="send" class="d-lg-none"></i>
+										<span class="d-none text-nowrap d-lg-block">Send</span>
+									</button>
+								</form>
+								<!--/ Submit Chat form -->
+							</section>
+							<!-- User Chat messages -->
 						</div>
-						<!--/ Chat Card -->
+					</div>
+					<!--/ Chat Card -->
 
-
+					{% if projet %}
 						<!-- Developer Meetup Card -->
 						<div class="col-lg-3 col-md-6 col-12">
 							<div class="card card-developer-meetup">
@@ -269,12 +350,105 @@
 								<div class="card-body">
 									<div class="meetup-header d-flex align-items-center">
 										<div class="meetup-day">
-											<h6 class="mb-0">THU</h6>
-											<h3 class="mb-0">24</h3>
+											<h6 class="mb-0">{{ "now"|date("F") }}</h6>
+											<h3 class="mb-0">{{ "now"|date(" jS ") }}</h3>
 										</div>
 										<div class="my-auto">
-											<h4 class="card-title mb-25">Developer Meetup</h4>
-											<p class="card-text mb-0">Meet world popular developers</p>
+											<h4 class="card-title mb-25">{{projet.getNomProjet()}}</h4>
+											<p class="card-text mb-0">Votre Projet trello
+											</p>
+										</div>
+									</div>
+									<div class="media">
+										<div class="avatar bg-light-primary rounded mr-1">
+											<div class="avatar-content">
+												<i data-feather="file-text" class="avatar-icon font-medium-3"></i>
+											</div>
+										</div>
+										<div class="media-body">
+											<h6 class="mb-0">Description</h6>
+											<small>{{projet.getDescriptionProjet()}}</small>
+										</div>
+									</div>
+									<div class="media">
+										<div class="avatar bg-light-primary rounded mr-1">
+											<div class="avatar-content">
+												<i data-feather="link" class="avatar-icon font-medium-3"></i>
+											</div>
+										</div>
+										<div class="media-body">
+
+											<h6 class="mb-0">Votre lien trello</h6>
+											<small>
+												<a href="{{projet.getUrlTrello()}}">{{projet.getUrlTrello()}}</a>
+											</small>
+										</div>
+									</div>
+									<div class="avatar-group">
+										{% for m in users %}
+											{% if userCunt <6%}
+												<div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="{{m.getPrenom()}}{% set pi =" "%}{{pi}} {{m.getNom()}}" class="avatar pull-up">
+													<img src="{{m.getAvatar()}}" alt="Avatar" width="33" height="33"/>
+												</div>
+											{% endif %}
+											{% set userCunt = userCunt + 1%}
+										{% endfor %}
+										{% if  userCunt - 6 <= 0 %}
+											{% else %}
+												<h6 class="align-self-center cursor-pointer ml-50 mb-0">+{% set userCunt = userCunt - 6%}{{userCunt}}</h6>
+										{% endif %}
+									</div>
+								</div>
+								<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#xSmall">
+									Supprimer
+								</button>
+							</div>
+						</div>
+						<!--/ Developer Meetup Card -->
+
+
+						<!-- Modal -->
+						<div class="modal fade modal-danger text-left" id="xSmall" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="myModalLabel120">Attention</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										cette action est irréversible procéder avec prudence
+									</div>
+									<div class="modal-footer">
+										<a href="{{ path('delP',{'id':projet.getIdProjet(),'cid':collab.getIdCollab()}) }}" class="btn btn-danger">
+											Accept
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="d-inline-block">
+
+
+					{% else %}
+						<!-- Developer Meetup Card -->
+						<div class="col-lg-3 col-md-6 col-12">
+							<div class="card card-developer-meetup">
+								<div class="meetup-img-wrapper rounded-top text-center">
+									<img src="{{asset('collab/prjtP.png')}}" alt="Meeting Pic" height="170"/>
+								</div>
+								<div class="card-body">
+									<div class="meetup-header d-flex align-items-center">
+										<div class="meetup-day">
+											<h6 class="mb-0">{{ "now"|date("F") }}</h6>
+											<h3 class="mb-0">{{ "now"|date(" jS ") }}</h3>
+										</div>
+										<div class="my-auto">
+											<h4 class="card-title mb-25">Créer un projet</h4>
+											<p class="card-text mb-0">pour une meilleure productivité</p>
 										</div>
 									</div>
 									<div class="media">
@@ -295,75 +469,178 @@
 											</div>
 										</div>
 										<div class="media-body">
-											<h6 class="mb-0">Central Park</h6>
-											<small>Manhattan, New york City</small>
+
+
+											<div id="loc"></div>
 										</div>
 									</div>
 									<div class="avatar-group">
 										{% for m in users %}
-											<div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="{{m.getPrenom()}}{{m.getNom()}}" class="avatar pull-up">
-												<img src="{{m.getAvatar()}}" alt="Avatar" width="33" height="33"/>
-											</div>
+											{% if userCunt <6%}
+												<div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="{{m.getPrenom()}}{% set pi =" "%}{{pi}} {{m.getNom()}}" class="avatar pull-up">
+													<img src="{{m.getAvatar()}}" alt="Avatar" width="33" height="33"/>
+												</div>
+											{% endif %}
+											{% set userCunt = userCunt + 1%}
 										{% endfor %}
-
+										{% if  userCunt - 6 <= 0 %}
+											{% else %}
+												<h6 class="align-self-center cursor-pointer ml-50 mb-0">+{% set userCunt = userCunt - 6%}{{userCunt}}</h6>
+										{% endif %}
 									</div>
 								</div>
+								<a href="" class="btn btn-outline-primary" data-toggle="modal" data-target="#large">Créer</a>
+
+
 							</div>
+
 						</div>
 						<!--/ Developer Meetup Card -->
+					{% endif %}
+					<!-- Modal -->
+					<div class="modal fade text-left" id="large" tabindex="-1" role="dialog" aria-labelledby="myModalLabel17" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+
+									<h4 class="modal-title" id="myModalLabel17">Créer Votre Projet</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
 
 
+								</div>
+								<div
+									class="modal-body">
+									<!-- Horizontal Wizard -->
+									<section class="modern-horizontal-wizard">
+										<div class="bs-stepper wizard-modern modern-wizard-example">
+											<div class="bs-stepper-header">
+												<div class="step" data-target="#account-details">
+													<button type="button" class="step-trigger">
+														<span class="bs-stepper-box">1</span>
+														<span class="bs-stepper-label">
+															<span class="bs-stepper-title">Details general</span>
+															<span class="bs-stepper-subtitle">Description</span>
+														</span>
+													</button>
+												</div>
+												<div class="line">
+													<i data-feather="chevron-right" class="font-medium-2"></i>
+												</div>
+												<div class="step" data-target="#personal-info">
+													<button type="button" class="step-trigger">
+														<span class="bs-stepper-box">2</span>
+														<span class="bs-stepper-label">
+															<span class="bs-stepper-title">Details Trello</span>
+															<span class="bs-stepper-subtitle">Ajouter trello tokens</span>
+														</span>
+													</button>
+												</div>
+
+											</div>
+											<div class="bs-stepper-content">
+												<div id="account-details" class="content">
+													<div class="content-header">
+														<h5 class="mb-0">Details projet</h5>
+														<small class="text-muted">Entrer les details du vote projet.</small>
+													</div>
+													<form>
+														<div class="row">
+															<div class="form-group col-md-6">
+																<label class="form-label" for="username">Nom du projet</label>
+																<input type="text" name="username" id="nom" class="form-control" placeholder="johndoe"/>
+															</div>
+															<div class="form-group col-md-6">
+																<label class="form-label" for="password">Description</label>
+																<input type="textarea" name="last-name" id="desc" class="form-control" placeholder="Decrire votre projet"/>
+															</div>
+														</div>
+
+													</form>
+													<div class="d-flex justify-content-between">
+														<button class="btn btn-outline-secondary btn-prev" disabled>
+															<i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+															<span class="align-middle d-sm-inline-block d-none">Previous</span>
+														</button>
+														<button class="btn btn-primary btn-next">
+															<span class="align-middle d-sm-inline-block d-none">Next</span>
+															<i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+														</button>
+													</div>
+												</div>
+												<div id="personal-info" class="content">
+													<div class="content-header">
+														<h5 class="mb-0">Trello Info</h5>
+														<small>Enter votre Trello Info.</small>
+													</div>
+													<form>
+														<div class="row">
+															<div class="form-group col-md-6">
+																<label class="form-label" for="first-name">
+																	<a href="https://trello.com/1/authorize?expiration=never&scope=read,write,account&response_type=token&name=Server%20Token&key=e0efb3bcbe6f5dbf936f8c2e883a9580">Trello Token</label>
+																</a>
+																<input type="text" name="landmark" id="token" class="form-control" placeholder="2a89c09006d3976b9bf7270130220a2af827e5fb1170cca94c0520b08ba08f8c"/>
+															</div>
+															<div class="form-group col-md-6">
+
+
+																<label class="form-label" for="last-name">
+																	<a href="https://trello.com/app-key/">Trello Key</a>
+																</label>
+
+																<input type="text" name="address" id="key" class="form-control" placeholder="e0efb3bcbe6f5dbf936f8c2e883a9580"/>
+															</div>
+														</div>
+
+													</form>
+													<div class="d-flex justify-content-between">
+														<button class="btn btn-primary btn-prev">
+															<i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+															<span class="align-middle d-sm-inline-block d-none">Previous</span>
+														</button>
+
+														<button class="btn btn-success btn-submit" onclick="create()">Créer</button>
+														<script>
+															function create() {
+var key = document.getElementById('key').value;
+var token = document.getElementById('token').value;
+var nom = document.getElementById('nom').value;
+var desc = document.getElementById('desc').value;
+
+var cid = '{{ collab.getIdCollab() }}'
+if (token == "" || key == "") {} else {
+location.href = "{{ path('createP',{'nom':'val','desc':'vall','key':'valll','token':'vallll','cid':'valllll'}) }}".replace('val', nom).replace('vall', desc).replace('valll', key).replace('vallll', token).replace('valllll', cid);
+}
+}
+														</script>
+													</div>
+												</div>
+
+
+											</div>
+										</div>
+									</section>
+									<!-- /Horizontal Wizard -->
+
+									<script></script>
+								</div>
+
+							</div>
+						</div>
 					</div>
 
+					<!-- Modal -->
 
 				</div>
 			</div>
-		</body>
-	</body>
-</div>
-<!-- END: Content-->
+		</section>
+		<!-- /Modern Horizontal Wizard -->
 
-<div class="sidenav-overlay"></div>
-<div class="drag-target"></div>
-
-<!-- BEGIN: Footer-->
-<footer class="footer footer-static footer-light">
-	<p class="clearfix mb-0">
-		<span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2022<a class="ml-25" target="_blank"></a>
-			<span class="d-none d-sm-inline-block">, All rights Reserved Wazzup</span>
-		</span>
-		<span class="float-md-right d-none d-md-block"></span>
-	</p>
-</footer>
-<button class="btn btn-primary btn-icon scroll-top" type="button">
-	<i data-feather="arrow-up"></i>
-</button>
-<!-- END: Footer-->
-
-
-<!-- BEGIN: Vendor JS-->
-<script src="dashboard/app-assets/vendors/js/vendors.min.js"></script>
-<!-- BEGIN Vendor JS-->
-
-<!-- BEGIN: Page Vendor JS-->
-<script src="dashboard/app-assets/vendors/js/charts/apexcharts.min.js"></script>
-<script src="dashboard/app-assets/vendors/js/extensions/toastr.min.js"></script>
-<!-- END: Page Vendor JS-->
-
-<!-- BEGIN: Theme JS-->
-<script src="dashboard/app-assets/js/core/app-menu.js"></script>
-<script src="dashboard/app-assets/js/core/app.js"></script>
-<!-- END: Theme JS-->
-
-<!-- BEGIN: Page JS-->
-<script src="dashboard/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script>
-<script src="dashboard/app-assets/js/scripts/cards/card-advance.js"></script>
-<!-- END: Page JS-->
-
-<script>
-	$(window).on('load', function () {
+	</div>
+	<div class="modal-footer"></div>
+</body></div></div></div></div></div></div></body></body></div><!-- END: Content--><div class="sidenav-overlay"></div><div class="drag-target"></div><!-- BEGIN: Footer--><footer class="footer footer-static footer-light"><p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2022<a class="ml-25" target="_blank"></a><span class="d-none d-sm-inline-block">, All rights Reserved Wazzup</span></span><span class="float-md-right d-none d-md-block"></span></p></footer><button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button><!-- END: Footer--><!-- BEGIN: Vendor JS--><script src="dashboard/app-assets/vendors/js/vendors.min.js"></script><!-- BEGIN Vendor JS--><!-- BEGIN: Page Vendor JS--><script src="dashboard/app-assets/vendors/js/charts/apexcharts.min.js"></script><script src="dashboard/app-assets/vendors/js/editors/quill/katex.min.js"></script><script src="dashboard/app-assets/vendors/js/editors/quill/highlight.min.js"></script><script src="dashboard/app-assets/vendors/js/editors/quill/quill.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/select/select2.full.min.js"></script><script src="dashboard/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script><script src="dashboard/app-assets/vendors/js/extensions/dragula.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script><script src="dashboard/app-assets/vendors/js/extensions/toastr.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/wizard/bs-stepper.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/select/select2.full.min.js"></script><!-- END: Page Vendor JS--><!-- BEGIN: Theme JS--><script src="dashboard/app-assets/js/core/app-menu.js"></script><script src="dashboard/app-assets/js/core/app.js"></script><!-- END: Theme JS--><!-- BEGIN: Page JS--><script src="dashboard/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script><script src="dashboard/app-assets/js/scripts/cards/card-advance.js"></script><script src="dashboard/app-assets/js/scripts/pages/app-todo.js"></script><script src="dashboard/app-assets/js/scripts/forms/form-wizardm.js"></script><!-- END: Page JS--><script>$(window).on('load', function () {
 if (feather) {
 feather.replace({width: 14, height: 14});
 }
-})
-</script></body>{% endblock %}
+})</script> </body>{% endblock %}

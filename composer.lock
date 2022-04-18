@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4cfcf04a4a7d5df78538820499ec99f3",
+    "content-hash": "aef8c0a2ee317ee839bc5a51f61561a8",
     "packages": [
         {
             "name": "cloudinary/cloudinary_php",
@@ -1966,6 +1966,7 @@
             ],
             "time": "2021-12-19T18:06:55+00:00"
         },
+       
         {
             "name": "monolog/monolog",
             "version": "1.27.0",
@@ -4355,16 +4356,16 @@
         },
         {
             "name": "symfony/http-client",
-            "version": "v4.4.39",
+            "version": "v4.4.40",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "40342406a975385c5b21e929df46e3fc0278853d"
+                "reference": "c66fc3b60900359ea10a7b22921c797446783bb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client/zipball/40342406a975385c5b21e929df46e3fc0278853d",
-                "reference": "40342406a975385c5b21e929df46e3fc0278853d",
+                "url": "https://api.github.com/repos/symfony/http-client/zipball/c66fc3b60900359ea10a7b22921c797446783bb3",
+                "reference": "c66fc3b60900359ea10a7b22921c797446783bb3",
                 "shasum": ""
             },
             "require": {
@@ -4416,7 +4417,7 @@
             "description": "Provides powerful methods to fetch HTTP resources synchronously or asynchronously",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-client/tree/v4.4.39"
+                "source": "https://github.com/symfony/http-client/tree/v4.4.40"
             },
             "funding": [
                 {
@@ -4432,7 +4433,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-02-28T13:17:32+00:00"
+            "time": "2022-04-01T12:25:39+00:00"
         },
         {
             "name": "symfony/http-client-contracts",

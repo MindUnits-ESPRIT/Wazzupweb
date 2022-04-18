@@ -46,18 +46,23 @@ class SalleCollabRepository extends ServiceEntityRepository
         }
     }
 
-/**
+    /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
     public function showUserCollabs(int $id)
     {
         $q = $this->createQueryBuilder('g')
-        ->innerJoin('App\Entity\CollabMembers', 's', Join::WITH,  'g.idCollab = s.id_collab')
-        ->where('s.ID_Utlisateur = :id')
-        ->groupBy('s.id_collab')
-        ->setParameter('id', $id);  
-    return ($q->getQuery()->getResult());       
+            ->innerJoin(
+                'App\Entity\CollabMembers',
+                's',
+                Join::WITH,
+                'g.idCollab = s.id_collab'
+            )
+            ->where('s.ID_Utlisateur = :id')
+            ->groupBy('s.id_collab')
+            ->setParameter('id', $id);
+        return $q->getQuery()->getResult();
     }
 
     // /**
