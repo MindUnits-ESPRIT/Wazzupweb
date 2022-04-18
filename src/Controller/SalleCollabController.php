@@ -6,7 +6,6 @@ use App\Entity\Projet;
 use App\Entity\Utilisateurs;
 use App\Entity\CollabMembers;
 use App\Entity\SalleCollaboration;
-use App\Repository\ProjetRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\SalleCollabRepository;
 use App\Repository\UtilisateursRepository;
