@@ -20,7 +20,6 @@
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/dragula.min.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/toastr.min.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/forms/wizard/bs-stepper.min.css')}}">
-		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/forms/select/select2.min.css')}}">
 		<!-- END: Vendor CSS-->
 
 		<!-- BEGIN: Theme CSS-->
@@ -66,31 +65,27 @@
 				<div class="content-body">
 					<h4 class="card-title mb-50 mb-sm-0" style="margin-left:2%;margin-top:-2%;padding:1%">{{collab.getNomCollab()}}</h4>
 
-					<div
-						class="row match-height">
-
-						<!-- Employee Task Card -->
-						<div class="col-lg-3 col-md-6 col-12">
-							<div class="card card-employee-task">
-								<div class="card-header">
-									<h4 class="card-title">Liste des membres</h4>
-									<i data-feather="more-vertical" class="font-medium-3 cursor-pointer"></i>
-								</div>
-								<style>
-
-								/* Scrollbar styles */
-								::-webkit-scrollbar {
-									width: 9px;
-								}
-								::-webkit-scrollbar-thumb {
-									border-radius: 10px;
-									width: 7px;
-								}
-								::-webkit-scrollbar-thumb:hover {
-									background: #ccc;
-								}
-							</style>
-
+					<div class="row match-height">
+						<style>
+						/* Scrollbar styles */
+						::-webkit-scrollbar {
+							width: 9px;
+						}
+						::-webkit-scrollbar-thumb {
+							border-radius: 10px;
+							width: 7px;
+						}
+						::-webkit-scrollbar-thumb:hover {
+							background: #ccc;
+						}
+					</style>
+					<!-- Employee Task Card -->
+					<div class="col-lg-3 col-md-6 col-12">
+						<div class="card card-employee-task">
+							<div class="card-header">
+								<h4 class="card-title">Liste des membres</h4>
+								<i data-feather="more-vertical" class="font-medium-3 cursor-pointer"></i>
+							</div>
 							<div style="overflow-y : auto; height:430;background:none">
 								<div class="card-body">
 
@@ -158,24 +153,21 @@
 										</div>
 									</div>
 									<div class="modal-body flex-grow-1 pb-sm-0 pb-3">
-										<div class="action-tags">
-
-											<div class="form-group position-relative">
-												<h6>Utilisateurs</h6>
-												<img src="{{ asset('collab/addU.png') }}" style="min-height:18%;min-width:130%;margin-left:-12%;max-height:18%;max-width:130%;height:30%;margin-top:5%" alt="Logo">
-												<select class="select2 form-control" id="task-assigned" name="task-assigned">
-													{% for n in notUsers %}
-														<option data-img="{{n.getAvatar()}}" value="{{n.getIdUtilisateur()}}" selected>
-															{{n.getPrenom()}}{% set pi = " " %}{{pi}}{{n.getNom()}}
-														</option>
-													{% endfor %}
 
 
-												</select>
-											</div>
+										<h6>Utilisateurs</h6>
+										<img src="{{ asset('collab/addU.png') }}" style="min-height:18%;min-width:130%;margin-left:-12%;max-height:18%;max-width:130%;height:30%;margin-top:5%" alt="Logo">
+										<select class="select2 form-control" id="task-assigned" name="task-assigned">
+											{% for n in notUsers %}
+												<option data-img="{{n.getAvatar()}}" value="{{n.getIdUtilisateur()}}" selected>
+													{{n.getPrenom()}}{% set pi = " " %}{{pi}}{{n.getNom()}}
+												</option>
+											{% endfor %}
 
 
-										</div>
+										</select>
+
+
 										<button type="submit" class="btn btn-primary " style="margin-left:35%;margin-top:100%" onclick="addU()">Ajouter</button>
 										<script>
 											function addU() {
@@ -185,8 +177,6 @@ if (User == "") {} else {
 var cid = '{{ collab.getIdCollab() }}'
 location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', User).replace('frttr', cid);
 }
-
-
 }
 										</script>
 									</div>
@@ -231,7 +221,7 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 										<div class="chat chat-left">
 											<div class="chat-avatar">
 												<span class="avatar box-shadow-1 cursor-pointer">
-													<img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="avatar" height="36" width="36"/>
+													<img src="{{user.getAvatar()}}" alt="avatar" height="36" width="36"/>
 												</span>
 											</div>
 											<div class="chat-body">
@@ -403,7 +393,7 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 						<div class="col-lg-3 col-md-6 col-12">
 							<div class="card card-developer-meetup">
 								<div class="meetup-img-wrapper rounded-top text-center">
-									<img src="{{asset('collab/projetP.png')}}" alt="Meeting Pic" height="170"/>
+									<img src="{{asset('collab/prjtP.png')}}" alt="Meeting Pic" height="170"/>
 								</div>
 								<div class="card-body">
 									<div class="meetup-header d-flex align-items-center">
@@ -467,24 +457,23 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 						<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h4 class="modal-title" id="myModalLabel17">Projet</h4>
+
+									<h4 class="modal-title" id="myModalLabel17">Créer Votre Projet</h4>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
+
+
 								</div>
 								<div
 									class="modal-body">
-
-
-									<!-- Modern Horizontal Wizard -->
+									<!-- Horizontal Wizard -->
 									<section class="modern-horizontal-wizard">
 										<div class="bs-stepper wizard-modern modern-wizard-example">
 											<div class="bs-stepper-header">
-												<div class="step" data-target="#account-details-modern">
+												<div class="step" data-target="#account-details">
 													<button type="button" class="step-trigger">
-														<span class="bs-stepper-box">
-															<i data-feather="file-text" class="font-medium-3"></i>
-														</span>
+														<span class="bs-stepper-box">1</span>
 														<span class="bs-stepper-label">
 															<span class="bs-stepper-title">Details general</span>
 															<span class="bs-stepper-subtitle">Description</span>
@@ -494,11 +483,9 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 												<div class="line">
 													<i data-feather="chevron-right" class="font-medium-2"></i>
 												</div>
-												<div class="step" data-target="#personal-info-modern">
+												<div class="step" data-target="#personal-info">
 													<button type="button" class="step-trigger">
-														<span class="bs-stepper-box">
-															<i data-feather="trello" class="font-medium-3"></i>
-														</span>
+														<span class="bs-stepper-box">2</span>
 														<span class="bs-stepper-label">
 															<span class="bs-stepper-title">Details Trello</span>
 															<span class="bs-stepper-subtitle">Ajouter trello tokens</span>
@@ -506,34 +493,26 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 													</button>
 												</div>
 
-
 											</div>
 											<div class="bs-stepper-content">
-												<div id="account-details-modern" class="content">
+												<div id="account-details" class="content">
 													<div class="content-header">
-														<h5 class="mb-0">Account Details</h5>
-														<small class="text-muted">Enter Your Account Details.</small>
+														<h5 class="mb-0">Details projet</h5>
+														<small class="text-muted">Entrer les details du vote projet.</small>
 													</div>
-													<div class="row">
-														<div class="form-group col-md-6">
-															<label class="form-label" for="modern-username">Username</label>
-															<input type="text" id="modern-username" class="form-control" placeholder="johndoe"/>
+													<form>
+														<div class="row">
+															<div class="form-group col-md-6">
+																<label class="form-label" for="username">Nom du projet</label>
+																<input type="text" name="username" id="nom" class="form-control" placeholder="johndoe"/>
+															</div>
+															<div class="form-group col-md-6">
+																<label class="form-label" for="password">Description</label>
+																<input type="textarea" name="last-name" id="desc" class="form-control" placeholder="Decrire votre projet"/>
+															</div>
 														</div>
-														<div class="form-group col-md-6">
-															<label class="form-label" for="modern-email">Email</label>
-															<input type="email" id="modern-email" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe"/>
-														</div>
-													</div>
-													<div class="row">
-														<div class="form-group form-password-toggle col-md-6">
-															<label class="form-label" for="modern-password">Password</label>
-															<input type="password" id="modern-password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"/>
-														</div>
-														<div class="form-group form-password-toggle col-md-6">
-															<label class="form-label" for="modern-confirm-password">Confirm Password</label>
-															<input type="password" id="modern-confirm-password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"/>
-														</div>
-													</div>
+
+													</form>
 													<div class="d-flex justify-content-between">
 														<button class="btn btn-outline-secondary btn-prev" disabled>
 															<i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
@@ -545,49 +524,48 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 														</button>
 													</div>
 												</div>
-												<div id="personal-info-modern" class="content">
+												<div id="personal-info" class="content">
 													<div class="content-header">
-														<h5 class="mb-0">Personal Info</h5>
-														<small>Enter Your Personal Info.</small>
+														<h5 class="mb-0">Trello Info</h5>
+														<small>Enter votre Trello Info.</small>
 													</div>
-													<div class="row">
-														<div class="form-group col-md-6">
-															<label class="form-label" for="modern-first-name">First Name</label>
-															<input type="text" id="modern-first-name" class="form-control" placeholder="John"/>
+													<form>
+														<div class="row">
+															<div class="form-group col-md-6">
+																<label class="form-label" for="first-name">
+																	<a href="https://trello.com/1/authorize?expiration=never&scope=read,write,account&response_type=token&name=Server%20Token&key=e0efb3bcbe6f5dbf936f8c2e883a9580">Trello Token</label>
+																</a>
+																<input type="text" name="first-name" id="token" class="form-control" placeholder="2a89c09006d3976b9bf7270130220a2af827e5fb1170cca94c0520b08ba08f8c"/>
+															</div>
+															<div class="form-group col-md-6">
+
+
+																<label class="form-label" for="last-name">
+																	<a href="https://trello.com/app-key/">Trello Key</a>
+																</label>
+
+																<input type="text" name="last-name" id="key" class="form-control" placeholder="e0efb3bcbe6f5dbf936f8c2e883a9580"/>
+															</div>
 														</div>
-														<div class="form-group col-md-6">
-															<label class="form-label" for="modern-last-name">Last Name</label>
-															<input type="text" id="modern-last-name" class="form-control" placeholder="Doe"/>
-														</div>
-													</div>
-													<div class="row">
-														<div class="form-group col-md-6">
-															<label class="form-label" for="modern-country">Country</label>
-															<select class="select2 w-100" id="modern-country">
-																<option label=" "></option>
-																<option>UK</option>
-																<option>USA</option>
-																<option>Spain</option>
-																<option>France</option>
-																<option>Italy</option>
-																<option>Australia</option>
-															</select>
-														</div>
-														<div class="form-group col-md-6">
-															<label class="form-label" for="modern-language">Language</label>
-															<select class="select2 w-100" id="modern-language" multiple>
-																<option>English</option>
-																<option>French</option>
-																<option>Spanish</option>
-															</select>
-														</div>
-													</div>
+
+													</form>
 													<div class="d-flex justify-content-between">
 														<button class="btn btn-primary btn-prev">
 															<i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
 															<span class="align-middle d-sm-inline-block d-none">Previous</span>
 														</button>
-														<button class="btn btn-success btn-submit">Submit</button>
+
+														<button class="btn btn-success " onclick="create()">Créer</button>
+														<script>
+															function create() {
+var key = document.getElementById('key').value;
+var token = document.getElementById('token').value;
+var nom = document.getElementById('nom').value;
+var desc = document.getElementById('desc').value;
+var cid = '{{ collab.getIdCollab() }}'
+location.href = "{{ path('createP',{'nom':'val','desc':'vall','key':'valll','token':'vallll','cid':'valllll'}) }}".replace('val', nom).replace('vall', desc).replace('valll', key).replace('vallll', token).replace('valllll', cid);
+}
+														</script>
 													</div>
 												</div>
 
@@ -595,25 +573,26 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 											</div>
 										</div>
 									</section>
-									<!-- /Modern Horizontal Wizard -->
+									<!-- /Horizontal Wizard -->
 
+									<script></script>
 								</div>
-								<div class="modal-footer"></div>
+
 							</div>
 						</div>
 					</div>
+
+					<!-- Modal -->
+
 				</div>
-
-
 			</div>
-		</div>
-	</body>
-</body></body></div><!-- END: Content--><div class="sidenav-overlay"></div><div class="drag-target"></div><!-- BEGIN: Footer--><footer class="footer footer-static footer-light"><p class="clearfix mb-0">
-<span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2022<a class="ml-25" target="_blank"></a>
-	<span class="d-none d-sm-inline-block">, All rights Reserved Wazzup</span>
-</span>
-<span class="float-md-right d-none d-md-block"></span></p></footer><button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button><!-- END: Footer--><!-- BEGIN: Vendor JS--><script src="dashboard/app-assets/vendors/js/vendors.min.js"></script><!-- BEGIN Vendor JS--><!-- BEGIN: Page Vendor JS--><script src="dashboard/app-assets/vendors/js/charts/apexcharts.min.js"></script><script src="dashboard/app-assets/vendors/js/editors/quill/katex.min.js"></script><script src="dashboard/app-assets/vendors/js/editors/quill/highlight.min.js"></script><script src="dashboard/app-assets/vendors/js/editors/quill/quill.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/select/select2.full.min.js"></script><script src="dashboard/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script><script src="dashboard/app-assets/vendors/js/extensions/dragula.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script><script src="dashboard/app-assets/vendors/js/extensions/toastr.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/wizard/bs-stepper.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/select/select2.full.min.js"></script><!-- END: Page Vendor JS--><!-- BEGIN: Theme JS--><script src="dashboard/app-assets/js/core/app-menu.js"></script><script src="dashboard/app-assets/js/core/app.js"></script><!-- END: Theme JS--><!-- BEGIN: Page JS--><script src="dashboard/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script><script src="dashboard/app-assets/js/scripts/cards/card-advance.js"></script><script src="dashboard/app-assets/js/scripts/pages/app-todo.js"></script><script src="dashboard/app-assets/js/scripts/forms/form-wizard.js"></script><!-- END: Page JS--><script>$(window).on('load', function () {
+		</section>
+		<!-- /Modern Horizontal Wizard -->
+
+	</div>
+	<div class="modal-footer"></div>
+</body></div></div></div></div></div></div></body></body></div><!-- END: Content--><div class="sidenav-overlay"></div><div class="drag-target"></div><!-- BEGIN: Footer--><footer class="footer footer-static footer-light"><p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2022<a class="ml-25" target="_blank"></a><span class="d-none d-sm-inline-block">, All rights Reserved Wazzup</span></span><span class="float-md-right d-none d-md-block"></span></p></footer><button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button><!-- END: Footer--><!-- BEGIN: Vendor JS--><script src="dashboard/app-assets/vendors/js/vendors.min.js"></script><!-- BEGIN Vendor JS--><!-- BEGIN: Page Vendor JS--><script src="dashboard/app-assets/vendors/js/charts/apexcharts.min.js"></script><script src="dashboard/app-assets/vendors/js/editors/quill/katex.min.js"></script><script src="dashboard/app-assets/vendors/js/editors/quill/highlight.min.js"></script><script src="dashboard/app-assets/vendors/js/editors/quill/quill.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/select/select2.full.min.js"></script><script src="dashboard/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script><script src="dashboard/app-assets/vendors/js/extensions/dragula.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script><script src="dashboard/app-assets/vendors/js/extensions/toastr.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/wizard/bs-stepper.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/select/select2.full.min.js"></script><!-- END: Page Vendor JS--><!-- BEGIN: Theme JS--><script src="dashboard/app-assets/js/core/app-menu.js"></script><script src="dashboard/app-assets/js/core/app.js"></script><!-- END: Theme JS--><!-- BEGIN: Page JS--><script src="dashboard/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script><script src="dashboard/app-assets/js/scripts/cards/card-advance.js"></script><script src="dashboard/app-assets/js/scripts/pages/app-todo.js"></script><script src="dashboard/app-assets/js/scripts/forms/form-wizardm.js"></script><!-- END: Page JS--><script>$(window).on('load', function () {
 if (feather) {
 feather.replace({width: 14, height: 14});
 }
-})</script></body>{% endblock %}
+})</script> </body>{% endblock %}

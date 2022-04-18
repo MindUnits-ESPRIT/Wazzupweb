@@ -2,19 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\Utilisateurs;
-use App\Entity\SalleCollaboration;
-use App\Entity\CollabMembers;
 use App\Entity\Projet;
+use App\Entity\Utilisateurs;
+use App\Entity\CollabMembers;
+use App\Entity\SalleCollaboration;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\SalleCollabRepository;
-use App\Repository\CollabMembersRepository;
 use App\Repository\UtilisateursRepository;
+use App\Repository\CollabMembersRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpClient\HttpClient;
 
 class SalleCollabController extends AbstractController
 {
@@ -132,6 +133,63 @@ class SalleCollabController extends AbstractController
             ->find($idu);
         return $this->redirectToRoute('app_list_collab', [
             'collabn' => $collab->getnomCollab(),
+        ]);
+    }
+
+    /**
+     * @Route("/createP{nom},{desc},{key},{token},{cid}", name="createP")
+     */
+    public function createP(
+        $nom,
+        $desc,
+        $key,
+        $token,
+        $cid,
+        EntityManagerInterface $entityManager,
+        CollabMembersRepository $s,
+        UtilisateursRepository $u
+    ) {
+        $collab = $this->getDoctrine()
+            ->getRepository(SalleCollaboration::class)
+            ->find($cid);
+
+        $client = HttpClient::create();
+        $response = $client->request(
+            'POST',
+            'https://api.trello.com/1/boards/',
+            [
+                // these values are automatically encoded before including them in the URL
+                'query' => [
+                    'name' => $nom,
+                    'key' => $key,
+                    'token' => $token,
+                ],
+            ]
+        );
+        $statusCode = $response->getStatusCode();
+        $apierr = '';
+        if ($statusCode == 401) {
+            $apierr = 'Key ou token est non valid';
+        } else {
+            $content = $response->toArray();
+
+            foreach ($content as $k => $v) {
+                if ($k == 'shortUrl') {
+                    $var = $v;
+                }
+            }
+            $Projet = new Projet();
+            $Projet->setIdCollab($collab);
+            $Projet->setNomProjet($nom);
+            $Projet->setDescriptionProjet($desc);
+            $Projet->setUrlTrello($var);
+            $entityManager->persist($Projet);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_salle_collab', [
+            'collabn' => $collab->getnomCollab(),
+            'erreur' => $apierr,
         ]);
     }
 }
