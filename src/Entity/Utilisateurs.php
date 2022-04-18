@@ -128,6 +128,8 @@ class Utilisateurs implements UserInterface
 
     public $mdpconfirm;
 
+    public $oldmdp;
+
     /**
      * @var string
      *
