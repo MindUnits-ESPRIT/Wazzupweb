@@ -2,18 +2,21 @@
 
 namespace App\Controller;
 
-use App\Entity\Utilisateurs;
-use App\Entity\SalleCollaboration;
 use App\Entity\Projet;
+use App\Entity\Utilisateurs;
+use App\Entity\CollabMembers;
+use App\Entity\SalleCollaboration;
+use App\Repository\ProjetRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\SalleCollabRepository;
-use App\Repository\CollabMembersRepository;
 use App\Repository\UtilisateursRepository;
+use App\Repository\CollabMembersRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpClient\HttpClient;
 
 class SalleCollabController extends AbstractController
 {
@@ -39,7 +42,9 @@ class SalleCollabController extends AbstractController
         $Projet = $this->getDoctrine()
             ->getRepository(Projet::class)
             ->findOneBy(['idCollab' => $collab]);
-
+        $idc = $collab->getIdCollab();
+        $Notusers = $s->showCollabNotUsers($idc);
+        $cunter = 1;
         $users = $s->showCollabUsers($collab->getIdCollab());
         return $this->render('salle_collab/index.html.twig', [
             'controller_name' => 'SalleCollabController',
@@ -51,6 +56,9 @@ class SalleCollabController extends AbstractController
             'role' => $user->getTypeUser(),
             'picture' => $user->getAvatar(),
             'user' => $user,
+            'notUsers' => $Notusers,
+            'projet' => $Projet,
+            'userCunt' => $cunter,
         ]);
     }
     /**
@@ -62,13 +70,14 @@ class SalleCollabController extends AbstractController
         EntityManagerInterface $entityManager,
         CollabMembersRepository $s
     ) {
-        $u = $s->findBy([
+        $u = $s->findOneBy([
             'id_collab' => $idu,
             'ID_Utlisateur' => $id,
-        ])[0];
-
-        $entityManager->remove($u);
-        $entityManager->flush();
+        ]);
+        if ($u) {
+            $entityManager->remove($u);
+            $entityManager->flush();
+        }
         $collab = $this->getDoctrine()
             ->getRepository(SalleCollaboration::class)
             ->find($idu);
@@ -76,6 +85,34 @@ class SalleCollabController extends AbstractController
             'collabn' => $collab->getnomCollab(),
         ]);
     }
+
+    /**
+     * @Route("/addU{idu},{idc},", name="addU")
+     */
+    public function addU(
+        $idu,
+        $idc,
+        EntityManagerInterface $entityManager,
+        CollabMembersRepository $s,
+        UtilisateursRepository $u
+    ) {
+        $collab = $this->getDoctrine()
+            ->getRepository(SalleCollaboration::class)
+            ->find($idc);
+        $user = $this->getDoctrine()
+            ->getRepository(Utilisateurs::class)
+            ->find($idu);
+        $collab_member = new CollabMembers();
+        $collab_member->setid_collab($collab->getIdCollab());
+        $collab_member->setIdUtilisateur($user->getIdUtilisateur());
+        $entityManager->persist($collab_member);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_salle_collab', [
+            'collabn' => $collab->getnomCollab(),
+        ]);
+    }
+
     /**
      * @Route("/Quitter/{id},{idu}", name="Quitter")
      */
@@ -97,6 +134,64 @@ class SalleCollabController extends AbstractController
             ->find($idu);
         return $this->redirectToRoute('app_list_collab', [
             'collabn' => $collab->getnomCollab(),
+        ]);
+    }
+
+    /**
+     * @Route("/createP{nom},{desc},{key},{token},{cid}", name="createP")
+     */
+    public function createP(
+        $nom,
+        $desc,
+        $key,
+        $token,
+        $cid,
+        EntityManagerInterface $entityManager,
+        CollabMembersRepository $s,
+        UtilisateursRepository $u,
+        ProjetRepository $p
+    ) {
+        $collab = $this->getDoctrine()
+            ->getRepository(SalleCollaboration::class)
+            ->find($cid);
+
+        $client = HttpClient::create();
+        $response = $client->request(
+            'POST',
+            'https://api.trello.com/1/boards/',
+            [
+                // these values are automatically encoded before including them in the URL
+                'query' => [
+                    'name' => $nom,
+                    'key' => $key,
+                    'token' => $token,
+                ],
+            ]
+        );
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode == 401) {
+            $apierr = 'Key ou token est non valid';
+        } else {
+            $content = $response->toArray();
+
+            foreach ($content as $k => $v) {
+                if ($k == 'shortUrl') {
+                    $var = $v;
+                }
+            }
+            $Projet = new Projet();
+            $Projet->setIdCollab($collab);
+            $Projet->setNomProjet($nom);
+            $Projet->setDescriptionProjet($desc);
+            $Projet->setUrlTrello($var);
+            $entityManager->persist($Projet);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_salle_collab', [
+            'collabn' => $collab->getnomCollab(),
+            'erreur' => $apierr,
         ]);
     }
 }
