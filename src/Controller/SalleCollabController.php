@@ -147,8 +147,7 @@ class SalleCollabController extends AbstractController
         $cid,
         EntityManagerInterface $entityManager,
         CollabMembersRepository $s,
-        UtilisateursRepository $u,
-        ProjetRepository $p
+        UtilisateursRepository $u
     ) {
         $collab = $this->getDoctrine()
             ->getRepository(SalleCollaboration::class)
@@ -168,7 +167,7 @@ class SalleCollabController extends AbstractController
             ]
         );
         $statusCode = $response->getStatusCode();
-
+        $apierr = '';
         if ($statusCode == 401) {
             $apierr = 'Key ou token est non valid';
         } else {
