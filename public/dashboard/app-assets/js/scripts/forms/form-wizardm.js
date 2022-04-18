@@ -133,7 +133,10 @@ $(function () {
       .on('click', function () {
         var isValid = $(this).parent().siblings('form').valid();
         if (isValid) {
-          alert('Submitted..!!');
+
+        }
+        else {
+          e.preventDefault();
         }
       });
   }

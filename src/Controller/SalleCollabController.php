@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\SalleCollabRepository;
 use App\Repository\UtilisateursRepository;
 use App\Repository\CollabMembersRepository;
+use App\Repository\ProjetRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -80,6 +81,30 @@ class SalleCollabController extends AbstractController
         $collab = $this->getDoctrine()
             ->getRepository(SalleCollaboration::class)
             ->find($idu);
+        return $this->redirectToRoute('app_salle_collab', [
+            'collabn' => $collab->getnomCollab(),
+        ]);
+    }
+
+    /**
+     * @Route("/delP/{id},{cid}", name="delP")
+     */
+    public function delP(
+        $id,
+        $cid,
+        EntityManagerInterface $entityManager,
+        ProjetRepository $s
+    ) {
+        $u = $s->findOneBy([
+            'idProjet' => $id,
+        ]);
+        if ($u) {
+            $entityManager->remove($u);
+            $entityManager->flush();
+        }
+        $collab = $this->getDoctrine()
+            ->getRepository(SalleCollaboration::class)
+            ->find($cid);
         return $this->redirectToRoute('app_salle_collab', [
             'collabn' => $collab->getnomCollab(),
         ]);
@@ -167,6 +192,8 @@ class SalleCollabController extends AbstractController
             ]
         );
         $statusCode = $response->getStatusCode();
+        /*  $content = $response->toArray();
+         $content = $response->getContent(); */
         $apierr = '';
         if ($statusCode == 401) {
             $apierr = 'Key ou token est non valid';

@@ -50,6 +50,7 @@
 
 	</head>
 {% endblock %}
+
 {% include 'home/header.html.twig' %}
 {% include 'home/sidebar.html.twig' %}
 {% block body %}
@@ -86,7 +87,7 @@
 								<h4 class="card-title">Liste des membres</h4>
 								<i data-feather="more-vertical" class="font-medium-3 cursor-pointer"></i>
 							</div>
-							<div style="overflow-y : auto; height:430;background:none">
+							<div style="overflow-y : auto; height:450;background:none">
 								<div class="card-body">
 
 
@@ -126,7 +127,9 @@
 								</div>
 							</div>
 							{% if collab.getIdUtilisateur() == user  %}
-								<a href="" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-task-modal">Ajouter</a>
+								{% if notUsers|length > 0 %}
+									<a href="" class="btn btn-outline-primary" data-toggle="modal" data-target="#new-task-modal">Ajouter</a>
+								{% endif %}
 							{% else %}
 
 								<a href="{{ path('Quitter',{'id':user.getIdUtilisateur() ,'idu':collab.getIdCollab()}) }}" class="btn btn-outline-danger">Quitter</a>
@@ -179,6 +182,7 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 }
 }
 										</script>
+
 									</div>
 
 								</form>
@@ -346,48 +350,89 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 								<div class="card-body">
 									<div class="meetup-header d-flex align-items-center">
 										<div class="meetup-day">
-											<h6 class="mb-0">THU</h6>
-											<h3 class="mb-0">24</h3>
+											<h6 class="mb-0">{{ "now"|date("F") }}</h6>
+											<h3 class="mb-0">{{ "now"|date(" jS ") }}</h3>
 										</div>
 										<div class="my-auto">
-											<h4 class="card-title mb-25">Developer Meetup</h4>
-											<p class="card-text mb-0">Meet world popular developers</p>
+											<h4 class="card-title mb-25">{{projet.getNomProjet()}}</h4>
+											<p class="card-text mb-0">Votre Projet trello
+											</p>
 										</div>
 									</div>
 									<div class="media">
 										<div class="avatar bg-light-primary rounded mr-1">
 											<div class="avatar-content">
-												<i data-feather="calendar" class="avatar-icon font-medium-3"></i>
+												<i data-feather="file-text" class="avatar-icon font-medium-3"></i>
 											</div>
 										</div>
 										<div class="media-body">
-											<h6 class="mb-0">Sat, May 25, 2020</h6>
-											<small>10:AM to 6:PM</small>
+											<h6 class="mb-0">Description</h6>
+											<small>{{projet.getDescriptionProjet()}}</small>
 										</div>
 									</div>
 									<div class="media">
 										<div class="avatar bg-light-primary rounded mr-1">
 											<div class="avatar-content">
-												<i data-feather="map-pin" class="avatar-icon font-medium-3"></i>
+												<i data-feather="link" class="avatar-icon font-medium-3"></i>
 											</div>
 										</div>
 										<div class="media-body">
-											<h6 class="mb-0">Central Park</h6>
-											<small>Manhattan, New york City</small>
+
+											<h6 class="mb-0">Votre lien trello</h6>
+											<small>
+												<a href="{{projet.getUrlTrello()}}">{{projet.getUrlTrello()}}</a>
+											</small>
 										</div>
 									</div>
 									<div class="avatar-group">
 										{% for m in users %}
-											<div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="{{m.getPrenom()}}{% set pi =" "%}{{pi}} {{m.getNom()}}" class="avatar pull-up">
-												<img src="{{m.getAvatar()}}" alt="Avatar" width="33" height="33"/>
-											</div>
+											{% if userCunt <6%}
+												<div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="{{m.getPrenom()}}{% set pi =" "%}{{pi}} {{m.getNom()}}" class="avatar pull-up">
+													<img src="{{m.getAvatar()}}" alt="Avatar" width="33" height="33"/>
+												</div>
+											{% endif %}
+											{% set userCunt = userCunt + 1%}
 										{% endfor %}
+										{% if  userCunt - 6 <= 0 %}
+											{% else %}
+												<h6 class="align-self-center cursor-pointer ml-50 mb-0">+{% set userCunt = userCunt - 6%}{{userCunt}}</h6>
+										{% endif %}
+									</div>
+								</div>
+								<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#xSmall">
+									Supprimer
+								</button>
+							</div>
+						</div>
+						<!--/ Developer Meetup Card -->
 
+
+						<!-- Modal -->
+						<div class="modal fade modal-danger text-left" id="xSmall" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="myModalLabel120">Attention</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										cette action est irréversible procéder avec prudence
+									</div>
+									<div class="modal-footer">
+										<a href="{{ path('delP',{'id':projet.getIdProjet(),'cid':collab.getIdCollab()}) }}" class="btn btn-danger">
+											Accept
+										</a>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!--/ Developer Meetup Card -->
+					</div>
+
+					<div class="d-inline-block">
+
+
 					{% else %}
 						<!-- Developer Meetup Card -->
 						<div class="col-lg-3 col-md-6 col-12">
@@ -425,8 +470,8 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 										</div>
 										<div class="media-body">
 
-											<h6 class="mb-0">Central Park</h6>
-											<small>Manhattan, New york City</small>
+
+											<div id="loc"></div>
 										</div>
 									</div>
 									<div class="avatar-group">
@@ -535,7 +580,7 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 																<label class="form-label" for="first-name">
 																	<a href="https://trello.com/1/authorize?expiration=never&scope=read,write,account&response_type=token&name=Server%20Token&key=e0efb3bcbe6f5dbf936f8c2e883a9580">Trello Token</label>
 																</a>
-																<input type="text" name="first-name" id="token" class="form-control" placeholder="2a89c09006d3976b9bf7270130220a2af827e5fb1170cca94c0520b08ba08f8c"/>
+																<input type="text" name="landmark" id="token" class="form-control" placeholder="2a89c09006d3976b9bf7270130220a2af827e5fb1170cca94c0520b08ba08f8c"/>
 															</div>
 															<div class="form-group col-md-6">
 
@@ -544,7 +589,7 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 																	<a href="https://trello.com/app-key/">Trello Key</a>
 																</label>
 
-																<input type="text" name="last-name" id="key" class="form-control" placeholder="e0efb3bcbe6f5dbf936f8c2e883a9580"/>
+																<input type="text" name="address" id="key" class="form-control" placeholder="e0efb3bcbe6f5dbf936f8c2e883a9580"/>
 															</div>
 														</div>
 
@@ -555,15 +600,18 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 															<span class="align-middle d-sm-inline-block d-none">Previous</span>
 														</button>
 
-														<button class="btn btn-success " onclick="create()">Créer</button>
+														<button class="btn btn-success btn-submit" onclick="create()">Créer</button>
 														<script>
 															function create() {
 var key = document.getElementById('key').value;
 var token = document.getElementById('token').value;
 var nom = document.getElementById('nom').value;
 var desc = document.getElementById('desc').value;
+
 var cid = '{{ collab.getIdCollab() }}'
+if (token == "" || key == "") {} else {
 location.href = "{{ path('createP',{'nom':'val','desc':'vall','key':'valll','token':'vallll','cid':'valllll'}) }}".replace('val', nom).replace('vall', desc).replace('valll', key).replace('vallll', token).replace('valllll', cid);
+}
 }
 														</script>
 													</div>
