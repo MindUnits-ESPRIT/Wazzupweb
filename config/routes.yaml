@@ -4,3 +4,4 @@
 notfound:
     path: /404
     controller: App\Controller\ErrorpageController::index
+    

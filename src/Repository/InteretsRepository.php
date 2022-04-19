@@ -3,10 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Interets;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
+use App\Entity\Utilisateurs;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Interets|null find($id, $lockMode = null, $lockVersion = null)
@@ -45,6 +47,18 @@ class InteretsRepository extends ServiceEntityRepository
         }
     }
 
+    public function ListInterets(int $id)
+    {
+        $q = $this->createQueryBuilder('i')
+        ->innerJoin('App\Entity\Utilisateurs', 'u', Join::WITH,  'i.ID_Utilisateur	 = u.ID_Utilisateur	')
+        ->where('i.ID_Utlisateur = :id')
+        ->groupBy('u.ID_Utilisateur')
+        ->setParameter('id', $id);  
+    return ($q->getQuery()->getResult());       
+    }
+}
+
+
     // /**
     //  * @return Interets[] Returns an array of Interets objects
     //  */
@@ -73,4 +87,4 @@ class InteretsRepository extends ServiceEntityRepository
         ;
     }
     */
-}
+
