@@ -87,7 +87,7 @@
 								<h4 class="card-title">Liste des membres</h4>
 								<i data-feather="more-vertical" class="font-medium-3 cursor-pointer"></i>
 							</div>
-							<div style="overflow-y : auto; height:450;background:none">
+							<div style="overflow-y : auto; height:430;background:none">
 								<div class="card-body">
 
 
@@ -125,6 +125,7 @@
 									{% endfor %}
 
 								</div>
+
 							</div>
 							{% if collab.getIdUtilisateur() == user  %}
 								{% if notUsers|length > 0 %}
@@ -137,13 +138,14 @@
 
 							{% endif  %}
 						</div>
+
 					</div>
 					<!--/ Employee Task Card -->
 
 
 					<!-- Right Sidebar starts -->
 					<div class="modal modal-slide-in sidebar-todo-modal fade" id="new-task-modal">
-						<div class="modal-dialog sidebar-sm">
+						<div class="modal-dialog sidebar-sm" style="margin-right:-0.5%">
 							<div class="modal-content p-0">
 								<form id="form-modal-todo" class="todo-modal needs-validation" novalidate onsubmit="return false">
 									<div class="modal-header align-items-center mb-1">
@@ -162,7 +164,7 @@
 										<img src="{{ asset('collab/addU.png') }}" style="min-height:18%;min-width:130%;margin-left:-12%;max-height:18%;max-width:130%;height:30%;margin-top:5%" alt="Logo">
 										<select class="select2 form-control" id="task-assigned" name="task-assigned">
 											{% for n in notUsers %}
-												<option data-img="{{n.getAvatar()}}" value="{{n.getIdUtilisateur()}}" selected>
+												<option data-img="{{n.getAvatar()}}" value="{{n.getIdUtilisateur()}}">
 													{{n.getPrenom()}}{% set pi = " " %}{{pi}}{{n.getNom()}}
 												</option>
 											{% endfor %}
@@ -458,8 +460,8 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 											</div>
 										</div>
 										<div class="media-body">
-											<h6 class="mb-0">Sat, May 25, 2020</h6>
-											<small>10:AM to 6:PM</small>
+											<h6 class="mb-0" id="date"></h6>
+											<small id="time">10:AM to 6:PM</small>
 										</div>
 									</div>
 									<div class="media">
@@ -469,10 +471,23 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 											</div>
 										</div>
 										<div class="media-body">
+											<h6 class="mb-0">{{ country }}</h6>
+											<small>{{ regionName }}</small>
 
 
-											<div id="loc"></div>
 										</div>
+										<script>
+
+											setInterval(function () {
+var today = new Date();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+document.getElementById('time').innerHTML = time;
+}, 100);
+var today2 = new Date();
+document.getElementById('date').innerHTML = today2.toDateString();
+										</script>
+
+
 									</div>
 									<div class="avatar-group">
 										{% for m in users %}

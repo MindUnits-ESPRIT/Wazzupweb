@@ -29,6 +29,33 @@ class SalleCollabController extends AbstractController
         UtilisateursRepository $s,
         Request $req
     ): Response {
+        $client = HttpClient::create();
+        $response = $client->request(
+            'GET',
+            'https://ip-geolocation-saifitools.p.rapidapi.com/geo',
+            [
+                // these values are automatically encoded before including them in the URL
+                'headers' => [
+                    'X-RapidAPI-Host' =>
+                        'ip-geolocation-saifitools.p.rapidapi.com',
+                    'X-RapidAPI-Key' =>
+                        '219e7ed17cmsh763d3d5b14453f2p146e44jsnb9dcbbef176c',
+                ],
+            ]
+        );
+        $regionName = '';
+        $country = '';
+        $statusCode = $response->getStatusCode();
+        $content = $response->toArray();
+        foreach ($content as $k => $v) {
+            if ($k == 'country') {
+                $country = $v;
+            }
+            if ($k == 'regionName') {
+                $regionName = $v;
+            }
+        }
+
         $user1 = $session->get('userdata');
         $collab = new SalleCollaboration();
         $user = $this->getDoctrine()
@@ -59,6 +86,8 @@ class SalleCollabController extends AbstractController
             'notUsers' => $Notusers,
             'projet' => $Projet,
             'userCunt' => $cunter,
+            'regionName' => $regionName,
+            'country' => $country,
         ]);
     }
     /**

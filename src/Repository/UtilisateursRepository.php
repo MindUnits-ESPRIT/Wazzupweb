@@ -60,6 +60,7 @@ class UtilisateursRepository extends ServiceEntityRepository
                 'g.idUtilisateur = s.ID_Utlisateur'
             )
             ->where('s.id_collab = :id')
+            ->orderBy('g.prenom', 'ASC')
             ->setParameter('id', $id);
         return $q->getQuery()->getResult();
     }
@@ -85,6 +86,7 @@ class UtilisateursRepository extends ServiceEntityRepository
         // Récupération de tous sauf les lus
         $qb = $this->createQueryBuilder('f')
             ->where('f.idUtilisateur NOT IN (' . $q->getDQL() . ')')
+            ->orderBy('f.prenom', 'ASC')
             ->setParameter('id', $idc);
         return $qb->getQuery()->getResult();
     }
