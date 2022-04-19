@@ -1,6 +1,12 @@
 {
+    "bacon/bacon-qr-code": {
+        "version": "2.0.7"
+    },
     "cloudinary/cloudinary_php": {
         "version": "2.6.1"
+    },
+    "dasprid/enum": {
+        "version": "1.0.3"
     },
     "doctrine/annotations": {
         "version": "1.13",
@@ -85,6 +91,15 @@
     "egulias/email-validator": {
         "version": "3.1.2"
     },
+    "endroid/installer": {
+        "version": "1.4.0"
+    },
+    "endroid/qr-code": {
+        "version": "4.4.8"
+    },
+    "endroid/qr-code-bundle": {
+        "version": "4.0.7"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.7"
     },
@@ -100,7 +115,6 @@
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
-   
     "monolog/monolog": {
         "version": "1.27.0"
     },
