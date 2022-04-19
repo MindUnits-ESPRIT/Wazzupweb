@@ -122,8 +122,11 @@
                                                 <!-- upload and reset button -->
                                                 <div class="media-body mt-75 ml-1">
                                                     <label for="account-upload" class="btn btn-sm btn-primary mb-75 mr-75">Upload</label>
-                                                    <input type="file" id="account-upload" hidden accept="image/*" />
+                                                    <input type="file" id="account-upload" hidden accept=".png" />
                                                     <button class="btn btn-sm btn-outline-secondary mb-75">Reset</button>
+                                                   <form method="POST" action="{{path('upload_img')}}">
+                                                    <input id="imageurl" name="imageurl" value="" hidden>
+                                                    </form>
                                                     <p>JPG, GIF ou PNG autorisés. Taille maximale de 800 Ko</p>
                                                 </div>
                                                 <!--/ upload and reset button -->
@@ -136,24 +139,24 @@
                                                     <div class="col-12 col-sm-6">
                                                         <div class="form-group">
                                                             <label for="account-username">Prenom</label>
-					                               {{form_widget(edit_form.prenom,{'attr':{'class':'form-control','placeholder':'Votre prenom'}})}}
+					                               {{form_widget(general_form.prenom,{'attr':{'class':'form-control','placeholder':'Votre prenom'}})}}
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-sm-6">
                                                         <div class="form-group">
                                                              <label for="account-name">Nom</label>
-					                               {{form_widget(edit_form.nom,{'attr':{'class':'form-control','placeholder':'Votre nom'}})}}
+					                               {{form_widget(general_form.nom,{'attr':{'class':'form-control','placeholder':'Votre nom'}})}}
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-sm-6">
                                                         <div class="form-group">
                                                             <label for="account-e-mail">E-mail</label>
-                                                        {{form_widget(edit_form.email,{'attr':{'class':'form-control','placeholder':'Votre email'}})}}                                                        </div>
+                                                        {{form_widget(general_form.email,{'attr':{'class':'form-control','placeholder':'Votre email'}})}}                                                        </div>
                                                     </div>
                                                     <div class="col-12 col-sm-6">
                                                         <div class="form-group">
-                                                            <label for="account-company">Company</label>
-                                                            <input type="text" class="form-control" id="account-company" name="company" placeholder="Company name" value="Crystal Technologies" />
+                                                            <label for="account-company">Date de naissance</label>
+				                               {{form_widget(general_form.datenaissance,{'attr': {'class': 'datepicker form-control'}})}}
                                                         </div>
                                                     </div>
                                                     {# <div class="col-12 mt-75">
@@ -165,7 +168,7 @@
                                                         </div>
                                                     </div> #}
                                                     <div class="col-12">
-                                                        <button type="submit" class="btn btn-primary mt-2 mr-1">Save changes</button>
+                                                        {{ form_widget(general_form.Submit1, { 'label': 'Sauvgarder', 'attr':{'class':'btn btn-primary mt-2 mr-1'} }) }}
                                                         <button type="reset" class="btn btn-outline-secondary mt-2">Cancel</button>
                                                     </div>
                                                 </div>
@@ -183,7 +186,7 @@
                                                         <div class="form-group">
                                                             <label for="account-old-password">Ancien mot de passe</label>
                                                             <div class="input-group form-password-toggle input-group-merge">
-					                                      {{form_widget(edit_form.oldmdp,{'attr':{'class':'form-control'}})}}
+					                                      {{form_widget(pwd_form.oldmdp,{'attr':{'class':'form-control'}})}}
                                                                 <div class="input-group-append">
                                                                     <div class="input-group-text cursor-pointer">
                                                                         <i data-feather="eye"></i>
@@ -198,7 +201,7 @@
                                                         <div class="form-group">
                                                             <label for="account-new-password">Nouveau mot de passe</label>
                                                             <div class="input-group form-password-toggle input-group-merge">
-					                                      {{form_widget(edit_form.mdp,{'attr':{'class':'form-control'}})}}
+					                                      {{form_widget(pwd_form.mdp,{'attr':{'class':'form-control'}})}}
                                                                 <div class="input-group-append">
                                                                     <div class="input-group-text cursor-pointer">
                                                                         <i data-feather="eye"></i>
@@ -211,7 +214,7 @@
                                                         <div class="form-group">
                                                             <label for="account-retype-new-password">Confirmation</label>
                                                             <div class="input-group form-password-toggle input-group-merge">
-					                                      {{form_widget(edit_form.mdpconfirm,{'attr':{'class':'form-control'}})}}
+					                                      {{form_widget(pwd_form.mdpconfirm,{'attr':{'class':'form-control'}})}}
                                                                 <div class="input-group-append">
                                                                     <div class="input-group-text cursor-pointer"><i data-feather="eye"></i></div>
                                                                 </div>
@@ -219,7 +222,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
-                                                        <button type="submit" class="btn btn-primary mr-1 mt-1">Save changes</button>
+                                                        {{ form_widget(pwd_form.Submit2, { 'label': 'Sauvgarder', 'attr':{'class':'btn btn-primary mt-2 mr-1'} }) }}
                                                         <button type="reset" class="btn btn-outline-secondary mt-1">Cancel</button>
                                                     </div>
                                                 </div>
@@ -406,6 +409,8 @@
     <script src="{{asset('dashboard/app-assets/js/scripts/pages/page-account-settings.js')}}"></script>
     
     <script src="{{asset('dashboard/app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
+   
+   </script>
         <script src="{{asset('dashboard/app-assets/js/scripts/forms/form-select2.js')}}"></script>
     <!-- END: Page JS-->
 		<script>

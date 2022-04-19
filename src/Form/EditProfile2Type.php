@@ -12,23 +12,16 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class EditProfileType extends AbstractType
+class EditProfileType2 extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
-            ->add('prenom')
-            ->add('email')
-            ->add('datenaissance', DateType::class, array(
-                'required' => true,
-                'widget' => 'single_text',
-                'label' => 'Date of Birth',
-                'attr' => ['class' => 'form-control input-inline datetimepicker'],
-            ))
-            ->add('Submit1',SubmitType::class)
-
-
+            ->add('numTel',TelType::class)
+            ->add('oldmdp',PasswordType::class)
+            ->add('mdp',PasswordType::class)
+            ->add('mdpconfirm',PasswordType::class)
+            ->add('Submit2',SubmitType::class)
         ;
     }
 
