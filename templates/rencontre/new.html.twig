@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel Rencontre{% endblock %}
+
+{% block body %}
+ <center><h1 style="font-family: cursive;">Création d'une nouvelle Rencontre</h1></center>
+ <br>
+<center>
+    {{ include('rencontre/_form.html.twig') }}
+</center>
+{% endblock %}

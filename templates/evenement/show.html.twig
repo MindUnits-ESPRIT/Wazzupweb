@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evenement{% endblock %}
+
+{% block body %}
+
+    <center>
+    <h1 style="font-family: cursive;">Evénement</h1>
+    </center>
+    <table class="table" style="font-family: cursive;">
+        <tbody>
+            <tr>
+                <th>Nom événement</th>
+                <td>{{ evenement.nomEvent }}</td>
+            </tr>
+            <tr>
+                <th>Nombre participants</th>
+                <td>{{ evenement.nbrParticipants }}</td>
+            </tr>
+            <tr>
+                <th>Date événement</th>
+                <td>{{ evenement.dateEvent }}</td>
+            </tr>
+            <tr>
+                <th>Type événement</th>
+                <td>{{ evenement.typeEvent }}</td>
+            </tr>
+            <tr>
+                <th>Visibilité</th>
+                <td>{{ evenement.eventVisibilite }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ evenement.description }}</td>
+            </tr>
+            <tr>
+                <th>Date création</th>
+                <td>{{ evenement.dateP ? evenement.dateP|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+<table border="0">
+    <tr>
+        <td>
+            <div style="margin-left: 434px;">
+    <a href="{{ path('app_evenement_index',{'user':evenement.idUtilisateur.idUtilisateur})}}"class="btn btn-outline-primary" style="font-family: cursive;">Retour</a>
+            </div>
+        </td>
+
+        <td>
+    <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}"class="btn btn-secondary" style="font-family: cursive;">Modifier</a>
+    {{ include('evenement/_delete_form.html.twig') }}
+        </td>
+    </tr>
+</table>
+{% endblock %}

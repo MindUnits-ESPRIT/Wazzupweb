@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Evenement{% endblock %}
+
+{% block body %}
+    <center><h1 style="font-family: cursive;">Modifier Evenement</h1></center>
+
+    {{ include('evenement/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    <div style="margin-top: -38px;">
+<table border="0">
+<tr>
+    <td>
+<a href="{{ path('app_evenement_index',{'user': user}) }} "class="btn btn-outline-primary" style="font-family: cursive;
+margin-left: -392px;">Retour</a>
+    {# remplacer user par app.user.id #}
+    </td>
+    <td>
+        <div style="margin-left: 222px;">
+        {{ include('evenement/_delete_form.html.twig') }}
+        </div>
+    </td>
+</tr>
+</table>
+</div>
+</center>
+</div>
+{% endblock %}
