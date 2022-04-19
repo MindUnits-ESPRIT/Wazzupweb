@@ -12,12 +12,13 @@ use App\Repository\UtilisateursRepository;
 use App\Repository\CollabMembersRepository;
 use App\Repository\ProjetRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Message;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\HttpClient;
-
+use Endroid\QrCode\Builder\BuilderInterface;
 class SalleCollabController extends AbstractController
 {
     /**
@@ -27,10 +28,15 @@ class SalleCollabController extends AbstractController
         $collabn,
         SessionInterface $session,
         UtilisateursRepository $s,
-        Request $req
+        Request $req,
+        BuilderInterface $customQrCodeBuilder
     ): Response {
         $client = HttpClient::create();
-        $response = $client->request(
+        $regionName = '';
+        $country = '';
+        $flag = '';
+        //api lkdim
+        /*          $response = $client->request(
             'GET',
             'https://ip-geolocation-saifitools.p.rapidapi.com/geo',
             [
@@ -43,11 +49,7 @@ class SalleCollabController extends AbstractController
                 ],
             ]
         );
-        $regionName = '';
-        $country = '';
-        $statusCode = $response->getStatusCode();
-        $content = $response->toArray();
-        foreach ($content as $k => $v) {
+ foreach ($content as $k => $v) {
             if ($k == 'country') {
                 $country = $v;
             }
@@ -55,6 +57,28 @@ class SalleCollabController extends AbstractController
                 $regionName = $v;
             }
         }
+ */
+
+        //api el jdid
+        /*    $response = $client->request(
+            'GET',
+            'https://ip-geo-location.p.rapidapi.com/ip/check',
+            [
+                // these values are automatically encoded before including them in the URL
+                'headers' => [
+                    'X-RapidAPI-Host' => 'ip-geo-location.p.rapidapi.com',
+                    'X-RapidAPI-Key' =>
+                        '9a6b4bf20emshae5bd479784ca42p166566jsn7cc364986d30',
+                ],
+            ]
+        );
+
+          $statusCode = $response->getStatusCode();
+        $content = $response->toArray();
+        $country = $content['country']['name'];
+        $flag = $content['country']['flag']['file'];
+
+        $regionName = $content['area']['name']; */
 
         $user1 = $session->get('userdata');
         $collab = new SalleCollaboration();
@@ -88,6 +112,7 @@ class SalleCollabController extends AbstractController
             'userCunt' => $cunter,
             'regionName' => $regionName,
             'country' => $country,
+            'flag' => $flag,
         ]);
     }
     /**
