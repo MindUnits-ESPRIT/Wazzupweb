@@ -23,36 +23,11 @@ $(function () {
       var reader = new FileReader(),
         files = e.target.files;
       reader.onload = function () {
-      
       var url=reader.result
-      document.getElementById('imageurl').setAttribute('value',url);
-      
-    
-      // url=url.replaceAll('/', '&U+002347;');
-      // console.log(url.replaceAll('/', '&U+002347;'));
-
-
+      document.getElementById('edit_profile_avatar').setAttribute('value',url);
   
-
-
-    //   if (url){
-    //     $.ajax({
-    //       method: "POST",
-    //       url: "{{ path('upload_img') }}",
-    //       data: {url: url},
-    //       success: function(){
-    //           alert("envoyé");   
-    //       }
-    //   });
-    // }
-    // imageurl.on('change', function (e) {
-    //      location.href="/edit/profile/upload"
-    //   }
-     if (url){
-        location.href="/edit/profile/upload"
-     }
+      }
       
-       
         if (accountUploadImg) {
           accountUploadImg.attr('src', reader.result);
         
@@ -62,6 +37,9 @@ $(function () {
    
     });
   }
+  
+   
+    
 
   // flatpickr init
   if (flat_picker.length) {

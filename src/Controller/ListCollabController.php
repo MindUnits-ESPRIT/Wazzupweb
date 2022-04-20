@@ -24,6 +24,9 @@ class ListCollabController extends AbstractController
         SessionInterface $session
     ): Response {
         $user1 = $session->get('userdata');
+        if($user1 == null){
+            return $this->redirectToRoute('app_auth');
+        }
 
         $cnt = 0;
         $cnt1 = 100;

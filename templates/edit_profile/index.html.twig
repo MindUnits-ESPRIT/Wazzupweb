@@ -120,13 +120,16 @@
                                                     <img src="{{picture}}" id="account-upload-img" class="rounded mr-50" alt="profile image" height="80" width="80" />
                                                 </a>
                                                 <!-- upload and reset button -->
+                                                {{ form_start(general_form,{attr:{'novalidate':'novalidate'}}) }}
                                                 <div class="media-body mt-75 ml-1">
                                                     <label for="account-upload" class="btn btn-sm btn-primary mb-75 mr-75">Upload</label>
                                                     <input type="file" id="account-upload" hidden accept=".png" />
-                                                    <button class="btn btn-sm btn-outline-secondary mb-75">Reset</button>
-                                                   <form method="POST" action="{{path('upload_img')}}">
-                                                    <input id="imageurl" name="imageurl" value="" hidden>
-                                                    </form>
+                                                    
+                                                
+                                           
+                                               {{form_widget(general_form.avatar,{'attr':{'class':'form-control','id':'imageurl','style':'display:none;'}})}}
+                                                     
+                                                
                                                     <p>JPG, GIF ou PNG autorisés. Taille maximale de 800 Ko</p>
                                                 </div>
                                                 <!--/ upload and reset button -->
@@ -134,29 +137,41 @@
                                             <!--/ header media -->
 
                                             <!-- form -->
-                                            <form class="validate-form mt-2">
+                                            {% for error in errors %}
+                                                    <li>{{ error.message }}</li>
+                                                {% endfor %}
                                                 <div class="row">
                                                     <div class="col-12 col-sm-6">
+                                                   
                                                         <div class="form-group">
                                                             <label for="account-username">Prenom</label>
-					                               {{form_widget(general_form.prenom,{'attr':{'class':'form-control','placeholder':'Votre prenom'}})}}
+					                               {{form_widget(general_form.prenom,{'attr':{'class':'form-control','placeholder':'Votre prenom','value':nom}})}}
                                                         </div>
+                                                         {% if form_errors(general_form.prenom) %}
+                                                        {{ form_errors(general_form.prenom) }}
+                                                        {% endif %}
                                                     </div>
                                                     <div class="col-12 col-sm-6">
                                                         <div class="form-group">
                                                              <label for="account-name">Nom</label>
-					                               {{form_widget(general_form.nom,{'attr':{'class':'form-control','placeholder':'Votre nom'}})}}
+					                               {{form_widget(general_form.nom,{'attr':{'class':'form-control','placeholder':'Votre nom','value':prenom}})}}
                                                         </div>
+                                                        {% if form_errors(general_form.nom) %}
+                                                        {{ form_errors(general_form.nom) }}
+                                                        {% endif %}
                                                     </div>
                                                     <div class="col-12 col-sm-6">
                                                         <div class="form-group">
                                                             <label for="account-e-mail">E-mail</label>
-                                                        {{form_widget(general_form.email,{'attr':{'class':'form-control','placeholder':'Votre email'}})}}                                                        </div>
+                                                        {{form_widget(general_form.email,{'attr':{'class':'form-control','placeholder':'Votre email','value':email}})}}                                                        </div>
                                                     </div>
+                                                        {% if form_errors(general_form.email) %}
+                                                        {{ form_errors(general_form.nom) }}
+                                                        {% endif %}
                                                     <div class="col-12 col-sm-6">
                                                         <div class="form-group">
-                                                            <label for="account-company">Date de naissance</label>
-				                               {{form_widget(general_form.datenaissance,{'attr': {'class': 'datepicker form-control'}})}}
+                                                            <label for="account-company">Numero de telephone</label>
+				                                    {{form_widget(general_form.numTel,{'attr': {'class': 'form-control','value':numtel}})}}
                                                         </div>
                                                     </div>
                                                     {# <div class="col-12 mt-75">
@@ -168,21 +183,26 @@
                                                         </div>
                                                     </div> #}
                                                     <div class="col-12">
-                                                        {{ form_widget(general_form.Submit1, { 'label': 'Sauvgarder', 'attr':{'class':'btn btn-primary mt-2 mr-1'} }) }}
+                                                        {{ form_widget(general_form.validate, { 'label': 'Sauvgarder', 'attr':{'class':'btn btn-primary mt-2 mr-1'} }) }}
                                                         <button type="reset" class="btn btn-outline-secondary mt-2">Cancel</button>
                                                     </div>
                                                 </div>
-                                            </form>
+                                            
+                                            {{form_end(general_form)}}
                                             <!--/ form -->
                                         </div>
                                         <!--/ general tab -->
 
                                         <!-- change password -->
+                                        
                                         <div class="tab-pane fade" id="account-vertical-password" role="tabpanel" aria-labelledby="account-pill-password" aria-expanded="false">
                                             <!-- form -->
-                                            <form class="validate-form">
+                                        {{ form_start(pwd_form,{attr:{'novalidate':'novalidate'}}) }}
                                                 <div class="row">
                                                     <div class="col-12 col-sm-6">
+                                                    {% if form_errors(pwd_form.oldmdp) %}
+				                                       {{ form_errors(pwd_form.oldmdp) }}
+				                                    {% endif %}
                                                         <div class="form-group">
                                                             <label for="account-old-password">Ancien mot de passe</label>
                                                             <div class="input-group form-password-toggle input-group-merge">
@@ -198,6 +218,9 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12 col-sm-6">
+                                                    {% if form_errors(pwd_form.mdp) %}
+				                                       {{ form_errors(pwd_form.mdp) }}
+				                                    {% endif %}
                                                         <div class="form-group">
                                                             <label for="account-new-password">Nouveau mot de passe</label>
                                                             <div class="input-group form-password-toggle input-group-merge">
@@ -211,6 +234,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-sm-6">
+                                                    {% if form_errors(pwd_form.mdpconfirm) %}
+				                                       {{ form_errors(pwd_form.mdpconfirm) }}
+				                                    {% endif %}
                                                         <div class="form-group">
                                                             <label for="account-retype-new-password">Confirmation</label>
                                                             <div class="input-group form-password-toggle input-group-merge">
@@ -226,7 +252,7 @@
                                                         <button type="reset" class="btn btn-outline-secondary mt-1">Cancel</button>
                                                     </div>
                                                 </div>
-                                            </form>
+                                            {{form_end(pwd_form)}}
                                             <!--/ form -->
                                         </div>
                                         <!--/ change password -->

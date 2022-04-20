@@ -24,6 +24,9 @@ class CollabController extends AbstractController
         SessionInterface $session
     ): Response {
         $user = $session->get('userdata');
+        if($user == null){
+            return $this->redirectToRoute('app_auth');
+        }
         $collab = new SalleCollaboration();
         $form = $this->createForm(CollabType::class, $collab);
 

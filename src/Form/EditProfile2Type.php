@@ -17,7 +17,6 @@ class EditProfileType2 extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('numTel',TelType::class)
             ->add('oldmdp',PasswordType::class)
             ->add('mdp',PasswordType::class)
             ->add('mdpconfirm',PasswordType::class)
@@ -29,6 +28,7 @@ class EditProfileType2 extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Utilisateurs::class,
+            'validation_groups' => ['Editprofile_pwd'],
         ]);
     }
 }

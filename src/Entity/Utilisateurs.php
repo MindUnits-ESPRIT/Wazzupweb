@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use Serializable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UtilisateursRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use App\Repository\UtilisateursRepository;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
+
 /**
  * Utilisateurs
  *
@@ -50,7 +52,7 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="nom", type="string", length=30)
      * @Assert\NotBlank(message="Veuillez insérer votre nom",
-    *     groups={"registration"},
+    *     groups={"registration","Editprofile_general"},
     * )
      */
     private $nom;
@@ -60,7 +62,7 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="prenom", type="string", length=30)
           * @Assert\NotBlank(message="Veuillez insérer votre Prenom",
-    *     groups={"registration"},
+    *     groups={"registration","Editprofile_general"},
     * )    */
     private $prenom;
 
@@ -95,10 +97,12 @@ class Utilisateurs implements UserInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=50, nullable=false)
-     * @Assert\NotBlank(message="Veuillez insérer votre email ")
+     * @Assert\NotBlank(message="Veuillez insérer votre email ",
+     *     groups={"registration","Editprofile_general"},
+     * )
      * @Assert\Email(
      *     message = "Votre email '{{ value }}' n'est pas un email valide.",
-     *     groups={"registration"},
+     *     groups={"registration","Editprofile_general"},
      * )
      */
     private $email;
@@ -115,15 +119,16 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="mdp", type="string", length=220, nullable=false)-
      * @Assert\NotBlank(message="Veuillez insérer votre mot de passe ",
-     *     groups={"registration"},)
-     * @Assert\NotCompromisedPassword(message="Veuillez choisir un mot de passe plus fort", groups={"registration"}))
-     * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*\d).{6,}$/i", message="Votre mot de passe doit comporter au moins 6 caractères et inclure au moins une lettre et un chiffre.", groups={"registration"})
-     * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe ne correspond pas a votre confirmation", groups={"registration"})
-     *
+     *     groups={"registration","Editprofile_pwd"},)
+     * @Assert\NotCompromisedPassword(message="Veuillez choisir un mot de passe plus fort", groups={"registration","Editprofile_pwd"}))
+     * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*\d).{6,}$/i", message="Votre mot de passe doit comporter au moins 6 caractères et inclure au moins une lettre et un chiffre.", groups={"registration","Editprofile_pwd"})
+     * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe ne correspond pas a votre confirmation", groups={"registration","Editprofile_pwd"})
+     * @SecurityAssert\UserPassword(message="Votre mot de passe actuel est invalide ! ", groups={"Editprofile_pwd"})
+     * 
      */
     private $mdp;
     /**
-     * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe doit etre le meme que le mot de passe saisie précedement",groups={"registration"})
+     * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe doit etre le meme que le mot de passe saisie précedement",groups={"registration","Editprofile_pwd"})
      */
 
     public $mdpconfirm;

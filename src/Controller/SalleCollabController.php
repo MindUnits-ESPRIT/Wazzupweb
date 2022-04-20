@@ -81,6 +81,9 @@ class SalleCollabController extends AbstractController
         $regionName = $content['area']['name']; */
 
         $user1 = $session->get('userdata');
+        if($user1 == null){
+            return $this->redirectToRoute('app_auth');
+        }
         $collab = new SalleCollaboration();
         $user = $this->getDoctrine()
             ->getRepository(Utilisateurs::class)
