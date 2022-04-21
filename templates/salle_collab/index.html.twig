@@ -228,7 +228,7 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 										<div class="chat chat-left">
 											<div class="chat-avatar">
 												<span class="avatar box-shadow-1 cursor-pointer">
-													<img src="{{user.getAvatar()}}" alt="avatar" height="36" width="36"/>
+													<img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="avatar" height="36" width="36"/>
 												</span>
 											</div>
 											<div class="chat-body">
@@ -322,35 +322,34 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 								<form class="chat-app-form" action="javascript:void(0);" onsubmit="enterChat();">
 									<div class="input-group input-group-merge mr-50 w-75 form-send-message">
 										<div class="input-group-prepend">
-											<a
-												onclick="trans();">
-												{# <script>
-																									async function trans(source) {
-												var message = $('.message').val();
-												var collabn = '{{ collab.getNomCollab() }}'
-												// location.href = "{{ path('trad',{'collabn':'val','msg':'vall'}) }}".replace('val', collabn).replace('vall', message);
-												const encodedParams = new URLSearchParams();
-												encodedParams.append("q", message);
-												encodedParams.append("target", "fr");
-												encodedParams.append("source", "en");
-												
-												const options = {
-												method: 'POST',
-												headers: {
-												'content-type': 'application/x-www-form-urlencoded',
-												'Accept-Encoding': 'application/gzip',
-												'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
-												'X-RapidAPI-Key': '9a6b4bf20emshae5bd479784ca42p166566jsn7cc364986d30'
-												},
-												body: encodedParams
-												};
-												
-												const res = await fetch('https://google-translate1.p.rapidapi.com/language/translate/v2', options);
-												const traduction = await res.json();
-												const rrr = traduction["data"]["translations"][0];
-												document.getElementById('mess').value = rrr["translatedText"];
-												}
-																								</script> #}
+											<a onclick="trans();">
+												<script>
+													async function trans(source) {
+var message = $('.message').val();
+var collabn = '{{ collab.getNomCollab() }}'
+
+const encodedParams = new URLSearchParams();
+encodedParams.append("q", message);
+encodedParams.append("target", "fr");
+encodedParams.append("source", "en");
+
+const options = {
+method: 'POST',
+headers: {
+'content-type': 'application/x-www-form-urlencoded',
+'Accept-Encoding': 'application/gzip',
+'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
+'X-RapidAPI-Key': '9a6b4bf20emshae5bd479784ca42p166566jsn7cc364986d30'
+},
+body: encodedParams
+};
+
+const res = await fetch('https://google-translate1.p.rapidapi.com/language/translate/v2', options);
+const traduction = await res.json();
+const rrr = traduction["data"]["translations"][0];
+document.getElementById('mess').value = rrr["translatedText"];
+}
+												</script>
 												<div style="margin-top:25%;">
 													<span class="d-none text-nowrap d-sm-block" style="color:blue">en->fr</span>
 												</div>
@@ -560,6 +559,8 @@ document.getElementById('date').innerHTML = today2.toDateString();
 								<i data-feather="camera" style="color:blue; margin-left:250%; margin-top:60%"></i>
 							</a>
 						</div>
+
+
 					</div>
 					<a href="" class="btn btn-outline-primary" data-toggle="modal" data-target="#large">Créer</a>
 

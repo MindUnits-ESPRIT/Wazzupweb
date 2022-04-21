@@ -60,7 +60,7 @@ class SalleCollabController extends AbstractController
  */
 
         //api el jdid
-        /*    $response = $client->request(
+        $response = $client->request(
             'GET',
             'https://ip-geo-location.p.rapidapi.com/ip/check',
             [
@@ -73,12 +73,12 @@ class SalleCollabController extends AbstractController
             ]
         );
 
-          $statusCode = $response->getStatusCode();
+        $statusCode = $response->getStatusCode();
         $content = $response->toArray();
         $country = $content['country']['name'];
         $flag = $content['country']['flag']['file'];
 
-        $regionName = $content['area']['name']; */
+        $regionName = $content['area']['name'];
 
         $user1 = $session->get('userdata');
         if($user1 == null){
@@ -131,6 +131,28 @@ class SalleCollabController extends AbstractController
             'id_collab' => $idu,
             'ID_Utlisateur' => $id,
         ]);
+        $user = $this->getDoctrine()
+            ->getRepository(Utilisateurs::class)
+            ->find($id);
+
+        $y = 0;
+        //cookies
+        $sujet = 'suppression terminée';
+        $ssujet =
+            'Vous avez retirer ' .
+            $user->getPrenom() .
+            ' ' .
+            $user->getNom() .
+            ' du votre collaboration';
+        $naame = $sujet . ',' . $ssujet . ',' . $user->getAvatar();
+        if (isset($_COOKIE['users'])) {
+            $i = count($_COOKIE['users']);
+            setcookie('users[' . $i . ']', $naame, time() + 3600, '/');
+        } else {
+            setcookie('users[' . $y . ']', $naame, time() + 3600, '/');
+        }
+        //cookies
+
         if ($u) {
             $entityManager->remove($u);
             $entityManager->flush();
@@ -155,6 +177,21 @@ class SalleCollabController extends AbstractController
         $u = $s->findOneBy([
             'idProjet' => $id,
         ]);
+        $y = 0;
+        $sujet = 'Suppression terminée';
+        $ssujet = 'Votre Projet ' . $u->getNomProjet() . ' est bien supprimer';
+        $naame =
+            $sujet .
+            ',' .
+            $ssujet .
+            ',' .
+            'https://res.cloudinary.com/dnnhnqiym/image/upload/v1650481316/wazzup_we8kld.png';
+        if (isset($_COOKIE['system'])) {
+            $i = count($_COOKIE['system']);
+            setcookie('system[' . $i . ']', $naame, time() + 3600, '/');
+        } else {
+            setcookie('system[' . $y . ']', $naame, time() + 3600, '/');
+        }
         if ($u) {
             $entityManager->remove($u);
             $entityManager->flush();
@@ -177,12 +214,32 @@ class SalleCollabController extends AbstractController
         CollabMembersRepository $s,
         UtilisateursRepository $u
     ) {
-        $collab = $this->getDoctrine()
-            ->getRepository(SalleCollaboration::class)
-            ->find($idc);
+        $y = 0;
         $user = $this->getDoctrine()
             ->getRepository(Utilisateurs::class)
             ->find($idu);
+
+        //cookies
+        $sujet = 'Ajout terminée';
+        $ssujet =
+            'Vous avez ajouter ' .
+            $user->getPrenom() .
+            ' ' .
+            $user->getNom() .
+            ' a votre collaboration';
+        $naame = $sujet . ',' . $ssujet . ',' . $user->getAvatar();
+        if (isset($_COOKIE['users'])) {
+            $i = count($_COOKIE['users']);
+            setcookie('users[' . $i . ']', $naame, time() + 3600, '/');
+        } else {
+            setcookie('users[' . $y . ']', $naame, time() + 3600, '/');
+        }
+        //cookies
+
+        $collab = $this->getDoctrine()
+            ->getRepository(SalleCollaboration::class)
+            ->find($idc);
+
         $collab_member = new CollabMembers();
         $collab_member->setid_collab($collab->getIdCollab());
         $collab_member->setIdUtilisateur($user->getIdUtilisateur());
@@ -262,6 +319,21 @@ class SalleCollabController extends AbstractController
                     $var = $v;
                 }
             }
+            $y = 0;
+            $sujet = 'Creation terminée';
+            $ssujet = 'Votre Projet ' . $nom . ' est bien crée';
+            $naame =
+                $sujet .
+                ',' .
+                $ssujet .
+                ',' .
+                'https://res.cloudinary.com/dnnhnqiym/image/upload/v1650481316/wazzup_we8kld.png';
+            if (isset($_COOKIE['system'])) {
+                $i = count($_COOKIE['system']);
+                setcookie('system[' . $i . ']', $naame, time() + 3600, '/');
+            } else {
+                setcookie('system[' . $y . ']', $naame, time() + 3600, '/');
+            }
             $Projet = new Projet();
             $Projet->setIdCollab($collab);
             $Projet->setNomProjet($nom);
@@ -275,5 +347,21 @@ class SalleCollabController extends AbstractController
             'collabn' => $collab->getnomCollab(),
             'erreur' => $apierr,
         ]);
+    }
+
+    /**
+     * @Route("/delall", name="delCookies")
+     */
+    public function delCookies(
+        Request $request,
+        EntityManagerInterface $entityManager
+    ) {
+        if (isset($_COOKIE['users'])) {
+            foreach ($_COOKIE['users'] as $name => $_val) {
+                setcookie('users[' . $name . ']', '', time() + 3600, '/');
+            }
+        }
+
+        return $this->redirectToRoute('app_list_collab');
     }
 }
