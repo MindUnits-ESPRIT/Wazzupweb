@@ -271,7 +271,7 @@
                                                     <!-- social header -->
                                                     <div class="col-12">
                                                         <div class="d-flex align-items-center mb-2">
-                                                            <i data-feather="link" class="font-medium-3"></i>
+                                                            <i data-feather="coffee" class="font-medium-3"></i>
                                                             <h4 class="mb-0 ml-75">Ajouter des interets</h4>
                                                         </div>
                                                     </div>
@@ -283,53 +283,10 @@
                                         <div class="col-md-6 mb-1">
                                             <label>Multiple</label>
                                             <select id="select_int" class="select2 form-control" multiple>
-                                                <optgroup label="Liste des interets">
-                                                    {% if ("Sport" not in interets|keys) %}
-                                                    <option value="Sport">Sport</option>
-                                                    {% endif %}
-                                                    {% if ("Voyage" not in interets|keys) %}
-                                                    <option value="Voyage">Voyage</option>
-                                                    {% endif %}
-                                                    <option value="Musique">Musique</option>
-                                                    <option value="Gaming">Gaming</option>
-                                                    <option value="Animaux">Animaux</option>
-                                                    <option value="Nature">Nature</option>
-                                                    <option value="Camping">Camping</option>
-                                                    <option value="Rencontres">Rencontres</option>
-                                                    <option value="Amour">Amour</option>
-                                                    <option value="Finance">Finance</option>
-                                                    <option value="Cryptomonnaie">Cryptomonnaie</option>
-                                                    <option value="Anime">Anime</option>
-                                                    <option value="Cartoons">Cartoons</option>
-                                                    <option value="Developpement">Developpement</option>
-                                                    <option value="Travaille">Travaille</option>
-                                                    <option value="Science">Science</option>
-                                                    <option value="Astronomie">Astronomie</option>
-                                                    <option value="Clubs sociaux">Clubs sociaux</option>
-                                                    <option value="Coiffure">Coiffure</option>
-                                                    <option value="Photographie">Photographie</option>
-                                                    <option value="Politique">Politique</option>
-                                                    <option value="Fashing">Fashing</option>
-                                                    <option value="Pêche">Pêche</option>
-                                                    <option value="Histoire">Histoire</option>
-                                                    <option value="Peinture">Peinture</option>
-                                                    <option value="Bricolage">Bricolage</option>
-                                                    <option value="Théâtre">Théâtre</option>
-                                                    <option value="Lecture">Lecture</option>
-                                                    <option value="Écriture">Écriture</option>
-                                                    <option value="Jardinage">Jardinage</option>
-                                                    <option value="Langues étrangères">Langues étrangères</option>
-                                                    <option value="Décoration">Décoration</option>
-                                                    <option value="Collections">Jardinage</option>
-                                                    <option value="Mecanique">Mecanique</option>
-                                                    <option value="Voiture">Voiture</option>
-                                                    <option value="Vélo">Vélo</option>
-                                                    <option value="Cuisine">Cuisine</option>
-                                                    <option value="Nourriture">Nourriture</option>
-                                                    <option value="Santé">Santé</option>
-                                                    <option value="Informatique">Informatique</option>
-                                                    <option value="Art oratoire">Art oratoire</option>
-                                                    <option value="Peinture">Peinture</option>
+                                                <optgroup label="Liste des interets"> 
+                                                    {% for interet in interets_dispo %}
+                                                    <option value="{{interet}}">{{interet}}</option>
+                                                    {% endfor %}
                                                 </optgroup>
                                             </select>
                                         </div>

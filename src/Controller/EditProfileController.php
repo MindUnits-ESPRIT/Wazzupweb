@@ -116,10 +116,20 @@ class EditProfileController extends AbstractController
     // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
       // Form des interets
       // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        
+        // Resolver les interets de l'utilisateur
         $interets=$repo->findBy(['idUtilisateur' => $user->getIdUtilisateur()]);
-    
-        // dd(gettype($interets),$interets,$interets[$]);
+        $allinterets=["Sport","Voyage","Musique","Gaming","Animaux","Nature","Camping","Rencontres","Amour","Finance","Cryptomonnaie","Anime","Cartoons","Developpement","Travaille","Science","Astronomie","Clubs sociaux","Coiffure","Photographie","Politique","Fashing","Pêche","Histoire","Peinture","Bricolage","Théâtre","Lecture","Écriture","Jardinage","Langues étrangères","Décoration","Jardinage","Mecanique","Voiture","Vélo","Cuisine","Nourriture","Santé","Informatique","Art oratoire","Peinture"];
+        $myinterets=[];
+        // Afficher seulement les interets disponibles 
+        foreach($interets as $value){
+            array_push($myinterets,$value->getnomInteret());
+          }
+        //   dd(array_diff($allinterets,$myinterets));
+          $interets_dispo=array_diff($allinterets,$myinterets);
+          
+        
+        
+
 
         if($user == null){
             return $this->redirectToRoute('app_auth');
@@ -139,7 +149,8 @@ class EditProfileController extends AbstractController
             'pwd_form' => $form2 ->createView(),
             // 'img_form'=> $form3 ->createView()
             // 'pwd_form' => $form ->createView()
-            'invalid_oldpw'=> $invalid_oldpw
+            'invalid_oldpw'=> $invalid_oldpw,
+            'interets_dispo'=>$interets_dispo,
             
             
         ]);
@@ -160,7 +171,6 @@ public function AddInt($values,Request $request,SessionInterface $session,Entity
         $entityManager->persist($interet);
         $entityManager->flush();
     }
-    dd($selected_int);
     return $this->redirectToRoute('app_edit_profile');
 
     
