@@ -32,7 +32,8 @@ class SignupController extends AbstractController
         $user=new Utilisateurs();
         $form=$this->createForm(SignupType::class,$user);
         $form->handleRequest($request);
-        dump($form->getData());
+        
+        // dump($form->getData());
         if ($form->isSubmitted() && $form->isValid()) {
         
              $hash= $encoder->encodePassword($user,$user->getMdp());
@@ -40,7 +41,7 @@ class SignupController extends AbstractController
              // Generation du token 
              $user->setToken(sha1(uniqid()));
              $user->setActivated(false);
-             $this->upload();
+             
              // dd($user);
             $entityManager->persist($user);
             $entityManager->flush();
@@ -69,21 +70,7 @@ class SignupController extends AbstractController
         ]);
     }
 
-    public function upload()
-    {
-                  $cld = new Cloudinary([
-                    'cloud' => [
-                        'cloud_name'    => 'dpebiizpe',
-                        'api_key'       => '663388437531215',
-                        'api_secret'    => 't9H2L_TCWMy-oqPxSKLtnIjxuL4'
-                    ],  
-                    'url' => [
-                        'secure' => true 
-                    ]   
-                ]);
-        $res = $cld->uploadApi()->upload('C:\Users\malek\Desktop\wazzupwebapp\src\Controller\xdd.jpg');
-        // dd($res);
-}
+
 /**
  * @Route("/activation/{token}",name="activation")
  */

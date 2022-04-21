@@ -120,10 +120,16 @@
                                                     <img src="{{picture}}" id="account-upload-img" class="rounded mr-50" alt="profile image" height="80" width="80" />
                                                 </a>
                                                 <!-- upload and reset button -->
+                                                {{ form_start(general_form,{attr:{'novalidate':'novalidate'}}) }}
                                                 <div class="media-body mt-75 ml-1">
                                                     <label for="account-upload" class="btn btn-sm btn-primary mb-75 mr-75">Upload</label>
-                                                    <input type="file" id="account-upload" hidden accept="image/*" />
-                                                    <button class="btn btn-sm btn-outline-secondary mb-75">Reset</button>
+                                                    <input type="file" id="account-upload" hidden accept=".png" />
+                                                    
+                                                
+                                           
+                                               {{form_widget(general_form.avatar,{'attr':{'class':'form-control','id':'imageurl','style':'display:none;'}})}}
+                                                     
+                                                
                                                     <p>JPG, GIF ou PNG autorisés. Taille maximale de 800 Ko</p>
                                                 </div>
                                                 <!--/ upload and reset button -->
@@ -131,29 +137,39 @@
                                             <!--/ header media -->
 
                                             <!-- form -->
-                                            <form class="validate-form mt-2">
+                                       
                                                 <div class="row">
                                                     <div class="col-12 col-sm-6">
+                                                   
                                                         <div class="form-group">
                                                             <label for="account-username">Prenom</label>
-					                               {{form_widget(edit_form.prenom,{'attr':{'class':'form-control','placeholder':'Votre prenom'}})}}
+					                               {{form_widget(general_form.prenom,{'attr':{'class':'form-control','placeholder':'Votre prenom','value':nom}})}}
                                                         </div>
+                                                         {% if form_errors(general_form.prenom) %}
+                                                        {{ form_errors(general_form.prenom) }}
+                                                        {% endif %}
                                                     </div>
                                                     <div class="col-12 col-sm-6">
                                                         <div class="form-group">
                                                              <label for="account-name">Nom</label>
-					                               {{form_widget(edit_form.nom,{'attr':{'class':'form-control','placeholder':'Votre nom'}})}}
+					                               {{form_widget(general_form.nom,{'attr':{'class':'form-control','placeholder':'Votre nom','value':prenom}})}}
                                                         </div>
+                                                        {% if form_errors(general_form.nom) %}
+                                                        {{ form_errors(general_form.nom) }}
+                                                        {% endif %}
                                                     </div>
                                                     <div class="col-12 col-sm-6">
                                                         <div class="form-group">
                                                             <label for="account-e-mail">E-mail</label>
-                                                        {{form_widget(edit_form.email,{'attr':{'class':'form-control','placeholder':'Votre email'}})}}                                                        </div>
+                                                        {{form_widget(general_form.email,{'attr':{'class':'form-control','placeholder':'Votre email','value':email}})}}                                                        </div>
                                                     </div>
+                                                        {% if form_errors(general_form.email) %}
+                                                        {{ form_errors(general_form.nom) }}
+                                                        {% endif %}
                                                     <div class="col-12 col-sm-6">
                                                         <div class="form-group">
-                                                            <label for="account-company">Company</label>
-                                                            <input type="text" class="form-control" id="account-company" name="company" placeholder="Company name" value="Crystal Technologies" />
+                                                            <label for="account-company">Numero de telephone</label>
+				                                    {{form_widget(general_form.numTel,{'attr': {'class': 'form-control','value':numtel}})}}
                                                         </div>
                                                     </div>
                                                     {# <div class="col-12 mt-75">
@@ -165,25 +181,36 @@
                                                         </div>
                                                     </div> #}
                                                     <div class="col-12">
-                                                        <button type="submit" class="btn btn-primary mt-2 mr-1">Save changes</button>
+                                                        {{ form_widget(general_form.validate, { 'label': 'Sauvgarder', 'attr':{'class':'btn btn-primary mt-2 mr-1'} }) }}
                                                         <button type="reset" class="btn btn-outline-secondary mt-2">Cancel</button>
                                                     </div>
                                                 </div>
-                                            </form>
+                                            
+                                            {{form_end(general_form)}}
                                             <!--/ form -->
                                         </div>
                                         <!--/ general tab -->
 
                                         <!-- change password -->
+                                        
                                         <div class="tab-pane fade" id="account-vertical-password" role="tabpanel" aria-labelledby="account-pill-password" aria-expanded="false">
                                             <!-- form -->
-                                            <form class="validate-form">
+                                        {{ form_start(pwd_form,{attr:{'novalidate':'novalidate'}}) }}
                                                 <div class="row">
                                                     <div class="col-12 col-sm-6">
+                                                    {% if form_errors(pwd_form.oldmdp) %}
+				                                       {{ form_errors(pwd_form.oldmdp) }}
+				                                    {% endif %}
+                                                    {% if invalid_oldpw %}
+                                            <span class="invalid-feedback d-block"><span class="d-block">
+                                                <span class="form-error-icon badge badge-danger text-uppercase">Error</span> <span class="form-error-message">Veuillez vérifier votre mot de passe actuel</span>
+                                                 </span></span>
+                                                 {# <span>error</span> #}
+                                                 {% endif %}
                                                         <div class="form-group">
                                                             <label for="account-old-password">Ancien mot de passe</label>
                                                             <div class="input-group form-password-toggle input-group-merge">
-					                                      {{form_widget(edit_form.oldmdp,{'attr':{'class':'form-control'}})}}
+					                                      {{form_widget(pwd_form.oldmdp,{'attr':{'class':'form-control'}})}}
                                                                 <div class="input-group-append">
                                                                     <div class="input-group-text cursor-pointer">
                                                                         <i data-feather="eye"></i>
@@ -195,10 +222,11 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12 col-sm-6">
+                                                  
                                                         <div class="form-group">
                                                             <label for="account-new-password">Nouveau mot de passe</label>
                                                             <div class="input-group form-password-toggle input-group-merge">
-					                                      {{form_widget(edit_form.mdp,{'attr':{'class':'form-control'}})}}
+					                                      {{form_widget(pwd_form.mdp,{'attr':{'class':'form-control'}})}}
                                                                 <div class="input-group-append">
                                                                     <div class="input-group-text cursor-pointer">
                                                                         <i data-feather="eye"></i>
@@ -206,24 +234,32 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                          {% if form_errors(pwd_form.mdp) %}
+				                                       {{ form_errors(pwd_form.mdp) }}
+				                                    {% endif %}
                                                     </div>
                                                     <div class="col-12 col-sm-6">
+                                                   
                                                         <div class="form-group">
                                                             <label for="account-retype-new-password">Confirmation</label>
                                                             <div class="input-group form-password-toggle input-group-merge">
-					                                      {{form_widget(edit_form.mdpconfirm,{'attr':{'class':'form-control'}})}}
+					                                      {{form_widget(pwd_form.mdpconfirm,{'attr':{'class':'form-control'}})}}
                                                                 <div class="input-group-append">
                                                                     <div class="input-group-text cursor-pointer"><i data-feather="eye"></i></div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                         {% if form_errors(pwd_form.mdpconfirm) %}
+				                                       {{ form_errors(pwd_form.mdpconfirm) }}
+				                                    {% endif %}
                                                     </div>
                                                     <div class="col-12">
-                                                        <button type="submit" class="btn btn-primary mr-1 mt-1">Save changes</button>
-                                                        <button type="reset" class="btn btn-outline-secondary mt-1">Cancel</button>
+                                                        {{ form_widget(pwd_form.Submit2, { 'label': 'Sauvgarder', 'attr':{'class':'btn btn-primary mt-2 mr-1'} }) }}
+                                                        <button type="reset" class="btn btn-outline-secondary mt-1">Annuler</button>
                                                     </div>
                                                 </div>
-                                            </form>
+                                    
+                                            {{form_end(pwd_form)}}
                                             <!--/ form -->
                                         </div>
                                         <!--/ change password -->
@@ -235,7 +271,7 @@
                                                     <!-- social header -->
                                                     <div class="col-12">
                                                         <div class="d-flex align-items-center mb-2">
-                                                            <i data-feather="link" class="font-medium-3"></i>
+                                                            <i data-feather="coffee" class="font-medium-3"></i>
                                                             <h4 class="mb-0 ml-75">Ajouter des interets</h4>
                                                         </div>
                                                     </div>
@@ -243,65 +279,27 @@
                                                      <!-- Multiple Select -->
                                   <!-- Multiple -->
                                                                               <!-- Limit Selected Options -->
+                                    
                                         <div class="col-md-6 mb-1">
                                             <label>Multiple</label>
-                                            <select class="select2 form-control" multiple>
-                                                <optgroup label="Liste des interets">
-                                                    <option value="Sport">Sport</option>
-                                                    <option value="Voyage">Voyage</option>
-                                                    <option value="Musique">Musique</option>
-                                                    <option value="Gaming">Gaming</option>
-                                                    <option value="Animaux">Animaux</option>
-                                                    <option value="Nature">Nature</option>
-                                                    <option value="Camping">Camping</option>
-                                                    <option value="Rencontres">Rencontres</option>
-                                                    <option value="Amour">Amour</option>
-                                                    <option value="Finance">Finance</option>
-                                                    <option value="Cryptomonnaie">Cryptomonnaie</option>
-                                                    <option value="Anime">Anime</option>
-                                                    <option value="Cartoons">Cartoons</option>
-                                                    <option value="Developpement">Developpement</option>
-                                                    <option value="Travaille">Travaille</option>
-                                                    <option value="Science">Science</option>
-                                                    <option value="Astronomie">Astronomie</option>
-                                                    <option value="Clubs sociaux">Clubs sociaux</option>
-                                                    <option value="Coiffure">Coiffure</option>
-                                                    <option value="Photographie">Photographie</option>
-                                                    <option value="Politique">Politique</option>
-                                                    <option value="Fashing">Fashing</option>
-                                                    <option value="Pêche">Pêche</option>
-                                                    <option value="Histoire">Histoire</option>
-                                                    <option value="Peinture">Peinture</option>
-                                                    <option value="Bricolage">Bricolage</option>
-                                                    <option value="Théâtre">Théâtre</option>
-                                                    <option value="Lecture">Lecture</option>
-                                                    <option value="Écriture">Écriture</option>
-                                                    <option value="Jardinage">Jardinage</option>
-                                                    <option value="Langues étrangères">Langues étrangères</option>
-                                                    <option value="Décoration">Décoration</option>
-                                                    <option value="Collections">Jardinage</option>
-                                                    <option value="Mecanique">Mecanique</option>
-                                                    <option value="Voiture">Voiture</option>
-                                                    <option value="Vélo">Vélo</option>
-                                                    <option value="Cuisine">Cuisine</option>
-                                                    <option value="Nourriture">Nourriture</option>
-                                                    <option value="Santé">Santé</option>
-                                                    <option value="Informatique">Informatique</option>
-                                                    <option value="Art oratoire">Art oratoire</option>
-                                                    <option value="Peinture">Peinture</option>
+                                            <select id="select_int" class="select2 form-control" multiple>
+                                                <optgroup label="Liste des interets"> 
+                                                    {% for interet in interets_dispo %}
+                                                    <option value="{{interet}}">{{interet}}</option>
+                                                    {% endfor %}
                                                 </optgroup>
                                             </select>
                                         </div>
+                                        <script>
+                                               function addInt(){
+                                                     var options = document.getElementById('select_int').selectedOptions;
+                                                    var values = Array.from(options).map(({ value }) => value);
+                                                    console.log(values);
+                                                    location.href = "{{ path('app_add_interet',{'values':'val'}) }}".replace('val', values)
+                                               }
+                                              
 
-                                                    
-                                                    {# <!-- Quora link input -->
-                                                    <div class="col-12 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label for="account-quora">Quora</label>
-                                                            <input type="text" id="account-quora" class="form-control" placeholder="Add link" />
-                                                        </div>
-                                                    </div> #}
-
+                                        </script>
                                                     <!-- divider -->
                                                     <div class="col-12">
                                                         <hr class="my-2" />
@@ -323,8 +321,8 @@
                                                             {% endfor %}
                                                     <div class="col-12">
                                                         <!-- submit and cancel button -->
-                                                        <button type="submit" class="btn btn-primary mr-1 mt-1">Save changes</button>
-                                                        <button type="reset" class="btn btn-outline-secondary mt-1">Cancel</button>
+                                                        <button type="submit" onclick="addInt()" class="btn btn-primary mr-1 mt-1">Sauvgarder</button>
+                                                        <button type="reset" class="btn btn-outline-secondary mt-1">Annuler</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -406,6 +404,8 @@
     <script src="{{asset('dashboard/app-assets/js/scripts/pages/page-account-settings.js')}}"></script>
     
     <script src="{{asset('dashboard/app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
+   
+   </script>
         <script src="{{asset('dashboard/app-assets/js/scripts/forms/form-select2.js')}}"></script>
     <!-- END: Page JS-->
 		<script>
