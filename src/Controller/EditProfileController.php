@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Interets;
 use Cloudinary\Cloudinary;
 use App\Entity\Utilisateurs;
 use App\Form\EditProfileType;
@@ -17,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class EditProfileController extends AbstractController
 {
@@ -48,10 +50,10 @@ class EditProfileController extends AbstractController
        /**
      * @Route("/edit/profile/", name="app_edit_profile")
      */
-    public function index(ValidatorInterface $validator,Request $request,SessionInterface $session,EntityManagerInterface $entityManager,InteretsRepository $repo,UtilisateursRepository $userrepo): Response
+    public function index(Request $request,SessionInterface $session,EntityManagerInterface $entityManager,InteretsRepository $repo,UtilisateursRepository $userrepo,UserPasswordEncoderInterface $encoder): Response
     {
+        $invalid_oldpw=false;
         $user=new Utilisateurs();
-        $errors = $validator->validate($user);
         $form=$this->createForm(EditProfileType::class,$user);
         $form2=$this->createForm(EditProfileType2::class,$user);
         $form->handleRequest($request);
@@ -60,7 +62,9 @@ class EditProfileController extends AbstractController
             return $this->redirectToRoute('app_auth');
         }
         $user = $userrepo->find($user->getIdUtilisateur());
-        
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // Form generale
+         // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         if ($form->isSubmitted() && $form->isValid()){
             
             $avatar=$form->get('avatar')->getData();
@@ -85,32 +89,38 @@ class EditProfileController extends AbstractController
             $session->set('userdata',$user);
             $entityManager->flush();
       }
+      // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      // Form mot de passes 
+      // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     $form2->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()){
-            
-        $pwd=$form->get('avatar')->getData();
+    if ($form2->isSubmitted() && $form2->isValid()){
         // Remplissage des champs
-        $oldmdp=$form->get('oldmdp')->getData();
-        $mdp=$form->get('mdp')->getData();
-        $mdpconfirm=$form->get('mdpconfirm')->getData();
+        $oldmdp=$form2->get('oldmdp')->getData();
+        $mdp=$form2->get('mdp')->getData();
+        $mdpconfirm=$form2->get('mdpconfirm')->getData();
         // La verification du mot de passe actuel
-        
-
-        // La modification dans la base de données
-        $user->setPrenom($prenom);
-        $user->setNom($nom);
-        $user->setEmail($email);
-        $user->setNumTel($numtel);
-        if($avatar!==null){
-            $user->setAvatar($image);
+        $PasswordCheck=$encoder->isPasswordValid($user, $oldmdp);
+        if ($PasswordCheck){
+            $hash= $encoder->encodePassword($user,$mdp);
+            $user->setmdp($hash);
+            $session->set('userdata',$user);
+            $entityManager->flush();
+        }else{
+            $invalid_oldpw=true;
         }
-        // La mise à jour de la session
-        $session->set('userdata',$user);
-        $entityManager->flush();
-  }
         
-        $interets=$repo->findBy(['idUtilisateur' => 58]);
-        // dd($interets);
+        // La mise à jour de la session
+        // $session->set('userdata',$user);
+        // $entityManager->flush();
+  }
+    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      // Form des interets
+      // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        
+        $interets=$repo->findBy(['idUtilisateur' => $user->getIdUtilisateur()]);
+    
+        // dd(gettype($interets),$interets,$interets[$]);
+
         if($user == null){
             return $this->redirectToRoute('app_auth');
         }
@@ -127,12 +137,34 @@ class EditProfileController extends AbstractController
             'interets' =>$interets,
             'general_form' => $form ->createView(),
             'pwd_form' => $form2 ->createView(),
-            'errors' => $errors,
             // 'img_form'=> $form3 ->createView()
             // 'pwd_form' => $form ->createView()
+            'invalid_oldpw'=> $invalid_oldpw
             
             
         ]);
     }
+}
+/**
+ * @Route("/edit/profile/add-interet/{values}", name="app_add_interet")
+ */
+public function AddInt($values,Request $request,SessionInterface $session,EntityManagerInterface $entityManager,UtilisateursRepository $userrepo): Response
+{
+    $selected_int=explode(',',$values);
+    $user1 = $session->get('userdata');
+    $user = $userrepo->find($user1->getIdUtilisateur());
+    for ($i = 0; $i < count($selected_int); $i++) {
+        $interet=new Interets();
+        $interet->setNomInteret($selected_int[$i]);
+        $interet->setIdUtilisateur($user);
+        $entityManager->persist($interet);
+        $entityManager->flush();
+    }
+    dd($selected_int);
+    return $this->redirectToRoute('app_edit_profile');
+
+    
+// dd();
+
 }
 }

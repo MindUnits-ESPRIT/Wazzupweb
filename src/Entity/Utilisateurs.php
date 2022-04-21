@@ -3,14 +3,14 @@
 namespace App\Entity;
 
 use Serializable;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UtilisateursRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
+
 
 /**
  * Utilisateurs
@@ -30,11 +30,6 @@ use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
     * )
     * @ORM\Entity(repositoryClass="App\Repository\UtilisateursRepository")
     */
-
-
-
-
-
 
 class Utilisateurs implements UserInterface
 {
@@ -61,7 +56,7 @@ class Utilisateurs implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="prenom", type="string", length=30)
-          * @Assert\NotBlank(message="Veuillez insérer votre Prenom",
+    * @Assert\NotBlank(message="Veuillez insérer votre Prenom",
     *     groups={"registration","Editprofile_general"},
     * )    */
     private $prenom;
@@ -123,7 +118,6 @@ class Utilisateurs implements UserInterface
      * @Assert\NotCompromisedPassword(message="Veuillez choisir un mot de passe plus fort", groups={"registration","Editprofile_pwd"}))
      * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*\d).{6,}$/i", message="Votre mot de passe doit comporter au moins 6 caractères et inclure au moins une lettre et un chiffre.", groups={"registration","Editprofile_pwd"})
      * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe ne correspond pas a votre confirmation", groups={"registration","Editprofile_pwd"})
-     * @SecurityAssert\UserPassword(message="Votre mot de passe actuel est invalide ! ", groups={"Editprofile_pwd"})
      * 
      */
     private $mdp;
@@ -132,6 +126,7 @@ class Utilisateurs implements UserInterface
      */
 
     public $mdpconfirm;
+
 
     public $oldmdp;
 
@@ -472,6 +467,7 @@ class Utilisateurs implements UserInterface
 }
 public function getSalt()
 {
+    return null;
 }
 public function getRoles()
 {
