@@ -1,8 +1,5 @@
-{% include 'home/header.html.twig' %}
-{% include 'home/sidebar.html.twig' %}
 {% block head %}
 	<head>
-
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
@@ -12,15 +9,8 @@
 		<link rel="shortcut icon" type="image/x-icon" href="dashboard/app-assets/images/ico/favicon.ico">
 		<link
 		href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
-
 		<!-- BEGIN: Vendor CSS-->
-		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css')}}">
-		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css')}}">
-		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css')}}">
-		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/tables/datatable/rowGroup.bootstrap4.min.css')}}">
-		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/vendors.min.css')}}">
-		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/charts/apexcharts.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/toastr.min.css')}}">
 		<!-- END: Vendor CSS-->
 
@@ -32,12 +22,11 @@
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/bordered-layout.css')}}">
 		<link
 		rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/semi-dark-layout.css')}}">
-
 		<!-- BEGIN: Page CSS-->
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
-		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/pages/dashboard-ecommerce.css')}}">
-		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/charts/chart-apex.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/pages/app-ecommerce.css')}}">
 		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
+
 		<!-- END: Page CSS-->
 
 		<!-- BEGIN: Custom CSS-->
@@ -46,11 +35,16 @@
 
 	</head>
 {% endblock %}
+
+{% include 'home/header.html.twig' %}
+{% include 'home/sidebar.html.twig' %}
 {% block body %}
 	<body
 		class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
 
 		<!-- BEGIN: Content-->
+
+
 		<div class="app-content content ">
 			<div class="content-overlay"></div>
 			<div class="header-navbar-shadow"></div>
@@ -63,7 +57,6 @@
 
 
 					<div class="row match-height">
-
 						{% for c in collabs %}
 
 							<div class="col-md-3 col-lg-3">
@@ -117,13 +110,6 @@
 											<p class="card-text">
 												Veuillez confirmer le nom du collaboration a supprimer
 											</p>
-											{# 	{{ form_start(collab_formC,{attr:{'novalidate':'novalidate'}}) }}
-																																																									<div style="visibility: hidden">
-																																																									{{form_row(collab_formC.nomCollab,{'attr': {'class': 'form-control','placeholder':'Wazzup','value':c.getNomCollab()}})}}</div>
-																																																									{{form_row(collab_formC.nomconfirm,{'attr': {'class': 'form-control','placeholder':'c.getNomCollab()',}})}}
-																																																									{{ form_row(collab_formC.Submit, { 'label': 'supprimer', 'attr':{'class':'btn btn-danger' } }) }}
-																																																									{{ form_end(collab_formC) }} #}
-
 											<p style="color:red" id="{% set cunt = cunt + 1 %}{{cunt}}"></p>
 											<div class="form-group">
 												<p style=" visibility:hidden" id="{{c.getUrlCollab()}}">{{c.getNomCollab()}}</p>
@@ -204,7 +190,7 @@ location.href = "{{ path('modC',{'name':'val','oldn':'vall'}) }}".replace('val',
 			</body>
 		</div>
 	</body>
-</body></div></body></div></div><!-- END: Content--><div class="sidenav-overlay"></div><div class="drag-target"></div><!-- BEGIN: Footer--><footer class="footer footer-static footer-light"><p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2022<a class="ml-25" target="_blank"></a><span class="d-none d-sm-inline-block">, All rights Reserved Wazzup</span></span><span class="float-md-right d-none d-md-block"></span></p></footer><button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button><!-- END: Footer--><!-- BEGIN: Vendor JS--><script src="dashboard/app-assets/vendors/js/vendors.min.js"></script><!-- BEGIN Vendor JS--><!-- BEGIN: Page Vendor JS--><script src="dashboard/app-assets/vendors/js/charts/apexcharts.min.js"></script><script src="dashboard/app-assets/vendors/js/extensions/toastr.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/responsive.bootstrap4.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/jszip.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/pdfmake.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/vfs_fonts.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/buttons.html5.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/buttons.print.min.js"></script><script src="dashboard/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js"></script><script src="dashboard/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script><!-- END: Page Vendor JS--><!-- BEGIN: Theme JS--><script src="dashboard/app-assets/js/core/app-menu.js"></script><script src="dashboard/app-assets/js/core/app.js"></script><!-- END: Theme JS--><!-- BEGIN: Page JS--><script src="dashboard/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script><script src="dashboard/app-assets/js/scripts/tables/table-datatables-basic.js"></script><!-- END: Page JS--><script>$(window).on('load', function () {
+</body></div></body></div></div><!-- END: Content--><div class="sidenav-overlay"></div><div class="drag-target"></div><!-- BEGIN: Footer--><footer class="footer footer-static footer-light"><p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2022<a class="ml-25" target="_blank"></a><span class="d-none d-sm-inline-block">, All rights Reserved Wazzup</span></span><span class="float-md-right d-none d-md-block"></span></p></footer><button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button><!-- END: Footer--><!-- BEGIN: Vendor JS--><script src="dashboard/app-assets/vendors/js/vendors.min.js"></script><!-- BEGIN Vendor JS--><!-- BEGIN: Page Vendor JS--><script src="dashboard/app-assets/vendors/js/extensions/toastr.min.js"></script><!-- END: Page Vendor JS--><!-- BEGIN: Theme JS--><script src="dashboard/app-assets/js/core/app-menu.js"></script><script src="dashboard/app-assets/js/core/app.js"></script><!-- END: Theme JS--><!-- BEGIN: Page JS--><script src="dashboard/app-assets/js/scripts/pages/app-ecommerce-wishlist.js"></script><!-- END: Page JS--><script>$(window).on('load', function () {
 if (feather) {
 feather.replace({width: 14, height: 14});
 }
