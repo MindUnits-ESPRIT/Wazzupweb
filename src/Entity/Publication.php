@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Publication
  *
  * @ORM\Table(name="publication", indexes={@ORM\Index(name="Id_Utilisateur_INDEX", columns={"Id_Utilisateur"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=App\Repository\PublicationRepository::class)
+ *
  */
 class Publication
 {
@@ -23,8 +25,14 @@ class Publication
 
     /**
      * @var string
+     *@Assert\Length(min=2,
+     *     max=255,
+     *     maxMessage="Vous avez dépasser 255 lettres",
+     *      minMessage ="écrivez plus que 2 lettres"
+     *    )
+     * @ORM\Column(name="Description", type="string", length=150, nullable=false)
+     * @Assert\NotBlank(message="Veuillez écrivez quelque chose !")
      *
-     * @ORM\Column(name="Description", type="string", length=100, nullable=false)
      */
     private $description;
 
@@ -50,11 +58,11 @@ class Publication
     private $priority = 1;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="Date_Publication", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @Assert\DateTime
+     * @var \DateTime|null
+     * @ORM\Column(name="Date_Publication", type="datetime", nullable=false)
      */
-    private $datePublication = 'CURRENT_TIMESTAMP';
+    private $datePublication;
 
     /**
      * @var \Utilisateurs
@@ -119,12 +127,12 @@ class Publication
         return $this;
     }
 
-    public function getDatePublication(): ?\DateTimeInterface
+    public function getDatePublication():?\DateTime
     {
         return $this->datePublication;
     }
 
-    public function setDatePublication(\DateTimeInterface $datePublication): self
+    public function setDatePublication(\DateTime $datePublication): self
     {
         $this->datePublication = $datePublication;
 

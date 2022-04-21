@@ -1,0 +1,56 @@
+.action_buttons_custom >button{
+    margin-right: 85px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.context{
+    background-color: #1E2E4F;
+}
+.picture_pfp_custom{
+    display: inline;
+    position: relative;
+    left:-290px;
+    border-radius: 30px;
+    margin-bottom: 0px;
+}
+#name_href_custom{
+    left: -170px;
+    position: relative;
+    top:-55px;
+    margin-bottom: 0px;
+}
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 100px;
+    overflow: auto;
+    width: 50%;
+}
+.table-wrapper-scroll-y {
+    display: block;
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+}
+.dropdown{
+    right: -287px;
+    top: -5px;
+}
