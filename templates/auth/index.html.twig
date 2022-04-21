@@ -4,8 +4,9 @@
 
 
 <head>
-
+   
 	<meta charset="utf-8">
+		<title>Wazzup - Authentification</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!--ANIMATION BUTTONS loading.io -->
 	<!-- MATERIAL DESIGN ICONIC FONT -->
@@ -30,14 +31,36 @@
 		<div id="particles-js"></div>
 		<script src='https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
 		<script src="{{ asset('login/js/app.js') }}"></script>
-		<br><br><br><br><br>
+		
 		<div class="inner">
 			<div class="image-holder"><br><br><br>
 				<img  src="{{ asset('login/img/logo.png') }}" alt="logo_wazzup">
+				<div class="alert alert-info" role="alert">
+                 Vous n 'avez pas un compte? , pas de soucis creez un ! 
+                </div>
+				<a href="{{path('app_signup')}}"><button class="" data-btn>S'inscrire
+					<i class="zmdi zmdi-arrow-right"></i>
+				</button>
+				</a>
 			</div>
-	{{ form_start(auth_form,{attr:{'novalidate':'novalidate'}}) }}
+	{{ form_start(auth_form,{'attr':{'novalidate':'novalidate'}}) }}
 				<h3 class="loginhead"><i class="fas fa-user-edit"></i>&nbsp;&nbsp;S'identifier</h3>
 				<h5>REMPLIR LES CHAMPS POUR ACCEDER A VOTRE COMPTE</h5><br>
+				{% if login %}
+				<div class="alert alert-success" role="alert">
+                Authentifié avec succés , Bienvenue!
+               </div>
+                  {% endif %}
+				  {% if emailexist == false %}
+				  <div class="alert alert-danger" role="alert">
+                 Veuillez verifier votre email!
+                 </div>
+				  {% endif %}
+				  {% if wrongpw %}
+				 <div class="alert alert-danger" role="alert">
+                 Veuillez verifier votre mot de passe !
+                 </div>
+				  {% endif %}
 				        {{ form_errors(auth_form) }}
 
 				<div class="form-wrapper">
@@ -51,9 +74,9 @@
 					<i class="zmdi zmdi-lock"></i>
 				</div>
 
-				<button class="" data-btn>Soumettre
-					<i class="zmdi zmdi-arrow-right"></i>
-				</button>
+				 {{ form_widget(auth_form.Submit, { 'label': 'Soumettre', 'attr':{'class':'ld-over-full-inverse'} }) }}
+
+               <center><a href="{{path('forgotpassword')}}"><p></p>Mot de passe oublié?</a></center>
 		 {{ form_end(auth_form) }}
 		</div>
 	</div>

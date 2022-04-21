@@ -11,6 +11,7 @@ $(function () {
   'use strict';
 
   // variables
+
   var form = $('.validate-form'),
     flat_picker = $('.flatpickr'),
     accountUploadImg = $('#account-upload-img'),
@@ -22,13 +23,23 @@ $(function () {
       var reader = new FileReader(),
         files = e.target.files;
       reader.onload = function () {
+      var url=reader.result
+      document.getElementById('edit_profile_avatar').setAttribute('value',url);
+  
+      }
+      
         if (accountUploadImg) {
           accountUploadImg.attr('src', reader.result);
-        }
+        
       };
       reader.readAsDataURL(files[0]);
+      
+   
     });
   }
+  
+   
+    
 
   // flatpickr init
   if (flat_picker.length) {

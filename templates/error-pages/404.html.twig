@@ -1,0 +1,91 @@
+<!-- BEGIN: Head-->
+{% block head %}
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="MINDUNITS">
+    <title>Wazzup - 404</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+	<link rel="shortcut icon" href="{{ asset('signup/img/favicon.ico') }}">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/vendors.min.css')}}">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/bootstrap.min.css')}}">
+    
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/core/menu/menu-types/vertical-menu.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/pages/page-misc.min.css')}}">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/assets/css/style.css')}}">
+    <!-- END: Custom CSS-->
+   <style>
+   .error-msg{
+     color:white;
+     display:block;
+   }
+   .error-text{
+
+   }
+   .misc-wrapper .brand-logo{
+
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    /* position: fixed; */
+    top: 2rem;
+    left: 2rem;
+    margin: 0;
+   }
+
+   </style>
+
+  </head>
+  {% endblock %}
+  <!-- END: Head-->
+
+  <!-- BEGIN: Body-->
+  {% block body %}
+  <body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="blank-page">
+    <!-- BEGIN: Content-->
+    <div class="app-content content " style="background:linear-gradient(90deg, rgba(0,119,119,1) 64%, rgba(200,200,200,1) 100%);">
+  <div class="misc-wrapper"><a class="brand-logo" href="javascript:void(0);">
+             <img style="height: 18vh;" src="{{asset('signup/img/logo.png')}}" alt="logo_wazzup">
+             </a>
+                    <div class="content-body">
+          <!-- Error page-->
+        
+            <div class="misc-inner p-2 p-sm-3">
+              <div class="w-100 text-center">
+                <h2 class="error-msg">Oops! 😖 L'URL demandé n'existe pas !</h2>
+                <a class="btn btn-primary return-btn" href="{{path('app_auth')}}">Revenir</a>
+              <img class="img-fluid" src="dashboard/app-assets/images/pages/error.svg" alt="Error page"/>
+              </div>
+         
+          <!-- / Error page-->
+        </div>
+      </div>
+             </div>
+        
+ 
+    
+    <script src="{{asset('dashboard/app-assets/vendors/js/vendors.min.js')}}"></script>
+    <script src="{{asset('dashboard/app-assets/js/core/app-menu.min.js')}}"></script>
+    <script src="{{asset('dashboard/app-assets/js/core/app.min.js')}}"></script>
+
+
+
+    <script>
+      $(window).on('load',  function(){
+        if (feather) {
+          feather.replace({ width: 14, height: 14 });
+        }
+      })
+    </script>
+  </body>
+  {% endblock %}

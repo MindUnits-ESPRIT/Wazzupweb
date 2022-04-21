@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -21,19 +22,29 @@ class PublicationController extends AbstractController
     /**
      * @Route("/", name="app_publication_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(SessionInterface $session,EntityManagerInterface $entityManager): Response
     {
-        $publications = $entityManager
-            ->getRepository(Publication::class)
-            ->findAll();
-        $commentaire = $entityManager
-            ->getRepository(Commentaire::class)
-            ->findAll();
+        $user = $session->get('userdata');
+        if ($user == null) {
+            return $this->redirectToRoute('app_auth');
+        } else {
+            $publications = $entityManager
+                ->getRepository(Publication::class)
+                ->findAll();
+            $commentaire = $entityManager
+                ->getRepository(Commentaire::class)
+                ->findAll();
 
-        return $this->render('publication/index.html.twig', [
-            'publications' => $publications,
-            'commentaires'=> $commentaire,
-        ]);
+            return $this->render('publication/index.html.twig', [
+                'publications' => $publications,
+                'commentaires' => $commentaire,
+                'nom' => $user->getNom(),
+                'prenom' => $user->getPrenom(),
+                'role' => $user->getTypeUser(),
+                'picture' => $user->getAvatar(),
+                'user' => $user
+            ]);
+        }
     }
     /**
      * @Route("/new", name="app_publication_new", methods={"GET", "POST"})

@@ -100,11 +100,10 @@ a:hover {
 }
 
 .inner form {
-	width: 50%;
-	padding-top: 36px;
-	padding-left: 45px;
-	padding-right: 45px;
-	z-index: 99;
+	padding-top: 139px;
+    padding-left: 70px;
+    padding-right: 45px;
+    z-index: 99;
 }
 
 .inner h3 {
@@ -187,7 +186,7 @@ select option[value=""][disabled] {
 button {
 	border: none;
 	border-radius: 25px;
-	width: 164px;
+	width: 197px;
 	height: 51px;
 	margin: auto;
 	margin-top: 40px;
@@ -355,5 +354,12 @@ canvas {
 }
 .loginhead{
 	color:#008080;
+}
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: .25rem;
+     font-size: 100%;
+    color: #dc3545;
 }
 
