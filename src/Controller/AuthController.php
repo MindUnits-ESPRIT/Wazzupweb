@@ -20,6 +20,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AuthController extends AbstractController
 {
+
      /**
      * @var bool
      */
@@ -32,6 +33,9 @@ class AuthController extends AbstractController
         $login=false;
         $emailexist=true;
         $wrongpw=false;
+        $activated=false;
+        $otp=false;
+
         $form = $this->createForm(LoginType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted()){
@@ -40,23 +44,39 @@ class AuthController extends AbstractController
         if($this->EmailExists($email,$request,$userrepo)){
           $emailexist=true;
           $user=$userrepo->findOneBy(['email'=>$email]);
+          $isActivated=$user->getActivated();
           $PasswordCheck=$encoder->isPasswordValid($user, $password);
         //   dd($encoder->isPasswordValid($user, $password));
+        
+        if($isActivated){
+            
           if ($PasswordCheck){
               $login=true;
               $session->set('userdata',$user);
+              
               if ($user->getTypeUser()=="User"){
+                $login=true;
+                
+
                 return $this->redirectToRoute('app_home');
               } else if ($user->getTypeUser()=="Admin"){
-                return $this->redirectToRoute('app_admin');
+                $otp=true;
+                // return $this->redirectToRoute('app_admin');
               }
+            //   dd("TEST",$otp);
+              
+
+              
 
           }
-          else{
+          else {
               $wrongpw=true;
           }
-        }
-        else{
+        } else {
+        $activated=true;
+    }
+}
+        else {
             $login=false;
             $emailexist=false;
         }
@@ -68,10 +88,18 @@ class AuthController extends AbstractController
             'auth_form' => $form ->createView(),
             'login'=> $login,
             'emailexist'=> $emailexist,
-            'wrongpw'=>$wrongpw
+            'wrongpw'=>$wrongpw,
+            'activated'=>$activated,
+            'otp'=>$otp
+            
 
         ]);
     }
+ 
+
+ /**
+     * @Route("check/{email}", name="app_emailcheck", methods={"GET","POST"})
+     */
     public function EmailExists($email,Request $request,UtilisateursRepository $userrepo){
         $form = $this->createForm(ForgotpwType::class);
         $form->handleRequest($request);
@@ -124,6 +152,7 @@ class AuthController extends AbstractController
      */
     public function deconnexion(Request $request,SessionInterface $session){
         $session->clear();
+        $this->addFlash('success', 'Vous avez été déconnecté avec succès. !');
         return $this->redirectToRoute('app_auth');
     }
 }
