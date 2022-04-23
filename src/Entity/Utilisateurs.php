@@ -476,4 +476,10 @@ public function getRoles()
 public function getUsername()
 {
 }
+
+public function __toString()
+{
+    return $this->nom;
+}
+
 }

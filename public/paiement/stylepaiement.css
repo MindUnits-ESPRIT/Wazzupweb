@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+    margin:0; padding:0;
+    box-sizing: border-box;
+    outline: none; border:none;
+    text-transform: capitalize;
+    transition: all .2s linear;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*padding:50px;*/
+    /*min-height: 100vh;*/
+    background: linear-gradient(90deg, #2ecc71 60%, #27ae60 40.1%);
+}
+
+p {
+    /*transform: translate(-50%,-50%);*/
+    /*top: 50%;*/
+    /*left: 50%;*/
+    font-family: 'Times New Roman',serif;
+    letter-spacing: 5px;
+    font-size: 10px;
+    font-weight: bold;
+    background-image: linear-gradient(
+            to right,
+            #462523 0,
+            #cb9b51 22%,
+            #f6e27a 45%,
+            #f6f2c0 50%,
+            #f6e27a 55%,
+            #cb9b51 78%,
+            #462523 100%
+    );
+    color:transparent;
+    -webkit-background-clip:text;
+}
+.container form{
+    padding:20px;
+    width:700px;
+    background: rgba(255, 255, 255, 0.79);
+    box-shadow: 0 5px 10px rgba(255, 255, 255, 0);
+}
+
+.container form .row{
+    display: flex;
+    flex-wrap: wrap;
+    gap:15px;
+}
+
+.container form .row .col{
+    flex:1 1 250px;
+}
+
+.container form .row .col .title{
+    font-size: 20px;
+    color:#333;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.container form .row .col .inputBox{
+    margin:15px 0;
+}
+
+.container form .row .col .inputBox span{
+    margin-bottom: 10px;
+    display: block;
+}
+
+.container form .row .col .inputBox input{
+    width: 100%;
+    border:1px solid #007f80;
+    padding:10px 15px;
+    font-size: 15px;
+    text-transform: none;
+}
+
+.container form .row .col .inputBox input:focus{
+    border:1px solid rgb(0, 0, 0);
+}
+
+.container form .row .col .flex{
+    display: flex;
+    gap:15px;
+}
+
+.container form .row .col .flex .inputBox{
+    margin-top: 5px;
+}
+
+.container form .row .col .inputBox img{
+    height: 34px;
+    margin-top: 5px;
+    filter: drop-shadow(0 0 1px #000);
+}
+
+.container form .submit-btn{
+    width: 40%;
+    padding:12px;
+    font-size: 17px;
+    background: #007f80;
+    color: #ffffff;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.container form .submit-btn:hover{
+    background: #35ce93;
+}
+/*Styling Selectbox*/
+.select-dropdown,
+.select-dropdown * {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    box-sizing: border-box;
+}
+.select-dropdown {
+    position: relative;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+}
+.select-dropdown select {
+    font-size: 1rem;
+    font-weight: normal;
+    max-width: 100%;
+    padding: 8px 24px 8px 10px;
+    border:1px solid #007f80;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.select-dropdown select:active, .select-dropdown select:focus {
+    outline: none;
+    box-shadow: none;
+}
+.select-dropdown:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    width: 0;
+    height: 0;
+    margin-top: -2px;
+    border-top: 5px solid #007f80;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+}
+/*
+replace html, body with what background area you want to animate
+*/
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:50px;
+    min-height: 100vh;
+    /* replace colors to what you would like. */
+    background: -webkit-linear-gradient(45deg, #59ADEB 10%, #35CE93 90%);
+    background: linear-gradient(45deg, #59ADEB 10%, #35CE93 90%);
+    overflow: hidden;
+    background-size: 200% 100% !important;
+    -webkit-animation: move 10s ease infinite;
+    animation: move 10s ease infinite;
+}
+/* this is where the magic happens */
+@-webkit-keyframes move {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+@keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-o-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+/*TEXT AREA */
+input, textarea{
+    width: 330px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    padding: 10px;
+    font-family: 'Sniglet', cursive;
+    font-size: 1em;
+    color: #676767;
+    transition: border 0.5s;
+    -webkit-transition: border 0.5s;
+    -moz-transition: border 0.5s;
+    -o-transition: border 0.5s;
+    /*border: solid 3px #98d4f3;*/
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+
+}
+input:focus, textarea:focus{
+    border: solid 1px #77bde0;
+}
+
+textarea{
+    height: 100px;
+    resize: none;
+    overflow: auto;
+}
