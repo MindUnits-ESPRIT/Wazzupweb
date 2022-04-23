@@ -13,6 +13,7 @@ class OffrePublicitaireType extends AbstractType
     {
         $builder
             ->add('nomOffre')
+
             ->add('contenuOffre')
             ->add('nbrMaxOffre')
             ->add('idUtilisateur')
