@@ -43,7 +43,7 @@ class Utilisateurs implements UserInterface
     private $idUtilisateur;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="nom", type="string", length=30)
      * @Assert\NotBlank(message="Veuillez insérer votre nom",
@@ -53,7 +53,7 @@ class Utilisateurs implements UserInterface
     private $nom;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="prenom", type="string", length=30)
     * @Assert\NotBlank(message="Veuillez insérer votre Prenom",
@@ -62,14 +62,14 @@ class Utilisateurs implements UserInterface
     private $prenom;
 
     /**
-     * @var int
+     * @var string|null
      *
      * @ORM\Column(name="datenaissance", type="string", length=30, nullable=true)
      * @Assert\NotBlank(message="Veuillez insérer votre date de naissance ",
     *     groups={"registration"},
      * )
      */
-    private $age;
+    private $datenaissance;
 
     /**
      * @var string|null
@@ -79,7 +79,7 @@ class Utilisateurs implements UserInterface
     private $genre;
 
     /**
-     * @var int
+     * @var string
      *
      * @ORM\Column(name="num_tel", type="string", length=12, nullable=false)
      * @Assert\NotBlank(message="Veuillez insérer votre numero de telephone ",
@@ -103,6 +103,13 @@ class Utilisateurs implements UserInterface
     private $email;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="avatar", type="string", length=200, nullable=true)
+     */
+    private $avatar;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="mdp", type="string", length=220, nullable=false)-
@@ -118,12 +125,7 @@ class Utilisateurs implements UserInterface
      * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe doit etre le meme que le mot de passe saisie précedement",groups={"registration","Editprofile_pwd"})
      */
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="Liste_Collaborations", type="text", length=0, nullable=true)
-     */
-    private $listeCollaborations;
+    public $mdpconfirm;
 
 
     public $oldmdp;
@@ -136,6 +138,34 @@ class Utilisateurs implements UserInterface
     private $typeUser = 'User';
 
     /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="passwordRequestedAt", type="datetime", nullable=true)
+     */
+    private $passwordrequestedat;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="Token", type="string", length=200, nullable=true)
+     */
+    private $token;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="activated", type="boolean", nullable=false)
+     */
+    private $activated = 'false';
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="nbsignal", type="integer", nullable=true)
+     */
+    private $nbsignal;
+
+    /**
      * @var int|null
      *
      * @ORM\Column(name="evaluation", type="integer", nullable=true)
@@ -143,9 +173,23 @@ class Utilisateurs implements UserInterface
     private $evaluation;
 
     /**
-     * @var \DateTime
+     * @var bool|null
+     *
+     * @ORM\Column(name="sponsor", type="boolean", nullable=true)
+     */
+    private $sponsor = '0';
+
+    /**
+     * @var bool|null
+     *
+     * @ORM\Column(name="desactivated", type="boolean", nullable=true)
+     */
+    private $desactivated = '0';
+
+    /**
      *
      * @ORM\Column(name="creation_date", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @var \DateTime|null
      */
     private $creationDate = 'new \DateTime()';
 
@@ -161,9 +205,15 @@ class Utilisateurs implements UserInterface
      */
     public function __construct()
     {
+        $this->creationDate = new \DateTime();
         $this->idCollab = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    public function setIdUtilisateur(?int $idUtilisateur): self
+    {
+        $this->idUtilisateur = $idUtilisateur;
 
+        return $this;
+    }
     public function getIdUtilisateur(): ?int
     {
         return $this->idUtilisateur;
@@ -193,9 +243,9 @@ class Utilisateurs implements UserInterface
         return $this;
     }
 
-    public function getAge(): ?int
+    public function getDatenaissance(): ?string
     {
-        return $this->age;
+        return $this->datenaissance;
     }
 
     public function setDatenaissance(object $datenaissance = null): self
@@ -219,12 +269,12 @@ class Utilisateurs implements UserInterface
         return $this;
     }
 
-    public function getNumTel(): ?int
+    public function getNumTel(): ?string
     {
         return $this->numTel;
     }
 
-    public function setNumTel(int $numTel): self
+    public function setNumTel(string $numTel): self
     {
         $this->numTel = $numTel;
 
@@ -239,6 +289,18 @@ class Utilisateurs implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
@@ -334,6 +396,30 @@ class Utilisateurs implements UserInterface
     public function setEvaluation(?int $evaluation): self
     {
         $this->evaluation = $evaluation;
+
+        return $this;
+    }
+
+    public function getSponsor(): ?bool
+    {
+        return $this->sponsor;
+    }
+
+    public function setSponsor(?bool $sponsor): self
+    {
+        $this->sponsor = $sponsor;
+
+        return $this;
+    }
+
+    public function getDesactivated(): ?bool
+    {
+        return $this->desactivated;
+    }
+
+    public function setDesactivated(?bool $desactivated): self
+    {
+        $this->desactivated = $desactivated;
 
         return $this;
     }
