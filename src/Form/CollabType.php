@@ -9,21 +9,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-
 class CollabType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
-            ->add('nomCollab',TextType::class)
-            ->add('Submit',SubmitType::class)
-        ;
+            ->add('nomCollab', TextType::class)
+            ->add('Submit', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => SalleCollaboration::class,
+            'validation_groups' => ['deletet'],
         ]);
     }
 }

@@ -4,13 +4,20 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * SalleCollaboration
  *
  * @ORM\Table(name="salle_collaboration", indexes={@ORM\Index(name="ID_Utilisateur", columns={"ID_Utilisateur"})})
- * @ORM\Entity
+ *   @UniqueEntity(
+ *     fields={"nomCollab"},
+ *     groups={"deletet"},
+ *     message="Votre Collab existe déja"
+ * )
+ * * @ORM\Entity(repositoryClass="App\Repository\SalleCollabRepository")
  */
 class SalleCollaboration
 {
@@ -27,13 +34,23 @@ class SalleCollaboration
      * @var string
      *
      * @ORM\Column(name="Nom_Collab", type="string", length=20, nullable=false)
+     * @Assert\NotBlank( groups={"deletet"},message="Veuillez choisir un nom ")
+     *  @Assert\EqualTo(groups={"deletec"},propertyPath="nomconfirm",message="nom ne correspond pas")
+     
      */
     private $nomCollab;
 
     /**
      * @var string
+     * @Assert\EqualTo(groups={"deletec"}, propertyPath="nomconfirm",message="nom doit etre le meme que le nom du collab a supprimer")
+     */
+    private $nomconfirm;
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="URL_Collab", type="string", length=60, nullable=false)
+
      */
     private $urlCollab;
 
@@ -41,6 +58,8 @@ class SalleCollaboration
      * @var string|null
      *
      * @ORM\Column(name="Chat", type="text", length=0, nullable=true)
+    
+
      */
     private $chat;
 
@@ -90,6 +109,17 @@ class SalleCollaboration
     public function setNomCollab(string $nomCollab): self
     {
         $this->nomCollab = $nomCollab;
+
+        return $this;
+    }
+    public function getnomconfirm(): ?string
+    {
+        return $this->nomconfirm;
+    }
+
+    public function setnomconfirm(string $nomconfirm): self
+    {
+        $this->nomconfirm = $nomconfirm;
 
         return $this;
     }
@@ -153,5 +183,4 @@ class SalleCollaboration
 
         return $this;
     }
-
 }

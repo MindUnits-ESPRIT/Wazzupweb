@@ -2,17 +2,36 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Serializable;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UtilisateursRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * Utilisateurs
  *
  * @ORM\Table(name="utilisateurs")
- * @ORM\Entity
- */
-class Utilisateurs
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     groups={"registration"},
+ *     message="Votre email est déja utilisé"
+ * )
+ * @ORM\Entity(repositoryClass="App\Repository\UtilisateursRepository")
+ 
+* @UniqueEntity(
+    *     fields={"email"},
+    *     groups={"forgotpassword"},
+    *     message="Email trouvé"
+    * )
+    * @ORM\Entity(repositoryClass="App\Repository\UtilisateursRepository")
+    */
+
+class Utilisateurs implements UserInterface
 {
     /**
      * @var int
@@ -26,21 +45,29 @@ class Utilisateurs
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=30, nullable=false)
+     * @ORM\Column(name="nom", type="string", length=30)
+     * @Assert\NotBlank(message="Veuillez insérer votre nom",
+    *     groups={"registration","Editprofile_general"},
+    * )
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=30, nullable=false)
-     */
+     * @ORM\Column(name="prenom", type="string", length=30)
+    * @Assert\NotBlank(message="Veuillez insérer votre Prenom",
+    *     groups={"registration","Editprofile_general"},
+    * )    */
     private $prenom;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="age", type="integer", nullable=false)
+     * @ORM\Column(name="datenaissance", type="string", length=30, nullable=true)
+     * @Assert\NotBlank(message="Veuillez insérer votre date de naissance ",
+    *     groups={"registration"},
+     * )
      */
     private $age;
 
@@ -54,7 +81,10 @@ class Utilisateurs
     /**
      * @var int
      *
-     * @ORM\Column(name="num_tel", type="integer", nullable=false)
+     * @ORM\Column(name="num_tel", type="string", length=12, nullable=false)
+     * @Assert\NotBlank(message="Veuillez insérer votre numero de telephone ",
+    *     groups={"registration"},
+     * )
      */
     private $numTel;
 
@@ -62,15 +92,31 @@ class Utilisateurs
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=50, nullable=false)
+     * @Assert\NotBlank(message="Veuillez insérer votre email ",
+     *     groups={"registration","Editprofile_general"},
+     * )
+     * @Assert\Email(
+     *     message = "Votre email '{{ value }}' n'est pas un email valide.",
+     *     groups={"registration","Editprofile_general"},
+     * )
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mdp", type="string", length=100, nullable=false)
+     * @ORM\Column(name="mdp", type="string", length=220, nullable=false)-
+     * @Assert\NotBlank(message="Veuillez insérer votre mot de passe ",
+     *     groups={"registration","Editprofile_pwd"},)
+     * @Assert\NotCompromisedPassword(message="Veuillez choisir un mot de passe plus fort", groups={"registration","Editprofile_pwd"}))
+     * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*\d).{6,}$/i", message="Votre mot de passe doit comporter au moins 6 caractères et inclure au moins une lettre et un chiffre.", groups={"registration","Editprofile_pwd"})
+     * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe ne correspond pas a votre confirmation", groups={"registration","Editprofile_pwd"})
+     * 
      */
     private $mdp;
+    /**
+     * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe doit etre le meme que le mot de passe saisie précedement",groups={"registration","Editprofile_pwd"})
+     */
 
     /**
      * @var string|null
@@ -78,6 +124,9 @@ class Utilisateurs
      * @ORM\Column(name="Liste_Collaborations", type="text", length=0, nullable=true)
      */
     private $listeCollaborations;
+
+
+    public $oldmdp;
 
     /**
      * @var string
@@ -98,7 +147,7 @@ class Utilisateurs
      *
      * @ORM\Column(name="creation_date", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $creationDate = 'CURRENT_TIMESTAMP';
+    private $creationDate = 'new \DateTime()';
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -149,9 +198,11 @@ class Utilisateurs
         return $this->age;
     }
 
-    public function setAge(int $age): self
+    public function setDatenaissance(object $datenaissance = null): self
     {
-        $this->age = $age;
+        if (!($datenaissance == null)) {
+            $this->datenaissance = $datenaissance->format('d-m-Y');
+        }
 
         return $this;
     }
@@ -203,19 +254,17 @@ class Utilisateurs
 
         return $this;
     }
-
-    public function getListeCollaborations(): ?string
+    public function getPassword(): ?string
     {
-        return $this->listeCollaborations;
+        return $this->mdp;
     }
 
-    public function setListeCollaborations(?string $listeCollaborations): self
+    public function setPassword(string $mdp): self
     {
-        $this->listeCollaborations = $listeCollaborations;
+        $this->mdp = $mdp;
 
         return $this;
     }
-
     public function getTypeUser(): ?string
     {
         return $this->typeUser;
@@ -224,6 +273,55 @@ class Utilisateurs
     public function setTypeUser(string $typeUser): self
     {
         $this->typeUser = $typeUser;
+
+        return $this;
+    }
+
+    public function getPasswordrequestedat(): ?\DateTimeInterface
+    {
+        return $this->passwordrequestedat;
+    }
+
+    public function setPasswordrequestedat(
+        ?\DateTimeInterface $passwordrequestedat
+    ): self {
+        $this->passwordrequestedat = $passwordrequestedat;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    public function getActivated(): ?bool
+    {
+        return $this->activated;
+    }
+
+    public function setActivated(bool $activated): self
+    {
+        $this->activated = $activated;
+
+        return $this;
+    }
+
+    public function getNbsignal(): ?int
+    {
+        return $this->nbsignal;
+    }
+
+    public function setNbsignal(?int $nbsignal): self
+    {
+        $this->nbsignal = $nbsignal;
 
         return $this;
     }
@@ -278,8 +376,18 @@ class Utilisateurs
 
         return $this;
     }
-    public function __toString()
-    {
-        return $this->nom;
-    }
+    public function eraseCredentials()
+{
+}
+public function getSalt()
+{
+    return null;
+}
+public function getRoles()
+{
+    return ['ROLE_USER'];
+}
+public function getUsername()
+{
+}
 }
