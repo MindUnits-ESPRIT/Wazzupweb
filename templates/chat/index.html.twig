@@ -55,7 +55,6 @@ $color_pick = array_rand($colors);
 <div id="message-box"></div>
 <div class="user-panel">
 	<center>
-<input type="text" name="name" id="name" placeholder="Your Name"  class="form-control" maxlength="15" style="width:300px"/>
 <input type="text" name="message" id="message" placeholder="Type your message here..."  class="form-control" maxlength="100" style="width:300px"/>
 <button id="send-message" class="btn btn-primary btn-lg" >Envoyer</button>
 	<center/>
@@ -70,7 +69,6 @@ $color_pick = array_rand($colors);
 	websocket = new WebSocket(wsUri);
 
 	websocket.onopen = function(ev) { // connection is open
-		msgBox.append('<div class="system_msg" style="color:#bbbbbb">Welcome to my "Demo WebSocket Chat box"!</div>'); //notify user
 	}
 	// Message received from server
 	websocket.onmessage = function(ev) {
@@ -111,7 +109,7 @@ $color_pick = array_rand($colors);
 	//Send message
 	function send_message(){
 		var message_input = $('#message'); //user message text
-		var name_input = $('#name'); //user name
+		var name_input ='{{ nom}} {{ prenom}}'; //user name
 
 		if(message_input.val() == ""){ //empty name?
 			alert("Enter your Name please!");
@@ -125,7 +123,7 @@ $color_pick = array_rand($colors);
 		//prepare json data
 		var msg = {
 			message: message_input.val(),
-			name: name_input.val(),
+			name: '{{ prenom }} {{ nom }} ',
 			color : '<?php echo $colors[$color_pick]; ?>'
 		};
 		//convert and send data to server

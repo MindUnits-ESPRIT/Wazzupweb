@@ -22,8 +22,8 @@
                 </li>
                 
                         <li><a class="d-flex align-items-center" href="{{ path('app_collab') }}"><i data-feather="users"></i><span class="menu-item text-truncate" data-i18n="Profile">Collaboration</span></a>
-                        </li>      
-                        <li><a class="d-flex align-items-center" href="page-account-settings.html"><i data-feather="calendar"></i><span class="menu-item text-truncate" data-i18n="Account Settings">Evenement</span></a>
+                        </li>
+                        <li><a class="d-flex align-items-center" href="{{ path('app_evenement_index',{'user':user.idUtilisateur}) }}"><i data-feather="calendar"></i><span class="menu-item text-truncate" data-i18n="Account Settings">Evenement</span></a>
                         </li>
                         
                         <li><a class="d-flex align-items-center" href="page-faq.html"><i data-feather="credit-card"  > </i><span class="menu-item text-truncate" data-i18n="FAQ">Paiement</span></a>

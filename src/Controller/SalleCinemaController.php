@@ -19,8 +19,9 @@ class SalleCinemaController extends AbstractController
     /**
      * @Route("/list/{event}", name="app_salle_cinema_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager, Evenement $event): Response
+    public function index(EntityManagerInterface $entityManager, Evenement $event,Request $request): Response
     {
+        $user=$request->getSession()->get('userdata');
         $salleCinemas = $entityManager
             ->getRepository(SalleCinema::class)
             ->findBy([
@@ -29,6 +30,11 @@ class SalleCinemaController extends AbstractController
 
         return $this->render('salle_cinema/index.html.twig', [
             'salle_cinemas' => $salleCinemas,
+            'nom'=>$user->getNom(),
+            'prenom'=>$user->getPrenom(),
+            'role'=>$user->getTypeUser(),
+            'picture'=>'',
+            'user'=>$user,
         ]);
     }
 
@@ -37,6 +43,7 @@ class SalleCinemaController extends AbstractController
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user=$request->getSession()->get('userdata');
         $salleCinema = new SalleCinema();
         $event=$entityManager->getRepository(Evenement::class)->find($request->query->get('evenement'));
         $salleCinema->setIdEvent($event)
@@ -56,17 +63,28 @@ class SalleCinemaController extends AbstractController
         return $this->render('salle_cinema/new.html.twig', [
             'salle_cinema' => $salleCinema,
             'form' => $form->createView(),
+            'nom'=>$user->getNom(),
+            'prenom'=>$user->getPrenom(),
+            'role'=>$user->getTypeUser(),
+            'picture'=>'',
+            'user'=>$user,
         ]);
     }
 
     /**
      * @Route("/{idSalle}", name="app_salle_cinema_show", methods={"GET"})
      */
-    public function show(SalleCinema $salleCinema): Response
+    public function show(SalleCinema $salleCinema,Request $request): Response
     {
+        $user=$request->getSession()->get('userdata');
         return $this->render('salle_cinema/show.html.twig', [
             'salle_cinema' => $salleCinema,
-            'event'=>$salleCinema->getIdEvent()->getId()
+            'event'=>$salleCinema->getIdEvent()->getId(),
+            'nom'=>$user->getNom(),
+            'prenom'=>$user->getPrenom(),
+            'role'=>$user->getTypeUser(),
+            'picture'=>'',
+            'user'=>$user,
         ]);
     }
 
@@ -75,19 +93,25 @@ class SalleCinemaController extends AbstractController
      */
     public function edit(Request $request, SalleCinema $salleCinema, EntityManagerInterface $entityManager): Response
     {
+        $user=$request->getSession()->get('userdata');
         $form = $this->createForm(SalleCinemaType::class, $salleCinema);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_evenement_index', ['user'=>58], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_evenement_index', ['user'=>$user->getIdUtilisateur()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('salle_cinema/edit.html.twig', [
             'salle_cinema' => $salleCinema,
             'event'=>$salleCinema->getIdEvent()->getId(),
             'form' => $form->createView(),
+            'nom'=>$user->getNom(),
+            'prenom'=>$user->getPrenom(),
+            'role'=>$user->getTypeUser(),
+            'picture'=>'',
+            'user'=>$user,
         ]);
     }
 
@@ -96,6 +120,7 @@ class SalleCinemaController extends AbstractController
      */
     public function delete(Request $request, SalleCinema $salleCinema, EntityManagerInterface $entityManager): Response
     {
+        $user=$request->getSession()->get('userdata');
         if ($this->isCsrfTokenValid('delete'.$salleCinema->getIdSalle(), $request->request->get('_token'))) {
             $event=$salleCinema->getIdEvent();
             $entityManager->remove($event);
@@ -103,7 +128,7 @@ class SalleCinemaController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_evenement_index', ['user'=>58
+        return $this->redirectToRoute('app_evenement_index', ['user'=>$user->getIdUtilisateur()
         //$this->getUser()->getId()
         ], Response::HTTP_SEE_OTHER);
     }

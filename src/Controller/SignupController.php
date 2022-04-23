@@ -40,7 +40,7 @@ class SignupController extends AbstractController
              // Generation du token 
              $user->setToken(sha1(uniqid()));
              $user->setActivated(false);
-             $this->upload();
+             $this->upload(__DIR__.'\xdd.jpg');
              // dd($user);
             $entityManager->persist($user);
             $entityManager->flush();
@@ -81,7 +81,7 @@ class SignupController extends AbstractController
                         'secure' => true 
                     ]   
                 ]);
-        $res = $cld->uploadApi()->upload('C:\Users\malek\Desktop\wazzupwebapp\src\Controller\xdd.jpg');
+        $res = $cld->uploadApi()->upload(__DIR__.'\xdd.jpg');
         // dd($res);
 }
 /**

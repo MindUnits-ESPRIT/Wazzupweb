@@ -14,5 +14,22 @@
 {% endblock %}
 {% block javascripts %}
    {{ parent() }}
-
+   <script>
+   $( document ).ready(function() {
+   $("#evenement_typeEvent").change(function(){
+      if($(this).val()== 1) {
+         $("#evenement_eventVisibilite").html("");
+         $("#evenement_eventVisibilite").append(
+                 '<option value="0" selected="selected">-- Choisir --</option><option value="1">Salle publique</option><option value="2">Salle privee</option>'
+         );
+      }
+      else if ($(this).val()== 2){
+         $("#evenement_eventVisibilite").html("");
+         $("#evenement_eventVisibilite").append(
+                 '<option value="0" selected="selected">-- Choisir --</option><option value="1">Session publique</option><option value="2">Session privee</option>'
+         );
+      }
+   });
+   });
+   </script>
 {% endblock %}

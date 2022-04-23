@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aef8c0a2ee317ee839bc5a51f61561a8",
+    "content-hash": "b700a4cd7dc158f548428401f87fbc27",
     "packages": [
         {
             "name": "cloudinary/cloudinary_php",
@@ -1966,7 +1966,6 @@
             ],
             "time": "2021-12-19T18:06:55+00:00"
         },
-       
         {
             "name": "monolog/monolog",
             "version": "1.27.0",

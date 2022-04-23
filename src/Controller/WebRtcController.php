@@ -115,10 +115,16 @@ class WebRtcController extends AbstractController
     /**
      * @Route("/web/rtc", name="app_wep_rtc")
      */
-    public function hamatayzon()
+    public function hamatayzon(Request $request)
     {
+        $user=$request->getSession()->get('userdata');
         return $this->render('web_rtc/index.html.twig', [
             'controller_name' => 'WebRtcController',
+            'nom'=>$user->getNom(),
+            'prenom'=>$user->getPrenom(),
+            'role'=>$user->getTypeUser(),
+            'picture'=>'',
+            'user'=>$user
         ]);
     }
 
