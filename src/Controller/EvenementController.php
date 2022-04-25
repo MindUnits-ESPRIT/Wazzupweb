@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Repository\EvenementRepository;
 use App\Entity\Evenement;
 use App\Entity\Rencontre;
 use App\Entity\SalleCinema;
@@ -12,16 +12,47 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 /**
  * @Route("/evenement")
  */
 class EvenementController extends AbstractController
 {
+
+    /**
+     * @Route("/eventlist/Json/{user}", name="app_evenement_list_calendar_data")
+     */
+    public function data(EvenementRepository $ev, Utilisateurs $user){
+        $events = $ev
+            ->findby([
+                'idUtilisateur'=> $user->getIdUtilisateur()
+            ]);
+        $result=array();
+        foreach ($events as $event ){
+            $date=explode('/',$event->getDateEvent());
+            $result[] = array(
+//                'id' => $event->getId(),
+                'title' => $event->getNomEvent(),
+                'start' => $date[2] . '-' . $date[1] . '-' . $date[0],
+                'url'=>$this->generateUrl('app_evenement_show',['id'=>$event->getId(),UrlGeneratorInterface::ABSOLUTE_URL])
+            );
+        }
+        return $this->json($result);
+    }
+    /**
+     * @Route("/eventlist/{user}", name="app_evenement_list_calendar")
+     */
+    public function calendar(Utilisateurs $user)
+    {
+        return $this->render('evenement/calendar.html.twig',[
+            'user'=>$user->getIdUtilisateur()
+        ]);
+    }
     /**
      * @Route("/list/{user}", name="app_evenement_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager, Utilisateurs $user): Response
+    public function index(EntityManagerInterface $entityManager, Utilisateurs $user, PaginatorInterface $paginator,Request $request): Response
     {
 
         $evenements = $entityManager
@@ -29,6 +60,11 @@ class EvenementController extends AbstractController
             ->findby([
                 'idUtilisateur'=> $user->getIdUtilisateur()
             ]);
+        $evenements = $paginator->paginate(
+            $evenements, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            2 // Nombre de résultats par page
+        );
         return $this->render('evenement/index.html.twig', [
             'evenements' => $evenements,
             'nom'=>$user->getNom(),
@@ -143,4 +179,5 @@ class EvenementController extends AbstractController
         //$this->getUser()->getId()
         ], Response::HTTP_SEE_OTHER);
     }
+
 }

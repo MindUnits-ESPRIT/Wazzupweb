@@ -16,6 +16,7 @@ class SalleCinemaType extends AbstractType
     {
         $builder
             ->add('nomSalle')
+            ->add('urlFilm')
             ->add('Enregistrer',SubmitType::class)
         ;
     }

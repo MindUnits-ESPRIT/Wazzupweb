@@ -7,6 +7,9 @@
     <center>
     <h1 style="font-family: cursive;">Evénement</h1>
     </center>
+    <br> <br> <br>
+
+{#    <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}"class="btn btn-secondary" style="font-family: cursive;">Modifier</a>#}
     <table class="table" style="font-family: cursive;">
         <tbody>
             <tr>
@@ -43,7 +46,8 @@
     <tr>
         <td>
             <div style="margin-left: 434px;">
-    <a href="{{ path('app_evenement_index',{'user':evenement.idUtilisateur.idUtilisateur})}}"class="btn btn-outline-primary" style="font-family: cursive;">Retour</a>
+    <a href="{{ path('app_evenement_index',{'user':evenement.idUtilisateur.idUtilisateur})}}"class="btn btn-outline-primary" style="font-family: cursive;position: relative;
+    right: 396px;">Retour</a>
             </div>
         </td>
 

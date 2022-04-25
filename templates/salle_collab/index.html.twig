@@ -66,6 +66,7 @@
 				<div class="content-body">
 					<h4 class="card-title mb-50 mb-sm-0" style="margin-left:2%;margin-top:-2%;padding:1%">{{collab.getNomCollab()}}</h4>
 
+
 					<div class="row match-height">
 						<style>
 						/* Scrollbar styles */
@@ -227,7 +228,7 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 										<div class="chat chat-left">
 											<div class="chat-avatar">
 												<span class="avatar box-shadow-1 cursor-pointer">
-													<img src="{{user.getAvatar()}}" alt="avatar" height="36" width="36"/>
+													<img src="{{asset('dashboard/app-assets/images/portrait/small/avatar-s-20.jpg')}}" alt="avatar" height="36" width="36"/>
 												</span>
 											</div>
 											<div class="chat-body">
@@ -321,303 +322,360 @@ location.href = "{{ path('addU',{'idu':'val','idc':'frttr'}) }}".replace('val', 
 								<form class="chat-app-form" action="javascript:void(0);" onsubmit="enterChat();">
 									<div class="input-group input-group-merge mr-50 w-75 form-send-message">
 										<div class="input-group-prepend">
-											<span class="input-group-text">
-												<label for="attach-doc" class="attachment-icon mb-0">
-													<i data-feather="image" class="cursor-pointer lighten-2 text-secondary"></i>
-													<input type="file" id="attach-doc" hidden/>
-												</label>
-											</span>
-										</div>
-										<input type="text" class="form-control message" placeholder="Type your message"/>
-									</div>
-									<button type="button" class="btn btn-primary send" onclick="enterChat();">
-										<i data-feather="send" class="d-lg-none"></i>
-										<span class="d-none text-nowrap d-lg-block">Send</span>
-									</button>
-								</form>
-								<!--/ Submit Chat form -->
-							</section>
-							<!-- User Chat messages -->
-						</div>
-					</div>
-					<!--/ Chat Card -->
+											<a onclick="trans();">
+												<script>
+													async function trans(source) {
+var message = $('.message').val();
+var collabn = '{{ collab.getNomCollab() }}'
 
-					{% if projet %}
-						<!-- Developer Meetup Card -->
-						<div class="col-lg-3 col-md-6 col-12">
-							<div class="card card-developer-meetup">
-								<div class="meetup-img-wrapper rounded-top text-center">
-									<img src="{{asset('collab/prjtdef.png')}}" alt="Meeting Pic" height="170"/>
-								</div>
-								<div class="card-body">
-									<div class="meetup-header d-flex align-items-center">
-										<div class="meetup-day">
-											<h6 class="mb-0">{{ "now"|date("F") }}</h6>
-											<h3 class="mb-0">{{ "now"|date(" jS ") }}</h3>
-										</div>
-										<div class="my-auto">
-											<h4 class="card-title mb-25">{{projet.getNomProjet()}}</h4>
-											<p class="card-text mb-0">Votre Projet trello
-											</p>
-										</div>
-									</div>
-									<div class="media">
-										<div class="avatar bg-light-primary rounded mr-1">
-											<div class="avatar-content">
-												<i data-feather="file-text" class="avatar-icon font-medium-3"></i>
-											</div>
-										</div>
-										<div class="media-body">
-											<h6 class="mb-0">Description</h6>
-											<small>{{projet.getDescriptionProjet()}}</small>
-										</div>
-									</div>
-									<div class="media">
-										<div class="avatar bg-light-primary rounded mr-1">
-											<div class="avatar-content">
-												<i data-feather="link" class="avatar-icon font-medium-3"></i>
-											</div>
-										</div>
-										<div class="media-body">
+const encodedParams = new URLSearchParams();
+encodedParams.append("q", message);
+encodedParams.append("target", "fr");
+encodedParams.append("source", "en");
 
-											<h6 class="mb-0">Votre lien trello</h6>
-											<small>
-												<a href="{{projet.getUrlTrello()}}">{{projet.getUrlTrello()}}</a>
-											</small>
-										</div>
-									</div>
-									<div class="avatar-group">
-										{% for m in users %}
-											{% if userCunt <6%}
-												<div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="{{m.getPrenom()}}{% set pi =" "%}{{pi}} {{m.getNom()}}" class="avatar pull-up">
-													<img src="{{m.getAvatar()}}" alt="Avatar" width="33" height="33"/>
+const options = {
+method: 'POST',
+headers: {
+'content-type': 'application/x-www-form-urlencoded',
+'Accept-Encoding': 'application/gzip',
+'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
+'X-RapidAPI-Key': '9a6b4bf20emshae5bd479784ca42p166566jsn7cc364986d30'
+},
+body: encodedParams
+};
+
+const res = await fetch('https://google-translate1.p.rapidapi.com/language/translate/v2', options);
+const traduction = await res.json();
+const rrr = traduction["data"]["translations"][0];
+document.getElementById('mess').value = rrr["translatedText"];
+}
+												</script>
+												<div style="margin-top:25%;">
+													<span class="d-none text-nowrap d-sm-block" style="color:blue">en->fr</span>
 												</div>
-											{% endif %}
-											{% set userCunt = userCunt + 1%}
-										{% endfor %}
-										{% if  userCunt - 6 <= 0 %}
-											{% else %}
-												<h6 class="align-self-center cursor-pointer ml-50 mb-0">+{% set userCunt = userCunt - 6%}{{userCunt}}</h6>
-										{% endif %}
-									</div>
-								</div>
-								<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#xSmall">
-									Supprimer
-								</button>
-							</div>
-						</div>
-						<!--/ Developer Meetup Card -->
-
-
-						<!-- Modal -->
-						<div class="modal fade modal-danger text-left" id="xSmall" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="myModalLabel120">Attention</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										cette action est irréversible procéder avec prudence
-									</div>
-									<div class="modal-footer">
-										<a href="{{ path('delP',{'id':projet.getIdProjet(),'cid':collab.getIdCollab()}) }}" class="btn btn-danger">
-											Accept
+											</a>
 										</a>
-									</div>
+									</a>
+								</div>
+								<input type="text" class="form-control message" id="mess" placeholder="Type your message" style="margin-left:10%"/>
+							</div>
+							<button type="button" class="btn btn-primary send" onclick="enterChatR();" style="margin-left:30%">
+								<script>
+
+									function enterChatR(source) {
+
+var message = $('.message').val();
+if (/\S/.test(message)) {
+var html = '<div class="chat-content">' + '<p>' + message + '</p>' + '</div>';
+$('.chat:last-child .chat-body').append(html);
+$('.message').val('');
+$('.user-chats').scrollTop($('.user-chats > .chats').height());
+
+}
+}
+								</script>
+								<center>
+									<span class="d-none text-nowrap d-md-block" style="margin-left:-18%">envoyer</span>
+								</center>
+							</button>
+						</form>
+						<!--/ Submit Chat form -->
+					</section>
+					<!-- User Chat messages -->
+				</div>
+			</div>
+			<!--/ Chat Card -->
+
+			{% if projet %}
+				<!-- Developer Meetup Card -->
+				<div class="col-lg-3 col-md-6 col-12">
+					<div class="card card-developer-meetup">
+						<div class="meetup-img-wrapper rounded-top text-center">
+							<img src="{{asset('collab/prjtdef.png')}}" alt="Meeting Pic" height="170"/>
+						</div>
+						<div class="card-body">
+							<div class="meetup-header d-flex align-items-center">
+								<div class="meetup-day">
+									<h6 class="mb-0">{{ "now"|date("F") }}</h6>
+									<h3 class="mb-0">{{ "now"|date(" jS ") }}</h3>
+								</div>
+								<div class="my-auto">
+									<h4 class="card-title mb-25">{{projet.getNomProjet()}}</h4>
+									<p class="card-text mb-0">Votre Projet trello
+									</p>
 								</div>
 							</div>
+							<div class="media">
+								<div class="avatar bg-light-primary rounded mr-1">
+									<div class="avatar-content">
+										<i data-feather="file-text" class="avatar-icon font-medium-3"></i>
+									</div>
+								</div>
+								<div class="media-body">
+									<h6 class="mb-0">Description</h6>
+									<small>{{projet.getDescriptionProjet()}}</small>
+								</div>
+							</div>
+							<div class="media">
+								<div class="avatar bg-light-primary rounded mr-1">
+									<div class="avatar-content">
+										<i data-feather="link" class="avatar-icon font-medium-3"></i>
+									</div>
+								</div>
+								<div class="media-body">
+
+									<h6 class="mb-0">Votre lien trello</h6>
+									<small>
+										<a href="{{projet.getUrlTrello()}}">{{projet.getUrlTrello()}}</a>
+									</small>
+								</div>
+							</div>
+							<div class="avatar-group">
+								{% for m in users %}
+									{% if userCunt <6%}
+										<div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="{{m.getPrenom()}}{% set pi =" "%}{{pi}} {{m.getNom()}}" class="avatar pull-up">
+											<img src="{{m.getAvatar()}}" alt="Avatar" width="33" height="33"/>
+										</div>
+									{% endif %}
+									{% set userCunt = userCunt + 1%}
+								{% endfor %}
+								{% if  userCunt - 6 <= 0 %}
+									{% else %}
+										<h6 class="align-self-center cursor-pointer ml-50 mb-0">+{% set userCunt = userCunt - 6%}{{userCunt}}</h6>
+								{% endif %}
+								<a data-toggle="modal" data-target="#qr">
+									<i data-feather="camera" style="color:blue; margin-left:250%; margin-top:60%"></i>
+								</a>
+
+
+							</div>
 						</div>
+						<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#xSmall">
+							Supprimer
+						</button>
 					</div>
 
-					<div class="d-inline-block">
+				</div>
+			</div>
+			<!--/ Developer Meetup Card -->
 
 
-					{% else %}
-						<!-- Developer Meetup Card -->
-						<div class="col-lg-3 col-md-6 col-12">
-							<div class="card card-developer-meetup">
-								<div class="meetup-img-wrapper rounded-top text-center">
-									<img src="{{asset('collab/prjtP.png')}}" alt="Meeting Pic" height="170"/>
+			<!-- Modal -->
+			<div class="modal fade modal-danger text-left" id="xSmall" tabindex="-1" role="dialog" aria-labelledby="myModalLabel120" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel120">Attention</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							cette action est irréversible procéder avec prudence
+						</div>
+						<div class="modal-footer">
+							<a href="{{ path('delP',{'id':projet.getIdProjet(),'cid':collab.getIdCollab()}) }}" class="btn btn-danger">
+								Accept
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="d-inline-block">
+
+
+		{% else %}
+			<!-- Developer Meetup Card -->
+			<div class="col-lg-3 col-md-6 col-12">
+				<div class="card card-developer-meetup">
+					<div class="meetup-img-wrapper rounded-top text-center">
+						<img src="{{asset('collab/prjtP.png')}}" alt="Meeting Pic" height="170"/>
+					</div>
+					<div class="card-body">
+						<div class="meetup-header d-flex align-items-center">
+							<div class="meetup-day">
+								<h6 class="mb-0">{{ "now"|date("F") }}</h6>
+								<h3 class="mb-0">{{ "now"|date(" jS ") }}</h3>
+							</div>
+							<div class="my-auto">
+								<h4 class="card-title mb-25">Créer un projet</h4>
+								<p class="card-text mb-0">pour une meilleure productivité</p>
+							</div>
+						</div>
+						<div class="media">
+							<div class="avatar bg-light-primary rounded mr-1">
+								<div class="avatar-content">
+									<i data-feather="calendar" class="avatar-icon font-medium-3"></i>
 								</div>
-								<div class="card-body">
-									<div class="meetup-header d-flex align-items-center">
-										<div class="meetup-day">
-											<h6 class="mb-0">{{ "now"|date("F") }}</h6>
-											<h3 class="mb-0">{{ "now"|date(" jS ") }}</h3>
-										</div>
-										<div class="my-auto">
-											<h4 class="card-title mb-25">Créer un projet</h4>
-											<p class="card-text mb-0">pour une meilleure productivité</p>
-										</div>
-									</div>
-									<div class="media">
-										<div class="avatar bg-light-primary rounded mr-1">
-											<div class="avatar-content">
-												<i data-feather="calendar" class="avatar-icon font-medium-3"></i>
-											</div>
-										</div>
-										<div class="media-body">
-											<h6 class="mb-0" id="date"></h6>
-											<small id="time">10:AM to 6:PM</small>
-										</div>
-									</div>
-									<div class="media">
-										<div class="avatar bg-light-primary rounded mr-1">
-											<div class="avatar-content">
-												<i data-feather="map-pin" class="avatar-icon font-medium-3"></i>
-											</div>
-										</div>
-										<div class="media-body">
-											<h6 class="mb-0">{{ country }}</h6>
-											<small>{{ regionName }}</small>
+							</div>
+							<div class="media-body">
+								<h6 class="mb-0" id="date"></h6>
+								<small id="time">10:AM to 6:PM</small>
+							</div>
+						</div>
+						<div class="media">
+							<div class="avatar bg-light-primary rounded mr-1">
+								<div class="avatar-content">
+									<img src="{{flag}}" alt="flag" width="40" height="40"/>
+								</div>
+							</div>
+							<div class="media-body">
+
+								<h6 class="mb-0">{{ country }}</h6>
+
+								<small>{{ regionName }}</small>
 
 
-										</div>
-										<script>
+							</div>
+							<script>
 
-											setInterval(function () {
+								setInterval(function () {
 var today = new Date();
 var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 document.getElementById('time').innerHTML = time;
 }, 100);
 var today2 = new Date();
 document.getElementById('date').innerHTML = today2.toDateString();
-										</script>
+							</script>
 
-
-									</div>
-									<div class="avatar-group">
-										{% for m in users %}
-											{% if userCunt <6%}
-												<div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="{{m.getPrenom()}}{% set pi =" "%}{{pi}} {{m.getNom()}}" class="avatar pull-up">
-													<img src="{{m.getAvatar()}}" alt="Avatar" width="33" height="33"/>
-												</div>
-											{% endif %}
-											{% set userCunt = userCunt + 1%}
-										{% endfor %}
-										{% if  userCunt - 6 <= 0 %}
-											{% else %}
-												<h6 class="align-self-center cursor-pointer ml-50 mb-0">+{% set userCunt = userCunt - 6%}{{userCunt}}</h6>
-										{% endif %}
-									</div>
-								</div>
-								<a href="" class="btn btn-outline-primary" data-toggle="modal" data-target="#large">Créer</a>
-
-
-							</div>
 
 						</div>
-						<!--/ Developer Meetup Card -->
-					{% endif %}
-					<!-- Modal -->
-					<div class="modal fade text-left" id="large" tabindex="-1" role="dialog" aria-labelledby="myModalLabel17" aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
+						<div class="avatar-group">
+							{% for m in users %}
+								{% if userCunt <6%}
+									<div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="{{m.getPrenom()}}{% set pi =" "%}{{pi}} {{m.getNom()}}" class="avatar pull-up">
+										<img src="{{m.getAvatar()}}" alt="Avatar" width="33" height="33"/>
+									</div>
+								{% endif %}
+								{% set userCunt = userCunt + 1%}
+							{% endfor %}
+							{% if  userCunt - 6 <= 0 %}
+								{% else %}
+									<h6 class="align-self-center cursor-pointer ml-50 mb-0">+{% set userCunt = userCunt - 6%}{{userCunt}}</h6>
+							{% endif %}
+							<a data-toggle="modal" data-target="#qr">
+								<i data-feather="camera" style="color:blue; margin-left:250%; margin-top:60%"></i>
+							</a>
+						</div>
 
-									<h4 class="modal-title" id="myModalLabel17">Créer Votre Projet</h4>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
 
+					</div>
+					<a href="" class="btn btn-outline-primary" data-toggle="modal" data-target="#large">Créer</a>
+
+
+				</div>
+
+			</div>
+			<!--/ Developer Meetup Card -->
+		{% endif %}
+		<!-- Modal -->
+		<div class="modal fade text-left" id="large" tabindex="-1" role="dialog" aria-labelledby="myModalLabel17" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+
+						<h4 class="modal-title" id="myModalLabel17">Créer Votre Projet</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+
+
+					</div>
+					<div
+						class="modal-body">
+						<!-- Horizontal Wizard -->
+						<section class="modern-horizontal-wizard">
+							<div class="bs-stepper wizard-modern modern-wizard-example">
+								<div class="bs-stepper-header">
+									<div class="step" data-target="#account-details">
+										<button type="button" class="step-trigger">
+											<span class="bs-stepper-box">1</span>
+											<span class="bs-stepper-label">
+												<span class="bs-stepper-title">Details general</span>
+												<span class="bs-stepper-subtitle">Description</span>
+											</span>
+										</button>
+									</div>
+									<div class="line">
+										<i data-feather="chevron-right" class="font-medium-2"></i>
+									</div>
+									<div class="step" data-target="#personal-info">
+										<button type="button" class="step-trigger">
+											<span class="bs-stepper-box">2</span>
+											<span class="bs-stepper-label">
+												<span class="bs-stepper-title">Details Trello</span>
+												<span class="bs-stepper-subtitle">Ajouter trello tokens</span>
+											</span>
+										</button>
+									</div>
 
 								</div>
-								<div
-									class="modal-body">
-									<!-- Horizontal Wizard -->
-									<section class="modern-horizontal-wizard">
-										<div class="bs-stepper wizard-modern modern-wizard-example">
-											<div class="bs-stepper-header">
-												<div class="step" data-target="#account-details">
-													<button type="button" class="step-trigger">
-														<span class="bs-stepper-box">1</span>
-														<span class="bs-stepper-label">
-															<span class="bs-stepper-title">Details general</span>
-															<span class="bs-stepper-subtitle">Description</span>
-														</span>
-													</button>
+								<div class="bs-stepper-content">
+									<div id="account-details" class="content">
+										<div class="content-header">
+											<h5 class="mb-0">Details projet</h5>
+											<small class="text-muted">Entrer les details du vote projet.</small>
+										</div>
+										<form>
+											<div class="row">
+												<div class="form-group col-md-6">
+													<label class="form-label" for="username">Nom du projet</label>
+													<input type="text" name="username" id="nom" class="form-control" placeholder="johndoe"/>
 												</div>
-												<div class="line">
-													<i data-feather="chevron-right" class="font-medium-2"></i>
+												<div class="form-group col-md-6">
+													<label class="form-label" for="password">Description</label>
+													<input type="textarea" name="last-name" id="desc" class="form-control" placeholder="Decrire votre projet"/>
 												</div>
-												<div class="step" data-target="#personal-info">
-													<button type="button" class="step-trigger">
-														<span class="bs-stepper-box">2</span>
-														<span class="bs-stepper-label">
-															<span class="bs-stepper-title">Details Trello</span>
-															<span class="bs-stepper-subtitle">Ajouter trello tokens</span>
-														</span>
-													</button>
-												</div>
-
 											</div>
-											<div class="bs-stepper-content">
-												<div id="account-details" class="content">
-													<div class="content-header">
-														<h5 class="mb-0">Details projet</h5>
-														<small class="text-muted">Entrer les details du vote projet.</small>
-													</div>
-													<form>
-														<div class="row">
-															<div class="form-group col-md-6">
-																<label class="form-label" for="username">Nom du projet</label>
-																<input type="text" name="username" id="nom" class="form-control" placeholder="johndoe"/>
-															</div>
-															<div class="form-group col-md-6">
-																<label class="form-label" for="password">Description</label>
-																<input type="textarea" name="last-name" id="desc" class="form-control" placeholder="Decrire votre projet"/>
-															</div>
-														</div>
 
-													</form>
-													<div class="d-flex justify-content-between">
-														<button class="btn btn-outline-secondary btn-prev" disabled>
-															<i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
-															<span class="align-middle d-sm-inline-block d-none">Previous</span>
-														</button>
-														<button class="btn btn-primary btn-next">
-															<span class="align-middle d-sm-inline-block d-none">Next</span>
-															<i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
-														</button>
-													</div>
+										</form>
+										<div class="d-flex justify-content-between">
+											<button class="btn btn-outline-secondary btn-prev" disabled>
+												<i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+												<span class="align-middle d-sm-inline-block d-none">Previous</span>
+											</button>
+											<button class="btn btn-primary btn-next">
+												<span class="align-middle d-sm-inline-block d-none">Next</span>
+												<i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+											</button>
+										</div>
+									</div>
+									<div id="personal-info" class="content">
+										<div class="content-header">
+											<h5 class="mb-0">Trello Info</h5>
+											<small>Enter votre Trello Info.</small>
+										</div>
+										<form>
+											<div class="row">
+												<div class="form-group col-md-6">
+													<label class="form-label" for="first-name">
+														<a href="https://trello.com/1/authorize?expiration=never&scope=read,write,account&response_type=token&name=Server%20Token&key=e0efb3bcbe6f5dbf936f8c2e883a9580">Trello Token</label>
+													</a>
+													<input type="text" name="landmark" id="token" class="form-control" placeholder="2a89c09006d3976b9bf7270130220a2af827e5fb1170cca94c0520b08ba08f8c"/>
 												</div>
-												<div id="personal-info" class="content">
-													<div class="content-header">
-														<h5 class="mb-0">Trello Info</h5>
-														<small>Enter votre Trello Info.</small>
-													</div>
-													<form>
-														<div class="row">
-															<div class="form-group col-md-6">
-																<label class="form-label" for="first-name">
-																	<a href="https://trello.com/1/authorize?expiration=never&scope=read,write,account&response_type=token&name=Server%20Token&key=e0efb3bcbe6f5dbf936f8c2e883a9580">Trello Token</label>
-																</a>
-																<input type="text" name="landmark" id="token" class="form-control" placeholder="2a89c09006d3976b9bf7270130220a2af827e5fb1170cca94c0520b08ba08f8c"/>
-															</div>
-															<div class="form-group col-md-6">
+												<div class="form-group col-md-6">
 
 
-																<label class="form-label" for="last-name">
-																	<a href="https://trello.com/app-key/">Trello Key</a>
-																</label>
+													<label class="form-label" for="last-name">
+														<a href="https://trello.com/app-key/">Trello Key</a>
+													</label>
 
-																<input type="text" name="address" id="key" class="form-control" placeholder="e0efb3bcbe6f5dbf936f8c2e883a9580"/>
-															</div>
-														</div>
+													<input type="text" name="address" id="key" class="form-control" placeholder="e0efb3bcbe6f5dbf936f8c2e883a9580"/>
+												</div>
+											</div>
 
-													</form>
-													<div class="d-flex justify-content-between">
-														<button class="btn btn-primary btn-prev">
-															<i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
-															<span class="align-middle d-sm-inline-block d-none">Previous</span>
-														</button>
+										</form>
+										<div class="d-flex justify-content-between">
+											<button class="btn btn-primary btn-prev">
+												<i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+												<span class="align-middle d-sm-inline-block d-none">Previous</span>
+											</button>
 
-														<button class="btn btn-success btn-submit" onclick="create()">Créer</button>
-														<script>
-															function create() {
+											<button class="btn btn-success btn-submit" onclick="create()">Créer</button>
+											<script>
+												function create() {
 var key = document.getElementById('key').value;
 var token = document.getElementById('token').value;
 var nom = document.getElementById('nom').value;
@@ -628,34 +686,46 @@ if (token == "" || key == "") {} else {
 location.href = "{{ path('createP',{'nom':'val','desc':'vall','key':'valll','token':'vallll','cid':'valllll'}) }}".replace('val', nom).replace('vall', desc).replace('valll', key).replace('vallll', token).replace('valllll', cid);
 }
 }
-														</script>
-													</div>
-												</div>
-
-
-											</div>
+											</script>
 										</div>
-									</section>
-									<!-- /Horizontal Wizard -->
+									</div>
 
-									<script></script>
+
 								</div>
-
 							</div>
-						</div>
-					</div>
+						</section>
+						<!-- /Horizontal Wizard -->
 
-					<!-- Modal -->
+
+					</div>
 
 				</div>
 			</div>
-		</section>
-		<!-- /Modern Horizontal Wizard -->
+		</div>
+
+		<!-- Modal -->
+	</div>
+</body></div></section><!-- /Modern Horizontal Wizard --><div class="modal fade text-left" id="qr" tabindex="-1" role="dialog" aria-labelledby="myModalLabel20" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-xs" role="document">
+<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title" id="myModalLabel20">Votre code QR</h4>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		{% set body = collab.getNomCollab() %}
+		{% set body = body ~ '\n '~ collab.getUrlCollab() %}
+		{% if projet %}
+			{% set body = body ~ '\n '~ projet.getUrlTrello() %}
+		{% endif %}
+		<center><img src="{{ qr_code_data_uri(body) }}" style="min-height:120px; width:120px;padding-top:10%;padding-bottom:15%"/></center>
+
 
 	</div>
-	<div class="modal-footer"></div>
-</body></div></div></div></div></div></div></body></body></div><!-- END: Content--><div class="sidenav-overlay"></div><div class="drag-target"></div><!-- BEGIN: Footer--><footer class="footer footer-static footer-light"><p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2022<a class="ml-25" target="_blank"></a><span class="d-none d-sm-inline-block">, All rights Reserved Wazzup</span></span><span class="float-md-right d-none d-md-block"></span></p></footer><button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button><!-- END: Footer--><!-- BEGIN: Vendor JS--><script src="dashboard/app-assets/vendors/js/vendors.min.js"></script><!-- BEGIN Vendor JS--><!-- BEGIN: Page Vendor JS--><script src="dashboard/app-assets/vendors/js/charts/apexcharts.min.js"></script><script src="dashboard/app-assets/vendors/js/editors/quill/katex.min.js"></script><script src="dashboard/app-assets/vendors/js/editors/quill/highlight.min.js"></script><script src="dashboard/app-assets/vendors/js/editors/quill/quill.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/select/select2.full.min.js"></script><script src="dashboard/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script><script src="dashboard/app-assets/vendors/js/extensions/dragula.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script><script src="dashboard/app-assets/vendors/js/extensions/toastr.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/wizard/bs-stepper.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/select/select2.full.min.js"></script><!-- END: Page Vendor JS--><!-- BEGIN: Theme JS--><script src="dashboard/app-assets/js/core/app-menu.js"></script><script src="dashboard/app-assets/js/core/app.js"></script><!-- END: Theme JS--><!-- BEGIN: Page JS--><script src="dashboard/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script><script src="dashboard/app-assets/js/scripts/cards/card-advance.js"></script><script src="dashboard/app-assets/js/scripts/pages/app-todo.js"></script><script src="dashboard/app-assets/js/scripts/forms/form-wizardm.js"></script><!-- END: Page JS--><script>$(window).on('load', function () {
+
+</div></div></div></body></body></div><div class="modal-footer"></div></body></div></div></div> </div></div></div></body></body></div><!-- END: Content--><div class="sidenav-overlay"></div><div class="drag-target"></div><!-- BEGIN: Footer--><footer class="footer footer-static footer-light"><p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2022<a class="ml-25" target="_blank"></a><span class="d-none d-sm-inline-block">, All rights Reserved Wazzup</span></span><span class="float-md-right d-none d-md-block"></span></p></footer><button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button><!-- END: Footer--><!-- BEGIN: Vendor JS--><script src="dashboard/app-assets/vendors/js/vendors.min.js"></script><!-- BEGIN Vendor JS--><!-- BEGIN: Page Vendor JS--><script src="dashboard/app-assets/vendors/js/charts/apexcharts.min.js"></script><script src="dashboard/app-assets/vendors/js/editors/quill/katex.min.js"></script><script src="dashboard/app-assets/vendors/js/editors/quill/highlight.min.js"></script><script src="dashboard/app-assets/vendors/js/editors/quill/quill.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/select/select2.full.min.js"></script><script src="dashboard/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script><script src="dashboard/app-assets/vendors/js/extensions/dragula.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script><script src="dashboard/app-assets/vendors/js/extensions/toastr.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/wizard/bs-stepper.min.js"></script><script src="dashboard/app-assets/vendors/js/forms/select/select2.full.min.js"></script><!-- END: Page Vendor JS--><!-- BEGIN: Theme JS--><script src="dashboard/app-assets/js/core/app-menu.js"></script><script src="dashboard/app-assets/js/core/app.js"></script><!-- END: Theme JS--><!-- BEGIN: Page JS--><script src="dashboard/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script><script src="dashboard/app-assets/js/scripts/cards/card-advance.js"></script><script src="dashboard/app-assets/js/scripts/pages/app-todo.js"></script><script src="dashboard/app-assets/js/scripts/forms/form-wizardm.js"></script><!-- END: Page JS--><script>$(window).on('load', function () {
 if (feather) {
 feather.replace({width: 14, height: 14});
 }
-})</script> </body>{% endblock %}
+})</script></body>{% endblock %}

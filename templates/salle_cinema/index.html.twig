@@ -20,7 +20,15 @@
             <tr>
                 <td>{{ salle_cinema.nomSalle }}</td>
                 <td>{{ salle_cinema.urlFilm }}</td>
-                <td>{{ salle_cinema.urlSalle }}</td>
+                <td>
+                    {% if evenement|date('Y-m-d')>'now'|date('Y-m-d') %}
+                        Salle disponible le : {{evenement|date('Y-m-d') }}
+                        {% elseif evenement|date('Y-m-d')<'now'|date('Y-m-d') %}
+                            Salle fermé depuis : {{evenement|date('Y-m-d') }}
+                    {% else %}
+                        <a href="{{ salle_cinema.urlSalle }}" target="_blank">{{ salle_cinema.urlSalle }}</a>
+                        {% endif %}
+                </td>
                 <td>{{ salle_cinema.chat }}</td>
                 <td>
                     <a href="{{ path('app_salle_cinema_show', {'idSalle': salle_cinema.idSalle}) }}"class="btn btn-primary" style="background-color: teal;font-family: cursive;">Afficher</a>
@@ -34,4 +42,5 @@
         {% endfor %}
         </tbody>
     </table>
+{#    <a href="{{ path('app_evenement_index',{'user':evenement.idUtilisateur}) }}"class="btn btn-outline-primary">Retour</a>#}
 {% endblock %}

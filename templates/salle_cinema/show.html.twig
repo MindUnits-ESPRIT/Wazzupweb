@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <th>UrlSalle</th>
-                <td>{{ salle_cinema.urlSalle }}</td>
+                <td><a href="{{ salle_cinema.urlSalle }}" target="_blank">{{ salle_cinema.urlSalle }}</a> </td>
             </tr>
             <tr>
                 <th>Chat</th>
@@ -34,7 +34,6 @@
     <a href="{{ path('app_salle_cinema_index',{'event': event}) }}"class="btn btn-outline-primary">Retour</a>
 
     <a href="{{ path('app_salle_cinema_edit', {'idSalle': salle_cinema.idSalle}) }}"class="btn btn-secondary">Modifier</a>
-
     {{ include('salle_cinema/_delete_form.html.twig') }}
 </center>
 {% endblock %}

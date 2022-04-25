@@ -24,6 +24,9 @@ class CollabController extends AbstractController
         SessionInterface $session
     ): Response {
         $user = $session->get('userdata');
+        if($user == null){
+            return $this->redirectToRoute('app_auth');
+        }
         $collab = new SalleCollaboration();
         $form = $this->createForm(CollabType::class, $collab);
 
@@ -52,7 +55,25 @@ class CollabController extends AbstractController
             $collab_member->setIdUtilisateur($user->getIdUtilisateur());
             $entityManager->persist($collab_member);
             $entityManager->flush();
-            $this->addFlash('success', 'Collab creé !');
+            $y = 0;
+            $sujet = 'Creation terminée';
+            $ssujet =
+                'Votre collaboration ' .
+                $collab->getNomCollab() .
+                ' est bien crée';
+            $naame =
+                $sujet .
+                ',' .
+                $ssujet .
+                ',' .
+                'https://res.cloudinary.com/dnnhnqiym/image/upload/v1650481316/wazzup_we8kld.png';
+            if (isset($_COOKIE['system'])) {
+                $i = count($_COOKIE['system']);
+                setcookie('system[' . $i . ']', $naame, time() + 3600, '/');
+            } else {
+                setcookie('system[' . $y . ']', $naame, time() + 3600, '/');
+            }
+            return $this->redirect($request->getUri());
         }
         return $this->render('collab/index.html.twig', [
             'controller_name' => 'CollabController',

@@ -44,7 +44,12 @@ class EvenementType extends AbstractType
                 'placeholder'=>'Description...',
                 'class'=>'form-control'
             ]])
-            ->add('Enregistrer',SubmitType::class)
+            ->add('Enregistrer',SubmitType::class,['attr'=>[
+                'style'=>'    right: 68px;
+                         position: relative;',
+            ]
+
+            ])
 //            ->add('dateP',DateTimeType::class)
 //            ->add('idUtilisateur',EntityType::class,['class'=>Utilisateurs::class,'choice_label'=>'nom'])
         ;

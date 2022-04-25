@@ -2,6 +2,8 @@
 {{ form_start(form, {'attr': {'novalidate': 'novalidate','style':'font-family: cursive;width: 370px;'}}) }}
     <br>
  {{form_row(form.nomSalle,{'label': 'Nom de la SalleCinéma','attr': {'class': 'form-control','placeholder':'Nom SalleCinéma'}})}}
+    {{form_row(form.urlFilm,{'label': 'Lien du film','attr': {'class': 'form-control','placeholder':'Lien...'}})}}
+
     <br>
 {{ form_end(form) }}
 </center>

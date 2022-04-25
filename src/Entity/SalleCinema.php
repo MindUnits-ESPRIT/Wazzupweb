@@ -27,7 +27,7 @@ class SalleCinema
      * @var string
      *
      * @ORM\Column(name="Nom_Salle", type="string", length=50, nullable=false)
-     *@Assert\NotBlank(message="Veuillez ajouter le nom de la salle")
+     * @Assert\NotBlank(message="Veuillez ajouter le nom de la salle")
 
      */
     private $nomSalle;
@@ -36,6 +36,7 @@ class SalleCinema
      * @var string
      *
      * @ORM\Column(name="URL_Film", type="string", length=50, nullable=false)
+     * @Assert\NotBlank(message="Veuillez ajouter l'url du film")
      */
     private $urlFilm;
 
