@@ -25,9 +25,10 @@ class Paiement
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="Date_paiement", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="Date_paiement", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @var \DateTime|null
      */
-    private $datePaiement ;
+    private $datePaiement = 'new \DateTime()';
 
     /**
      * @var string
@@ -49,6 +50,11 @@ class Paiement
      */
     private $prix;
 
+    public function __construct()
+    {
+        $this->datePaiement = new \DateTime();
+    }
+
     public function getIdPaiement(): ?int
     {
         return $this->idPaiement;
@@ -61,7 +67,8 @@ class Paiement
 
     public function setDatePaiement(?\DateTimeInterface $datePaiement): self
     {
-        $this->startDate = new \DateTime();
+        $this->datePaiement = $datePaiement;
+        return $this;
 
     }
 
