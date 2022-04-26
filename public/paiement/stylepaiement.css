@@ -156,13 +156,13 @@ p {
 /*
 replace html, body with what background area you want to animate
 */
-.container{
+/* .container{
     display: flex;
     justify-content: center;
     align-items: center;
     padding:50px;
     min-height: 100vh;
-    /* replace colors to what you would like. */
+    /* replace colors to what you would like. 
     background: -webkit-linear-gradient(45deg, #59ADEB 10%, #35CE93 90%);
     background: linear-gradient(45deg, #59ADEB 10%, #35CE93 90%);
     overflow: hidden;
@@ -171,7 +171,7 @@ replace html, body with what background area you want to animate
     animation: move 10s ease infinite;
 }
 /* this is where the magic happens */
-@-webkit-keyframes move {
+/*@-webkit-keyframes move {
     0% {
         background-position: 0 0;
     }
@@ -199,7 +199,7 @@ replace html, body with what background area you want to animate
     100%{background-position:0% 50%}
 }
 /*TEXT AREA */
-input, textarea{
+/*input, textarea{
     width: 330px;
     border: none;
     border-radius: 20px;
@@ -212,7 +212,7 @@ input, textarea{
     -webkit-transition: border 0.5s;
     -moz-transition: border 0.5s;
     -o-transition: border 0.5s;
-    /*border: solid 3px #98d4f3;*/
+    /*border: solid 3px #98d4f3;
     -webkit-box-sizing:border-box;
     -moz-box-sizing:border-box;
     box-sizing:border-box;
@@ -226,4 +226,4 @@ textarea{
     height: 100px;
     resize: none;
     overflow: auto;
-}
+} */

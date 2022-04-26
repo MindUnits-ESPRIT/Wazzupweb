@@ -16,7 +16,6 @@ class PaiementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            //->add('datePaiement')
             ->add('methodePaiement', ChoiceType::class, ['choices' => ['Choisir la methode du paiement' => null , 'Credit_card' => 'Credit_card', 'Stripe' => 'Stripe']])
             ->add('prix');
 //            ->add('OffrePublicitaire',CollectionType::class, [
