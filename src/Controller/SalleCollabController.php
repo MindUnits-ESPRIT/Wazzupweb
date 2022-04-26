@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Projet;
 use App\Entity\Utilisateurs;
+use App\Entity\Message;
 use App\Entity\CollabMembers;
 use App\Entity\SalleCollaboration;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,7 +13,7 @@ use App\Repository\UtilisateursRepository;
 use App\Repository\CollabMembersRepository;
 use App\Repository\ProjetRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Message;
+//use Symfony\Component\HttpFoundation\Message;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -60,7 +61,7 @@ class SalleCollabController extends AbstractController
  */
 
         //api el jdid
-        $response = $client->request(
+        /*   $response = $client->request(
             'GET',
             'https://ip-geo-location.p.rapidapi.com/ip/check',
             [
@@ -78,10 +79,10 @@ class SalleCollabController extends AbstractController
         $country = $content['country']['name'];
         $flag = $content['country']['flag']['file'];
 
-        $regionName = $content['area']['name'];
+        $regionName = $content['area']['name']; */
 
         $user1 = $session->get('userdata');
-        if($user1 == null){
+        if ($user1 == null) {
             return $this->redirectToRoute('app_auth');
         }
         $collab = new SalleCollaboration();
@@ -363,5 +364,66 @@ class SalleCollabController extends AbstractController
         }
 
         return $this->redirectToRoute('app_list_collab');
+    }
+
+    /**
+     * @Route("/msg/{idc}", name="loadmsg")
+     */
+    public function msg(
+        EntityManagerInterface $entityManager,
+        CollabMembersRepository $s,
+        UtilisateursRepository $u,
+        SessionInterface $session,
+        $idc
+    ) {
+        $Message = new Message();
+        $Message = $this->getDoctrine()
+            ->getRepository(Message::class)
+            ->findBy([
+                'idCollab' => $idc,
+            ]);
+
+        $user1 = $session->get('userdata');
+        if ($user1 == null) {
+            return $this->redirectToRoute('app_auth');
+        }
+        $user = $this->getDoctrine()
+            ->getRepository(Utilisateurs::class)
+            ->find($user1->getIdUtilisateur());
+
+        return $this->render('salle_collab/LoadM.html.twig', [
+            'controller_name' => 'SalleCollabController',
+
+            'userM' => $user,
+            'MessageM' => $Message,
+        ]);
+    }
+
+    /**
+     * @Route("/addM{msg},{idc},{idu}", name="addM")
+     */
+    public function addM(
+        $msg,
+        $idc,
+        $idu,
+        EntityManagerInterface $entityManager,
+        CollabMembersRepository $s,
+        UtilisateursRepository $u
+    ) {
+        $user = $this->getDoctrine()
+            ->getRepository(Utilisateurs::class)
+            ->find($idu);
+
+        $collab = $this->getDoctrine()
+            ->getRepository(SalleCollaboration::class)
+            ->find($idc);
+        $Message = new Message();
+        $Message->setBody($msg);
+        $Message->setIdUitlisateur($user);
+        $Message->setIdCollab($collab);
+        $entityManager->persist($Message);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('loadmsg', ['idc' => $idc]);
     }
 }

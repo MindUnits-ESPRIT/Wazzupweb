@@ -208,15 +208,15 @@ class Utilisateurs implements UserInterface
         $this->creationDate = new \DateTime();
         $this->idCollab = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    public function setIdUtilisateur(int $idUtilisateur): self
+    public function setIdUtilisateur(?int $idUtilisateur): self
     {
         $this->idUtilisateur = $idUtilisateur;
 
         return $this;
     }
-    public function getIdUtilisateur():int
+    public function getIdUtilisateur(): ?int
     {
-        return  $this->idUtilisateur;
+        return $this->idUtilisateur;
     }
 
     public function getNom(): ?string
@@ -476,4 +476,10 @@ public function getRoles()
 public function getUsername()
 {
 }
+
+public function __toString()
+{
+    return $this->nom;
+}
+
 }

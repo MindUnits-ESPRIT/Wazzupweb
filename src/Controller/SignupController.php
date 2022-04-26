@@ -30,12 +30,23 @@ class SignupController extends AbstractController
     public function signup(Request $request, EntityManagerInterface $entityManager,UserPasswordEncoderInterface $encoder, MailerInterface $mailer): Response
     {
         $user=new Utilisateurs();
+        $datevalide=false;
         $form=$this->createForm(SignupType::class,$user);
         $form->handleRequest($request);
         
+        
+
         // dump($form->getData());
         if ($form->isSubmitted() && $form->isValid()) {
-        
+            $db=$form->get('datenaissance')->getData();
+            $dbyear=$db->format('Y');
+            $datevalide=$this->VerifierDatenaissance($dbyear);
+            // dd($datevalide);
+            if($datevalide==false){
+                return $this->redirectToRoute('app_signup',['dbvalid' =>$datevalide]);
+            } 
+            
+            else{
              $hash= $encoder->encodePassword($user,$user->getMdp());
              $user->setmdp($hash);
              // Generation du token 
@@ -64,12 +75,23 @@ class SignupController extends AbstractController
             ['email' => $user->getEmail()],
         );  
         }
+    }
         return $this->render('signup/index.html.twig', [
             'controller_name' => 'SignupController',
             'signup_form' => $form ->createView(),
+            'datevalide'=>$datevalide
+            
         ]);
+    
     }
-
+public function VerifierDatenaissance($db){
+    $dbvalid=false;
+   if($db >'2004'){
+    $dbvalid=false;
+   }
+   else $dbvalid=true;
+   return  $dbvalid;
+}
 
 /**
  * @Route("/activation/{token}",name="activation")
@@ -104,6 +126,7 @@ public function activation($token , UtilisateursRepository $userrepo,EntityManag
       'message',
       'Vous avez bien activé votre compte !'
     );
+    
 
   return $this->redirectToRoute('activation-success',['user' => $user->getEmail()]);
 

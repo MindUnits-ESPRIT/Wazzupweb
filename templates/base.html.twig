@@ -1,9 +1,21 @@
+<<<<<<< HEAD
      		{% for message in app.flashes('success') %}
 				<div class="alert alert-success">
 				{{message}}
 				</div>
 			{% endfor %}
+=======
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+>>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
        {% block navbar %}
-        {% include 'navbar/nav.html.twig' %}
+{% include 'home/header.html.twig' %}
+{% include 'home/sidebar.html.twig' %}
        {% endblock %}
-        
+{% block body %}
+
+{% endblock %}

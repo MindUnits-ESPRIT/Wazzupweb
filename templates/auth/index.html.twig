@@ -20,6 +20,18 @@
 	<link rel="shortcut icon" href="{{ asset('login/img/favicon.ico') }}">
 	<script src="{{ asset('login/js/Jquery.js') }}"></script>
 	<script src="{{ asset('login/js/form.js') }}"></script>
+	<style>
+	.code_validate{
+    width: 95px;
+    height: 30px;
+    margin-top: 2px;
+    margin-left: -13px;
+	}
+	.code_sms{
+		
+	}
+   
+	</style>
     </head>
 {% endblock %}
 {% include 'navbar/nav.html.twig' %}
@@ -46,6 +58,20 @@
 	{{ form_start(auth_form,{'attr':{'novalidate':'novalidate'}}) }}
 				<h3 class="loginhead"><i class="fas fa-user-edit"></i>&nbsp;&nbsp;S'identifier</h3>
 				<h5>REMPLIR LES CHAMPS POUR ACCEDER A VOTRE COMPTE</h5><br>
+<<<<<<< HEAD
+=======
+				{% for msg in app.session.flashBag.get('success') %}
+                <div class="alert alert-success">
+                    {{ msg }}
+                </div>
+				<script>
+				$(document).ready(function(){
+    $(".alert-success").delay(3000).slideUp(300);
+});
+				</script>
+            {% endfor %}
+			
+>>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
 				{% if login %}
 				<div class="alert alert-success" role="alert">
                 Authentifié avec succés , Bienvenue!
@@ -61,6 +87,15 @@
                  Veuillez verifier votre mot de passe !
                  </div>
 				  {% endif %}
+<<<<<<< HEAD
+=======
+				   {% if activated %}
+				 <div class="alert alert-danger" role="alert">
+                 Veuillez activer votre compte pour y accéder !
+                 </div>
+				 {% endif %}
+				  
+>>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
 				        {{ form_errors(auth_form) }}
 
 				<div class="form-wrapper">
@@ -74,6 +109,19 @@
 					<i class="zmdi zmdi-lock"></i>
 				</div>
 
+<<<<<<< HEAD
+=======
+			
+				{% if otp  %}
+               <div class="row code_sms">
+			    <div class="col">
+              <input class="form-control">
+                  </div>
+				      <div class="col">
+             <button class="ld-over-full-inverse code_validate" >Valider</button>
+                  </div> </div>
+				  {% endif %}
+>>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
 				 {{ form_widget(auth_form.Submit, { 'label': 'Soumettre', 'attr':{'class':'ld-over-full-inverse'} }) }}
 
                <center><a href="{{path('forgotpassword')}}"><p></p>Mot de passe oublié?</a></center>

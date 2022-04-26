@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * OffrePublicitaire
@@ -22,6 +22,7 @@ class OffrePublicitaire
     private $idOffre;
 
     /**
+     * @Assert\NotBlank(message="nomOffre doit etre non vide")
      * @var string|null
      *
      * @ORM\Column(name="nom_offre", type="string", length=30, nullable=true)
@@ -30,21 +31,23 @@ class OffrePublicitaire
 
     /**
      * @var string|null
-     *
+     *@Assert\NotBlank(message="ContenuOffre doit etre non vide")
      * @ORM\Column(name="contenu_offre", type="text", length=65535, nullable=true)
      */
     private $contenuOffre;
 
     /**
      * @var int|null
-     *
+     *@Assert\NotBlank(message="Durée doit etre non vide")
      * @ORM\Column(name="nbr_max_offre", type="integer", nullable=true)
      */
     private $nbrMaxOffre;
 
     /**
+     *
      * @var \Utilisateurs
      *
+     *@Assert\NotBlank
      * @ORM\ManyToOne(targetEntity="Utilisateurs")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ID_Utilisateur", referencedColumnName="ID_Utilisateur")

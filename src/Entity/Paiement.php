@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Paiement
@@ -22,25 +23,37 @@ class Paiement
     private $idPaiement;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="Date_paiement", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @var \DateTime|null
      */
-    private $datePaiement = 'CURRENT_TIMESTAMP';
+    private $datePaiement = 'new \DateTime()';
 
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="Choisissez une methode paiement valide")
      * @ORM\Column(name="Methode_paiement", type="string", length=0, nullable=false)
      */
     private $methodePaiement;
 
     /**
      * @var float|null
-     *
+    /**
+     * @Assert\GreaterThan(
+     *     value = 5,
+     *     message ="Prix doit etre >5$"
+     * )
+     *@Assert\NotBlank(message="Prix doit etre non vide")
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=true)
      */
     private $prix;
+
+    public function __construct()
+    {
+        $this->datePaiement = new \DateTime();
+    }
 
     public function getIdPaiement(): ?int
     {
@@ -52,11 +65,11 @@ class Paiement
         return $this->datePaiement;
     }
 
-    public function setDatePaiement(\DateTimeInterface $datePaiement): self
+    public function setDatePaiement(?\DateTimeInterface $datePaiement): self
     {
         $this->datePaiement = $datePaiement;
-
         return $this;
+
     }
 
     public function getMethodePaiement(): ?string

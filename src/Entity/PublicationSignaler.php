@@ -9,7 +9,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * PublicationSignaler
  *
  * @ORM\Table(name="publication_signaler", indexes={@ORM\Index(name="signaler_Foreign_pub", columns={"Id_publication"}), @ORM\Index(name="signaler_Foreign_uti", columns={"Id_utilisateur"})})
+<<<<<<< HEAD
  * @ORM\Entity(repositoryClass=App\Repository\PublicationSignalerRepository::class)
+=======
+>>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
  * @ORM\Entity(repositoryClass="App\Repository\PublicationSignalerRepository")
  */
 class PublicationSignaler
