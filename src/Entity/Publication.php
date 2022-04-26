@@ -47,24 +47,18 @@ class Publication
     private $fichier;
 
     /**
-<<<<<<< HEAD
      * @var string|null
      *
      * @ORM\Column(name="Visibilite", type="string", length=10, nullable=true)
-=======
-     * @var int
-     *
-     * @ORM\Column(name="Nbr_Signal", type="integer", nullable=false)
->>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
      */
-    private $nbrSignal = '0';
+    private $visibilite = 'True';
 
     /**
-     * @var string|null
+     * @var int
      *
-     * @ORM\Column(name="Liste_Signal", type="text", length=0, nullable=true)
+     * @ORM\Column(name="Priority", type="integer", nullable=false, options={"default"="1"})
      */
-    private $listeSignal;
+    private $priority = 1;
 
     /**
      * @Assert\DateTime
@@ -112,26 +106,26 @@ class Publication
         return $this;
     }
 
-    public function getNbrSignal(): ?int
+    public function getVisibilite(): ?string
     {
-        return $this->nbrSignal;
+        return $this->visibilite;
     }
 
-    public function setNbrSignal(int $nbrSignal): self
+    public function setVisibilite(string $visibilite): self
     {
-        $this->nbrSignal = $nbrSignal;
+        $this->visibilite = $visibilite;
 
         return $this;
     }
 
-    public function getListeSignal(): ?string
+    public function getPriority(): ?int
     {
-        return $this->listeSignal;
+        return $this->priority;
     }
 
-    public function setListeSignal(?string $listeSignal): self
+    public function setPriority(int $priority): self
     {
-        $this->listeSignal = $listeSignal;
+        $this->priority = $priority;
 
         return $this;
     }
