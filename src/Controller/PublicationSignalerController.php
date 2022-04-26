@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -31,20 +32,28 @@ class PublicationSignalerController extends AbstractController
     /**
      * @Route("/new/{idP}/{typeS}", name="app_publication_signaler_new", methods={"GET", "POST"})
      */
-    public function new(Request $request,EntityManagerInterface $entityManager,$idP,$typeS): Response
+    public function new(Request $request,EntityManagerInterface $entityManager,$idP,$typeS,SessionInterface $session): Response
     {
+        $user = $session->get('userdata');
         $publicationSignaler = new PublicationSignaler();
+        $pub= new Publication();
 //        $form = $this->createForm(PublicationSignalerType::class, $publicationSignaler);
 //        $form->handleRequest($request);
-        $user=$this->getDoctrine()->getRepository(Utilisateurs::class)->find(58);
+        $user=$this->getDoctrine()->getRepository(Utilisateurs::class)->find($user);
         $pub=$this->getDoctrine()->getRepository(Publication::class)->find($idP);
+        $pubSign=$this->getDoctrine()->getRepository(PublicationSignaler::class)->findBy(['idPublication'=>$idP]);
+        if (count($pubSign)>=9)
+        $pub->setVisibilite("False");
+          //  $publication->setVisibilite("False");
 //        if ($form->isSubmitted() && $form->isValid()) {
+
             $publicationSignaler->setIdUtilisateur($user);
             $publicationSignaler->setIdPublication($pub);
             $publicationSignaler->setType("$typeS");
             $publicationSignaler->setDate((new \DateTime('now')));
             $entityManager->persist($publicationSignaler);
             $entityManager->flush();
+
             return $this->redirectToRoute('app_publication_index', [], Response::HTTP_SEE_OTHER);
 //        }
 //        return $this->render('publication_signaler/new.html.twig', [

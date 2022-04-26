@@ -7,6 +7,7 @@ use App\Entity\Utilisateurs;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -20,17 +21,20 @@ class PublicationType extends AbstractType
     {
         $builder
             ->add('description',TextareaType::class)
-            ->add('fichier',HiddenType::class,[
-                'empty_data' => 'NULL',
-            ])
-            ->add('visibilite',ChoiceType::class,['choices'  => [
-                'True' => 'True',
-                'False' => 'False',
-                'Hidden' => 'Hidden',
-            ]])
+//            ->add('fichier',HiddenType::class,[
+//
+//            ])
+//            ->add('visibilite',ChoiceType::class,['choices'  => [
+//                'True' => 'True',
+//                'False' => 'False',
+//                'Hidden' => 'Hidden',
+//            ]])
 //            ->add('visibilite')
-            ->add('priority',HiddenType::class)
+//            ->add('priority',HiddenType::class)
 //            ->add('datePublication')
+            ->add('imageFile',FileType::class,[
+                'required' => false,'empty_data' => 'NULL'
+            ])
             ->add('idUtilisateur',EntityType::class,['class'=>Utilisateurs::class,'choice_label'=>'idUtilisateur'])
 //            ->add('Submit',SubmitType::class)
         ;

@@ -24,18 +24,57 @@ $(document).ready(function()
 function delPub(id)
 {
     console.log("publication"+id);
-    document.getElementById('DeleteExec').href="delete/"+id;
+    // document.getElementById('DeleteExec').href="/delete/"+id;
+    $("#DeleteExec").attr("href","/publication/delete/"+id);
 }
 
 function editPub(id)
 {
-    console.log("publication"+id);
-    location.href=id+"/edit";
+    //console.log("publication"+id);
+    document.getElementById("editForm").action="/publication/"+id+"/editLE";
+    $('#dark').on('shown.bs.modal', function () {
+        var modal = $(this);
+        $.ajax('/publication/'+id+'/editL', {
+            success: function (data) {
+                modal.find('.modal-body').html(data);
+            }
+        });
+    });
 }
 
 function SigPub()
 {
     x=document.querySelector('input[name="group1"]:checked').value;
-    // console.log(x);
-        document.getElementById('SignalExec').href="signaler/new/"+id_p+"/"+x;
+     console.log("allooo");
+  //  $("#SignalExec").attr("href","/publication/signaler/new/"+id_p+"/"+x);
+        location.href="/publication/signaler/new/"+id_p+"/"+x;
+}
+function RedirectToEdit()
+{
+    location.href="/edit/profile";
+}
+function CountT()
+{
+    x=document.getElementById("publication_description").value.length+1;
+    document.getElementById("char-count").innerText=x;
+    console.log(x);
+}
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#imgPreviewPost').attr('src', e.target.result).show();
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+function GifLoadOpener()
+{
+   if( $('.gifcardload').is(":visible"))
+   {  $('.gifcardload').hide();$("#imgContainer").empty();$("#GifSearcher").val("");
+   }
+   else
+       $('.gifcardload').show();
 }
