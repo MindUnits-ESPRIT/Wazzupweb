@@ -20,6 +20,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AuthController extends AbstractController
 {
+     /**
+     * @var bool
+     */
     /**
      * @var bool
      */

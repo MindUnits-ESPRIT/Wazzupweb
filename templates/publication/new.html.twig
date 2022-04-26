@@ -1,0 +1,135 @@
+{#{% extends 'base.html.twig' %}#}
+
+
+{% block body %}
+<form action="/publication/newpost" method="post" enctype="multipart/form-data">
+{#    <h1>Create new Publication</h1>#}
+
+{#    {{ include('publication/_form.html.twig') }}#}
+{#{{ form_start(form) }}#}
+{#<form name="publication" method="post">#}
+{#    <div class="col-3 form-outline text-area_custom border border-dark rounded" style="top:-10px; width: 50%">#}
+{#        <textarea class="form-control bg-light" id="textAreaExample" name="publication[description]" rows="3" id="publication_description" name="">Quoi de neuf? ,Name</textarea>#}
+{#    {{ form_label(form.description) }}#}
+{#        {{ form_errors(form.description) }}#}
+{#        {{ form_widget(form.description,{'attr':{'class':'form-control bg-light','placeholder':'Quoi de neuf?'}}) }}#}
+{#    </div>#}
+{#    {{ form_row(form.visibilite,{'attr':{'class':'form-control hidden'}}) }}#}
+    {% include 'publication/Emoji.html.twig' %}
+    <br>
+    {{ form_errors(form.imageFile) }}
+    {{ form_widget(form.imageFile,{'attr':{"id":"imgpost","onchange":"readURL(this);"}}) }}
+    <br>
+    <!-- post img -->
+    <center><img class="img-fluid rounded mb-75" src="#" alt="Image Preview" id="imgPreviewPost" style="display: none"></center>
+    <!--/ post img -->
+    <br>
+    <div class="d-flex flex-row-reverse">
+        <button type="submit" class="btn btn-success">Publier <i class="fas fa-arrow-down"></i></button>
+        <button aria-label="Ouvrir l'onglet des GIF" type="button" class="btn btn-dark" onclick="GifLoadOpener()">
+            <div>
+                <div id="icon" style="opacity: 1; transform: none;">
+                    <svg width="24" height="24" class="" aria-hidden="false" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M2 2C0.895431 2 0 2.89543 0 4V20C0 21.1046 0.89543 22 2 22H22C23.1046 22 24 21.1046 24 20V4C24 2.89543 23.1046 2 22 2H2ZM9.76445 11.448V15.48C8.90045 16.044 7.88045 16.356 6.74045 16.356C4.11245 16.356 2.66045 14.628 2.66045 12.072C2.66045 9.504 4.23245 7.764 6.78845 7.764C7.80845 7.764 8.66045 8.004 9.32045 8.376L9.04445 10.164C8.42045 9.768 7.68845 9.456 6.83645 9.456C5.40845 9.456 4.71245 10.512 4.71245 12.06C4.71245 13.62 5.43245 14.712 6.86045 14.712C7.31645 14.712 7.64045 14.616 7.97645 14.448V12.972H6.42845V11.448H9.76445ZM11.5481 7.92H13.6001V16.2H11.5481V7.92ZM20.4724 7.92V9.636H17.5564V11.328H19.8604V13.044H17.5564V16.2H15.5164V7.92H20.4724Z"></path>
+                    </svg>
+                </div>
+            </div>
+        </button>
+    </div>
+    <div class="card mb-3 gifcardload fade-in-right" style="position: relative;width: 60%;z-index: 99;display: none;">
+        <div class="card-body" style="position: absolute;left: 8px;top: -61px;background-color: rgb(32, 34, 37);border-radius: 10px;width: 100%;">
+            <input type="text" class="form-control card-title" id="GifSearcher" placeholder="Chercher Sur Gif" onkeyup="LoadGif()">
+            <div class="text-center" id="imgContainer">
+                {#                        <img src="https://image.shutterstock.com/image-vector/vector-line-icon-img-260nw-2050481222.jpg" width="194" height="110" style="padding-bottom: 5px;padding-right: 2px;border-radius: 10px;">#}
+                {#                        <img src="https://image.shutterstock.com/image-vector/vector-line-icon-img-260nw-2050481222.jpg" width="194" height="110" style="padding-bottom: 5px;padding-right: 2px;border-radius: 10px;">#}
+                {#                        <img src="https://image.shutterstock.com/image-vector/vector-line-icon-img-260nw-2050481222.jpg" width="194" height="110" style="padding-bottom: 5px;padding-right: 2px;border-radius: 10px;">#}
+                {#                        <img src="https://image.shutterstock.com/image-vector/vector-line-icon-img-260nw-2050481222.jpg" width="194" height="110" style="padding-bottom: 5px;padding-right: 2px;border-radius: 10px;">#}
+                {#                        <img src="https://image.shutterstock.com/image-vector/vector-line-icon-img-260nw-2050481222.jpg" width="194" height="110" style="padding-bottom: 5px;padding-right: 2px;border-radius: 10px;">#}
+            </div>
+        </div>
+    </div>
+{#{{ form_end(form) }}#}
+</form>
+{% endblock %}
+
+
+<script>
+   function LoadGif()
+    {
+        $("#imgContainer").empty();
+
+        typed=$("#GifSearcher").val();
+        $.ajax({
+            method: "GET",
+            url: "https://api.giphy.com/v1/gifs/search",
+            data: { api_key: "58vCKzIZ90aMac7PimlKJR5KcGt39EPo",limit:6, q: typed }
+        })
+            .done(function( msg ) {
+                i=0;
+                for (let item of msg.data) {
+                    //console.log(msg.data[item].images);
+                    $("#imgContainer").append('<img id="imgGif'+i+'" onclick="DisplayGif('+i+')" src="'+item.images.downsized.url+'" width="194" height="110" style="padding-bottom: 5px;padding-right: 2px;border-radius: 10px;">');
+                i++;
+                }
+                // msg.data
+            });
+    }
+
+   {#   CUSTOM JS FOR EMOJIS #}
+
+       (function () {
+
+       wdtEmojiBundle.defaults.emojiSheets = {
+           'apple'    : "{{asset('publication/ext/wdt-emoji-bundle-0.2.1/sheets/sheet_apple_64_indexed_128.png')}}",
+           'google'   : "{{asset('/sheets/sheet_google_64_indexed_128.png')}}",
+           'twitter'  : "{{asset('/sheets/sheet_twitter_64_indexed_128.png')}}",
+           'emojione' : "{{asset('/sheets/sheet_emojione_64_indexed_128.png')}}",
+           'facebook' : "{{asset('/sheets/sheet_facebook_64_indexed_128.png')}}",
+           'messenger': "{{asset('/sheets/sheet_messenger_64_indexed_128.png')}}"
+       };
+
+       wdtEmojiBundle.init('.wdt-emoji-bundle-enabled');
+
+       wdtEmojiBundle.on('afterSelect', function (a, b) {
+       console.log('afterSelect', a, b);
+   });
+
+       var typeChangers = document.querySelectorAll('.change-emoji-type');
+       for (var i = 0; i < typeChangers.length; i++) {
+       typeChangers[i].addEventListener('click', function () {
+       wdtEmojiBundle.changeType(this.dataset.emojiType);
+       return false;
+   });
+   }
+       var ev = document.createEvent('Event');
+       ev.initEvent('input', true, true);
+
+
+       // ------------------------------------------------------
+       console.log();
+       coms=document.getElementsByClassName('comment-output');
+       for(i = 0; i < coms.length; i++)
+   {
+       coms[i].innerHTML=wdtEmojiBundle.render(coms[i].innerHTML);
+   }
+       document.getElementById('comment_emoji').addEventListener('input', function () {
+       console.log(this.value);
+       document.getElementById('comment-output').innerHTML = wdtEmojiBundle.render(this.value);
+   });
+       document.getElementById('comment_emoji').dispatchEvent(ev);
+
+
+       // document.getElementById('head-title').innerHTML  = wdtEmojiBundle.render(document.getElementById('head-title').innerHTML);
+       // document.querySelector('.todo-list').innerHTML   = wdtEmojiBundle.render(document.querySelector('.todo-list').innerHTML);
+       // document.querySelector('.bottom-text').innerHTML = wdtEmojiBundle.render(document.querySelector('.bottom-text').innerHTML);
+
+   })();
+       function DisplayGif(id)
+       {
+           source=$("#imgGif"+id).attr('src');
+           $("#imgPreviewPost").attr("src",source).show();
+           GifLoadOpener();
+          // $('#imgPreviewPost').attr('src', e.target.result).show();
+       }
+
+</script>

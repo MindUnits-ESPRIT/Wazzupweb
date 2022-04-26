@@ -86,7 +86,7 @@ $(function () {
   // --------------------------------------------------------------------
   if (readOnlyRatings.length) {
     readOnlyRatings.rateYo({
-      rating: 2,
+      rating: 0,
       rtl: isRtl
     });
   }

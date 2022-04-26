@@ -1,0 +1,37 @@
+{#{% extends 'base.html.twig' %}#}
+
+{% block title %}PublicationSignaler index{% endblock %}
+
+{% block body %}
+    <h1>PublicationSignaler index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdSignaler</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for publication_signaler in publication_signalers %}
+            <tr>
+                <td>{{ publication_signaler.idSignaler }}</td>
+                <td>{{ publication_signaler.type }}</td>
+                <td>{{ publication_signaler.date ? publication_signaler.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_publication_signaler_show', {'idSignaler': publication_signaler.idSignaler}) }}">show</a>
+                    <a href="{{ path('app_publication_signaler_edit', {'idSignaler': publication_signaler.idSignaler}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_publication_signaler_new') }}">Create new</a>
+{% endblock %}

@@ -35,11 +35,18 @@ $(window).on('load', function () {
   var isRtl = $('html').attr('data-textdirection') === 'rtl';
 
   // On load Toast
+<<<<<<< HEAD
+  setTimeout(function () {
+    toastr['success'](
+      'You have successfully logged in to Vuexy. Now you can start to explore!',
+      '👋 Welcome John Doe!',
+=======
   $(document).ready(function () {
   setTimeout(function () {
     toastr['success'](
       'Vous vous êtes connecté avec succès à votre compte Wazzup',
       '👋 Bienvenue !',
+>>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
       {
         closeButton: true,
         tapToDismiss: false,
@@ -47,7 +54,10 @@ $(window).on('load', function () {
       }
     );
   }, 2000);
+<<<<<<< HEAD
+=======
 });
+>>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
 
   // Subscribed Gained Chart
   // ----------------------------------

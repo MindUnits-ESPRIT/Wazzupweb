@@ -11399,7 +11399,11 @@ input[type="button"].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
+<<<<<<< HEAD
+  background-color: #ffffff52;
+=======
   background-color: #06a980b3;
+>>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem; }
@@ -16611,7 +16615,11 @@ code {
       right: 0;
       height: 100%; }
   .card.corona-gradient-card {
+<<<<<<< HEAD
+    background-image: linear-gradient(to left, #00ab83, #4d911a);
+=======
     background-image: linear-gradient(to left, #0080804a, #106363);
+>>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
     border-radius: 6px; }
     .card.corona-gradient-card .gradient-corona-img {
       height: 85px; }
@@ -21130,7 +21138,11 @@ div.tagsinput {
       width: 100%; } }
 
 .content-wrapper {
+<<<<<<< HEAD
+  background: #008080;
+=======
   background: #00808038;
+>>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
   padding: 1.875rem 1.75rem;
   width: 100%;
   -webkit-flex-grow: 1;

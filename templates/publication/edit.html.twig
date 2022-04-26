@@ -1,0 +1,28 @@
+{#{% extends 'base.html.twig' %}#}
+{#{% block title %}Modifier Publication{% endblock %}#}
+
+{% block body %}
+    <h1>Editeur de Publication</h1>
+
+{#    {{ include('publication/_form.html.twig', {'button_label': 'Modifier'}) }}#}
+
+
+    <div class="col-12">
+        <div class="form-label-group mb-0">
+{#            <textarea data-length="20" class="form-control char-textarea active" id="textarea-counter" rows="3" placeholder="Counter" style="color: rgb(78, 81, 84);"></textarea>#}
+            {{ form_errors(form.description) }}
+            {{ form_widget(form.description,{'attr':{'class':'form-control char-textarea active','id':'textarea-counter','rows':3,'placeholder':'Quoi de neuf?','onkeydown':"CountT()"}}) }}
+            <label for="textarea-counter">{{ form_label(form.description) }}</label>
+        </div>
+        <small class="textarea-counter-value float-right" style="background-color: rgb(115, 103, 240);"><span id="char-count">0</span> / 255 </small>
+    </div>
+    {% if publication.fichier |length>4%}
+        <!-- post img -->
+        <img class="img-fluid rounded mb-75" src="{{vich_uploader_asset(publication)}}" alt="lool">
+        <!--/ post img -->
+    {% endif %}
+{{ form_widget(form.imageFile)}}
+{#    <a href="{{ path('app_publication_index') }}">back to list</a>#}
+
+{#    {{ include('publication/_delete_form.html.twig') }}#}
+{% endblock %}
