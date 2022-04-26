@@ -27,7 +27,7 @@ class AppInvoicePrintController extends AbstractController
             'role' => $user->getTypeUser(),
             'picture' => $user->getAvatar(),
             'user' => $user,
-            'paiement'=>$paiement, 
+                        'paiement'=>$paiement, 
             'OffrePublicitaire'=>$OffrePublicitaire
 
         ]);

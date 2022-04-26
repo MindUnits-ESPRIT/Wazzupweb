@@ -57,7 +57,8 @@ class PaiementController extends AbstractController
             $entityManager->persist($paiement);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_paiement_index', [], Response::HTTP_SEE_OTHER);
+           // return $this->redirectToRoute('app_paiement_index', [], Response::HTTP_SEE_OTHER);
+           return $this->redirectToRoute('app_facture', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('paiement/new.html.twig', [
