@@ -29,9 +29,9 @@ class Message
     private $body;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     
+     * @var string A "Y-m-d H:i:s" formatted value
+     * @ORM\Column(name="date", type="text", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $date = 'CURRENT_TIMESTAMP';
 
@@ -107,6 +107,4 @@ class Message
 
         return $this;
     }
-
-
 }

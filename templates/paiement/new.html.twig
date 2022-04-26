@@ -1,0 +1,443 @@
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block title %}New OffrePublicitaire{% endblock %}#}
+
+
+{#    <h1>Create new OffrePublicitaire</h1>#}
+
+{#     {{ include('offre_publicitaire/_form.html.twig') }}
+
+    <a href="{{ path('app_offre_publicitaire_index') }}">back to list</a> #}
+    {% block head %}
+	 <!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+    <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Checkout - Vuexy - Bootstrap HTML admin template</title>
+    <link rel="apple-touch-icon" href="{{asset('dashboard/app-assets/images/ico/apple-icon-120.png')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('dashboard/app-assets/images/ico/favicon.ico')}}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/vendors.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/forms/wizard/bs-stepper.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/toastr.min.css')}}">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/bootstrap.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/bootstrap-extended.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/colors.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/components.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/dark-layout.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/bordered-layout.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/semi-dark-layout.css')}}">
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/pages/app-ecommerce.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/pickers/form-pickadate.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/form-wizard.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/form-number-input.css')}}">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+  <link rel="stylesheet" type="text/css" href="{{asset('dashboard/assets/css/style.css')}}"> <!-- END: Custom CSS-->
+    <!-- END: Custom CSS-->
+
+</head>
+<!-- END: Head-->
+
+{% endblock %}
+
+{% include 'home/header.html.twig' %}
+{% include 'home/sidebar.html.twig' %}
+{% block body %}
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+    <!-- BEGIN: Header-->
+    <!-- END: Header-->
+
+
+    <!-- BEGIN: Main Menu-->
+
+    <!-- END: Main Menu-->
+    <!-- BEGIN: Content-->
+    <div class="app-content content ecommerce-application">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+                <div class="content-header-left col-md-9 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        <div class="col-12">
+                            <h2 class="content-header-title float-left mb-0">Paiement</h2>
+                            <div class="breadcrumb-wrapper">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#">Offres</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">paiement
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+                <div class="bs-stepper checkout-tab-steps">
+                    <!-- Wizard starts -->
+                    <div class="bs-stepper-header">
+{#                        <div class="step" data-target="#step-cart">#}
+{#                            <button type="button" class="step-trigger">#}
+{#                                <span class="bs-stepper-box">#}
+{#                                    <i data-feather="shopping-cart" class="font-medium-3"></i>#}
+{#                                </span>#}
+{#                                <span class="bs-stepper-label">#}
+{#                                    <span class="bs-stepper-title">Cart</span>#}
+{#                                    <span class="bs-stepper-subtitle">Votre éléments</span>#}
+{#                                </span>#}
+{#                            </button>#}
+{#                        </div>#}
+{#                        <div class="line">#}
+{#                            <i data-feather="chevron-right" class="font-medium-2"></i>#}
+{#                        </div>#}
+{#                        <div class="step" data-target="#step-address">#}
+{#                            <button type="button" class="step-trigger">#}
+{#                                <span class="bs-stepper-box">#}
+{#                                    <i data-feather="home" class="font-medium-3"></i>#}
+{#                                </span>#}
+{#                                <span class="bs-stepper-label">#}
+{#                                    <span class="bs-stepper-title">Offre publicitaire</span>#}
+{#                                    <span class="bs-stepper-subtitle">Entrer votre offre</span>#}
+{#                                </span>#}
+{#                            </button>#}
+{#                        </div>#}
+{#                        <div class="line">#}
+{#                            <i data-feather="chevron-right" class="font-medium-2"></i>#}
+{#                        </div>#}
+                        <div class="step" data-target="#step-payment">
+                            <button type="button" class="step-trigger">
+                                <span class="bs-stepper-box">
+                                    <i data-feather="credit-card" class="font-medium-3"></i>
+                                </span>
+                                <span class="bs-stepper-label">
+                                    <span class="bs-stepper-title">Metode paiement</span>
+                                    <span class="bs-stepper-subtitle">sélectionner votre Method</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Wizard ends -->
+
+                    <div class="bs-stepper-content">
+                        <!-- Checkout Place order starts -->
+                        <div id="step-cart" class="content">
+                            <div id="place-order" class="list-view product-checkout">
+                                <!-- Checkout Place Order Left starts -->
+                                <div class="checkout-items">
+                                    <div class="card ecommerce-card">
+                                        <div class="item-img">
+                                            
+                                                 <img  src="{{ asset('paiement/images/Offre_publicitaire.png')  }} " style="object-fit:fill;  width:150px; height:150px;"/>
+
+                                            
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="item-name">
+                                                <h6 class="mb-0"><a href="app-ecommerce-details.html" class="text-body">Offre publicitaire</a></h6>
+                                                <span class="item-company">By <a href="https://www.facebook.com/wazzupofficialpage" class="company-name "target="_blank">Wazzup</a></span>
+                                            </div>
+
+                                            <span class="text-success mb-1">Disponnible</span>
+                                        </div>
+                                        <div class="item-options text-center">
+                                            <div class="item-wrapper">
+                                                <div class="item-cost">
+                                                    <h4 class="item-price">$5.00</h4>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-light mt-1 remove-wishlist">
+                                                <i data-feather="x" class="align-middle mr-25"></i>
+                                                <span>Remove</span>
+                                            </button>
+                                            <button type="button" class="btn btn-primary btn-cart move-cart">
+                                                <i data-feather="heart" class="align-middle mr-25"></i>
+                                                <span class="text-truncate">Add to Wishlist</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Checkout Place Order Left ends -->
+
+                                <!-- Checkout Place Order Right starts -->
+                                <div class="checkout-options">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <label class="section-label mb-1">Options</label>
+                                            <div class="coupons input-group input-group-merge">
+                                                <input type="text" class="form-control" placeholder="Coupons" aria-label="Coupons" aria-describedby="input-coupons" />
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text text-primary" id="input-coupons">Appliquer</span>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <div class="price-details">
+                                                <h6 class="price-title">Détails du prix</h6>
+                                                <ul class="list-unstyled">
+                                                    <li class="price-detail">
+                                                        <div class="detail-title">Total MRP</div>
+                                                        <div class="detail-amt">$5</div>
+                                                    </li>
+                                                    <li class="price-detail">
+                                                        <div class="detail-title">Remise sur les offres</div>
+                                                        <div class="detail-amt discount-amt text-success">-0$</div>
+                                                    </li>
+                                                    <li class="price-detail">
+                                                        <div class="detail-title">Taxe estimée</div>
+                                                        <div class="detail-amt">$0</div>
+                                                    </li>
+                                                    
+                                                    
+                                                </ul>
+                                                <hr />
+                                                <ul class="list-unstyled">
+                                                    <li class="price-detail">
+                                                        <div class="detail-title detail-total">Total</div>
+                                                        <div class="detail-amt font-weight-bolder">$5</div>
+                                                    </li>
+                                                </ul>
+                                                <button type="button" class="btn btn-primary btn-block btn-next place-order">Passer la commande</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Checkout Place Order Right ends -->
+                                </div>
+                            </div>
+                            <!-- Checkout Place order Ends -->
+                        </div>
+                       
+                        <!-- Checkout Customer Address Starts -->
+                        <div id="step-address" class="content">
+                            <form id="checkout-address" class="list-view product-checkout" action="{{ path('app_paiement_new') }}" method="post" >
+                                <!-- Checkout Customer Address Left starts -->
+                                <div class="card">
+                                    <div class="card-header flex-column align-items-start">
+                                        <h4 class="card-title">Ajouter les données de l'offre</h4>
+                                        <p class="card-text text-muted mt-25">Assurez-vous de cocher "Livrer à cette adresse" lorsque vous avez terminé</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group mb-2">
+                                                    <label for="checkout-name">Nom Offre</label>
+                                                  <input type="text" id="checkout-name" name="checkout-name" class="form-control form-control" value="Offre Premium">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group mb-2">
+                                                    <label for="checkout-number">Description de l'offre:</label>
+
+                                                   {#  {{ form_widget(form.contenuOffre,{'attr':{'class':'form-control'}}) }} #}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group mb-2">
+                                                    <label for="checkout-apt-number">Durée de l'offre</label>
+                                                     {# {{ form_widget(form.nbrMaxOffre,{'attr':{'class':'form-control'}}) }} #}
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+
+                                                <button type="submit" class="btn btn-primary btn-next delivery-address">Suivant</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Checkout Customer Address Left ends -->
+
+                                <!-- Checkout Customer Address Right starts -->
+                                <div class="customer-card">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">John Doe</h4>
+                                        </div>
+                                        <div class="card-body actions">
+                                            <p class="card-text mb-0">9447 Glen Eagles Drive</p>
+                                            <p class="card-text">Lewis Center, OH 43035</p>
+                                            <p class="card-text">UTC-5: Eastern Standard Time (EST)</p>
+                                            <p class="card-text">202-555-0140</p>
+                                            <button type="button" class="btn btn-primary btn-block btn-next delivery-address mt-2">
+                                                Deliver To This Address
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Checkout Customer Address Right ends -->
+                           
+                        </div>
+                        <!-- Checkout Customer Address Ends -->
+
+                        <!-- Checkout Payment Starts -->
+                        <div id="step-payment" class="content">
+                            <form id="checkout-payment" class="list-view product-checkout" action="{{ path('app_paiement_new') }}" method="post" >
+                                <div class="payment-type">
+                                    <div class="card">
+                                        <div class="card-header flex-column align-items-start">
+                                            <h4 class="card-title">Options de paiement</h4>
+                                            <p class="card-text text-muted mt-25">Assurez-vous de cliquer sur la bonne option de paiement</p>
+                                        </div>
+                                        <div class="card-body">
+{#                                            <h6 class="card-holder-name my-75">John Doe</h6>#}
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="customColorRadio1" name="paymentOptions" class="custom-control-input" checked />
+{#                                                <label class="custom-control-label" for="customColorRadio1">#}
+{#                                                    US Unlocked Debit Card 12XX XXXX XXXX 0000#}
+{#                                                </label>#}
+                                            </div>
+                                            <div class="customer-cvv mt-1">
+                                                <div class="form-inline">
+{#                                                    <label class="mb-50" for="card-holder-cvv">Enter CVV:</label>#}
+                                                    {{ form_widget(form.methodePaiement,{'attr':{'class':'form-control'}}) }}
+
+
+                                                </div>
+                                            </div>
+                                            <div class="customer-cvv mt-1">
+                                                <div class="form-inline">
+                                                    {#                                                    <label class="mb-50" for="card-holder-cvv">Enter CVV:</label>#}
+                                                    {{ form_widget(form.prix,{'attr':{'class':'form-control'}}) }}
+                                                    <button type="submit" class="btn btn-primary btn-cvv ml-0 ml-sm-1 mb-50">Payer </button>
+                                                </div>
+                                            </div>
+{#                                            <hr class="my-2" />#}
+{#                                            <ul class="other-payment-options list-unstyled">#}
+{#                                                <li class="py-50">#}
+{#                                                    <div class="custom-control custom-radio">#}
+{#                                                        <input type="radio" id="customColorRadio2" name="paymentOptions" class="custom-control-input" />#}
+{#                                                        <label class="custom-control-label" for="customColorRadio2"> Credit / Debit / ATM Card </label>#}
+{#                                                    </div>#}
+{#                                                </li>#}
+{#                                                <li class="py-50">#}
+{#                                                    <div class="custom-control custom-radio">#}
+{#                                                        <input type="radio" id="customColorRadio3" name="paymentOptions" class="custom-control-input" />#}
+{#                                                        <label class="custom-control-label" for="customColorRadio3"> Net Banking </label>#}
+{#                                                    </div>#}
+{#                                                </li>#}
+{#                                                <li class="py-50">#}
+{#                                                    <div class="custom-control custom-radio">#}
+{#                                                        <input type="radio" id="customColorRadio4" name="paymentOptions" class="custom-control-input" />#}
+{#                                                        <label class="custom-control-label" for="customColorRadio4"> EMI (Easy Installment) </label>#}
+{#                                                    </div>#}
+{#                                                </li>#}
+{#                                                <li class="py-50">#}
+{#                                                    <div class="custom-control custom-radio">#}
+{#                                                        <input type="radio" id="customColorRadio5" name="paymentOptions" class="custom-control-input" />#}
+{#                                                        <label class="custom-control-label" for="customColorRadio5"> Cash On Delivery </label>#}
+{#                                                    </div>#}
+{#                                                </li>#}
+{#                                            </ul>#}
+                                            <hr class="my-2" />
+                                            <div class="gift-card mb-25">
+{#                                                <p class="card-text">#}
+{#                                                    <i data-feather="plus-circle" class="mr-50 font-medium-5"></i>#}
+{#                                                    <span class="align-middle">Add Gift Card</span>#}
+{#                                                </p>#}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="amount-payable checkout-options">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Price Details</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <ul class="list-unstyled price-details">
+                                                <li class="price-detail">
+                                                    <div class="details-title">Prix de l'offre</div>
+                                                    <div class="detail-amt">
+                                                        <strong>$5</strong>
+                                                    </div>
+                                                </li>
+                                                
+                                            </ul>
+                                            <hr />
+                                            <ul class="list-unstyled price-details">
+                                                <li class="price-detail">
+                                                    <div class="details-title">Montant payable</div>
+                                                    <div class="detail-amt font-weight-bolder">$5</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Checkout Payment Ends -->
+                        </form>
+                        <!-- </div> -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+    <!-- BEGIN: Footer-->
+    <footer class="footer footer-static footer-light">
+        <p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2022<a class="ml-25" href="https://www.facebook.com/wazzupofficialpage" target="_blank">Wazzup</a><span class="d-none d-sm-inline-block">, Tous les droits sont réservés</span></span><span class="float-md-right d-none d-md-block">Meow 
+<i data-feather="heart"></i></span></p>
+    </footer>
+    <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
+    <!-- END: Footer-->
+
+<!-- BEGIN: Vendor JS-->
+<script src="{{asset('dashboard/app-assets/vendors/js/vendors.min.js')}}"></script>
+
+    <!-- BEGIN Vendor JS-->
+
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="{{asset('dashboard/app-assets/vendors/js/forms/wizard/bs-stepper.min.js')}}"></script>
+    <script src="{{asset('dashboard/app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js')}}"></script>
+    <script src="{{asset('dashboard/app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="{{asset('dashboard/app-assets/js/core/app-menu.js')}}"></script>
+    <script src="{{asset('dashboard/app-assets/js/core/app.js')}}"></script>
+    <!-- END: Theme JS-->
+
+    <!-- BEGIN: Page JS-->
+    <script src="{{asset('dashboard/app-assets/js/scripts/pages/app-ecommerce-checkout.js')}}"></script>
+    <!-- END: Page JS-->
+
+    <script>
+        $(window).on('load', function() {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+        })
+    </script> </body>{% endblock %}
+</html>
+

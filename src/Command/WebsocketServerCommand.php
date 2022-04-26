@@ -16,7 +16,7 @@ class WebsocketServerCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $port = 3001;
-        $output->writeln("Starting server on port " . $port);
+        $output->writeln("Starting server message on port " . $port);
         $server = IoServer::factory(
             new HttpServer(
                 new WsServer(

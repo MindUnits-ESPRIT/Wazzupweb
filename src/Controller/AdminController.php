@@ -15,16 +15,17 @@ class AdminController extends AbstractController
      */
     public function index(SessionInterface $session): Response
     {
-    $user=$session->get('userdata');
-    if($user == null || $user->getTypeUser()=="User"){
-        return $this->redirectToRoute('app_auth');
-    }
+        $user = $session->get('userdata');
+        if ($user == null || $user->getTypeUser() == 'User') {
+            return $this->redirectToRoute('app_auth');
+        }
         return $this->render('UIAdmin/index.html.twig', [
             'controller_name' => 'AdminController',
-            'nom'=>$user->getNom(),
-            'prenom'=>$user->getPrenom(),
-            'role'=>$user->getTypeUser(),
-            'picture'=>$user->getAvatar(),
+            'user' => $user,
+            'nom' => $user->getNom(),
+            'prenom' => $user->getPrenom(),
+            'role' => $user->getTypeUser(),
+            'picture' => $user->getAvatar(),
         ]);
     }
 }

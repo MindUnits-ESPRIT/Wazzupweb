@@ -8,7 +8,7 @@ use SplObjectStorage;
 
 
 
-class MessageHandler implements MessageComponentInterface
+class StreamHandler implements MessageComponentInterface
 {
     protected $connections;
 

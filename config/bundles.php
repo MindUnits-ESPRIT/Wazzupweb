@@ -14,6 +14,10 @@ return [
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
     Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true],
     Endroid\QrCodeBundle\EndroidQrCodeBundle::class => ['all' => true],
+<<<<<<< HEAD
     Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
     CalendarBundle\CalendarBundle::class => ['all' => true],
+=======
+    Knp\Bundle\SnappyBundle\KnpSnappyBundle::class => ['all' => true],
+>>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
 ];

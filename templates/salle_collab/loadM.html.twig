@@ -1,0 +1,34 @@
+{% for m in MessageM %}
+
+	{% if m.getIdUitlisateur() == userM %}
+		<div class="chat">
+			<div class="chat-avatar">
+				<span class="avatar box-shadow-1 cursor-pointer">
+					<img src="{{ userM.getAvatar() }}" alt="avatar" height="36" width="36"/>
+				</span>
+			</div>
+			<div class="chat-body">
+				<div class="chat-content">
+					<p>
+						{{m.getBody()}}</p>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<div class="chat chat-left">
+			<div class="chat-avatar">
+				<span class="avatar box-shadow-1 cursor-pointer">
+					<img src="{{ m.IdUitlisateur.Avatar }}" alt="avatar" height="36" width="36"/>
+				</span>
+			</div>
+
+			<div class="chat-body">
+				<div class="chat-content">
+					<p>
+						{{m.IdUitlisateur.Prenom}}:
+						{{m.getBody()}}</p>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+{% endfor %}
