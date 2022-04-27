@@ -3,12 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Commentaire
  *
  * @ORM\Table(name="commentaire", indexes={@ORM\Index(name="Id_Utilisateur_INDEX", columns={"Id_Utilisateur"}), @ORM\Index(name="Id_Publication_INDEX", columns={"Id_Publication"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=App\Repository\CommentaireRepository::class)
  */
 class Commentaire
 {
@@ -29,11 +29,11 @@ class Commentaire
     private $message;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="Date", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @Assert\DateTime
+     * @var \DateTime|null
+     * @ORM\Column(name="Date", type="datetime", nullable=false)
      */
-    private $date = 'CURRENT_TIMESTAMP';
+    private $date;
 
     /**
      * @var \Publication
@@ -72,12 +72,12 @@ class Commentaire
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?\DateTime
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(\DateTime $date): self
     {
         $this->date = $date;
 

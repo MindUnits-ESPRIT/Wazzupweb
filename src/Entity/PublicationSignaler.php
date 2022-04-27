@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PublicationSignaler
  *
  * @ORM\Table(name="publication_signaler", indexes={@ORM\Index(name="signaler_Foreign_pub", columns={"Id_publication"}), @ORM\Index(name="signaler_Foreign_uti", columns={"Id_utilisateur"})})
+ * @ORM\Entity(repositoryClass=App\Repository\PublicationSignalerRepository::class)
  * @ORM\Entity(repositoryClass="App\Repository\PublicationSignalerRepository")
  */
 class PublicationSignaler
@@ -29,11 +31,11 @@ class PublicationSignaler
     private $type;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="Date", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @Assert\DateTime
+     * @var \DateTime|null
+     * @ORM\Column(name="Date", type="datetime", nullable=false)
      */
-    private $date = 'CURRENT_TIMESTAMP';
+    private $date;
 
     /**
      * @var \Utilisateurs
@@ -72,12 +74,12 @@ class PublicationSignaler
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate():?\DateTime
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(\DateTime $date): self
     {
         $this->date = $date;
 

@@ -88,6 +88,8 @@ class EditProfileController extends AbstractController
             // La mise à jour de la session
             $session->set('userdata',$user);
             $entityManager->flush();
+            $this->addFlash('success', 'Votre profile a été bien modifié !');
+
       }
       // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
       // Form mot de passes 
@@ -105,6 +107,7 @@ class EditProfileController extends AbstractController
             $user->setmdp($hash);
             $session->set('userdata',$user);
             $entityManager->flush();
+            $this->addFlash('success', 'Votre mot de passe a été bien modifié !');
         }else{
             $invalid_oldpw=true;
         }
@@ -126,7 +129,6 @@ class EditProfileController extends AbstractController
           }
         //   dd(array_diff($allinterets,$myinterets));
           $interets_dispo=array_diff($allinterets,$myinterets);
-          
         
         
 
@@ -170,11 +172,35 @@ public function AddInt($values,Request $request,SessionInterface $session,Entity
         $interet->setIdUtilisateur($user);
         $entityManager->persist($interet);
         $entityManager->flush();
+        $this->addFlash('success', 'Vos interets ont été bien ajoutés !');
+
     }
     return $this->redirectToRoute('app_edit_profile');
 
     
 // dd();
-
 }
+
+    /**
+     * @Route("/edit/profile/delete_interet/{id}", name="delete_interet")
+     */
+    public function delete_interet(
+        $id,
+        EntityManagerInterface $em,
+        InteretsRepository $inrep
+    ) {
+        $u = $inrep->findOneBy([
+            'idInteret' => $id,
+        ]);
+        
+    
+        if ($u) {
+            $em->remove($u);
+            $em->flush();
+        }
+        $this->addFlash('success', 'Vos interets ont été bien supprimé !');
+
+        return $this->redirectToRoute('app_edit_profile', [
+        ]);
+    }
 }

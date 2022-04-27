@@ -34,9 +34,14 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('dashboard/assets/css/style.css')}}">
     <!-- END: Custom CSS-->
+    		<script src="{{ asset('login/js/Jquery.js') }}"></script>
+
     <style>
     .badge-Primary{
         font-size:16px;
+    }
+    .remove-int{
+        color:red;
     }
     </style>
 
@@ -114,6 +119,16 @@
                                     <div class="tab-content">
                                         <!-- general tab -->
                                         <div role="tabpanel" class="tab-pane active" id="account-vertical-general" aria-labelledby="account-pill-general" aria-expanded="true">
+                                            {% for msg in app.session.flashBag.get('success') %}
+					                            <div class="alert alert-success" style="padding: 10px;">
+						                             {{ msg }}
+					                             </div>
+					                        <script>
+						                        $(document).ready(function () {
+                                                $(".alert-success").delay(3000).slideUp(300);
+                                                });
+					                        </script>
+				                            {% endfor %}
                                             <!-- header media -->
                                             <div class="media">
                                                 <a href="javascript:void(0);" class="mr-25">
@@ -316,7 +331,7 @@
                                                             <!-- twitter user -->
                                                             {% for i in interets %}
                                                             <div class="col-2 col-md-2 text-center mb-1">
-                                                         <div class="badge badge-Primary">{{i.getNomInteret()}}</div> 
+                                                         <div class="badge badge-Primary">{{i.getNomInteret()}}</div><a href="{{ path('delete_interet',{'id':i.idInteret} )}}"><i data-feather="x-square" class="remove-int font-medium-3"></i></a>
                                                             </div>
                                                             {% endfor %}
                                                     <div class="col-12">
