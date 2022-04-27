@@ -18,8 +18,15 @@ class AppInvoicePrintController extends AbstractController
     public function index(SessionInterface $session): Response
     {
         $user = $session->get('userdata');
-        $OffrePublicitaire = $this->getDoctrine() ->getRepository(OffrePublicitaire::class)->find(29);
-        $paiement = $this->getDoctrine()->getRepository(Paiement::class)->findOneBy([],["idPaiement"=>'DESC'],1,0);
+        $OffrePublicitaire = $this->getDoctrine()
+            ->getRepository(OffrePublicitaire::class)
+            ->findBy([
+                'idUtilisateur' => $user,
+            ])[0];
+        $paiement = $this->getDoctrine()
+            ->getRepository(Paiement::class)
+            ->findOneBy([], ['idPaiement' => 'DESC'], 1, 0);
+
         return $this->render('app_invoice_print/index.html.twig', [
             'controller_name' => 'AppInvoicePrintController',
             'nom' => $user->getNom(),
@@ -27,9 +34,8 @@ class AppInvoicePrintController extends AbstractController
             'role' => $user->getTypeUser(),
             'picture' => $user->getAvatar(),
             'user' => $user,
-                        'paiement'=>$paiement, 
-            'OffrePublicitaire'=>$OffrePublicitaire
-
+            'paiement' => $paiement,
+            'OffrePublicitaire' => $OffrePublicitaire,
         ]);
     }
 
@@ -38,16 +44,33 @@ class AppInvoicePrintController extends AbstractController
      */
     public function GeneratePDF(SessionInterface $session): Response
     {
+        $user = $session->get('userdata');
+        $OffrePublicitaire = $this->getDoctrine()
+            ->getRepository(OffrePublicitaire::class)
+            ->findBy([
+                'idUtilisateur' => $user,
+            ])[0];
+        $paiement = $this->getDoctrine()
+            ->getRepository(Paiement::class)
+            ->findOneBy([], ['idPaiement' => 'DESC'], 1, 0);
+
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Courier');
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
 
-
         // Retrieve the HTML generated in our twig file
-        $html = $this->renderView('app_invoice_print/index.html.twig');
-        
+        $html = $this->renderView('app_invoice_print/index.html.twig', [
+            'nom' => $user->getNom(),
+            'prenom' => $user->getPrenom(),
+            'role' => $user->getTypeUser(),
+            'picture' => $user->getAvatar(),
+            'user' => $user,
+            'paiement' => $paiement,
+            'OffrePublicitaire' => $OffrePublicitaire,
+        ]);
+
         // Load HTML to Dompdf
         $dompdf->loadHtml($html, 'UTF-8');
         // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
@@ -57,19 +80,18 @@ class AppInvoicePrintController extends AbstractController
         $dompdf->set_option('isFontSubsettingEnabled', true);
         // Render the HTML as PDF
         $dompdf->render();
-       
+
         // Store PDF Binary Data
         $output = $dompdf->output();
-        
+
         // In this case, we want to write the file in the public directory
-        $publicDirectory ='../public';
+        $publicDirectory = '../public';
         // e.g /var/www/project/public/mypdf.pdf
-        $pdfFilepath =  $publicDirectory . '/Facturewazzupmypdf.pdf';
-        
+        $pdfFilepath = $publicDirectory . '/Facturewazzupmypdf.pdf';
+
         // Write file to the desired path
         file_put_contents($pdfFilepath, $output);
         // Send some text response
         return $this->redirectToRoute('app_invoice_print');
-        
     }
 }
