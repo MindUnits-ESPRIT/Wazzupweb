@@ -22,6 +22,7 @@ class LoginType extends AbstractType
                 'label'=>'Votre mot de passe',
                 ])
              ->add('Submit',SubmitType::class)
+
         ;
     }
 

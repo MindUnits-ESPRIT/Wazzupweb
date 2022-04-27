@@ -3,13 +3,15 @@
 namespace App\Entity;
 
 use Serializable;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UtilisateursRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+
 
 
 /**
@@ -33,6 +35,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 class Utilisateurs implements UserInterface
 {
+
+
     /**
      * @var int
      *
@@ -435,6 +439,7 @@ class Utilisateurs implements UserInterface
 
         return $this;
     }
+
 
     /**
      * @return Collection<int, SalleCollaboration>

@@ -2,6 +2,15 @@
     "bacon/bacon-qr-code": {
         "version": "2.0.7"
     },
+    "captcha-com/captcha": {
+        "version": "4.2.5"
+    },
+    "captcha-com/symfony-captcha-bundle": {
+        "version": "4.2.12"
+    },
+    "carlos-mg89/symfony-captcha-bundle": {
+        "version": "4.2.21"
+    },
     "cloudinary/cloudinary_php": {
         "version": "2.6.1"
     },
@@ -678,6 +687,9 @@
     },
     "twig/twig": {
         "version": "v3.3.8"
+    },
+    "twilio/sdk": {
+        "version": "6.36.1"
     },
     "vich/uploader-bundle": {
         "version": "1.19",
