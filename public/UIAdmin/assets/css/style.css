@@ -11399,11 +11399,7 @@ input[type="button"].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-<<<<<<< HEAD
-  background-color: #ffffff52;
-=======
   background-color: #06a980b3;
->>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem; }
@@ -16615,11 +16611,7 @@ code {
       right: 0;
       height: 100%; }
   .card.corona-gradient-card {
-<<<<<<< HEAD
-    background-image: linear-gradient(to left, #00ab83, #4d911a);
-=======
     background-image: linear-gradient(to left, #0080804a, #106363);
->>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
     border-radius: 6px; }
     .card.corona-gradient-card .gradient-corona-img {
       height: 85px; }
@@ -20532,7 +20524,8 @@ div.tagsinput {
             -moz-box-shadow: 0px 0px 35px -3px black;
             box-shadow: 0px 0px 35px -3px black;
             padding: 0;
-            background: #008080; }
+            background: #008080;
+          color:white; }
             .rtl .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .dropdown-menu.navbar-dropdown {
               right: auto;
               left: 0; }
@@ -20747,7 +20740,7 @@ div.tagsinput {
           margin-right: auto;
           margin-left: 1rem; }
       .sidebar .nav .nav-item.active > .nav-link {
-        background: #e9efed4d;
+      
         position: relative; }
         .sidebar .nav .nav-item.active > .nav-link:before {
           content: "";
@@ -21138,11 +21131,7 @@ div.tagsinput {
       width: 100%; } }
 
 .content-wrapper {
-<<<<<<< HEAD
-  background: #008080;
-=======
   background: #00808038;
->>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
   padding: 1.875rem 1.75rem;
   width: 100%;
   -webkit-flex-grow: 1;

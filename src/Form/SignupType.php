@@ -28,7 +28,7 @@ class SignupType extends AbstractType
                 'attr' => ['class' => 'form-control input-inline datetimepicker'],
             ))
             
-            ->add('numTel',TelType::class)
+            ->add('full_number')
             ->add('genre', ChoiceType::class, [
                 'choices'  => [
                     'Male' => 'Male',
