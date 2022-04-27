@@ -16,8 +16,16 @@ class FactureController extends AbstractController
     public function index(SessionInterface $session): Response
     {
         $user = $session->get('userdata');
-        $OffrePublicitaire = $this->getDoctrine() ->getRepository(OffrePublicitaire::class)->find(29);
-        $paiement = $this->getDoctrine()->getRepository(Paiement::class)->findOneBy([],["idPaiement"=>'DESC'],1,0);
+        $OffrePublicitaire = $this->getDoctrine()
+            ->getRepository(OffrePublicitaire::class)
+            ->findBy([
+                'idUtilisateur' => $user,
+            ])[0];
+
+        $paiement = $this->getDoctrine()
+            ->getRepository(Paiement::class)
+            ->findOneBy([], ['idPaiement' => 'DESC'], 1, 0);
+
         return $this->render('facture/index.html.twig', [
             'controller_name' => 'FactureController',
             'nom' => $user->getNom(),
@@ -25,10 +33,8 @@ class FactureController extends AbstractController
             'role' => $user->getTypeUser(),
             'picture' => $user->getAvatar(),
             'user' => $user,
-            'paiement'=>$paiement, 
-            'OffrePublicitaire'=>$OffrePublicitaire
-
+            'paiement' => $paiement,
+            'OffrePublicitaire' => $OffrePublicitaire,
         ]);
     }
-    
 }

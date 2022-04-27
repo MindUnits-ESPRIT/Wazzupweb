@@ -61,7 +61,7 @@ class SalleCollabController extends AbstractController
  */
 
         //api el jdid
-        /*   $response = $client->request(
+        $response = $client->request(
             'GET',
             'https://ip-geo-location.p.rapidapi.com/ip/check',
             [
@@ -79,7 +79,7 @@ class SalleCollabController extends AbstractController
         $country = $content['country']['name'];
         $flag = $content['country']['flag']['file'];
 
-        $regionName = $content['area']['name']; */
+        $regionName = $content['area']['name'];
 
         $user1 = $session->get('userdata');
         if ($user1 == null) {
