@@ -28,6 +28,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/vendors.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/forms/wizard/bs-stepper.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css')}}">
+    
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/charts/apexcharts.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/toastr.min.css')}}">
     <!-- END: Vendor CSS-->
 
@@ -47,6 +50,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/form-wizard.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/form-number-input.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/charts/chart-apex.css')}}">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -99,47 +103,7 @@
             <div class="content-body">
                 <div class="bs-stepper checkout-tab-steps">
                     <!-- Wizard starts -->
-                    <div class="bs-stepper-header">
-                        <div class="step" data-target="#step-cart">
-                            <button type="button" class="step-trigger">
-                                <span class="bs-stepper-box">
-                                    <i data-feather="shopping-cart" class="font-medium-3"></i>
-                                </span>
-                                <span class="bs-stepper-label">
-                                    <span class="bs-stepper-title">Cart</span>
-                                    <span class="bs-stepper-subtitle">Votre éléments</span>
-                                </span>
-                            </button>
-                        </div>
-                        <div class="line">
-                            <i data-feather="chevron-right" class="font-medium-2"></i>
-                        </div>
-                        <div class="step" data-target="#step-address">
-                            <button type="button" class="step-trigger">
-                                <span class="bs-stepper-box">
-                                    <i data-feather="home" class="font-medium-3"></i>
-                                </span>
-                                <span class="bs-stepper-label">
-                                    <span class="bs-stepper-title">Offre publicitaire</span>
-                                    <span class="bs-stepper-subtitle">Entrer votre offre</span>
-                                </span>
-                            </button>
-                        </div>
-{#                        <div class="line">#}
-{#                            <i data-feather="chevron-right" class="font-medium-2"></i>#}
-{#                        </div>#}
-{#                        <div class="step" data-target="#step-payment">#}
-{#                            <button type="button" class="step-trigger">#}
-{#                                <span class="bs-stepper-box">#}
-{#                                    <i data-feather="credit-card" class="font-medium-3"></i>#}
-{#                                </span>#}
-{#                                <span class="bs-stepper-label">#}
-{#                                    <span class="bs-stepper-title">Metode paiement</span>#}
-{#                                    <span class="bs-stepper-subtitle">sélectionner votre Method</span>#}
-{#                                </span>#}
-{#                            </button>#}
-{#                        </div>#}
-{#                    </div>#}
+                   
                     <!-- Wizard ends -->
 
                     <div class="bs-stepper-content">
@@ -230,65 +194,17 @@
                         </div>
                        
                         <!-- Checkout Customer Address Starts -->
-                        <div id="step-address" class="content">
-                            <form id="checkout-address" class="list-view product-checkout" action="{{ path('app_offre_publicitaire_new') }}" method="post">
                                 <!-- Checkout Customer Address Left starts -->
-                                <div class="card">
-                                    <div class="card-header flex-column align-items-start">
-                                        <h4 class="card-title">Ajouter les données de l'offre</h4>
-                                        <p class="card-text text-muted mt-25">Assurez-vous de cocher "Livrer à cette adresse" lorsque vous avez terminé</p>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-12">
-                                                <div class="form-group mb-2">
-                                                    <label for="checkout-name">Nom Offre</label>
-                                                  <input type="text" id="checkout-name" name="checkout-name" class="form-control form-control" value="Offre Premium">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-sm-12">
-                                                <div class="form-group mb-2">
-                                                    <label for="checkout-number">Description de l'offre:</label>
-
-                                                    {{ form_widget(form.contenuOffre,{'attr':{'class':'form-control'}}) }}
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-sm-12">
-                                                <div class="form-group mb-2">
-                                                    <label for="checkout-apt-number">Durée de l'offre</label>
-                                                     {{ form_widget(form.nbrMaxOffre,{'attr':{'class':'form-control'}}) }}
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-
-                                                <button type="submit" class="btn btn-primary btn-next delivery-address">Suivant</button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Checkout Customer Address Left ends -->
+<div id="div_chart" ></div>
+                                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                                <script type="text/javascript">
+    
+                             {{ gc_draw(area, 'div_chart') }}
+            </script>
+                                 <!-- Checkout Customer Address Left ends -->
 
                                 <!-- Checkout Customer Address Right starts -->
-                                <div class="customer-card">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h4 class="card-title">John Doe</h4>
-                                        </div>
-                                        <div class="card-body actions">
-                                            <p class="card-text mb-0">9447 Glen Eagles Drive</p>
-                                            <p class="card-text">Lewis Center, OH 43035</p>
-                                            <p class="card-text">UTC-5: Eastern Standard Time (EST)</p>
-                                            <p class="card-text">202-555-0140</p>
-                                            <button type="button" class="btn btn-primary btn-block btn-next delivery-address mt-2">
-                                                Deliver To This Address
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
                                 <!-- Checkout Customer Address Right ends -->
-                           
-                        </div>
                         <!-- Checkout Customer Address Ends -->
 
                         <!-- Checkout Payment Starts -->
@@ -410,6 +326,9 @@
     <script src="{{asset('dashboard/app-assets/vendors/js/forms/wizard/bs-stepper.min.js')}}"></script>
     <script src="{{asset('dashboard/app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js')}}"></script>
     <script src="{{asset('dashboard/app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
+      <script src="{{asset('dashboard/app-assets/vendors/js/ui/jquery.sticky.js')}}"></script>
+    <script src="{{asset('dashboard/app-assets/vendors/js/charts/apexcharts.min.js')}}"></script>
+    <script src="{{asset('dashboard/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js')}}"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
