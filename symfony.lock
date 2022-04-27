@@ -2,6 +2,12 @@
     "bacon/bacon-qr-code": {
         "version": "2.0.7"
     },
+    "captcha-com/captcha": {
+        "version": "4.2.5"
+    },
+    "captcha-com/symfony-captcha-bundle": {
+        "version": "4.2.12"
+    },
     "cloudinary/cloudinary_php": {
         "version": "2.6.1"
     },

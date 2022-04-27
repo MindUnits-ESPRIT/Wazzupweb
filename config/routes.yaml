@@ -4,4 +4,6 @@
 notfound:
     path: /404
     controller: App\Controller\ErrorpageController::index
+captcha_routing:
+  resource: "@CaptchaBundle/Resources/config/routing.yml"
     
