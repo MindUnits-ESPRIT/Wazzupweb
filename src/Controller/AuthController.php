@@ -13,10 +13,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Twilio\Rest\Client;
 
 class AuthController extends AbstractController
 {
@@ -44,7 +45,7 @@ class AuthController extends AbstractController
 
         $form = $this->createForm(LoginType::class);
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $email = $form->get('email')->getData();
             $password = $form->get('mdp')->getData();
             if ($this->EmailExists($email, $request, $userrepo)) {
@@ -65,7 +66,9 @@ class AuthController extends AbstractController
                             return $this->redirectToRoute('app_home');
                         } elseif ($user->getTypeUser() == 'Admin') {
                             $otp = true;
-                            return $this->redirectToRoute('app_admin');
+                            $this->SendSMS("+21624664880","test1");
+
+                            // return $this->redirectToRoute('app_admin');
                         }
                         //   dd("TEST",$otp);
                     } else {
@@ -110,6 +113,20 @@ class AuthController extends AbstractController
             $exist = true;
         }
         return $exist;
+    }
+
+    public function SendSMS($tel,$code){
+        $sid = "ACa1c3f6d59e0c9f3d76e39dfec69e7c91"; // Your Account SID from www.twilio.com/console
+                             $token = "5507d1f2963c865769e5181c60d81781"; // Your Auth Token from www.twilio.com/console
+                             $client = new Client($sid, $token);
+                             $body='Votre code OTP admin est : '.$code;
+                             $message = $client->messages->create(
+                            $tel, // Text this number
+                           [
+                             'from' => '+16814914823', // From a valid Twilio number
+                             'body' => $body
+                                ]
+                      );
     }
     /**
      * @Route("/forgotpassword", name="forgotpassword")

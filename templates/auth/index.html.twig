@@ -20,6 +20,8 @@
 		<link rel="shortcut icon" href="{{ asset('login/img/favicon.ico') }}">
 		<script src="{{ asset('login/js/Jquery.js') }}"></script>
 		<script src="{{ asset('login/js/form.js') }}"></script>
+		<script src="//www.google.com/recaptcha/api.js?hl=en"></script>
+
 		<style>
 			.code_validate {
 				width: 95px;
@@ -103,8 +105,6 @@ $(".alert-success").delay(3000).slideUp(300);
 					{{form_widget(auth_form.mdp,{'attr': {'class': 'form-control','placeholder':'*******'}})}}
 					<i class="zmdi zmdi-lock"></i>
 				</div>
-
-
 				{% if otp  %}
 					<div class="row code_sms">
 						<div class="col">
@@ -115,6 +115,15 @@ $(".alert-success").delay(3000).slideUp(300);
 						</div>
 					</div>
 				{% endif %}
+
+
+				{# <script>
+				$(function(){
+               $("a[title ~= 'BotDetect']").removeAttr("style");
+               $("a[title ~= 'BotDetect']").removeAttr("href");
+               $("a[title ~= 'BotDetect']").css('visibility', 'hidden');
+                 });
+				</script> #}
 				{{ form_widget(auth_form.Submit, { 'label': 'Soumettre', 'attr':{'class':'ld-over-full-inverse'} }) }}
 
 				<center>

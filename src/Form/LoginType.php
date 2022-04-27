@@ -9,7 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType;
 
 class LoginType extends AbstractType
 {
@@ -23,9 +22,7 @@ class LoginType extends AbstractType
                 'label'=>'Votre mot de passe',
                 ])
              ->add('Submit',SubmitType::class)
-             ->add('captchaCode', CaptchaType::class, array(
-            'captchaConfig' => 'AuthCaptcha'
-));
+
         ;
     }
 

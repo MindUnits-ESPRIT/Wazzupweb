@@ -41,7 +41,6 @@ class SignupType extends AbstractType
             ->add('mdp',PasswordType::class)
             ->add('mdpconfirm',PasswordType::class)
             ->add('Submit',SubmitType::class)
-
         ;
     }
 
