@@ -68,7 +68,7 @@ _Below is an example of how you can instruct your audience on installing and set
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/malekabbes665/Wazzup-PI.git
+   git clone https://github.com/MindUnits-ESPRIT/Wazzupweb.git
    ```
 2. Install packages
    ```sh
@@ -82,7 +82,7 @@ _Below is an example of how you can instruct your audience on installing and set
 <!-- CONTACT -->
 ## Contact
 
-Project Link: [https://github.com/malekabbes665/Wazzup-PI.git](https://github.com/malekabbes665/Wazzup-PI.git)
+Project Link: [https://github.com/MindUnits-ESPRIT/Wazzupweb.git](https://github.com/MindUnits-ESPRIT/Wazzupweb.git)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
