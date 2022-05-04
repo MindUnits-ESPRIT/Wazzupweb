@@ -77,7 +77,6 @@ class Evenement
     private $description;
 
     /**
-<<<<<<< HEAD
      *
      * @ORM\Column(name="Date_P", type="datetime", nullable=false)
      *  @Assert\DateTime(message="type invalid")
@@ -95,20 +94,6 @@ class Evenement
      * @ORM\OneToMany(targetEntity="App\Entity\SalleCinema",mappedBy="evenement")
      */
     private $salleCinema;
-=======
-     * @var string
-     *
-     * @ORM\Column(name="Date_P", type="string", length=50, nullable=false)
-     */
-    private $dateP;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Liste_Utilisateur", type="text", length=0, nullable=false)
-     */
-    private $listeUtilisateur;
->>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
 
     /**
      * @var \Utilisateurs
@@ -152,7 +137,7 @@ class Evenement
     public function setDateEvent(string $dateEvent): self
     {
 
-            $this->dateEvent = $dateEvent;
+        $this->dateEvent = $dateEvent;
 
         return $this;
     }
@@ -193,34 +178,14 @@ class Evenement
         return $this;
     }
 
-<<<<<<< HEAD
     public function getDateP()
-=======
-    public function getDateP(): ?string
->>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
     {
         return $this->dateP;
     }
 
-<<<<<<< HEAD
     public function setDateP($dateP)
-=======
-    public function setDateP(string $dateP): self
->>>>>>> dc3bee45d75999f724829ad96c6cb2340bf005f9
     {
         $this->dateP = $dateP;
-
-        return $this;
-    }
-
-    public function getListeUtilisateur(): ?string
-    {
-        return $this->listeUtilisateur;
-    }
-
-    public function setListeUtilisateur(string $listeUtilisateur): self
-    {
-        $this->listeUtilisateur = $listeUtilisateur;
 
         return $this;
     }
@@ -248,9 +213,9 @@ class Evenement
     }
     public function removeRencontre(Rencontre $rencontre){
         if($this->rencontres->removeElement($rencontre)){
-             if($rencontre->getIdEvent()===$this){
-                 $rencontre->setIdEvent(null);
-             }
+            if($rencontre->getIdEvent()===$this){
+                $rencontre->setIdEvent(null);
+            }
         }
     }
     public function addRencontre(Rencontre $rencontre){
@@ -264,9 +229,9 @@ class Evenement
     }
     public function removeSalleCinema(SalleCinema $salleCinema){
         if($this->salleCinema->removeElement($salleCinema)){
-             if($salleCinema->getIdEvent()===$this){
-                 $salleCinema->setIdEvent(null);
-             }
+            if($salleCinema->getIdEvent()===$this){
+                $salleCinema->setIdEvent(null);
+            }
         }
     }
     public function addSalleCinema(Rencontre $salleCinema){
