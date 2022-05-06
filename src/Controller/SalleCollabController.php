@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\HttpClient;
 use Endroid\QrCode\Builder\BuilderInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class SalleCollabController extends AbstractController
 {
     /**
