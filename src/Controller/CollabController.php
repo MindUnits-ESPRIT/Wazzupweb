@@ -23,8 +23,9 @@ class CollabController extends AbstractController
         EntityManagerInterface $entityManager,
         SessionInterface $session
     ): Response {
+        //nthn
         $user = $session->get('userdata');
-        if($user == null){
+        if ($user == null) {
             return $this->redirectToRoute('app_auth');
         }
         $collab = new SalleCollaboration();
