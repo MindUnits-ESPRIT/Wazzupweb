@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Form\SuppcollabType;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class ListCollabController extends AbstractController
 {
     /**
@@ -24,7 +24,7 @@ class ListCollabController extends AbstractController
         SessionInterface $session
     ): Response {
         $user1 = $session->get('userdata');
-        if($user1 == null){
+        if ($user1 == null) {
             return $this->redirectToRoute('app_auth');
         }
 
@@ -99,5 +99,44 @@ class ListCollabController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_list_collab');
+    }
+    /**
+     * @Route("/listcollabMobile", name="app_list_collabMobile")
+     */
+    public function listCollabMobile(
+        SalleCollabRepository $s,
+        Request $req,
+        SessionInterface $session,
+        NormalizerInterface $Normalizer
+    ): Response {
+        $user1 = $session->get('userdata');
+        if ($user1 == null) {
+            return $this->redirectToRoute('app_auth');
+        }
+
+        $collab = new SalleCollaboration();
+        $user = $this->getDoctrine()
+            ->getRepository(Utilisateurs::class)
+            ->find($user1->getIdUtilisateur());
+        $collabs = $s->showUserCollabs($user->getIdUtilisateur());
+        $form = $this->createForm(SuppcollabType::class, $collab);
+        $form->handleRequest($req);
+        dump($form->getData());
+        if ($form->isSubmitted() && $form->isValid()) {
+            $collab->setNomCollab($form->get('nomCollab')->getData());
+            $collab->setnomconfirm($form->get('nomconfirm')->getData());
+            $collab1 = $this->getDoctrine()
+                ->getRepository(SalleCollaboration::class)
+                ->findBy([
+                    'nomCollab' => $form->get('nomCollab')->getData(),
+                ])[0];
+
+            $this->addFlash('success', 'Collab supprimer !');
+        }
+        $jsonContent = $Normalizer->normalize($collabs, 'json', [
+            'groups' => 'post:read',
+        ]);
+
+        return new Response(json_encode($jsonContent));
     }
 }
