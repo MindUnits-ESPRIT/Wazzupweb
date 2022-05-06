@@ -17,10 +17,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-<<<<<<< HEAD
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-=======
->>>>>>> origin/master
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -170,7 +167,6 @@ public function activationSuccess(){
 
 
 
-<<<<<<< HEAD
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////// Mobile API /////////////////////////////////////////////
     /// Registration // 
@@ -213,8 +209,4 @@ public function activationSuccess(){
       $jsonContent=$normalizable->normalize($result,'json',['groups'=>'registermobile']);
       return new Response(json_encode($jsonContent));
   }
-=======
-    
-    
->>>>>>> origin/master
 }
