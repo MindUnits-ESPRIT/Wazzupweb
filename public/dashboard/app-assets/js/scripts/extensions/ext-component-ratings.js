@@ -1,10 +1,10 @@
 /*=========================================================================================
-	File Name: ext-component-ratings.js
-	Description: Ratings Commnent
-	----------------------------------------------------------------------------------------
-	Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-	Author: PIXINVENT
-	Author URL: http://www.themeforest.net/user/pixinvent
+  File Name: ext-component-ratings.js
+  Description: Ratings Commnent
+  ----------------------------------------------------------------------------------------
+  Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
+  Author: PIXINVENT
+  Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 $(function () {
   'use strict';
@@ -84,12 +84,12 @@ $(function () {
 
   // Read Only Ratings
   // --------------------------------------------------------------------
-  if (readOnlyRatings.length) {
-    readOnlyRatings.rateYo({
-      rating: 0,
-      rtl: isRtl
-    });
-  }
+  // if (readOnlyRatings.length) {
+  //   readOnlyRatings.rateYo({
+  //     rating: 5,
+  //     rtl: isRtl
+  //   });
+  // }
 
   // Ratings Events
   // --------------------------------------------------------------------

@@ -16,9 +16,21 @@
         </div>
         <small class="textarea-counter-value float-right" style="background-color: rgb(115, 103, 240);"><span id="char-count">0</span> / 255 </small>
     </div>
+<<<<<<< HEAD
     {% if publication.fichier |length>4%}
         <!-- post img -->
         <img class="img-fluid rounded mb-75" src="{{vich_uploader_asset(publication)}}" alt="lool">
+=======
+
+    {% if '.gif' in publication.fichier %}
+        <!-- post img -->
+        <img class="img-fluid rounded mb-75" src="{{publication.fichier}}" alt="lool">
+        <!--/ post img -->
+    {% endif %}
+    {% if publication.fichier |length>4 and not('.gif' in publication.fichier)%}
+        <!-- post img -->
+        <img class="img-fluid rounded mb-75" src="{{vich_uploader_asset(publication)|imagine_filter('ImgPublicLoad')}}" alt="lool">
+>>>>>>> origin/master
         <!--/ post img -->
     {% endif %}
 {{ form_widget(form.imageFile)}}

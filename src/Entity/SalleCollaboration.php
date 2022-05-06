@@ -6,7 +6,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+<<<<<<< HEAD
 use Symfony\Component\Serializer\Annotation\Groups;
+=======
+>>>>>>> origin/master
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,7 +29,10 @@ class SalleCollaboration
      * @var int
      *
      * @ORM\Column(name="ID_Collab", type="integer", nullable=false)
+<<<<<<< HEAD
      * @Groups("post:read")
+=======
+>>>>>>> origin/master
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -36,7 +42,10 @@ class SalleCollaboration
      * @var string
      *
      * @ORM\Column(name="Nom_Collab", type="string", length=20, nullable=false)
+<<<<<<< HEAD
      * @Groups("post:read")
+=======
+>>>>>>> origin/master
      * @Assert\NotBlank( groups={"deletet"},message="Veuillez choisir un nom ")
      *  @Assert\EqualTo(groups={"deletec"},propertyPath="nomconfirm",message="nom ne correspond pas")
      
@@ -45,7 +54,10 @@ class SalleCollaboration
 
     /**
      * @var string
+<<<<<<< HEAD
      * @Groups("post:read")
+=======
+>>>>>>> origin/master
      * @Assert\EqualTo(groups={"deletec"}, propertyPath="nomconfirm",message="nom doit etre le meme que le nom du collab a supprimer")
      */
     private $nomconfirm;
@@ -54,7 +66,10 @@ class SalleCollaboration
      * @var string
      *
      * @ORM\Column(name="URL_Collab", type="string", length=60, nullable=false)
+<<<<<<< HEAD
      * @Groups("post:read")
+=======
+>>>>>>> origin/master
 
      */
     private $urlCollab;
@@ -63,7 +78,11 @@ class SalleCollaboration
      * @var string|null
      *
      * @ORM\Column(name="Chat", type="text", length=0, nullable=true)
+<<<<<<< HEAD
     * @Groups("post:read")
+=======
+    
+>>>>>>> origin/master
 
      */
     private $chat;
@@ -80,7 +99,11 @@ class SalleCollaboration
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+<<<<<<< HEAD
      * @Groups("post:read")
+=======
+     *
+>>>>>>> origin/master
      * @ORM\ManyToMany(targetEntity="Utilisateurs", inversedBy="idCollab")
      * @ORM\JoinTable(name="collab_members",
      *   joinColumns={

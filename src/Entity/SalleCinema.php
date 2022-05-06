@@ -3,11 +3,20 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+<<<<<<< HEAD
+=======
+use App\Repository\SalleCinemaRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+>>>>>>> origin/master
 
 /**
  * SalleCinema
  *
  * @ORM\Table(name="salle_cinema", indexes={@ORM\Index(name="cinema_event", columns={"ID_Event"})})
+<<<<<<< HEAD
+=======
+ * @ORM\Entity(repositoryClass=SalleCinemaRepository::class)
+>>>>>>> origin/master
  */
 class SalleCinema
 {
@@ -24,6 +33,11 @@ class SalleCinema
      * @var string
      *
      * @ORM\Column(name="Nom_Salle", type="string", length=50, nullable=false)
+<<<<<<< HEAD
+=======
+     * @Assert\NotBlank(message="Veuillez ajouter le nom de la salle")
+
+>>>>>>> origin/master
      */
     private $nomSalle;
 
@@ -31,6 +45,10 @@ class SalleCinema
      * @var string
      *
      * @ORM\Column(name="URL_Film", type="string", length=50, nullable=false)
+<<<<<<< HEAD
+=======
+     * @Assert\NotBlank(message="Veuillez ajouter l'url du film")
+>>>>>>> origin/master
      */
     private $urlFilm;
 
@@ -49,6 +67,7 @@ class SalleCinema
     private $chat;
 
     /**
+<<<<<<< HEAD
      * @var \Evenement
      *
      * @ORM\ManyToOne(targetEntity="Evenement")
@@ -57,6 +76,12 @@ class SalleCinema
      * })
      */
     private $idEvent;
+=======
+     * @ORM\ManyToOne(targetEntity="App\Entity\Evenement", inversedBy="sallescinema")
+     * @ORM\JoinColumn(name="ID_Event", referencedColumnName="ID_Event")
+     */
+    private $ID_Event;
+>>>>>>> origin/master
 
     public function getIdSalle(): ?int
     {
@@ -113,15 +138,27 @@ class SalleCinema
 
     public function getIdEvent(): ?Evenement
     {
+<<<<<<< HEAD
         return $this->idEvent;
+=======
+        return $this->ID_Event;
+>>>>>>> origin/master
     }
 
     public function setIdEvent(?Evenement $idEvent): self
     {
+<<<<<<< HEAD
         $this->idEvent = $idEvent;
+=======
+        $this->ID_Event = $idEvent;
+>>>>>>> origin/master
 
         return $this;
     }
 
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master

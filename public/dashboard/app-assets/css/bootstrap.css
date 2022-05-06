@@ -300,7 +300,11 @@ h1, h2, h3, h4, h5, h6,
   font-family: inherit;
   font-weight: 500;
   line-height: 1.2;
+<<<<<<< HEAD
   color: #ffffff; }
+=======
+  color: #7367f0; }
+>>>>>>> origin/master
 
 h1, .h1 {
   font-size: 2rem; }

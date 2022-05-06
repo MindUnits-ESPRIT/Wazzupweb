@@ -51,7 +51,11 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="nom", type="string", length=30)
      * @Assert\NotBlank(message="Veuillez insérer votre nom",
+<<<<<<< HEAD
     *     groups={"registration","Editprofile_general"},
+=======
+    *     groups={"registration","Editprofile_general","registermobile"},
+>>>>>>> origin/master
     * )
      */
     private $nom;
@@ -61,7 +65,11 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="prenom", type="string", length=30)
     * @Assert\NotBlank(message="Veuillez insérer votre Prenom",
+<<<<<<< HEAD
     *     groups={"registration","Editprofile_general"},
+=======
+    *     groups={"registration","Editprofile_general","registermobile"},
+>>>>>>> origin/master
     * )    */
     private $prenom;
 
@@ -70,7 +78,11 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="datenaissance", type="string", length=30, nullable=true)
      * @Assert\NotBlank(message="Veuillez insérer votre date de naissance ",
+<<<<<<< HEAD
     *     groups={"registration"},
+=======
+    *     groups={"registration","registermobile"},
+>>>>>>> origin/master
      * )
      */
     private $datenaissance;
@@ -79,6 +91,10 @@ class Utilisateurs implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="genre", type="string", length=0, nullable=true)
+<<<<<<< HEAD
+=======
+     * groups={"registermobile"},
+>>>>>>> origin/master
      */
     private $genre;
 
@@ -87,7 +103,11 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="num_tel", type="string", length=13, nullable=false)
      * @Assert\NotBlank(message="Veuillez insérer votre numero de telephone ",
+<<<<<<< HEAD
     *     groups={"registration"},
+=======
+    *     groups={"registration","registermobile"},
+>>>>>>> origin/master
      * )
      */
     private $full_number;
@@ -97,11 +117,19 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="email", type="string", length=50, nullable=false)
      * @Assert\NotBlank(message="Veuillez insérer votre email ",
+<<<<<<< HEAD
      *     groups={"registration","Editprofile_general"},
      * )
      * @Assert\Email(
      *     message = "Votre email '{{ value }}' n'est pas un email valide.",
      *     groups={"registration","Editprofile_general"},
+=======
+     *     groups={"registration","Editprofile_general","registermobile"},
+     * )
+     * @Assert\Email(
+     *     message = "Votre email '{{ value }}' n'est pas un email valide.",
+     *     groups={"registration","Editprofile_general","authmobile","registermobile"},
+>>>>>>> origin/master
      * )
      */
     private $email;
@@ -118,7 +146,11 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="mdp", type="string", length=220, nullable=false)-
      * @Assert\NotBlank(message="Veuillez insérer votre mot de passe ",
+<<<<<<< HEAD
      *     groups={"registration","Editprofile_pwd"},)
+=======
+     *     groups={"registration","Editprofile_pwd","authmobile","registermobile"},)
+>>>>>>> origin/master
      * @Assert\NotCompromisedPassword(message="Veuillez choisir un mot de passe plus fort", groups={"registration","Editprofile_pwd"}))
      * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*\d).{6,}$/i", message="Votre mot de passe doit comporter au moins 6 caractères et inclure au moins une lettre et un chiffre.", groups={"registration","Editprofile_pwd"})
      * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe ne correspond pas a votre confirmation", groups={"registration","Editprofile_pwd"})
@@ -261,6 +293,20 @@ class Utilisateurs implements UserInterface
         return $this;
     }
 
+<<<<<<< HEAD
+=======
+    public function setDB(string $datenaissance = null): self
+    {
+        if (!($datenaissance == null)) {
+            $this->datenaissance = $datenaissance;
+        }
+
+        return $this;
+    }
+
+
+
+>>>>>>> origin/master
     public function getGenre(): ?string
     {
         return $this->genre;

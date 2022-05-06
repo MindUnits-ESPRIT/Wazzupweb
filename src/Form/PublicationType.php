@@ -17,27 +17,34 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PublicationType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
-            ->add('description',TextareaType::class)
-//            ->add('fichier',HiddenType::class,[
-//
-//            ])
-//            ->add('visibilite',ChoiceType::class,['choices'  => [
-//                'True' => 'True',
-//                'False' => 'False',
-//                'Hidden' => 'Hidden',
-//            ]])
-//            ->add('visibilite')
-//            ->add('priority',HiddenType::class)
-//            ->add('datePublication')
-            ->add('imageFile',FileType::class,[
-                'required' => false,'empty_data' => 'NULL'
+            ->add('description', TextareaType::class)
+            ->add('fichier', HiddenType::class, [])
+            //            ->add('visibilite',ChoiceType::class,['choices'  => [
+            //                'True' => 'True',
+            //                'False' => 'False',
+            //                'Hidden' => 'Hidden',
+            //            ]])
+            //            ->add('visibilite')
+            //            ->add('priority',HiddenType::class)
+            //            ->add('datePublication')
+            ->add('imageFile', FileType::class, [
+                'required' => false,
+                'empty_data' => 'NULL',
             ])
-            ->add('idUtilisateur',EntityType::class,['class'=>Utilisateurs::class,'choice_label'=>'idUtilisateur'])
-//            ->add('Submit',SubmitType::class)
-        ;
+            ->add(
+                'idUtilisateur',
+                EntityType::class,
+                [
+                    'class' => Utilisateurs::class,
+                    'choice_label' => 'idUtilisateur',
+                ]
+                //            ->add('Submit',SubmitType::class)
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

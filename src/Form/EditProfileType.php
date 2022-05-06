@@ -15,19 +15,18 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class EditProfileType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add('avatar')
             ->add('nom')
             ->add('prenom')
             ->add('email')
-            ->add('numTel',TelType::class)
+            ->add('full_number', TelType::class)
 
-            ->add('validate',SubmitType::class)
-
-
-        ;
+            ->add('validate', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

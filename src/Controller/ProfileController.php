@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
+use App\Entity\Evenement;
 use App\Entity\Publication;
 use App\Entity\Utilisateurs;
 use App\Form\CommentaireType;
@@ -19,8 +20,12 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile", name="app_profile")
      */
-    public function index(Request $request,SessionInterface $session,EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
-    {
+    public function index(
+        Request $request,
+        SessionInterface $session,
+        EntityManagerInterface $entityManager,
+        PaginatorInterface $paginator
+    ): Response {
         $user = $session->get('userdata');
         if ($user == null) {
             return $this->redirectToRoute('app_auth');
@@ -29,57 +34,120 @@ class ProfileController extends AbstractController
             $form = $this->createForm(CommentaireType::class, $commentaire);
             $publications = $entityManager
                 ->getRepository(Publication::class)
-                ->findBy(['idUtilisateur'=>$user]);
-            $utili=$entityManager->getRepository(Utilisateurs::class)->find($user);
+                ->findBy(
+                    ['idUtilisateur' => $user, 'visibilite' => 'True'],
+                    ['datePublication' => 'DESC']
+                );
+            $utili = $entityManager
+                ->getRepository(Utilisateurs::class)
+                ->find($user);
             $commentaire = $entityManager
                 ->getRepository(Commentaire::class)
-                ->findBy(['idUtilisateur'=>$user]);
-            $data = $paginator->paginate($publications,$request->query->getInt('page',1),4);
-        return $this->render('profile/index.html.twig', [
-            'controller_name' => 'ProfileController',
-            'publications' => $data,
-            'formC'=>$form->createView(),
-            'utili'=>$utili,
-            'commentaires' => $commentaire,
-            'nom' => $user->getNom(),
-            'prenom' => $user->getPrenom(),
-            'role' => $user->getTypeUser(),
-            'picture' => $user->getAvatar(),
-            'user' => $user,
-        ]);
-    }
-    }
-
-    /**
-     * @Route("/profile/{id}", name="app_profile_byid")
-     */
-    public function showProfile($id,Request $request,SessionInterface $session,EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
-    {
-        $user = $session->get('userdata');
-        if ($user == null) {
-            return $this->redirectToRoute('app_auth');
-        } else {
-            $commentaire = new Commentaire();
-            $form = $this->createForm(CommentaireType::class, $commentaire);
-            $publications = $entityManager
-                ->getRepository(Publication::class)
-                ->findBy(['idUtilisateur'=>$id]);
-            $utili=$entityManager->getRepository(Utilisateurs::class)->find($id);
-            $commentaire = $entityManager
-                ->getRepository(Commentaire::class)
-                ->findBy(['idUtilisateur'=>$user]);
-            $data = $paginator->paginate($publications,$request->query->getInt('page',1),4);
+                ->findBy(['idUtilisateur' => $user]);
+            $eventFace2Face = $this->getDoctrine()
+                ->getRepository(Evenement::class)
+                ->findBy(
+                    [
+                        'typeEvent' => 'Rencontre',
+                        'eventVisibilite' => 'Salle_publique',
+                    ],
+                    ['dateP' => 'DESC']
+                );
+            $eventCinema = $this->getDoctrine()
+                ->getRepository(Evenement::class)
+                ->findBy(
+                    [
+                        'typeEvent' => 'SalleCinema',
+                        'eventVisibilite' => 'Salle_publique',
+                    ],
+                    ['dateP' => 'DESC']
+                );
+            $data = $paginator->paginate(
+                $publications,
+                $request->query->getInt('page', 1),
+                4
+            );
             return $this->render('profile/index.html.twig', [
                 'controller_name' => 'ProfileController',
                 'publications' => $data,
-                'formC'=>$form->createView(),
+                'formC' => $form->createView(),
+                'utili' => $utili,
                 'commentaires' => $commentaire,
-                'utili'=>$utili,
                 'nom' => $user->getNom(),
                 'prenom' => $user->getPrenom(),
                 'role' => $user->getTypeUser(),
                 'picture' => $user->getAvatar(),
                 'user' => $user,
+                'eventFace2Face' => $eventFace2Face,
+                'eventCinema' => $eventCinema,
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/profile/{id}", name="app_profile_byid")
+     */
+    public function showProfile(
+        $id,
+        Request $request,
+        SessionInterface $session,
+        EntityManagerInterface $entityManager,
+        PaginatorInterface $paginator
+    ): Response {
+        $user = $session->get('userdata');
+        if ($user == null) {
+            return $this->redirectToRoute('app_auth');
+        } else {
+            $commentaire = new Commentaire();
+            $form = $this->createForm(CommentaireType::class, $commentaire);
+            $publications = $entityManager
+                ->getRepository(Publication::class)
+                ->findBy(
+                    ['idUtilisateur' => $id, 'visibilite' => 'True'],
+                    ['datePublication' => 'DESC']
+                );
+            $utili = $entityManager
+                ->getRepository(Utilisateurs::class)
+                ->find($id);
+            $commentaire = $entityManager
+                ->getRepository(Commentaire::class)
+                ->findBy(['idUtilisateur' => $user]);
+            $eventFace2Face = $this->getDoctrine()
+                ->getRepository(Evenement::class)
+                ->findBy(
+                    [
+                        'typeEvent' => 'Rencontre',
+                        'eventVisibilite' => 'Salle_publique',
+                    ],
+                    ['dateP' => 'DESC']
+                );
+            $eventCinema = $this->getDoctrine()
+                ->getRepository(Evenement::class)
+                ->findBy(
+                    [
+                        'typeEvent' => 'SalleCinema',
+                        'eventVisibilite' => 'Salle_publique',
+                    ],
+                    ['dateP' => 'DESC']
+                );
+            $data = $paginator->paginate(
+                $publications,
+                $request->query->getInt('page', 1),
+                4
+            );
+            return $this->render('profile/index.html.twig', [
+                'controller_name' => 'ProfileController',
+                'publications' => $data,
+                'formC' => $form->createView(),
+                'commentaires' => $commentaire,
+                'utili' => $utili,
+                'nom' => $user->getNom(),
+                'prenom' => $user->getPrenom(),
+                'role' => $user->getTypeUser(),
+                'picture' => $user->getAvatar(),
+                'user' => $user,
+                'eventFace2Face' => $eventFace2Face,
+                'eventCinema' => $eventCinema,
             ]);
         }
     }
