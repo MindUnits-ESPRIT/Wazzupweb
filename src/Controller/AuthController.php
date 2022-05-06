@@ -16,10 +16,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-<<<<<<< HEAD
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-=======
->>>>>>> origin/master
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -29,13 +26,6 @@ class AuthController extends AbstractController
     /**
      * @var bool
      */
-<<<<<<< HEAD
-
-=======
-    /**
-     * @var bool
-     */
->>>>>>> origin/master
     /**
      * @Route("/auth", name="app_auth", methods={"GET","POST"})
      */
@@ -81,13 +71,9 @@ class AuthController extends AbstractController
                             if ($session->get('validotp')) {
                                 sleep(3000 / 1000);
                                 return $this->redirectToRoute('app_admin');
-<<<<<<< HEAD
                            }
                             
                             // $this->SendSMS("+21624664880",$code);
-=======
-                            }
->>>>>>> origin/master
 
                             $this->SendSMS('+21624664880', $code);
                         }
@@ -230,7 +216,6 @@ class AuthController extends AbstractController
         $this->addFlash('success', 'Vous avez été déconnecté avec succès. !');
         return $this->redirectToRoute('app_auth');
     }
-<<<<<<< HEAD
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////// Mobile API /////////////////////////////////////////////
     /// Authentification // 
@@ -308,6 +293,3 @@ class AuthController extends AbstractController
 
 }
 
-=======
-}
->>>>>>> origin/master
