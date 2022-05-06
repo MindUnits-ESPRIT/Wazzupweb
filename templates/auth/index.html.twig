@@ -108,22 +108,27 @@ $(".alert-success").delay(3000).slideUp(300);
 				{% if otp  %}
 					<div class="row code_sms">
 						<div class="col">
-							<input class="form-control">
+							<input name="otp_input" class="form-control">
 						</div>
+						
 						<div class="col">
-							<button class="ld-over-full-inverse code_validate">Valider</button>
+							<button type="button" id="valider_otp" class="ld-over-full-inverse code_validate">Valider</button>
 						</div>
 					</div>
 				{% endif %}
 
-
-				{# <script>
-				$(function(){
-               $("a[title ~= 'BotDetect']").removeAttr("style");
-               $("a[title ~= 'BotDetect']").removeAttr("href");
-               $("a[title ~= 'BotDetect']").css('visibility', 'hidden');
-                 });
-				</script> #}
+				<script>
+				  var code='{{ code }}';
+				  var validotp='{{ valid_otp }}'
+				  
+				var myotp;
+				$("#valider_otp").click(function() {
+					myotp=$("input[name=otp_input]").val();
+                    location.href="check-otp/"+myotp+"/"+code;
+					 });
+				
+				 
+				</script>
 				{{ form_widget(auth_form.Submit, { 'label': 'Soumettre', 'attr':{'class':'ld-over-full-inverse'} }) }}
 
 				<center>

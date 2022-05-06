@@ -31,6 +31,8 @@ class LoginType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Utilisateurs::class,
             'validation_groups' => ['authentification'],
+            'csrf_protection' => false,
+
         ]);
     }
 }

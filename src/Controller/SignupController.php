@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UtilisateursRepository;
 use Cloudinary\Configuration\Configuration;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +30,16 @@ class SignupController extends AbstractController
      */
     public function signup(Request $request, EntityManagerInterface $entityManager,UserPasswordEncoderInterface $encoder, MailerInterface $mailer): Response
     {
+        //api el jdid
+        $client = HttpClient::create();
+          $response = $client->request(
+            'GET',
+            'https://ipinfo.io/json?token=8b5522417ef455'
+        );
+
+        $statusCode = $response->getStatusCode();
+        $content = $response->toArray();
+        $country = $content['country'];
         $user=new Utilisateurs();
         $datevalide=false;
         $form=$this->createForm(SignupType::class,$user);
@@ -39,6 +50,8 @@ class SignupController extends AbstractController
         // dump($form->getData());
         if ($form->isSubmitted() && $form->isValid()) {
             $db=$form->get('datenaissance')->getData();
+            // $num=$form->get('full_number')->getData();
+            // dd($num);
             $dbyear=$db->format('Y');
             $datevalide=$this->VerifierDatenaissance($dbyear);
             // dd($datevalide);
@@ -53,7 +66,7 @@ class SignupController extends AbstractController
              $user->setToken(sha1(uniqid()));
              $user->setActivated(false);
              
-             // dd($user);
+             dd($user);
             $entityManager->persist($user);
             $entityManager->flush();
             // L'envoi de token
@@ -72,14 +85,16 @@ class SignupController extends AbstractController
 ;
       $mailer->send($email);
             return $this->redirectToRoute('registration-success',
-            ['email' => $user->getEmail()],
+            ['email' => $user->getEmail()]
+            
         );  
         }
     }
         return $this->render('signup/index.html.twig', [
             'controller_name' => 'SignupController',
             'signup_form' => $form ->createView(),
-            'datevalide'=>$datevalide
+            'datevalide'=>$datevalide,
+            'country'=>$country,
             
         ]);
     
