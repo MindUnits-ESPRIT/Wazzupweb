@@ -10,9 +10,12 @@
 	<link rel="stylesheet" href="{{ asset('signup/css/bootstrap.min.css') }}">
 	<!-- STYLE CSS -->
 	<link rel="stylesheet" href="{{ asset('signup/css/style.css') }}">
+	<link rel="stylesheet" href="{{ asset('phoneinput/css/intlTelInput.css') }}">
+    <link rel="stylesheet" href="{{ asset('phoneinput/css/demo.css') }}">
 	<link rel="shortcut icon" href="{{ asset('signup/img/favicon.ico') }}">
 	<script src="{{ asset('signup/js/Jquery.js') }}"></script>
 	<script src="{{ asset('signup/js/form.js') }}"></script>
+
 </head>
 {% endblock %}
 {% include 'navbar/nav.html.twig' %}
@@ -73,13 +76,26 @@
 				{% if form_errors(signup_form.mdpconfirm) %}
 				{{ form_errors(signup_form.mdpconfirm) }}
 				{% endif %}
-				<div class="form-wrapper">
+				{# <div class="form-wrapper">
 					{{form_widget(signup_form.numTel,{'label': 'Numero de telephone','attr': {'class': 'form-control','placeholder':'Numero de telephone'}})}}
 					<i class="zmdi zmdi-phone" style="font-size: 17px"></i>
 				</div>
 				{% if form_errors(signup_form.numTel) %}
 					{{ form_errors(signup_form.numTel) }}
+				{% endif %} #}
+              
+               	<div class="form-wrapper">
+					{{form_widget(signup_form.full_number,{'id': 'phone','label': 'Numero de telephone','attr': {'class': 'form-control','placeholder':'Numero de telephone'}})}}
+					<i class="zmdi zmdi-phone" style="font-size: 17px"></i>
+				</div>
+				{% if form_errors(signup_form.full_number) %}
+					{{ form_errors(signup_form.full_number) }}
 				{% endif %}
+
+
+
+
+
 				<div class="form-wrapper">
 				{{form_widget(signup_form.genre,{'label': 'Genre','attr': {'class': 'form-control','placeholder':'Genre'}})}}
                     <i class="zmdi zmdi-accounts-alt"></i>
@@ -91,11 +107,13 @@
          <span class="form-error-icon badge badge-danger text-uppercase">Error</span> <span class="form-error-message">Il faut que votre age soit supérieur à 18 ans</span>
                      </span></span>
 				{% endif %}
-				
+				<br>
+				<br>
 				{% if form_errors(signup_form.datenaissance) %}
 					{{ form_errors(signup_form.datenaissance) }}
 				{% endif %}
-				
+				<br>
+	
 		    	
 				{# <div class="form-group">
 					<div class="custom-file">
@@ -109,5 +127,28 @@
 			 {{ form_end(signup_form) }}
 		</div>
 	</div>
+	
 </body>
+<script src="{{ asset('phoneinput/js/intlTelInput.js') }}"></script>
+  <script>
+  var code='{{ country|lower }}';
+
+    var input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+      geoIpLookup: async function(code) {
+		  const options = {
+method: 'GET',
+};
+         const res = await fetch('https://ipinfo.io/json?token=8b5522417ef455',options);
+const xdd = await res.json();
+console.log(xdd.country.toLowerCase())
+
+       },
+     
+       initialCountry: code,
+	  hiddenInput: "full_number",
+      utilsScript: "{{ asset('phoneinput/js/utils.js') }}",
+    });
+
+  </script>
 {% endblock %}

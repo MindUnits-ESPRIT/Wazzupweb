@@ -3,13 +3,15 @@
 namespace App\Entity;
 
 use Serializable;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UtilisateursRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+
 
 
 /**
@@ -33,6 +35,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 class Utilisateurs implements UserInterface
 {
+
+
     /**
      * @var int
      *
@@ -81,12 +85,12 @@ class Utilisateurs implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="num_tel", type="string", length=12, nullable=false)
+     * @ORM\Column(name="num_tel", type="string", length=13, nullable=false)
      * @Assert\NotBlank(message="Veuillez insérer votre numero de telephone ",
     *     groups={"registration"},
      * )
      */
-    private $numTel;
+    private $full_number;
 
     /**
      * @var string
@@ -269,14 +273,14 @@ class Utilisateurs implements UserInterface
         return $this;
     }
 
-    public function getNumTel(): ?string
+    public function getFullNumber(): ?string
     {
-        return $this->numTel;
+        return $this->full_number;
     }
 
-    public function setNumTel(string $numTel): self
+    public function setFullNumber(string $full_number): self
     {
-        $this->numTel = $numTel;
+        $this->full_number = $full_number;
 
         return $this;
     }
@@ -435,6 +439,7 @@ class Utilisateurs implements UserInterface
 
         return $this;
     }
+
 
     /**
      * @return Collection<int, SalleCollaboration>

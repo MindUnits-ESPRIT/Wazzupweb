@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8f3e9c257b4061f3ba423b5829451cc",
+    "content-hash": "92a1b372db73172bdf1ed04512baf417",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -59,6 +59,165 @@
                 "source": "https://github.com/Bacon/BaconQrCode/tree/2.0.7"
             },
             "time": "2022-03-14T02:02:36+00:00"
+        },
+        {
+            "name": "captcha-com/captcha",
+            "version": "4.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://git.captcha.com/botdetect-php-captcha-library.git",
+                "reference": "4b8b642509bfc63d2f295dccf1c1b4d0e2266a15"
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "captcha-com/cakephp-captcha": "CakePHP Captcha Plugin -- BotDetect PHP CAPTCHA generator integration for the CakePHP framework.",
+                "captcha-com/laravel-captcha": "Laravel Captcha Package -- BotDetect PHP CAPTCHA generator integration for the Laravel framework.",
+                "captcha-com/symfony-captcha-bundle": "Symfony Captcha Bundle -- BotDetect PHP CAPTCHA generator integration for the Symfony framework."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Captcha Support",
+                    "email": "botdetect.support@captcha.com",
+                    "homepage": "https://captcha.com/php-captcha.html"
+                }
+            ],
+            "description": "Captcha Generator -- BotDetect PHP CAPTCHA Free composer package.",
+            "homepage": "https://captcha.com/php-captcha.html",
+            "keywords": [
+                "captcha",
+                "captcha generator",
+                "captcha library",
+                "php captcha"
+            ],
+            "support": {
+                "email": "botdetect.support@captcha.com",
+                "forum": "https://captcha.com/support",
+                "issues": "https://captcha.com/support",
+                "source": "https://captcha.com/php-captcha.html"
+            },
+            "time": "2019-07-22T16:36:53+00:00"
+        },
+        {
+            "name": "captcha-com/symfony-captcha-bundle",
+            "version": "4.2.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/captcha-com/symfony-captcha-bundle.git",
+                "reference": "fd071c3f36d646ff87b591ddb3ea531c5f3678c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/captcha-com/symfony-captcha-bundle/zipball/fd071c3f36d646ff87b591ddb3ea531c5f3678c2",
+                "reference": "fd071c3f36d646ff87b591ddb3ea531c5f3678c2",
+                "shasum": ""
+            },
+            "require": {
+                "captcha-com/captcha": "4.*",
+                "php": ">=5.3.9"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Captcha\\Bundle\\CaptchaBundle\\": "/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Symfony Captcha Bundle Support",
+                    "email": "botdetect.support@captcha.com",
+                    "homepage": "https://captcha.com/doc/php/symfony-captcha-bundle-quickstart.html"
+                }
+            ],
+            "description": "Symfony Captcha Bundle -- BotDetect PHP Captcha generator integration for the Symfony framework.",
+            "homepage": "https://captcha.com/doc/php/symfony-captcha-bundle-quickstart.html",
+            "keywords": [
+                "botdetect",
+                "captcha",
+                "captcha bundle",
+                "captcha generator",
+                "symfony captcha",
+                "symfony captcha bundle"
+            ],
+            "support": {
+                "email": "botdetect.support@captcha.com",
+                "forum": "https://captcha.com/support",
+                "issues": "https://captcha.com/support",
+                "source": "https://captcha.com/doc/php/symfony-captcha-bundle-quickstart.html"
+            },
+            "time": "2019-08-08T16:56:37+00:00"
+        },
+        {
+            "name": "carlos-mg89/symfony-captcha-bundle",
+            "version": "4.2.21",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/carlos-mg89/symfony-captcha-bundle.git",
+                "reference": "dbe25f48a3bcc9b7d5f0a75a0988ac4696c46f90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/carlos-mg89/symfony-captcha-bundle/zipball/dbe25f48a3bcc9b7d5f0a75a0988ac4696c46f90",
+                "reference": "dbe25f48a3bcc9b7d5f0a75a0988ac4696c46f90",
+                "shasum": ""
+            },
+            "require": {
+                "captcha-com/captcha": "4.*",
+                "php": ">=5.3.9"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Captcha\\Bundle\\CaptchaBundle\\": "/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Symfony Captcha Bundle Support",
+                    "email": "botdetect.support@captcha.com",
+                    "homepage": "https://captcha.com/doc/php/symfony-captcha-bundle-quickstart.html"
+                }
+            ],
+            "description": "Symfony Captcha Bundle -- BotDetect PHP CAPTCHA generator integration for the Symfony framework.",
+            "homepage": "https://captcha.com/doc/php/symfony-captcha-bundle-quickstart.html",
+            "keywords": [
+                "botdetect",
+                "captcha",
+                "captcha bundle",
+                "captcha generator",
+                "symfony captcha",
+                "symfony captcha bundle"
+            ],
+            "support": {
+                "email": "carlosmartinezgadea@gmail.com",
+                "forum": "https://captcha.com/support",
+                "issues": "https://captcha.com/support",
+                "source": "https://captcha.com/doc/php/symfony-captcha-bundle-quickstart.html"
+            },
+            "time": "2020-12-09T16:08:18+00:00"
         },
         {
             "name": "cloudinary/cloudinary_php",
@@ -123,6 +282,61 @@
                 "source": "https://github.com/cloudinary/cloudinary_php/tree/2.6.1"
             },
             "time": "2022-02-01T08:37:20+00:00"
+        },
+        {
+            "name": "cmen/google-charts-bundle",
+            "version": "5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cmen/CMENGoogleChartsBundle.git",
+                "reference": "9b5a70e4f62558a008377ab402e497c95f2482e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cmen/CMENGoogleChartsBundle/zipball/9b5a70e4f62558a008377ab402e497c95f2482e7",
+                "reference": "9b5a70e4f62558a008377ab402e497c95f2482e7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.4",
+                "symfony/framework-bundle": "^4.4 || ^5.4 || ^6.0",
+                "twig/twig": "^1.43 | ^2.13 | ^3.0.4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.4",
+                "phpstan/phpstan": "^1.2",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "CMEN\\GoogleChartsBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Meneses"
+                }
+            ],
+            "description": "This Bundle provides a Twig extension and PHP objects to display Google charts in your Symfony application.",
+            "keywords": [
+                "chart",
+                "charts",
+                "google",
+                "graph",
+                "graphs",
+                "map"
+            ],
+            "support": {
+                "issues": "https://github.com/cmen/CMENGoogleChartsBundle/issues",
+                "source": "https://github.com/cmen/CMENGoogleChartsBundle/tree/5.0.0"
+            },
+            "time": "2021-12-25T15:49:39+00:00"
         },
         {
             "name": "dasprid/enum",
@@ -8354,6 +8568,90 @@
             "time": "2022-01-02T09:41:36+00:00"
         },
         {
+            "name": "symfony/ux-chartjs",
+            "version": "v2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/ux-chartjs.git",
+                "reference": "8fcb3c362c4d9f641bf20d0acfdc43b1bd7206f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/ux-chartjs/zipball/8fcb3c362c4d9f641bf20d0acfdc43b1bd7206f7",
+                "reference": "8fcb3c362c4d9f641bf20d0acfdc43b1bd7206f7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/config": "^4.4.17|^5.0|^6.0",
+                "symfony/dependency-injection": "^4.4.17|^5.0|^6.0",
+                "symfony/http-kernel": "^4.4.17|^5.0|^6.0"
+            },
+            "conflict": {
+                "symfony/flex": "<1.13",
+                "symfony/webpack-encore-bundle": "<1.11"
+            },
+            "require-dev": {
+                "symfony/framework-bundle": "^4.4.17|^5.0|^6.0",
+                "symfony/phpunit-bridge": "^5.2|^6.0",
+                "symfony/twig-bundle": "^4.4.17|^5.0|^6.0",
+                "symfony/var-dumper": "^4.4.17|^5.0|^6.0",
+                "symfony/webpack-encore-bundle": "^1.11"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "thanks": {
+                    "name": "symfony/ux",
+                    "url": "https://github.com/symfony/ux"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\UX\\Chartjs\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Titouan Galopin",
+                    "email": "galopintitouan@gmail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Chart.js integration for Symfony",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "symfony-ux"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/ux-chartjs/tree/v2.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-01-25T15:40:02+00:00"
+        },
+        {
             "name": "symfony/validator",
             "version": "v4.4.39",
             "source": {
@@ -9054,6 +9352,59 @@
                 }
             ],
             "time": "2022-02-04T06:59:48+00:00"
+        },
+        {
+            "name": "twilio/sdk",
+            "version": "6.36.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twilio/twilio-php.git",
+                "reference": "68aa5dd58450d3b449c83138567ecfca93955ed9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/68aa5dd58450d3b449c83138567ecfca93955ed9",
+                "reference": "68aa5dd58450d3b449c83138567ecfca93955ed9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^6.3 || ^7.0",
+                "phpunit/phpunit": ">=7.0"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "An HTTP client to execute the API requests"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Twilio\\": "src/Twilio/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Twilio API Team",
+                    "email": "api@twilio.com"
+                }
+            ],
+            "description": "A PHP wrapper for Twilio's API",
+            "homepage": "https://github.com/twilio/twilio-php",
+            "keywords": [
+                "api",
+                "sms",
+                "twilio"
+            ],
+            "support": {
+                "issues": "https://github.com/twilio/twilio-php/issues",
+                "source": "https://github.com/twilio/twilio-php/tree/6.36.1"
+            },
+            "time": "2022-04-06T23:33:30+00:00"
         },
         {
             "name": "vich/uploader-bundle",

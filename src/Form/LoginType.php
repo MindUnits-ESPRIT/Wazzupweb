@@ -22,6 +22,7 @@ class LoginType extends AbstractType
                 'label'=>'Votre mot de passe',
                 ])
              ->add('Submit',SubmitType::class)
+
         ;
     }
 
@@ -30,6 +31,8 @@ class LoginType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Utilisateurs::class,
             'validation_groups' => ['authentification'],
+            'csrf_protection' => false,
+
         ]);
     }
 }
