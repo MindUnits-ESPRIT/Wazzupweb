@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PublicationSignaler{% endblock %}
+
+{% block body %}
+    <h1>PublicationSignaler</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdSignaler</th>
+                <td>{{ publication_signaler.idSignaler }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ publication_signaler.type }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ publication_signaler.date ? publication_signaler.date|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_publication_signaler_index') }}">back to list</a>
+
+    <a href="{{ path('app_publication_signaler_edit', {'idSignaler': publication_signaler.idSignaler}) }}">edit</a>
+
+    {{ include('publication_signaler/_delete_form.html.twig') }}
+{% endblock %}

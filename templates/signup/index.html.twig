@@ -1,0 +1,154 @@
+{% block head %}
+<head>
+	<meta charset="utf-8">
+	<title>Wazzup - Inscription</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{ asset('signup/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css') }}">
+	<!-- FONT AWESOME (LOCAL) -->
+	<link href="{{ asset('signup/fa/css/all.css') }}" rel="stylesheet">
+	<!-- BOOTSTRAP (LOCAL) -->
+	<link rel="stylesheet" href="{{ asset('signup/css/bootstrap.min.css') }}">
+	<!-- STYLE CSS -->
+	<link rel="stylesheet" href="{{ asset('signup/css/style.css') }}">
+	<link rel="stylesheet" href="{{ asset('phoneinput/css/intlTelInput.css') }}">
+    <link rel="stylesheet" href="{{ asset('phoneinput/css/demo.css') }}">
+	<link rel="shortcut icon" href="{{ asset('signup/img/favicon.ico') }}">
+	<script src="{{ asset('signup/js/Jquery.js') }}"></script>
+	<script src="{{ asset('signup/js/form.js') }}"></script>
+
+</head>
+{% endblock %}
+{% include 'navbar/nav.html.twig' %}
+{% form_theme signup_form 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+<body>
+
+	<div id="part" class="wrapper">
+		<div id="particles-js"></div>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src='https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
+		<script src="{{ asset('signup/js/app.js') }}"></script>
+		<div class="inner">
+			<div class="image-holder"><br><br><br>
+         <img style="height: 65vh;" src="{{ asset('signup/img/logo.png') }}" alt="logo_wazzup">
+			</div>
+		{{ form_start(signup_form,{attr:{'novalidate':'novalidate'}}) }}
+				<h3 class="signup-titre"><i class="fas fa-user-edit"></i>&nbsp;&nbsp;S'inscrire</h3>
+				<h5>CREER UN COMPTE</h5><br>
+		{% for message in app.flashes('success') %}
+           <div class="alert alert-success">
+		   {{ message }}
+		   </div>
+		{% endfor %}
+				<div class="form-wrapper">
+					{{form_widget(signup_form.nom,{'label': 'Nom','attr':{'class':'form-control','placeholder':'Votre nom'}})}}
+					<i style="display:fixed;" class="zmdi zmdi-account"></i>
+				</div>
+				{% if form_errors(signup_form.nom) %}
+				{{ form_errors(signup_form.nom) }}
+				{% endif %}
+                <div class="form-wrapper">
+					{{form_widget(signup_form.prenom,{'label': 'Prenom','attr':{'class':'form-control','placeholder':'Votre prenom'}})}}
+					<i class="zmdi zmdi-account"></i>
+				</div>
+				{% if form_errors(signup_form.prenom) %}
+					{{ form_errors(signup_form.prenom) }}
+				{% endif %}
+				<div class="form-wrapper">
+					{{form_widget(signup_form.email,{'label': 'Email','attr':{'class':'form-control','placeholder':'utilisateur@wazzup.com'}})}}
+					<i class="zmdi zmdi-email"></i>
+				</div>
+				{% if form_errors(signup_form.email) %}
+		        {{ form_errors(signup_form.email) }}
+			   {% endif %}
+				<div class="form-wrapper">
+					{{form_widget(signup_form.mdp,{'label': 'Mot de passe','attr': {'label':'','class': 'form-control','placeholder':'Mot de passe'}})}}
+					<i class="zmdi zmdi-lock"></i>
+				</div>
+				{% if form_errors(signup_form.mdp) %}
+				{{ form_errors(signup_form.mdp) }}
+				{% endif %}
+				<div class="form-wrapper">
+					{{form_widget(signup_form.mdpconfirm,{'label': 'Confirmation','attr': {'class': 'form-control','placeholder':'Confirmer votre mot de passe'}})}}
+					<i class="zmdi zmdi-lock"></i>
+				</div>
+				{% if form_errors(signup_form.mdpconfirm) %}
+				{{ form_errors(signup_form.mdpconfirm) }}
+				{% endif %}
+				{# <div class="form-wrapper">
+					{{form_widget(signup_form.numTel,{'label': 'Numero de telephone','attr': {'class': 'form-control','placeholder':'Numero de telephone'}})}}
+					<i class="zmdi zmdi-phone" style="font-size: 17px"></i>
+				</div>
+				{% if form_errors(signup_form.numTel) %}
+					{{ form_errors(signup_form.numTel) }}
+				{% endif %} #}
+              
+               	<div class="form-wrapper">
+					{{form_widget(signup_form.full_number,{'id': 'phone','label': 'Numero de telephone','attr': {'class': 'form-control','placeholder':'Numero de telephone'}})}}
+					<i class="zmdi zmdi-phone" style="font-size: 17px"></i>
+				</div>
+				{% if form_errors(signup_form.full_number) %}
+					{{ form_errors(signup_form.full_number) }}
+				{% endif %}
+
+
+
+
+
+				<div class="form-wrapper">
+				{{form_widget(signup_form.genre,{'label': 'Genre','attr': {'class': 'form-control','placeholder':'Genre'}})}}
+                    <i class="zmdi zmdi-accounts-alt"></i>
+				</div>
+                
+				{{form_widget(signup_form.datenaissance,{'label': 'Date de naissance','attr': {'class': 'datepicker form-control'}})}}
+				{% if datevalide == false %}
+                   <span class="invalid-feedback d-block"><span class="d-block">
+         <span class="form-error-icon badge badge-danger text-uppercase">Error</span> <span class="form-error-message">Il faut que votre age soit supérieur à 18 ans</span>
+                     </span></span>
+				{% endif %}
+				<br>
+				<br>
+				{% if form_errors(signup_form.datenaissance) %}
+					{{ form_errors(signup_form.datenaissance) }}
+				{% endif %}
+				<br>
+	
+		    	
+				{# <div class="form-group">
+					<div class="custom-file">
+						{{form_row(signup_form.avatar,{'label': 'Votre image','attr': {'class': 'custom-file-input'}})}}
+						<label class="custom-file-label" for="customFile">Choisir un fichier</label>
+					</div>
+					&nbsp;&nbsp;<i class="zmdi zmdi-attachment-alt"></i>
+
+				</div> #}
+               {{ form_widget(signup_form.Submit, { 'label': 'Soumettre', 'attr':{'class':'ld-over-full-inverse'} }) }}
+			 {{ form_end(signup_form) }}
+		</div>
+	</div>
+	
+</body>
+<script src="{{ asset('phoneinput/js/intlTelInput.js') }}"></script>
+  <script>
+  var code='{{ country|lower }}';
+
+    var input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+      geoIpLookup: async function(code) {
+		  const options = {
+method: 'GET',
+};
+         const res = await fetch('https://ipinfo.io/json?token=8b5522417ef455',options);
+const xdd = await res.json();
+console.log(xdd.country.toLowerCase())
+
+       },
+     
+       initialCountry: code,
+	  hiddenInput: "full_number",
+      utilsScript: "{{ asset('phoneinput/js/utils.js') }}",
+    });
+
+  </script>
+{% endblock %}

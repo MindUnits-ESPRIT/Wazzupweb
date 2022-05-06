@@ -1,0 +1,11 @@
+{% for u in utilisateurs %}
+<li class="auto-suggestion">
+    <a class="d-flex align-items-center justify-content-between w-100" href="{{ path('app_profile_byid',{'id': u.idUtilisateur}) }}">
+        <div class="d-flex justify-content-start align-items-center">
+            <i data-feather="user"></i>
+            <span>
+{{ u.nom}} {{ u.prenom}}
+</span></div>
+    </a>
+</li>
+{% endfor %}

@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs index{% endblock %}
+
+{% block body %}
+    <h1>Utilisateurs index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdUtilisateur</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Datenaissance</th>
+                <th>Genre</th>
+                <th>NumTel</th>
+                <th>Email</th>
+                <th>Avatar</th>
+                <th>Mdp</th>
+                <th>TypeUser</th>
+                <th>Passwordrequestedat</th>
+                <th>Token</th>
+                <th>Activated</th>
+                <th>Nbsignal</th>
+                <th>Evaluation</th>
+                <th>Sponsor</th>
+                <th>Desactivated</th>
+                <th>CreationDate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for utilisateur in utilisateurs %}
+            <tr>
+                <td>{{ utilisateur.idUtilisateur }}</td>
+                <td>{{ utilisateur.nom }}</td>
+                <td>{{ utilisateur.prenom }}</td>
+                <td>{{ utilisateur.datenaissance }}</td>
+                <td>{{ utilisateur.genre }}</td>
+                <td>{{ utilisateur.numTel }}</td>
+                <td>{{ utilisateur.email }}</td>
+                <td>{{ utilisateur.avatar }}</td>
+                <td>{{ utilisateur.mdp }}</td>
+                <td>{{ utilisateur.typeUser }}</td>
+                <td>{{ utilisateur.passwordrequestedat ? utilisateur.passwordrequestedat|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ utilisateur.token }}</td>
+                <td>{{ utilisateur.activated ? 'Yes' : 'No' }}</td>
+                <td>{{ utilisateur.nbsignal }}</td>
+                <td>{{ utilisateur.evaluation }}</td>
+                <td>{{ utilisateur.sponsor ? 'Yes' : 'No' }}</td>
+                <td>{{ utilisateur.desactivated ? 'Yes' : 'No' }}</td>
+                <td>{{ utilisateur.creationDate ? utilisateur.creationDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_utilisateurs_show', {'idUtilisateur': utilisateur.idUtilisateur}) }}">show</a>
+                    <a href="{{ path('app_utilisateurs_edit', {'idUtilisateur': utilisateur.idUtilisateur}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="19">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_utilisateurs_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% block head %}
+
+
+	<head>
+
+		<meta charset="utf-8">
+		<title>Wazzup - Authentification</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--ANIMATION BUTTONS loading.io -->
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+		<link
+		rel="stylesheet" href="{{ asset('login/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css') }}"> <!-- FONT AWESOME (LOCAL) -->
+		<link
+		href="{{ asset('login/fa/css/all.css') }}" rel="stylesheet">
+		<!-- BOOTSTRAP (LOCAL) -->
+		<link
+		rel="stylesheet" href="{{ asset('login/css/bootstrap.min.css') }}">
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="{{ asset('login/css/style.css') }}">
+		<link rel="shortcut icon" href="{{ asset('login/img/favicon.ico') }}">
+		<script src="{{ asset('login/js/Jquery.js') }}"></script>
+		<script src="{{ asset('login/js/form.js') }}"></script>
+		<script src="//www.google.com/recaptcha/api.js?hl=en"></script>
+
+		<style>
+			.code_validate {
+				width: 95px;
+				height: 30px;
+				margin-top: 2px;
+				margin-left: -13px;
+			}
+			.code_sms {}
+		</style>
+	</head>
+{% endblock %}
+{% include 'navbar/nav.html.twig' %}
+{% form_theme auth_form 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+	<body>
+
+		<div id="part" class="wrapper" style="background: linear-gradient(90deg, rgba(0,119,119,1) 64%, rgba(200,200,200,1) 100%);">
+			<div id="particles-js"></div>
+			<script src='https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
+			<script src="{{ asset('login/js/app.js') }}"></script>
+
+			<div class="inner">
+				<div class="image-holder"><br><br><br>
+					<img src="{{ asset('login/img/logo.png') }}" alt="logo_wazzup">
+					<div class="alert alert-info" role="alert">
+						Vous n 'avez pas un compte? , pas de soucis creez un !
+					</div>
+					<a href="{{path('app_signup')}}">
+						<button class="" data-btn>S'inscrire
+							<i class="zmdi zmdi-arrow-right"></i>
+						</button>
+					</a>
+				</div>
+				{{ form_start(auth_form,{'attr':{'novalidate':'novalidate'}}) }}
+				<h3 class="loginhead">
+					<i class="fas fa-user-edit"></i>&nbsp;&nbsp;S'identifier</h3>
+				<h5>REMPLIR LES CHAMPS POUR ACCEDER A VOTRE COMPTE</h5><br>
+				{% for msg in app.session.flashBag.get('success') %}
+					<div class="alert alert-success">
+						{{ msg }}
+					</div>
+					<script>
+						$(document).ready(function () {
+$(".alert-success").delay(3000).slideUp(300);
+});
+					</script>
+				{% endfor %}
+
+				{% if login %}
+					<div class="alert alert-success" role="alert">
+						Authentifié avec succés , Bienvenue!
+					</div>
+				{% endif %}
+				{% if emailexist == false %}
+					<div class="alert alert-danger" role="alert">
+						Veuillez verifier votre email!
+					</div>
+				{% endif %}
+				{% if wrongpw %}
+					<div class="alert alert-danger" role="alert">
+						Veuillez verifier votre mot de passe !
+					</div>
+				{% endif %}
+				{% if activated %}
+					<div class="alert alert-danger" role="alert">
+						Veuillez activer votre compte pour y accéder !
+					</div>
+				{% endif %}
+
+				{{ form_errors(auth_form) }}
+
+				<div
+					class="form-wrapper">
+					{# <input type="text" placeholder="Email" class="form-control"> #}
+					{{form_widget(auth_form.email,{'attr': {'class': 'form-control','placeholder':'utilisateur@wazzup.com'}})}}
+					<i class="zmdi zmdi-email"></i>
+				</div>
+				<div
+					class="form-wrapper">
+					{# <input type="password" placeholder="Mot de passe" class="form-control"> #}
+					{{form_widget(auth_form.mdp,{'attr': {'class': 'form-control','placeholder':'*******'}})}}
+					<i class="zmdi zmdi-lock"></i>
+				</div>
+				{% if otp  %}
+					<div class="row code_sms">
+						<div class="col">
+							<input name="otp_input" class="form-control">
+						</div>
+						
+						<div class="col">
+							<button type="button" id="valider_otp" class="ld-over-full-inverse code_validate">Valider</button>
+						</div>
+					</div>
+				{% endif %}
+
+				<script>
+				  var code='{{ code }}';
+				  var validotp='{{ valid_otp }}'
+				  
+				var myotp;
+				$("#valider_otp").click(function() {
+					myotp=$("input[name=otp_input]").val();
+                    location.href="check-otp/"+myotp+"/"+code;
+					 });
+				
+				 
+				</script>
+				{{ form_widget(auth_form.Submit, { 'label': 'Soumettre', 'attr':{'class':'ld-over-full-inverse'} }) }}
+
+				<center>
+					<a href="{{path('forgotpassword')}}">
+						<p></p>Mot de passe oublié?</a>
+				</center>
+				{{ form_end(auth_form) }}
+			</div>
+		</div>
+	</body>
+</html>{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+    <h1>Utilisateurs</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdUtilisateur</th>
+                <td>{{ utilisateur.idUtilisateur }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ utilisateur.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ utilisateur.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Datenaissance</th>
+                <td>{{ utilisateur.datenaissance }}</td>
+            </tr>
+            <tr>
+                <th>Genre</th>
+                <td>{{ utilisateur.genre }}</td>
+            </tr>
+            <tr>
+                <th>NumTel</th>
+                <td>{{ utilisateur.numTel }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ utilisateur.email }}</td>
+            </tr>
+            <tr>
+                <th>Avatar</th>
+                <td>{{ utilisateur.avatar }}</td>
+            </tr>
+            <tr>
+                <th>Mdp</th>
+                <td>{{ utilisateur.mdp }}</td>
+            </tr>
+            <tr>
+                <th>TypeUser</th>
+                <td>{{ utilisateur.typeUser }}</td>
+            </tr>
+            <tr>
+                <th>Passwordrequestedat</th>
+                <td>{{ utilisateur.passwordrequestedat ? utilisateur.passwordrequestedat|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Token</th>
+                <td>{{ utilisateur.token }}</td>
+            </tr>
+            <tr>
+                <th>Activated</th>
+                <td>{{ utilisateur.activated ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Nbsignal</th>
+                <td>{{ utilisateur.nbsignal }}</td>
+            </tr>
+            <tr>
+                <th>Evaluation</th>
+                <td>{{ utilisateur.evaluation }}</td>
+            </tr>
+            <tr>
+                <th>Sponsor</th>
+                <td>{{ utilisateur.sponsor ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Desactivated</th>
+                <td>{{ utilisateur.desactivated ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>CreationDate</th>
+                <td>{{ utilisateur.creationDate ? utilisateur.creationDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_utilisateurs_index') }}">back to list</a>
+
+    <a href="{{ path('app_utilisateurs_edit', {'idUtilisateur': utilisateur.idUtilisateur}) }}">edit</a>
+
+    {{ include('utilisateurs/_delete_form.html.twig') }}
+{% endblock %}
