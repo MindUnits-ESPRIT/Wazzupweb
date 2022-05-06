@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
+use App\Entity\Evenement;
 use App\Entity\Publication;
 use App\Entity\Utilisateurs;
 use App\Form\CommentaireType;
@@ -41,6 +42,10 @@ class PublicationController extends AbstractController
             $commentaire = $entityManager
                 ->getRepository(Commentaire::class)
                 ->findAll();
+            $eventFace2Face=$this->getDoctrine()->getRepository(Evenement::class)
+                ->findBy(['typeEvent'=>'Rencontre','eventVisibilite'=>'Salle_publique'],['dateP'=>'DESC'],5);
+            $eventCinema=$this->getDoctrine()->getRepository(Evenement::class)
+                ->findBy(['typeEvent'=>'SalleCinema','eventVisibilite'=>'Salle_publique'],['dateP'=>'DESC'],5);
             $data = $paginator->paginate($publications,$request->query->getInt('page',1),
             4);
             return $this->render('publication/index.html.twig', [
@@ -52,7 +57,9 @@ class PublicationController extends AbstractController
                 'prenom' => $user->getPrenom(),
                 'role' => $user->getTypeUser(),
                 'picture' => $user->getAvatar(),
-                'user' => $user
+                'user' => $user,
+                'eventFace2Face'=>$eventFace2Face,
+                'eventCinema'=>$eventCinema
             ]);
         }
     }
@@ -69,7 +76,6 @@ class PublicationController extends AbstractController
             $publication->setDatePublication((new \DateTime('now')));
             $publication->setVisibilite("True");
             $publication->setPriority(1);
-            dd($publication);
             $entityManager->persist($publication);
             $entityManager->flush();
 
@@ -100,12 +106,14 @@ class PublicationController extends AbstractController
         $desc=$request->request->get("description");
         $img=$request->files->get("publication")['imageFile'];
       //  dd($img);
-        if (strlen($desc)>1)
+        if (strlen($desc)>0)
             $publication->setDescription($desc);
         else
             $publication->setDescription("ERROR FILLED BADLY");
         if($img != null)
         $publication->setImageFile($request->files->get("publication")['imageFile']);
+        else if (str_contains($request->request->get("publication")['fichier'],'.gif'))
+            $publication->setFichier($request->request->get("publication")['fichier']);
         else
         $publication->setFichier("NULL");
             $entityManager->persist($publication);
@@ -114,15 +122,15 @@ class PublicationController extends AbstractController
             return $this->redirectToRoute('app_publication_index');
 
     }
-    /**
-     * @Route("/{idPublication}", name="app_publication_show", methods={"GET"})
-     */
-    public function show(Publication $publication): Response
-    {
-        return $this->render('publication/show.html.twig', [
-            'publication' => $publication,
-        ]);
-    }
+//    /**
+//     * @Route("/{idPublication}", name="app_publication_show", methods={"GET"})
+//     */
+//    public function show(Publication $publication): Response
+//    {
+//        return $this->render('publication/show.html.twig', [
+//            'publication' => $publication,
+//        ]);
+//    }
 
     /**
      * @Route("/{idPublication}/edit", name="app_publication_edit", methods={"GET", "POST"})
@@ -194,5 +202,52 @@ class PublicationController extends AbstractController
         $em->remove($rep->find($id));
         $em->flush();
         return $this->redirectToRoute('app_publication_index');
+    }
+
+    /**
+     * @Route("/listContent", name="app_publication_listContent")
+     */
+    public function listContent(Request $request,SessionInterface $session,EntityManagerInterface $entityManager): Response
+    {
+        $user = $session->get('userdata');
+        if ($user == null) {
+            return $this->redirectToRoute('app_auth');
+        } else {
+//            $commentaire = new Commentaire();
+//            $form = $this->createForm(CommentaireType::class, $commentaire);
+            $publications = $entityManager
+                ->getRepository(Publication::class)
+                ->findBy(['visibilite'=>'True'],['datePublication'=>'DESC']);
+
+            return $this->render('publication/showContent.html.twig', [
+//                'formC'=>$form->createView(),
+                'nom' => $user->getNom(),
+                'prenom' => $user->getPrenom(),
+                'role' => $user->getTypeUser(),
+                'picture' => $user->getAvatar(),
+                'user' => $user,
+                'publication'=>$publications,
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/searchby", name="searchby")
+     */
+    public function users( Request $request,EntityManagerInterface $entityManager): Response
+    {
+        $str=$request->query->get('SearchField');
+        $utilisateurs = $entityManager
+            ->createQuery(
+                'SELECT p
+                FROM App\Entity\Utilisateurs p
+                WHERE p.nom LIKE :str 
+                OR p.prenom LIKE :str'
+            )
+            ->setParameter('str', '%'.$str.'%')
+            ->getResult();
+        return $this->render('publication/searchby.html.twig', [
+            'utilisateurs'=>$utilisateurs
+        ]);
     }
 }

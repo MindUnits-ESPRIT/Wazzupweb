@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SalleCinemaRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * SalleCinema
  *
  * @ORM\Table(name="salle_cinema", indexes={@ORM\Index(name="cinema_event", columns={"ID_Event"})})
+ * @ORM\Entity(repositoryClass=SalleCinemaRepository::class)
  */
 class SalleCinema
 {
@@ -24,6 +27,8 @@ class SalleCinema
      * @var string
      *
      * @ORM\Column(name="Nom_Salle", type="string", length=50, nullable=false)
+     * @Assert\NotBlank(message="Veuillez ajouter le nom de la salle")
+
      */
     private $nomSalle;
 
@@ -31,6 +36,7 @@ class SalleCinema
      * @var string
      *
      * @ORM\Column(name="URL_Film", type="string", length=50, nullable=false)
+     * @Assert\NotBlank(message="Veuillez ajouter l'url du film")
      */
     private $urlFilm;
 
@@ -49,14 +55,10 @@ class SalleCinema
     private $chat;
 
     /**
-     * @var \Evenement
-     *
-     * @ORM\ManyToOne(targetEntity="Evenement")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ID_Event", referencedColumnName="ID_Event")
-     * })
+     * @ORM\ManyToOne(targetEntity="App\Entity\Evenement", inversedBy="sallescinema")
+     * @ORM\JoinColumn(name="ID_Event", referencedColumnName="ID_Event")
      */
-    private $idEvent;
+    private $ID_Event;
 
     public function getIdSalle(): ?int
     {
@@ -113,12 +115,12 @@ class SalleCinema
 
     public function getIdEvent(): ?Evenement
     {
-        return $this->idEvent;
+        return $this->ID_Event;
     }
 
     public function setIdEvent(?Evenement $idEvent): self
     {
-        $this->idEvent = $idEvent;
+        $this->ID_Event = $idEvent;
 
         return $this;
     }

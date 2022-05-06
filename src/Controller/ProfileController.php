@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
+use App\Entity\Evenement;
 use App\Entity\Publication;
 use App\Entity\Utilisateurs;
 use App\Form\CommentaireType;
@@ -29,11 +30,15 @@ class ProfileController extends AbstractController
             $form = $this->createForm(CommentaireType::class, $commentaire);
             $publications = $entityManager
                 ->getRepository(Publication::class)
-                ->findBy(['idUtilisateur'=>$user]);
+                ->findBy(['idUtilisateur'=>$user,'visibilite'=>'True'],['datePublication'=>'DESC']);
             $utili=$entityManager->getRepository(Utilisateurs::class)->find($user);
             $commentaire = $entityManager
                 ->getRepository(Commentaire::class)
                 ->findBy(['idUtilisateur'=>$user]);
+            $eventFace2Face=$this->getDoctrine()->getRepository(Evenement::class)
+                ->findBy(['typeEvent'=>'Rencontre','eventVisibilite'=>'Salle_publique'],['dateP'=>'DESC']);
+            $eventCinema=$this->getDoctrine()->getRepository(Evenement::class)
+                ->findBy(['typeEvent'=>'SalleCinema','eventVisibilite'=>'Salle_publique'],['dateP'=>'DESC']);
             $data = $paginator->paginate($publications,$request->query->getInt('page',1),4);
         return $this->render('profile/index.html.twig', [
             'controller_name' => 'ProfileController',
@@ -46,6 +51,8 @@ class ProfileController extends AbstractController
             'role' => $user->getTypeUser(),
             'picture' => $user->getAvatar(),
             'user' => $user,
+            'eventFace2Face'=>$eventFace2Face,
+            'eventCinema'=>$eventCinema
         ]);
     }
     }
@@ -63,11 +70,15 @@ class ProfileController extends AbstractController
             $form = $this->createForm(CommentaireType::class, $commentaire);
             $publications = $entityManager
                 ->getRepository(Publication::class)
-                ->findBy(['idUtilisateur'=>$id]);
+                ->findBy(['idUtilisateur'=>$id,'visibilite'=>'True'],['datePublication'=>'DESC']);
             $utili=$entityManager->getRepository(Utilisateurs::class)->find($id);
             $commentaire = $entityManager
                 ->getRepository(Commentaire::class)
                 ->findBy(['idUtilisateur'=>$user]);
+            $eventFace2Face=$this->getDoctrine()->getRepository(Evenement::class)
+                ->findBy(['typeEvent'=>'Rencontre','eventVisibilite'=>'Salle_publique'],['dateP'=>'DESC']);
+            $eventCinema=$this->getDoctrine()->getRepository(Evenement::class)
+                ->findBy(['typeEvent'=>'SalleCinema','eventVisibilite'=>'Salle_publique'],['dateP'=>'DESC']);
             $data = $paginator->paginate($publications,$request->query->getInt('page',1),4);
             return $this->render('profile/index.html.twig', [
                 'controller_name' => 'ProfileController',
@@ -80,6 +91,8 @@ class ProfileController extends AbstractController
                 'role' => $user->getTypeUser(),
                 'picture' => $user->getAvatar(),
                 'user' => $user,
+                'eventFace2Face'=>$eventFace2Face,
+                'eventCinema'=>$eventCinema
             ]);
         }
     }

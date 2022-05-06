@@ -21,9 +21,9 @@ class PublicationType extends AbstractType
     {
         $builder
             ->add('description',TextareaType::class)
-//            ->add('fichier',HiddenType::class,[
-//
-//            ])
+            ->add('fichier',HiddenType::class,[
+
+            ])
 //            ->add('visibilite',ChoiceType::class,['choices'  => [
 //                'True' => 'True',
 //                'False' => 'False',

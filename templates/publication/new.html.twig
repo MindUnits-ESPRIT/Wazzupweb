@@ -19,13 +19,14 @@
     <br>
     {{ form_errors(form.imageFile) }}
     {{ form_widget(form.imageFile,{'attr':{"id":"imgpost","onchange":"readURL(this);"}}) }}
+    {{ form_widget(form.fichier,{'attr':{"id":"imgURLGIF"}}) }}
     <br>
     <!-- post img -->
     <center><img class="img-fluid rounded mb-75" src="#" alt="Image Preview" id="imgPreviewPost" style="display: none"></center>
     <!--/ post img -->
     <br>
     <div class="d-flex flex-row-reverse">
-        <button type="submit" class="btn btn-success">Publier <i class="fas fa-arrow-down"></i></button>
+        <button type="submit" class="btn btn-primary">Publier <i class="fas fa-arrow-down"></i></button>
         <button aria-label="Ouvrir l'onglet des GIF" type="button" class="btn btn-dark" onclick="GifLoadOpener()">
             <div>
                 <div id="icon" style="opacity: 1; transform: none;">
@@ -127,6 +128,8 @@
        function DisplayGif(id)
        {
            source=$("#imgGif"+id).attr('src');
+           $("#publication_fichier").val(source);
+           console.log(source);
            $("#imgPreviewPost").attr("src",source).show();
            GifLoadOpener();
           // $('#imgPreviewPost').attr('src', e.target.result).show();

@@ -84,12 +84,12 @@ $(function () {
 
   // Read Only Ratings
   // --------------------------------------------------------------------
-  if (readOnlyRatings.length) {
-    readOnlyRatings.rateYo({
-      rating: 0,
-      rtl: isRtl
-    });
-  }
+  // if (readOnlyRatings.length) {
+  //   readOnlyRatings.rateYo({
+  //     rating: 5,
+  //     rtl: isRtl
+  //   });
+  // }
 
   // Ratings Events
   // --------------------------------------------------------------------

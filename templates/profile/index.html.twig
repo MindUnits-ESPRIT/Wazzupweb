@@ -16,7 +16,6 @@
         <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/charts/apexcharts.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/toastr.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/jquery.rateyo.min.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/extensions/ext-component-ratings.css')}}">
 
 
         <!-- END: Vendor CSS-->
@@ -33,7 +32,7 @@
         <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/semi-dark-layout.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/pages/ui-feather.css')}}">
 
-        {#        <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/extensions/ext-component-ratings.css')}}">#}
+        <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/extensions/ext-component-ratings.css')}}">
         <!-- BEGIN: Page CSS-->
         <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
 
@@ -112,7 +111,7 @@
     </head>
 {% endblock %}
     {% include 'home/header.html.twig' %}
-{#    {% include 'home/sidebar.html.twig' %}#}
+    {% include 'home/sidebar.html.twig' %}
 {#       {% block navbar %}#}
 {#           {% include 'navbar/nav.html.twig' %}#}
 {#       {% endblock %}#}
@@ -142,14 +141,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-                    <div class="form-group breadcrumb-right">
-                        <div class="dropdown">
-                            <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle waves-effect waves-float waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></button>
-                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="app-todo.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square mr-1"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg><span class="align-middle">Todo</span></a><a class="dropdown-item" href="app-chat.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square mr-1"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><span class="align-middle">Chat</span></a><a class="dropdown-item" href="app-email.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail mr-1"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><span class="align-middle">Email</span></a><a class="dropdown-item" href="app-calendar.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar mr-1"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span class="align-middle">Calendar</span></a></div>
-                        </div>
-                    </div>
-                </div>
+                {#                <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">#}
+                {#                    <div class="form-group breadcrumb-right">#}
+                {#                        <div class="dropdown">#}
+                {#                            <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle waves-effect waves-float waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></button>#}
+                {#                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="app-todo.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square mr-1"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg><span class="align-middle">Todo</span></a><a class="dropdown-item" href="app-chat.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square mr-1"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><span class="align-middle">Chat</span></a><a class="dropdown-item" href="app-email.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail mr-1"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><span class="align-middle">Email</span></a><a class="dropdown-item" href="app-calendar.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar mr-1"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span class="align-middle">Calendar</span></a></div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </div>#}
             </div>
             <div class="content-body">
                 <div id="user-profile">
@@ -245,9 +244,9 @@
                                         </div>
                                         <div class="mt-2">
                                             <h5 class="mb-75">Rate:</h5>
-                                            <p class="card-text">                            <div class="card-body">
+                                            <p class="card-text">
                                                 <div class="read-only-ratings" data-rateyo-read-only="true"></div>
-                                            </div></p>
+                                            </p>
                                         </div>
                                         <div class="mt-2">
                                             <h5 class="mb-75">Email:</h5>
@@ -260,156 +259,92 @@
                                     </div>
                                 </div>
                                 <!--/ about -->
-
                                 <!-- suggestion pages -->
                                 <div class="card">
                                     <div class="card-body profile-suggestion">
-                                        <h5 class="mb-2">Suggested Pages</h5>
+                                        <h5 class="mb-2">Evénements de la vie</h5>
+                                        {#                                        {{ dump(eventFace2Face) }}#}
+                                        {% if eventFace2Face|length ==0%}
+
+                                            <h6 class="mb-0 text-Warning"><i data-feather='calendar' ></i>Pas d'événements pour le moment</h6>
+
+
+                                        {% else %}
+                                            {% for eventsF in eventFace2Face %}
+                                                <!-- user suggestions -->
+                                                <div class="d-flex justify-content-start align-items-center mb-1 ">
+                                                    <div class="avatar mr-1">
+                                                        <img src="{{ eventsF.idUtilisateur.avatar }}" alt="avatar img" height="40" width="40">
+                                                    </div>
+                                                    <div class="profile-user-info ">
+                                                        <h6 class="mb-0 text-accent-1">{{ eventsF.nomEvent }}</h6>
+                                                        <small class="text-muted text-info"><a href="{{ path('app_profile_byid',{'id': eventsF.idUtilisateur.idUtilisateur}) }}">{{ eventsF.idUtilisateur.nom }}.{{ eventsF.idUtilisateur.prenom }}</a></small>
+                                                        <i class="text-success" data-feather='check-circle'></i>
+                                                    </div>
+                                                    <div class="profile-star ml-auto text-dark">{{ eventsF.nbrParticipants }} Places</div>
+                                                </div>
+                                            {% endfor%}
+                                        {% endif %}
                                         <!-- user suggestions -->
-                                        <div class="d-flex justify-content-start align-items-center mb-1">
-                                            <div class="avatar mr-1">
-                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/12-small.png" alt="avatar img" height="40" width="40">
-                                            </div>
-                                            <div class="profile-user-info">
-                                                <h6 class="mb-0">Peter Reed</h6>
-                                                <small class="text-muted">Company</small>
-                                            </div>
-                                            <div class="profile-star ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
-                                        </div>
+                                        {#                                        <div class="d-flex justify-content-start align-items-center mb-1">#}
+                                        {#                                            <div class="avatar mr-1">#}
+                                        {#                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/1-small.png" alt="avatar" height="40" width="40">#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-user-info">#}
+                                        {#                                                <h6 class="mb-0">Harriett Adkins</h6>#}
+                                        {#                                                <small class="text-muted">Company</small>#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-star ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>#}
+                                        {#                                        </div>#}
+                                        {#                                        <!-- user suggestions -->#}
+                                        {#                                        <div class="d-flex justify-content-start align-items-center mb-1">#}
+                                        {#                                            <div class="avatar mr-1">#}
+                                        {#                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/10-small.png" alt="avatar" height="40" width="40">#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-user-info">#}
+                                        {#                                                <h6 class="mb-0">Juan Weaver</h6>#}
+                                        {#                                                <small class="text-muted">Company</small>#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-star ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>#}
+                                        {#                                        </div>#}
+                                        {#                                        <!-- user suggestions -->#}
+                                        {#                                        <div class="d-flex justify-content-start align-items-center mb-1">#}
+                                        {#                                            <div class="avatar mr-1">#}
+                                        {#                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/3-small.png" alt="avatar img" height="40" width="40">#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-user-info">#}
+                                        {#                                                <h6 class="mb-0">Claudia Chandler</h6>#}
+                                        {#                                                <small class="text-muted">Company</small>#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-star ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>#}
+                                        {#                                        </div>#}
+                                        {#                                        <!-- user suggestions -->#}
+                                        {#                                        <div class="d-flex justify-content-start align-items-center mb-1">#}
+                                        {#                                            <div class="avatar mr-1">#}
+                                        {#                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/5-small.png" alt="avatar img" height="40" width="40">#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-user-info">#}
+                                        {#                                                <h6 class="mb-0">Earl Briggs</h6>#}
+                                        {#                                                <small class="text-muted">Company</small>#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-star ml-auto">#}
+                                        {#                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star profile-favorite font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>#}
+                                        {#                                            </div>#}
+                                        {#                                        </div>#}
                                         <!-- user suggestions -->
-                                        <div class="d-flex justify-content-start align-items-center mb-1">
-                                            <div class="avatar mr-1">
-                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/1-small.png" alt="avatar" height="40" width="40">
-                                            </div>
-                                            <div class="profile-user-info">
-                                                <h6 class="mb-0">Harriett Adkins</h6>
-                                                <small class="text-muted">Company</small>
-                                            </div>
-                                            <div class="profile-star ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
-                                        </div>
-                                        <!-- user suggestions -->
-                                        <div class="d-flex justify-content-start align-items-center mb-1">
-                                            <div class="avatar mr-1">
-                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/10-small.png" alt="avatar" height="40" width="40">
-                                            </div>
-                                            <div class="profile-user-info">
-                                                <h6 class="mb-0">Juan Weaver</h6>
-                                                <small class="text-muted">Company</small>
-                                            </div>
-                                            <div class="profile-star ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
-                                        </div>
-                                        <!-- user suggestions -->
-                                        <div class="d-flex justify-content-start align-items-center mb-1">
-                                            <div class="avatar mr-1">
-                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/3-small.png" alt="avatar img" height="40" width="40">
-                                            </div>
-                                            <div class="profile-user-info">
-                                                <h6 class="mb-0">Claudia Chandler</h6>
-                                                <small class="text-muted">Company</small>
-                                            </div>
-                                            <div class="profile-star ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
-                                        </div>
-                                        <!-- user suggestions -->
-                                        <div class="d-flex justify-content-start align-items-center mb-1">
-                                            <div class="avatar mr-1">
-                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/5-small.png" alt="avatar img" height="40" width="40">
-                                            </div>
-                                            <div class="profile-user-info">
-                                                <h6 class="mb-0">Earl Briggs</h6>
-                                                <small class="text-muted">Company</small>
-                                            </div>
-                                            <div class="profile-star ml-auto">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star profile-favorite font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                                            </div>
-                                        </div>
-                                        <!-- user suggestions -->
-                                        <div class="d-flex justify-content-start align-items-center">
-                                            <div class="avatar mr-1">
-                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/6-small.png" alt="avatar img" height="40" width="40">
-                                            </div>
-                                            <div class="profile-user-info">
-                                                <h6 class="mb-0">Jonathan Lyons</h6>
-                                                <small class="text-muted">Beauty Store</small>
-                                            </div>
-                                            <div class="profile-star ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
-                                        </div>
+                                        {#                                        <div class="d-flex justify-content-start align-items-center">#}
+                                        {#                                            <div class="avatar mr-1">#}
+                                        {#                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/6-small.png" alt="avatar img" height="40" width="40">#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-user-info">#}
+                                        {#                                                <h6 class="mb-0">Jonathan Lyons</h6>#}
+                                        {#                                                <small class="text-muted">Beauty Store</small>#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-star ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>#}
+                                        {#                                        </div>#}
                                     </div>
                                 </div>
                                 <!--/ suggestion pages -->
-
-                                <!-- twitter feed card -->
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5>Twitter Feeds</h5>
-                                        <!-- twitter feed -->
-                                        <div class="profile-twitter-feed mt-1">
-                                            <div class="d-flex justify-content-start align-items-center mb-1">
-                                                <div class="avatar mr-1">
-                                                    <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/5-small.png" alt="avatar img" height="40" width="40">
-                                                </div>
-                                                <div class="profile-user-info">
-                                                    <h6 class="mb-0">Gertrude Stevens</h6>
-                                                    <a href="javascript:void(0)">
-                                                        <small class="text-muted">@tiana59</small>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                                    </a>
-                                                </div>
-                                                <div class="profile-star ml-auto">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                                                </div>
-                                            </div>
-                                            <p class="card-text mb-50">I love cookie chupa chups sweet tart apple pie ⭐️ chocolate bar.</p>
-                                            <a href="javascript:void(0)">
-                                                <small>#design #fasion</small>
-                                            </a>
-                                        </div>
-                                        <!-- twitter feed -->
-                                        <div class="profile-twitter-feed mt-2">
-                                            <div class="d-flex justify-content-start align-items-center mb-1">
-                                                <div class="avatar mr-1">
-                                                    <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/12-small.png" alt="avatar img" height="40" width="40">
-                                                </div>
-                                                <div class="profile-user-info">
-                                                    <h6 class="mb-0">Lura Jones</h6>
-                                                    <a href="javascript:void(0)">
-                                                        <small class="text-muted">@tiana59</small>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                                    </a>
-                                                </div>
-                                                <div class="profile-star ml-auto">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3 profile-favorite"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                                                </div>
-                                            </div>
-                                            <p class="card-text mb-50">Halvah I love powder jelly I love cheesecake cotton candy. 😍</p>
-                                            <a href="javascript:void(0)">
-                                                <small>#vuejs #code #coffeez</small>
-                                            </a>
-                                        </div>
-                                        <!-- twitter feed -->
-                                        <div class="profile-twitter-feed mt-2">
-                                            <div class="d-flex justify-content-start align-items-center mb-1">
-                                                <div class="avatar mr-1">
-                                                    <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/1-small.png" alt="avatar img" height="40" width="40">
-                                                </div>
-                                                <div class="profile-user-info">
-                                                    <h6 class="mb-0">Norman Gross</h6>
-                                                    <a href="javascript:void(0)">
-                                                        <small class="text-muted">@tiana59</small>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                                    </a>
-                                                </div>
-                                                <div class="profile-star ml-auto">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                                                </div>
-                                            </div>
-                                            <p class="card-text mb-50">Candy jelly beans powder brownie biscuit. Jelly marzipan oat cake cake.</p>
-                                            <a href="javascript:void(0)">
-                                                <small>#sketch #uiux #figma</small>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/ twitter feed card -->
                             </div>
                             <!--/ left profile info section -->
 
@@ -454,6 +389,7 @@
                                                         {% else %}
                                                             <a class="dropdown-item" id="{{ publication.idPublication }}" onclick="id_p=this.id" data-toggle="modal" data-target="#modalInfo">Signaler la publication</a>
                                                         {% endif %}
+                                                        <a class="dropdown-item" href="{{ path('app_offre_publicitaire_new') }}">Sponsoriser cette publication</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -461,7 +397,12 @@
                                             <p class="card-text comment-output">
                                                 {{ publication.description }}
                                             </p>
-                                            {% if publication.fichier |length>4%}
+                                            {% if '.gif' in publication.fichier %}
+                                                <!-- post img -->
+                                                <img class="img-fluid rounded mb-75" src="{{publication.fichier}}" alt="lool">
+                                                <!--/ post img -->
+                                            {% endif %}
+                                            {% if publication.fichier |length>4 and not('.gif' in publication.fichier)%}
                                                 <!-- post img -->
                                                 <img class="img-fluid rounded mb-75" src="{{vich_uploader_asset(publication)|imagine_filter('ImgPublicLoad')}}" alt="lool">
                                                 <!--/ post img -->
@@ -555,124 +496,147 @@
                                 <!-- latest profile pictures -->
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="mb-0">Latest Photos</h5>
+                                        <h5 class="mb-0">Photos Récentes</h5>
                                         <div class="row">
+                                            {% set Countimg=0 %}
                                             {% for p in publications %}
                                                 {% if p.fichier |length>4%}
+                                                    {% set Countimg=Countimg+1 %}
                                                     <div class="col-md-4 col-6 profile-latest-img">
                                                         <a href="javascript:void(0)">
-                                                            <img src=" {{vich_uploader_asset(p)}}" class="img-fluid rounded" alt="avatar img">
+                                                            {% if '.gif' in p.fichier %}
+                                                                <!-- post img -->
+                                                                <img class="img-fluid rounded" src="{{p.fichier}}" alt="lool">
+                                                                <!--/ post img -->
+                                                            {% endif %}
+                                                            {% if p.fichier |length>4 and not('.gif' in p.fichier)%}
+                                                                <!-- post img -->
+                                                                <img class="img-fluid rounded" src="{{vich_uploader_asset(p)|imagine_filter('ImgPublicLoad')}}" alt="lool">
+                                                                <!--/ post img -->
+                                                            {% endif %}
+
                                                         </a>
                                                     </div>
                                                 {% endif %}
                                             {% endfor %}
                                         </div>
+                                        {% if Countimg==0 %}
+                                            <h6 class="mb-0 text-Warning"><i data-feather='camera-off'></i> Aucune Image Publiée</h6>
+                                        {% endif %}
+
                                         <!--/ latest profile pictures -->
                                     </div>
                                 </div>
                                 <!--/ latest profile pictures -->
 
                                 <!-- suggestion -->
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5>Suggestions</h5>
-{#                                        {% for sugUser in utilisateurs %}#}
-                                            <div class="d-flex justify-content-start align-items-center mt-2">
-                                                <div class="avatar mr-75">
-{#                                                    <img src="{{ sugUser.avatar }}" alt="avatar" height="40" width="40">#}
-                                                </div>
-                                                <div class="profile-user-info">
-{#                                                    <h6 class="mb-0">{{ sugUser.nom }} {{ sugUser.prenom }}</h6>#}
-                                                    {#                                                <small class="text-muted">6 Mutual Friends</small>#}
-                                                </div>
-                                                <button type="button" class="btn btn-primary btn-icon btn-sm ml-auto waves-effect waves-float waves-light">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
-                                                </button>
-                                            </div>
-{#                                        {% endfor %}#}
-                                    </div>
-                                </div>
+                                {#                                <div class="card">#}
+                                {#                                    <div class="card-body">#}
+                                {#                                        <h5>Suggestions</h5>#}
+                                {#                                        {% for sugUser in utilisateurs %}#}
+                                {#                                            <div class="d-flex justify-content-start align-items-center mt-2">#}
+                                {#                                                <div class="avatar mr-75">#}
+                                {#                                                    <img src="{{ sugUser.avatar }}" alt="avatar" height="40" width="40">#}
+                                {#                                                </div>#}
+                                {#                                                <div class="profile-user-info">#}
+                                {#                                                    <h6 class="mb-0">{{ sugUser.nom }} {{ sugUser.prenom }}</h6>#}
+                                {#                                                    #}{#                                                <small class="text-muted">6 Mutual Friends</small>#}
+                                {#                                                </div>#}
+                                {#                                                <button type="button" class="btn btn-primary btn-icon btn-sm ml-auto waves-effect waves-float waves-light">#}
+                                {#                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>#}
+                                {#                                                </button>#}
+                                {#                                            </div>#}
+                                {#                                        {% endfor %}#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
                                 <!--/ suggestion -->
 
-                                <!-- polls card -->
+                                <!-- Cinema Sug pages -->
                                 <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="mb-1">Polls</h5>
-                                        <p class="card-text mb-0">Who is the best actor in Marvel Cinematic Universe?</p>
+                                    <div class="card-body profile-suggestion">
+                                        <h5 class="mb-2">Evénements Cinéma</h5>
+                                        {#                                        {{ dump(eventFace2Face) }}#}
+                                        {% if eventCinema|length ==0%}
 
-                                        <!-- polls -->
-                                        <div class="profile-polls-info mt-2">
-                                            <!-- custom radio -->
-                                            <div class="d-flex justify-content-between">
-                                                <div class="custom-control custom-radio">
-                                                    <input type="radio" id="bestActorPoll1" name="bestActorPoll" class="custom-control-input">
-                                                    <label class="custom-control-label" for="bestActorPoll1">RDJ</label>
-                                                </div>
-                                                <div class="text-right">82%</div>
-                                            </div>
-                                            <!--/ custom radio -->
+                                            <h6 class="mb-0 text-Warning"><i data-feather='calendar' ></i> Pas d'événements pour le moment</h6>
 
-                                            <!-- progressbar -->
-                                            <div class="progress progress-bar-primary my-50">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="58" aria-valuemin="58" aria-valuemax="100" style="width: 82%"></div>
-                                            </div>
-                                            <!--/ progressbar -->
 
-                                            <!-- avatar group with tooltip -->
-                                            <div class="avatar-group my-1">
-                                                <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Tonia Seabold" class="avatar pull-up">
-                                                    <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/portrait/small/avatar-s-12.jpg" alt="Avatar" height="26" width="26">
+                                        {% else %}
+                                            {% for eventsC in eventCinema %}
+                                                <!-- user suggestions -->
+                                                <div class="d-flex justify-content-start align-items-center mb-1">
+                                                    <div class="avatar mr-1">
+                                                        <img src="{{ eventsC.idUtilisateur.avatar }}" alt="avatar img" height="40" width="40">
+                                                    </div>
+                                                    <div class="profile-user-info">
+                                                        <h6 class="mb-0">{{ eventsC.nomEvent }}</h6>
+                                                        <small class="text-muted text-info"><a href="{{ path('app_profile_byid',{'id': eventsC.idUtilisateur.idUtilisateur}) }}">{{ eventsC.idUtilisateur.nom }}.{{ eventsC.idUtilisateur.prenom }}</a></small>
+                                                        <i class="text-success" data-feather='check-circle'></i>
+                                                    </div>
+                                                    <div class="profile-star ml-auto text-dark">{{ eventsC.nbrParticipants }} Places</div>
                                                 </div>
-                                                <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Carissa Dolle" class="avatar pull-up">
-                                                    <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26">
-                                                </div>
-                                                <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Kelle Herrick" class="avatar pull-up">
-                                                    <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/portrait/small/avatar-s-9.jpg" alt="Avatar" height="26" width="26">
-                                                </div>
-                                                <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Len Bregantini" class="avatar pull-up">
-                                                    <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/portrait/small/avatar-s-10.jpg" alt="Avatar" height="26" width="26">
-                                                </div>
-                                                <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="John Doe" class="avatar pull-up">
-                                                    <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/portrait/small/avatar-s-11.jpg" alt="Avatar" height="26" width="26">
-                                                </div>
-                                            </div>
-                                            <!--/ avatar group with tooltip -->
-                                        </div>
-
-                                        <div class="profile-polls-info mt-2">
-                                            <div class="d-flex justify-content-between">
-                                                <!-- custom radio -->
-                                                <div class="custom-control custom-radio">
-                                                    <input type="radio" id="bestActorPoll2" name="bestActorPoll" class="custom-control-input">
-                                                    <label class="custom-control-label" for="bestActorPoll2">Chris Hemswort</label>
-                                                </div>
-                                                <!--/ custom radio -->
-                                                <div class="text-right">67%</div>
-                                            </div>
-                                            <!-- progressbar -->
-                                            <div class="progress progress-bar-primary my-50">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="16" aria-valuemin="16" aria-valuemax="100" style="width: 67%"></div>
-                                            </div>
-                                            <!--/ progressbar -->
-
-                                            <!-- avatar group with tooltips -->
-                                            <div class="avatar-group mt-1">
-                                                <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Liliana Pecor" class="avatar pull-up">
-                                                    <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/portrait/small/avatar-s-9.jpg" alt="Avatar" height="26" width="26">
-                                                </div>
-                                                <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Kasandra NaleVanko" class="avatar pull-up">
-                                                    <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/portrait/small/avatar-s-1.jpg" alt="Avatar" height="26" width="26">
-                                                </div>
-                                                <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Jonathan Lyons" class="avatar pull-up">
-                                                    <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/portrait/small/avatar-s-8.jpg" alt="Avatar" height="26" width="26">
-                                                </div>
-                                            </div>
-                                            <!--/ avatar group with tooltips-->
-                                        </div>
-                                        <!--/ polls -->
+                                            {% endfor%}
+                                        {% endif %}
+                                        <!-- user suggestions -->
+                                        {#                                        <div class="d-flex justify-content-start align-items-center mb-1">#}
+                                        {#                                            <div class="avatar mr-1">#}
+                                        {#                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/1-small.png" alt="avatar" height="40" width="40">#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-user-info">#}
+                                        {#                                                <h6 class="mb-0">Harriett Adkins</h6>#}
+                                        {#                                                <small class="text-muted">Company</small>#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-star ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>#}
+                                        {#                                        </div>#}
+                                        {#                                        <!-- user suggestions -->#}
+                                        {#                                        <div class="d-flex justify-content-start align-items-center mb-1">#}
+                                        {#                                            <div class="avatar mr-1">#}
+                                        {#                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/10-small.png" alt="avatar" height="40" width="40">#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-user-info">#}
+                                        {#                                                <h6 class="mb-0">Juan Weaver</h6>#}
+                                        {#                                                <small class="text-muted">Company</small>#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-star ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>#}
+                                        {#                                        </div>#}
+                                        {#                                        <!-- user suggestions -->#}
+                                        {#                                        <div class="d-flex justify-content-start align-items-center mb-1">#}
+                                        {#                                            <div class="avatar mr-1">#}
+                                        {#                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/3-small.png" alt="avatar img" height="40" width="40">#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-user-info">#}
+                                        {#                                                <h6 class="mb-0">Claudia Chandler</h6>#}
+                                        {#                                                <small class="text-muted">Company</small>#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-star ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>#}
+                                        {#                                        </div>#}
+                                        {#                                        <!-- user suggestions -->#}
+                                        {#                                        <div class="d-flex justify-content-start align-items-center mb-1">#}
+                                        {#                                            <div class="avatar mr-1">#}
+                                        {#                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/5-small.png" alt="avatar img" height="40" width="40">#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-user-info">#}
+                                        {#                                                <h6 class="mb-0">Earl Briggs</h6>#}
+                                        {#                                                <small class="text-muted">Company</small>#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-star ml-auto">#}
+                                        {#                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star profile-favorite font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>#}
+                                        {#                                            </div>#}
+                                        {#                                        </div>#}
+                                        <!-- user suggestions -->
+                                        {#                                        <div class="d-flex justify-content-start align-items-center">#}
+                                        {#                                            <div class="avatar mr-1">#}
+                                        {#                                                <img src="C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/images/avatars/6-small.png" alt="avatar img" height="40" width="40">#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-user-info">#}
+                                        {#                                                <h6 class="mb-0">Jonathan Lyons</h6>#}
+                                        {#                                                <small class="text-muted">Beauty Store</small>#}
+                                        {#                                            </div>#}
+                                        {#                                            <div class="profile-star ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>#}
+                                        {#                                        </div>#}
                                     </div>
                                 </div>
-                                <!--/ polls card -->
+                                <!--/ suggestion pages -->
                             </div>
                             <!--/ right profile info section -->
                         </div>
@@ -811,6 +775,7 @@
     <script src="{{asset('dashboard/app-assets/vendors/js/extensions/jquery.contextMenu.min.js')}}"></script>
     <script src="{{asset('dashboard/app-assets/vendors/js/extensions/jquery.ui.position.min.js')}}"></script>
     <script src="{{asset('dashboard/app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
+    <script src="{{asset('dashboard/app-assets/vendors/js/extensions/jquery.rateyo.min.js')}}"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -820,11 +785,11 @@
 
     <!-- BEGIN: Page JS-->
     <script src="{{asset('dashboard/app-assets/js/scripts/extensions/ext-component-context-menu.js')}}"></script>
-    <script src="{{asset('dashboard/app-assets/js/scripts/ui/ui-feather.js')}}"></script
-    <script src="{{asset('dashboard/app-assets/vendors/js/extensions/jquery.rateyo.min.js')}}"></script
-    <script src="{{asset('dashboard/app-assets/js/scripts/extensions/ext-component-ratings.js')}}"></script
+    <script src="{{asset('dashboard/app-assets/js/scripts/ui/ui-feather.js')}}"></script>
 
-    <!-- END: Page JS-->
+    <script src="{{asset('dashboard/app-assets/js/scripts/extensions/ext-component-ratings.js')}}"></script>
+
+            <!-- END: Page JS-->
     <script>
 
         $('.pagination').addClass('btn btn-sm block-element border-0 mb-1 waves-effect waves-float waves-light pagin');
@@ -846,6 +811,18 @@
                 }
             });
         });
+        readOnlyRatings = $('.read-only-ratings');
+        {% if utili.evaluation==null %}
+        {% set eval=0 %}
+        {% else %}
+        {% set eval=utili.evaluation %}
+        {% endif %}
+        if (readOnlyRatings.length) {
+            readOnlyRatings.rateYo({
+                rating: {{ eval }},
+                rtl: isRtl
+            });
+        }
     </script>
     </body>
 {% endblock %}

@@ -45,11 +45,13 @@
 					<div class="search-input-icon">
 						<i data-feather="search"></i>
 					</div>
-					<input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="-1" data-search="search">
+					<input class="form-control input" type="text" placeholder="Chercher a quelqu'un..." tabindex="-1" id="inputsearchList">
 					<div class="search-input-close">
 						<i data-feather="x"></i>
 					</div>
-					<ul class="search-list search-list-main"></ul>
+					<ul class="search-list search-list-main" id="searchbarList">
+
+					</ul>
 				</div>
 			</li>
 
@@ -191,3 +193,16 @@ location.reload();
 		</li>
 	</ul>
 </div></nav>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function(event) {
+		$("#inputsearchList").keyup(function() {
+		$.ajax('/publication/searchby', {
+			type: 'GET',
+			data: { SearchField: $("#inputsearchList").val()},
+			success: function (data) {
+				$('#searchbarList').html(data);
+			}
+		});
+	});
+	});
+</script>

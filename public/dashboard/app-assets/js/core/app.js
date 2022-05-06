@@ -618,7 +618,7 @@ window.colors = {
           a = 0;
 
         // getting json data from file for search results
-        $.getJSON(assetPath + 'data/' + $filename + '.json', function (data) {
+        $.getJSON("C:/xampp/htdocs/Wazzupweb/public/dashboard/app-assets/data/search.json", function (data) {
           for (var i = 0; i < data.listItems.length; i++) {
             // if current is bookmark then give class to star icon
             // for laravel
