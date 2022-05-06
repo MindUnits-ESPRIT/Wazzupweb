@@ -22,11 +22,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AuthController extends AbstractController
 {
-<<<<<<< HEAD
     /**
-=======
-     /**
->>>>>>> origin/master
      * @var bool
      */
     /**
@@ -39,7 +35,7 @@ class AuthController extends AbstractController
         Request $request,
         UtilisateursRepository $userrepo,
         UserPasswordEncoderInterface $encoder,
-        SessionInterface $session,
+        SessionInterface $session
     ): Response {
         $user = new Utilisateurs();
         $login = false;
@@ -47,8 +43,8 @@ class AuthController extends AbstractController
         $wrongpw = false;
         $activated = false;
         $otp = false;
-        $code='';
-        $valid_otp=false;
+        $code = '';
+        $valid_otp = false;
 
         $form = $this->createForm(LoginType::class);
         $form->handleRequest($request);
@@ -73,17 +69,14 @@ class AuthController extends AbstractController
                             return $this->redirectToRoute('app_home');
                         } elseif ($user->getTypeUser() == 'Admin') {
                             $otp = true;
-                            $code=rand(10000,99999);
-                            if($session->get('validotp')){
-                                sleep((3000/1000));
+                            $code = rand(10000, 99999);
+                            if ($session->get('validotp')) {
+                                sleep(3000 / 1000);
                                 return $this->redirectToRoute('app_admin');
-                           }
-                            
-                            $this->SendSMS("+21624664880",$code);
+                            }
 
-                            ;
+                            $this->SendSMS('+21624664880', $code);
                         }
-                       
                     } else {
                         $wrongpw = true;
                     }
@@ -105,12 +98,12 @@ class AuthController extends AbstractController
             'wrongpw' => $wrongpw,
             'activated' => $activated,
             'otp' => $otp,
-            'code'=> $code,
-            'valid_otp'=>$valid_otp,
+            'code' => $code,
+            'valid_otp' => $valid_otp,
         ]);
     }
-   
-   /**
+
+    /**
      * @Route("check-otp/{otp}/{code}", name="app_otpcheck", methods={"GET","POST"})
      */
     public function CheckOTP(
@@ -118,22 +111,22 @@ class AuthController extends AbstractController
         $code,
         Request $request,
         SessionInterface $session
-
     ) {
-        $valid_otp=false;
-        if ($otp == $code){
-            $valid_otp= true;
-            $this->addFlash('success', 'Votre OTP a été bien validé ! , Vous pouvez maintenant s\'authentifier');
+        $valid_otp = false;
+        if ($otp == $code) {
+            $valid_otp = true;
+            $this->addFlash(
+                'success',
+                'Votre OTP a été bien validé ! , Vous pouvez maintenant s\'authentifier'
+            );
             $session->set('validotp', $valid_otp);
-            return $this->redirectToRoute('app_auth',['validotp'=>$valid_otp]);
-            
-
-        } else{
-            $valid_otp= false;
+            return $this->redirectToRoute('app_auth', [
+                'validotp' => $valid_otp,
+            ]);
+        } else {
+            $valid_otp = false;
         }
         // dd($otp==$code);
-      
-    
     }
 
     /**
@@ -156,18 +149,19 @@ class AuthController extends AbstractController
         return $exist;
     }
 
-    public function SendSMS($tel,$code){
-        $sid = "ACa1c3f6d59e0c9f3d76e39dfec69e7c91"; // Your Account SID from www.twilio.com/console
-        $token = "5507d1f2963c865769e5181c60d81781"; // Your Auth Token from www.twilio.com/console
+    public function SendSMS($tel, $code)
+    {
+        $sid = 'ACa1c3f6d59e0c9f3d76e39dfec69e7c91'; // Your Account SID from www.twilio.com/console
+        $token = '5507d1f2963c865769e5181c60d81781'; // Your Auth Token from www.twilio.com/console
         $client = new Client($sid, $token);
-        $body='Votre code OTP admin est : '.$code;
+        $body = 'Votre code OTP admin est : ' . $code;
         $message = $client->messages->create(
-        $tel, // Text this number
-        [
-        'from' => '+16814914823', // From a valid Twilio number
-        'body' => $body
-        ]
-       );
+            $tel, // Text this number
+            [
+                'from' => '+16814914823', // From a valid Twilio number
+                'body' => $body,
+            ]
+        );
     }
     /**
      * @Route("/forgotpassword", name="forgotpassword")
