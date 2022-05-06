@@ -1,0 +1,36 @@
+Lancer l’invite de commande « cmd » et taper la commande suivante pour créer un
+nouveau projet Symfony nommé « FirstProject » :
+composer create-project symfony/website-skeleton FirstProject "4.4.*"
+● Lancer le serveur. Dans ce cas, on peut utiliser soit le serveur local de Symfony,
+soit un autre serveur (Exemple serveur de Xampp) :
+✔ Serveur de Symfony
+⮚ Se positionner dans le dossier «FirstProject» par la commande :
+
+cd FirstProject
+
+⮚ Symfony fournit un serveur Web construit sur ce serveur PHP pour
+simplifier votre configuration locale. Ce serveur est distribué comme un
+
+4
+bundle (paquet), de sorte que vous devez d’abord installer et activer ce
+paquet en utilisant la commande suivante :
+composer require symfony/web-server-bundle
+⮚ Lancer le serveur local à Php en exécutant la commande suivante :
+
+php bin/console server:run
+
+⮚ Lancer un navigateur et accéder à l’URL suivante pour vérifier
+l’installation de ton projet : http://127.0.0.1:8000
+✔ Autre serveur
+Afin d’utiliser un autre serveur (Exemple : XamppServer), il faut s’assurer que
+votre projet a été créé sous le répertoire htdocs de Xampp (ou le répertoire www de
+Wamp). Pour cette raison :
+⮚ Avant la création du projet, il faut se positionner sous le dossier « htdocs »
+de xampp (ou www de Wamp) : cd C:\xampp\htdocs
+⮚ Taper la commande suivante pour créer un nouveau projet Symfony
+nommé «FirstProject» :
+composer create-project symfony/website-skeleton FirstProject "4.4.*"
+⮚ Démarrer le serveur de Xampp en exécutant « xampp-control.exe » sous le
+répertoire Xampp
+⮚ Accéder à l’URL suivante pour vérifier l’installation de ton projet :
+http://localhost/ FirstProject /public/index.php

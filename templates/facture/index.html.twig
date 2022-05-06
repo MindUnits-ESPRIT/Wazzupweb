@@ -1,0 +1,318 @@
+{% block head %}
+	<!DOCTYPE html>
+	<html
+		class="loading" lang="en" data-textdirection="ltr">
+		<!-- BEGIN: Head-->
+		<head>
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+			<meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+			<meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
+			<meta name="author" content="PIXINVENT">
+			<title>wazzup</title>
+			<link rel="apple-touch-icon" href="{{asset('paiement/images/Mou7awla3 (1).png')}}">
+			<link rel="shortcut icon" type="image/x-icon" href="{{asset('paiement/images/Mou7awla3 (1).png')}}">
+			<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+
+			<!-- BEGIN: Vendor CSS-->
+			<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/vendors.min.css')}}">
+			<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/forms/wizard/bs-stepper.min.css')}}">
+			<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css')}}">
+			<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/vendors/css/extensions/toastr.min.css')}}">
+			<!-- END: Vendor CSS-->
+
+			<!-- BEGIN: Theme CSS-->
+			<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/bootstrap.css')}}"> <link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/bootstrap-extended.css')}}">
+			<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/colors.css')}}">
+			<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/components.css')}}">
+			<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/dark-layout.css')}}">
+			<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/bordered-layout.css')}}">
+			<link
+			rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/themes/semi-dark-layout.css')}}">
+
+			<!-- BEGIN: Page CSS-->
+			<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
+			<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/pages/app-ecommerce.css')}}">
+			<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/pickers/form-pickadate.css')}}">
+			<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/form-wizard.css')}}">
+			<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
+			<link rel="stylesheet" type="text/css" href="{{asset('dashboard/app-assets/css/plugins/forms/form-number-input.css')}}">
+			<!-- END: Page CSS-->
+
+			<!-- BEGIN: Custom CSS-->
+		<link rel="stylesheet" type="text/css" href="{{asset('dashboard/assets/css/style.css')}}"> <!-- END: Custom CSS-->
+			<!-- END: Custom CSS-->
+
+		</head>
+		<!-- END: Head-->
+	{% endblock %}
+	{% include 'home/header.html.twig' %}
+	{% include 'home/sidebar.html.twig' %}
+	<!-- BEGIN: Body-->
+	{% block body %}
+		<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+			<!-- BEGIN: Header-->
+			<!-- END: Header-->
+			<!-- BEGIN: Main Menu-->
+
+			<!-- END: Main Menu-->
+
+			<!-- BEGIN: Content-->
+				<div class="app-content content "> <div class="content-overlay"></div>
+				<div class="header-navbar-shadow"></div>
+				<div class="content-wrapper">
+					<div class="content-header row"></div>
+					<div class="content-body">
+						<section class="invoice-preview-wrapper">
+							<div
+								class="row invoice-preview">
+								<!-- Invoice -->
+								<div class="col-xl-9 col-md-8 col-12">
+									<div class="card invoice-preview-card">
+										<div
+											class="card-body invoice-padding pb-0">
+											<!-- Header starts -->
+											<div class="d-flex justify-content-between flex-md-row flex-column invoice-spacing mt-0">
+												<div>
+													<div class="logo-wrapper">
+														<img src="{{ asset('paiement/images/Mou7awla3 (1).png') }} " style="object-fit:fill;  width:150px; height:150px;"/>
+
+														<h3 class="text-primary invoice-logo">Wazzup</h3>
+													</div>
+													<p class="card-text mb-25">Pôle Technologique El Ghazela</p>
+													<p class="card-text mb-25">Ariana, Tunisie</p>
+													<p class="card-text mb-0">+126 20 633 752
+													</p>
+												</div>
+												<div class="mt-md-0 mt-2">
+													<h4 class="invoice-title">
+														<span class="invoice-number">facture #{{paiement.idpaiement}}</span>
+													</h4>
+													<div class="invoice-date-wrapper">
+														<p class="invoice-date-title">Date de délivrance:</p>
+														<p class="invoice-date">{{paiement.datePaiement|date("d M Y")}}</p>
+														<p class="invoice-date">
+															{{paiement.datePaiement|date("H:i:s")}}</p>
+													</div>
+												</div>
+											</div>
+											<!-- Header ends -->
+										</div>
+
+										<hr
+										class="invoice-spacing"/>
+
+										<!-- Address and Contact starts -->
+										<div class="card-body invoice-padding pt-0">
+											<div class="row invoice-spacing">
+												<div class="col-xl-8 p-0">
+													<h6 class="mb-2">Facturer à:</h6>
+													<h6 class="mb-25">{{user.nom}}
+														{{user.prenom}}</h6>
+													<p class="card-text mb-25">{{user.getFullNumber}}</p>
+													<p class="card-text mb-0">{{ user.email  }}</p>
+												</div>
+												<div class="col-xl-4 p-0 mt-xl-0 mt-2">
+													<h6 class="mb-2">Détails de paiement:</h6>
+													<table>
+														<tbody>
+															<tr>
+																<td class="pr-1">Total Due:</td>
+																<td>
+																	<span class="font-weight-bold">${{paiement.prix}}</span>
+																</td>
+															</tr>
+															<tr>
+																<td class="pr-1">Bank name:</td>
+																<td>BC Tunis</td>
+															</tr>
+															<tr>
+																<td class="pr-1">Pays:</td>
+																<td>Tunisie</td>
+															</tr>
+															<tr>
+																<td class="pr-1">IBAN:</td>
+																<td>ETD95476213874685</td>
+															</tr>
+															<tr>
+																<td class="pr-1">SWIFT code:</td>
+																<td>BR91905</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+										<!-- Address and Contact ends -->
+
+										<!-- Invoice Description starts -->
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th class="py-1">Description de la tâche</th>
+														<th class="py-1">Durée offre
+														</th>
+														<th class="py-1">Total</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="py-1">
+															<p class="card-text text-nowrap">
+																{{OffrePublicitaire.contenuoffre}}
+															</p>
+														</td>
+
+														<td class="py-1">
+															<span class="font-weight-bold">{{OffrePublicitaire.nbrMaxOffre}}
+																jours</span>
+														</td>
+														<td class="py-1">
+															<span class="font-weight-bold">${{paiement.prix}}</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<!-- Invoice Description ends -->
+										<!-- Invoice Note ends -->
+									</div>
+								</div>
+								<!-- /Invoice -->
+								<!-- Stripe -->
+
+								<script>
+									if ('{{ paiement.methodePaiement }}' == "Stripe") {
+window.open("https://buy.stripe.com/test_fZeaFI0uf3FR6Z23cc", "", "width=600, height=600");
+} else {
+window.open("https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-0YL29360KR4175018MJUTSZI", "", "width=600, height=600");
+}
+								</script>
+								<!-- Stripe -->
+
+								<!-- Invoice Actions -->
+								<div class="col-xl-3 col-md-4 col-12 invoice-actions mt-md-0 mt-2">
+									<div class="card">
+										<div class="card-body">
+
+											<a class="btn btn-primary btn-block mb-75" href="{{ path('GeneratePDF') }}">Download</a>
+											<a class="btn btn-success btn-block" href="{{ path('app_invoice_print') }}" target="_blank">
+												Print
+											</a>
+
+										</div>
+									</div>
+								</div>
+								<!-- /Invoice Actions -->
+							</div>
+						</section>
+
+
+						<!-- Add Payment Sidebar -->
+						<div class="modal modal-slide-in fade" id="add-payment-sidebar" aria-hidden="true">
+							<div class="modal-dialog sidebar-lg">
+								<div class="modal-content p-0">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
+									<div class="modal-header mb-1">
+										<h5 class="modal-title">
+											<span class="align-middle">Add Payment</span>
+										</h5>
+									</div>
+									<div class="modal-body flex-grow-1">
+										<form>
+											<div class="form-group">
+												<input id="balance" class="form-control" type="text" value="Invoice Balance: 5000.00" disabled/>
+											</div>
+											<div class="form-group">
+												<label class="form-label" for="amount">Payment Amount</label>
+												<input id="amount" class="form-control" type="number" placeholder="$1000"/>
+											</div>
+											<div class="form-group">
+												<label class="form-label" for="payment-date">Payment Date</label>
+												<input id="payment-date" class="form-control date-picker" type="text"/>
+											</div>
+											<div class="form-group">
+												<label class="form-label" for="payment-method">Payment Method</label>
+												<select class="form-control" id="payment-method">
+													<option value="" selected disabled>Select payment method</option>
+													<option value="Cash">Cash</option>
+													<option value="Bank Transfer">Bank Transfer</option>
+													<option value="Debit">Debit</option>
+													<option value="Credit">Credit</option>
+													<option value="Paypal">Paypal</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label class="form-label" for="payment-note">Internal Payment Note</label>
+												<textarea class="form-control" id="payment-note" rows="5" placeholder="Internal Payment Note"></textarea>
+											</div>
+											<div class="form-group d-flex flex-wrap mb-0">
+												<button type="button" class="btn btn-primary mr-1" data-dismiss="modal">Send</button>
+												<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /Add Payment Sidebar -->
+
+					</div>
+				</div>
+			</div>
+			<!-- END: Content-->
+
+			<div class="sidenav-overlay"></div>
+			<div class="drag-target"></div>
+
+			<!-- BEGIN: Footer-->
+			<footer class="footer footer-static footer-light">
+				<p class="clearfix mb-0">
+					<span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2021<a class="ml-25" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent</a>
+						<span class="d-none d-sm-inline-block">, All rights Reserved</span>
+					</span>
+					<span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i data-feather="heart"></i>
+					</span>
+				</p>
+			</footer>
+			<button class="btn btn-primary btn-icon scroll-top" type="button">
+				<i data-feather="arrow-up"></i>
+			</button>
+			<!-- END: Footer-->
+
+			<!-- BEGIN: Vendor JS-->
+			<script src="{{asset('dashboard/app-assets/vendors/js/vendors.min.js')}}"></script>
+
+			<!-- BEGIN Vendor JS-->
+
+			<!-- BEGIN: Page Vendor JS-->
+			<script src="{{asset('dashboard/app-assets/vendors/js/forms/wizard/bs-stepper.min.js')}}"></script>
+			<script src="{{asset('dashboard/app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js')}}"></script>
+			<script src="{{asset('dashboard/app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
+			<!-- END: Page Vendor JS-->
+
+			<!-- BEGIN: Theme JS-->
+			<script src="{{asset('dashboard/app-assets/js/core/app-menu.js')}}"></script>
+			<script src="{{asset('dashboard/app-assets/js/core/app.js')}}"></script>
+			<!-- END: Theme JS-->
+
+			<!-- BEGIN: Page JS-->
+			<script src="{{asset('dashboard/app-assets/js/scripts/pages/app-ecommerce-checkout.js')}}"></script>
+			<!-- END: Page JS-->
+
+			<script>
+				$(window).on('load', function () {
+if (feather) {
+feather.replace({width: 14, height: 14});
+}
+})
+			</script>
+		</body>
+	{% endblock %}
+	<!-- END: Body-->
+
+</html>

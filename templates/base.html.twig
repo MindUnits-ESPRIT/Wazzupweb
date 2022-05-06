@@ -1,0 +1,13 @@
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+       {% block navbar %}
+{% include 'home/header.html.twig' %}
+{% include 'home/sidebar.html.twig' %}
+       {% endblock %}
+{% block body %}
+
+{% endblock %}

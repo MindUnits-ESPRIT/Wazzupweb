@@ -1,0 +1,237 @@
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+
+}
+  
+  body {
+    font-family: "Droid Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #18332f;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .sidebar {
+    max-width: 424px;
+    margin: 20px auto;
+    position: relative;
+    top: -30%;
+  }
+  
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li .close {
+    font-size: 10px;
+    text-align: center;
+    display: inline-block;
+    float: right;
+    padding: 3px;
+    cursor: pointer;
+    width: 10px;
+    border-radius: 50%;
+    transition: all 0.1s;
+  }
+  li .close:hover {
+    color: #95989a;
+    background-color: white;
+  }
+  
+  .label-notifications {
+    font-size: 15px;
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 0;
+    display: inline-block;
+    position: fixed; /* or absolute */
+  top: 50%;
+  left: 50%;
+  }
+  
+  .check-all {
+    font-size: 15px;
+    float: right;
+    text-decoration: none;
+    color: #007672;
+    display: none;
+  }
+  
+  .sidebar {
+    background-color: #f5f6f6;
+    padding: 16px;
+  }
+  
+  .notification {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    color: white;
+  }
+  
+  .notification-welcome {
+    background-color: #007672;
+  }
+  
+  .notification-activated,
+  .notification-trial {
+    background-color: #e1f1da;
+    color: #467d47;
+  }
+  
+  .notification-task:hover .link i {
+    color: #d0d3d4;
+  }
+  
+  .notification-task {
+    background-color: white;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    transition: all 0.3s;
+  }
+  .notification-task:hover {
+    background-color: #eceded;
+  }
+  .notification-task .icon {
+    background-color: #ff6700;
+    padding: 10px;
+    box-sizing: border-box;
+    display: block;
+    position: relative;
+  }
+  .notification-task .icon i {
+    color: white;
+    font-style: normal;
+    font-size: 23px;
+    position: relative;
+    display: block;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .notification-task .link {
+    background-color: inherit;
+  }
+  .notification-task .link i {
+    color: #eceded;
+    transition: all 0.3s;
+    font-weight: bold;
+    font-size: 23px;
+  }
+  .notification-task a {
+    text-decoration: none;
+    color: #18332f;
+    display: block;
+    padding: 10px;
+  }
+  
+  .notification > h4 {
+    margin: 0;
+    font-weight: 700;
+  }
+  
+  .notification > p {
+    margin: 0;
+  }
+  #particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+  }
+  .wrapper {
+    min-height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    align-items: center;
+    background:linear-gradient(90deg, rgba(0,119,119,1) 64%, rgba(200,200,200,1) 100%);
+  }
+  .logo {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    display: table;
+  margin: 0 auto;
+  }
+  .logo svg,
+  .logo div {
+    width: 200px;
+    height: 235px;
+    position: absolute;
+    
+  }
+  .logo svg {
+    fill: #fff;
+  }
+  .logo div {
+    width: 159px;
+    height: 159px;
+    margin: 12px;
+    border-radius: 20%;
+    transform: rotate(
+45deg);
+    mix-blend-mode: multiply;
+    -webkit-animation: 2s cubic-bezier(0.66, -0.7, 0.27, 1.6) infinite;
+    animation: 2s cubic-bezier(0.66, -0.7, 0.27, 1.6) infinite;
+  }
+  .logo div:nth-child(1) {
+    background-color: #ffffff00;
+    -webkit-animation-name: rotate-1;
+            animation-name: rotate-1;
+  }
+  .logo div:nth-child(2) {
+    background-color: #ffcbff;
+    -webkit-animation-name: rotate-2;
+            animation-name: rotate-2;
+  }
+  .logo div:nth-child(3) {
+    background-color: #ffc;
+    -webkit-animation-name: rotate-3;
+            animation-name: rotate-3;
+  }
+  @-webkit-keyframes rotate-1 {
+    to {
+      transform: rotate(135deg);
+    }
+  }
+  @keyframes rotate-1 {
+    to {
+      transform: rotate(135deg);
+    }
+  }
+  @-webkit-keyframes rotate-2 {
+    to {
+      transform: rotate(225deg);
+    }
+  }
+  @keyframes rotate-2 {
+    to {
+      transform: rotate(225deg);
+    }
+  }
+  @-webkit-keyframes rotate-3 {
+    to {
+      transform: rotate(315deg);
+    }
+  }
+  @keyframes rotate-3 {
+    to {
+      transform: rotate(315deg);
+    }
+  }
+  
