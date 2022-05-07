@@ -171,7 +171,7 @@ public function activationSuccess(){
 //////////////////////////////////// Mobile API /////////////////////////////////////////////
     /// Registration // 
     /**
-     * @Route("api/mobile-register", name="app_mobilereg", methods={"POST"})
+     * @Route("api/users/signup", name="app_mobilereg", methods={"POST"})
      */
     public function MobileSignup(Request $request, EntityManagerInterface $em,NormalizerInterface $normalizable,UserPasswordEncoderInterface $encoder, MailerInterface $mailer): Response
     {
@@ -180,7 +180,11 @@ public function activationSuccess(){
         $user->setPrenom($request->get('prenom'));
         $user->setEmail($request->get('email'));
         $user->setGenre($request->get('genre'));
-        $user->setDB($request->get('datenaissance'));
+
+        $date = $request->get('datenaissance');
+        $formatedate = date("m/d/Y", strtotime($date));
+        $user->setDB($formatedate);
+         
         $user->setFullNumber($request->get('full_number'));
         $hash= $encoder->encodePassword($user,$request->get('mdp'));
         $user->setPassword($hash);
@@ -209,4 +213,34 @@ public function activationSuccess(){
       $jsonContent=$normalizable->normalize($result,'json',['groups'=>'registermobile']);
       return new Response(json_encode($jsonContent));
   }
+ /**
+     * @Route("api/users/verifymail", name="app_mobilemailverif", methods={"POST","GET"})
+     */
+    public function MobileSignupVerification(Request $request, EntityManagerInterface $em,NormalizerInterface $normalizable,UtilisateursRepository $userrepo): Response
+    {
+        $mailexists=false;
+        $user = $userrepo->findOneBy(['email' => $request->query->get('email')]);
+        if($user){
+           $mailexists=true;    
+        }
+        $jsonContent=$normalizable->normalize($mailexists,'json',['groups'=>'mobileregverif']);
+       
+        return new Response(json_encode($jsonContent));
+    }
+
+ /**
+     * @Route("api/users/verifynaissance", name="app_mobiledbverif", methods={"POST","GET"})
+     */
+ function MobileVerifierDatenaissance(Request $request, EntityManagerInterface $em,NormalizerInterface $normalizable){
+    
+    $db=$request->query->get('datenaissance');
+    $dbyear=date("Y",strtotime($db)); 
+    $dbvalid=false;
+   if($dbyear >'2004'){
+    $dbvalid=false;
+   }
+   else $dbvalid=true;
+   $jsonContent=$normalizable->normalize($dbvalid,'json',['groups'=>'mobileregverifdb']);
+   return new Response(json_encode($jsonContent));
+}
 }

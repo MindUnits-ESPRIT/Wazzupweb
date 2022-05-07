@@ -76,7 +76,7 @@ class Utilisateurs implements UserInterface
      * @Assert\NotBlank(message="Veuillez insérer votre date de naissance ",
     *     groups={"registration","registermobile","getusergrp"},
      * )
-    * @Groups("getusergrp")
+    * @Groups("getusergrp","mobileregverifdb")
      */
     private $datenaissance;
 
@@ -109,9 +109,9 @@ class Utilisateurs implements UserInterface
      * )
      * @Assert\Email(
      *     message = "Votre email '{{ value }}' n'est pas un email valide.",
-     *     groups={"registration","Editprofile_general","authmobile","registermobile","getusergrp"},
+     *     groups={"registration","Editprofile_general"},
      * )
-     * @Groups("getusergrp")
+     * @Groups("getusergrp","registermobile","authmobile","mobileregverif")
      */
     private $email;
 
