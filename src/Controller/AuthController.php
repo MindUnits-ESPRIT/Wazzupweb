@@ -16,15 +16,13 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AuthController extends AbstractController
 {
-    /**
-     * @var bool
-     */
     /**
      * @var bool
      */
@@ -73,7 +71,9 @@ class AuthController extends AbstractController
                             if ($session->get('validotp')) {
                                 sleep(3000 / 1000);
                                 return $this->redirectToRoute('app_admin');
-                            }
+                           }
+                            
+                            // $this->SendSMS("+21624664880",$code);
 
                             $this->SendSMS('+21624664880', $code);
                         }
@@ -216,4 +216,80 @@ class AuthController extends AbstractController
         $this->addFlash('success', 'Vous avez été déconnecté avec succès. !');
         return $this->redirectToRoute('app_auth');
     }
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////// Mobile API /////////////////////////////////////////////
+    /// Authentification // 
+    /**
+     * @Route("api/mobile-auth", name="app_mobileauth", methods={"GET","POST"})
+     */
+    public function authMobile(
+        Request $request,
+        NormalizerInterface $normalizable,
+        UtilisateursRepository $userrepo,
+        UserPasswordEncoderInterface $encoder
+        
+    ): Response //mail
+    {    
+        $result=-1;
+        $email = $request->query->get('email');
+        $password = $request->query->get('mdp');
+        
+        if ($this->EmailExists($email, $request, $userrepo)) {
+            $emailexist = true;
+           
+            $user = $userrepo->findOneBy(['email' => $email]);
+            $isActivated = $user->getActivated();
+            $PasswordCheck = $encoder->isPasswordValid($user, $password);
+            //   dd($encoder->isPasswordValid($user, $password));
+
+            if ($isActivated) {
+                if ($PasswordCheck) {
+                    if ($user->getTypeUser() == 'User') {
+                    $result=1;
+                    new Response("User identified");
+                    } elseif ($user->getTypeUser() == 'Admin') {
+                        $result=2;
+                    new Response("Admin identified");
+                    }
+                } else {
+                    $result=0;
+                }
+            } else {
+                $activated = true;
+                $result=-2;
+            }
+        } else {
+            $login = false;
+            $emailexist = false;
+            $result=-3;
+        }
+    
+
+        $jsonContent=$normalizable->normalize($result,'json',['groups'=>'authmobile']);
+        return new Response(json_encode($jsonContent));
+    }
+////////////////////////////////////////
+    /// GET CONNECTED USER DATA // 
+    /**
+     * @Route("api/getuser", name="app_getconuser", methods={"GET","POST"})
+     */
+    public function ShowConnUser(
+        Request $request,
+        NormalizerInterface $normalizable,
+        UtilisateursRepository $userrepo,
+    ): Response //mail
+    {    
+        $user = $userrepo->findOneBy(['email' => $request->query->get('email')]);
+
+        $jsonContent=$normalizable->normalize($user,'json',['groups'=>'getusergrp']);
+       
+        return new Response(json_encode($jsonContent));
+    }
+
+
+
+
+
+
 }
+

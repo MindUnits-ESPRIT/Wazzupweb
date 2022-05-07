@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Serializable;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UtilisateursRepository;
 use Doctrine\Common\Collections\Collection;
@@ -53,6 +54,7 @@ class Utilisateurs implements UserInterface
      * @Assert\NotBlank(message="Veuillez insérer votre nom",
     *     groups={"registration","Editprofile_general","registermobile"},
     * )
+     * @Groups("getusergrp")
      */
     private $nom;
 
@@ -62,7 +64,9 @@ class Utilisateurs implements UserInterface
      * @ORM\Column(name="prenom", type="string", length=30)
     * @Assert\NotBlank(message="Veuillez insérer votre Prenom",
     *     groups={"registration","Editprofile_general","registermobile"},
-    * )    */
+    * )  
+    * @Groups("getusergrp")
+      */
     private $prenom;
 
     /**
@@ -70,8 +74,9 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="datenaissance", type="string", length=30, nullable=true)
      * @Assert\NotBlank(message="Veuillez insérer votre date de naissance ",
-    *     groups={"registration","registermobile"},
+    *     groups={"registration","registermobile","getusergrp"},
      * )
+    * @Groups("getusergrp")
      */
     private $datenaissance;
 
@@ -79,7 +84,8 @@ class Utilisateurs implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="genre", type="string", length=0, nullable=true)
-     * groups={"registermobile"},
+     * groups={"registermobile","getusergrp"},
+    * @Groups("getusergrp")
      */
     private $genre;
 
@@ -88,8 +94,9 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="num_tel", type="string", length=13, nullable=false)
      * @Assert\NotBlank(message="Veuillez insérer votre numero de telephone ",
-    *     groups={"registration","registermobile"},
+    *     groups={"registration","registermobile","getusergrp"},
      * )
+     * @Groups("getusergrp")
      */
     private $full_number;
 
@@ -102,8 +109,9 @@ class Utilisateurs implements UserInterface
      * )
      * @Assert\Email(
      *     message = "Votre email '{{ value }}' n'est pas un email valide.",
-     *     groups={"registration","Editprofile_general","authmobile","registermobile"},
+     *     groups={"registration","Editprofile_general","authmobile","registermobile","getusergrp"},
      * )
+     * @Groups("getusergrp")
      */
     private $email;
 
@@ -111,6 +119,7 @@ class Utilisateurs implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="avatar", type="string", length=200, nullable=true)
+     * @Groups("getusergrp")
      */
     private $avatar;
 
@@ -123,7 +132,8 @@ class Utilisateurs implements UserInterface
      * @Assert\NotCompromisedPassword(message="Veuillez choisir un mot de passe plus fort", groups={"registration","Editprofile_pwd"}))
      * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*\d).{6,}$/i", message="Votre mot de passe doit comporter au moins 6 caractères et inclure au moins une lettre et un chiffre.", groups={"registration","Editprofile_pwd"})
      * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe ne correspond pas a votre confirmation", groups={"registration","Editprofile_pwd"})
-     * 
+     * @Groups("getusergrp")
+    *
      */
     private $mdp;
     /**
@@ -139,6 +149,7 @@ class Utilisateurs implements UserInterface
      * @var string
      *
      * @ORM\Column(name="type_user", type="string", length=0, nullable=false, options={"default"="User"})
+     * @Groups("getusergrp")
      */
     private $typeUser = 'User';
 

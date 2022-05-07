@@ -17,6 +17,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -166,6 +167,46 @@ public function activationSuccess(){
 
 
 
-    
-    
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////// Mobile API /////////////////////////////////////////////
+    /// Registration // 
+    /**
+     * @Route("api/mobile-register", name="app_mobilereg", methods={"POST"})
+     */
+    public function MobileSignup(Request $request, EntityManagerInterface $em,NormalizerInterface $normalizable,UserPasswordEncoderInterface $encoder, MailerInterface $mailer): Response
+    {
+        $user=new Utilisateurs();
+        $user->setNom($request->get('nom'));
+        $user->setPrenom($request->get('prenom'));
+        $user->setEmail($request->get('email'));
+        $user->setGenre($request->get('genre'));
+        $user->setDB($request->get('datenaissance'));
+        $user->setFullNumber($request->get('full_number'));
+        $hash= $encoder->encodePassword($user,$request->get('mdp'));
+        $user->setPassword($hash);
+        // Generation du token 
+        $user->setToken(sha1(uniqid()));
+        $user->setActivated(false);
+        $em->persist($user);
+        $em->flush();
+          
+            // L'envoi de token
+            $email = (new TemplatedEmail())
+            ->from(new Address('wazzupverif@gmail.com','Wazzup'))
+            ->to($user->getEmail())
+            ->subject("Activation du compte Wazzup")
+           ->htmlTemplate('Mail_templates/token.html.twig')
+            ->context([
+            'nom' => $user->getNom(),
+            'type' => 'Votre token d\'activation',
+            'token'=> $user->getToken(),
+            'code' =>$user->getToken(),
+            'content'=>'Nous sommes heureux que vous ayez rejoint notre communauté . Il vous suffit de confirmer votre inscription à l\'aide du code ci-dessous.'
+        ])
+;
+      $mailer->send($email);
+      $result=1;
+      $jsonContent=$normalizable->normalize($result,'json',['groups'=>'registermobile']);
+      return new Response(json_encode($jsonContent));
+  }
 }
