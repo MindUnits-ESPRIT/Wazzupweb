@@ -75,7 +75,7 @@ class AuthController extends AbstractController
                             
                             // $this->SendSMS("+21624664880",$code);
 
-                            $this->SendSMS('+21624664880', $code);
+                            $this->SendSMS("+21624664880", $code);
                         }
                     } else {
                         $wrongpw = true;
@@ -151,14 +151,14 @@ class AuthController extends AbstractController
 
     public function SendSMS($tel, $code)
     {
-        $sid = 'ACa1c3f6d59e0c9f3d76e39dfec69e7c91'; // Your Account SID from www.twilio.com/console
-        $token = '5507d1f2963c865769e5181c60d81781'; // Your Auth Token from www.twilio.com/console
+        $sid = 'AC5e973cfeb8e1a9c3bdea6396f3bbfae5'; // Your Account SID from www.twilio.com/console
+        $token = 'fd26bae679d3799eb208b1779a1e36e1'; // Your Auth Token from www.twilio.com/console
         $client = new Client($sid, $token);
         $body = 'Votre code OTP admin est : ' . $code;
         $message = $client->messages->create(
             $tel, // Text this number
             [
-                'from' => '+16814914823', // From a valid Twilio number
+                'from' => '+19704786402', // From a valid Twilio number
                 'body' => $body,
             ]
         );
@@ -276,7 +276,7 @@ class AuthController extends AbstractController
     public function ShowConnUser(
         Request $request,
         NormalizerInterface $normalizable,
-        UtilisateursRepository $userrepo,
+        UtilisateursRepository $userrepo
     ): Response //mail
     {    
         $user = $userrepo->findOneBy(['email' => $request->query->get('email')]);

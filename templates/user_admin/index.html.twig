@@ -17,8 +17,7 @@
 	<!-- Layout styles -->
 	<link
 	rel="stylesheet" href="{{ asset('UIAdmin/assets/css/style.css') }}"> <!-- End layout styles -->
-	<link
-	rel="shortcut icon" href="{{ asset('UIAdmin/assets/images/favicon.png') }}"/>
+<link rel="shortcut icon" href="{{ asset('login/img/favicon.ico') }}">
 
 
 	<!-- BEGIN: Vendor CSS-->
@@ -41,6 +40,10 @@
 	<!-- BEGIN: Custom CSS-->
 <link
 	rel="stylesheet" type="text/css" href="{{asset('dashboard/assets/css/style.css')}}"> <!-- END: Custom CSS-->
+<<<<<<< HEAD
+			<script src="{{ asset('login/js/Jquery.js') }}"></script>
+=======
+>>>>>>> c27d4919fa06ad80062cc7945fdb78ff6120c6d2
 
 
 </head>
@@ -347,11 +350,23 @@
 			<br><br><br><br>
 
 			<!-- Basic Tables start -->
+		
 			<div class="row" id="basic-table" style="margin-top:8%;width:100%">
 				<div class="col-12">
+					{% for msg in app.session.flashBag.get('success') %}
+					<div style="padding:12px" class="alert alert-success">
+						{{ msg }}
+					</div>
+					{% endfor %}
+					<script>
+						$(document).ready(function () {
+                   $(".alert-success").delay(3000).slideUp(300);
+                         });
+					</script>
 					<div class="card">
 						<div class="card-header">
 							<h4 class="card-title" style="color:black">Utilisateurs</h4>
+							
 						</div>
 						<div class="card-body"></div>
 						<div class="table-responsive">
@@ -359,10 +374,10 @@
 								<thead>
 									<tr></tr>
 									<tr>
-										<th>User</th>
-										<th>data</th>
-										<th>data</th>
-										<th>data</th>
+										<th>Utilisateur</th>
+										<th>Email</th>
+										<th>Activé</th>
+										<th>Action</th>
 									</tr>
 								</thead>
 							</tr>
@@ -376,24 +391,31 @@
 											<span class="font-weight-bold">{{c.prenom}}
 												{{c.nom}}</span>
 										</td>
-										<td>data</td>
+										<td><span class="badge badge-pill badge-primary">{{c.email}}</span></td>
 
 										<td>
-											<span class="badge badge-pill badge-light-primary mr-1">data</span>
+										{% if c.activated == true  %}
+											<span class="badge badge-pill badge-success">Activé</span>
+										{% else %}
+											<span class="badge badge-pill badge-danger">Innactif</span>
+                                        {% endif %}
 										</td>
 										<td>
 											<div class="dropdown">
 												<button type="button" class="btn btn-sm- dropdown-toggle hide-arrow" data-toggle="dropdown">
-													<i data-feather="more-vertical" style="color:green">...</i>
+													<i class="mdi mdi-account-edit"></i>
 												</button>
 												<div class="dropdown-menu">
-													<a class="dropdown-item" href="javascript:void(0);">
-														<i data-feather="edit-2" class="mr-50"></i>
-														<span>Edit</span>
+												{% if c.activated == false  %}
+													<a class="dropdown-item" href="{{ path('admin_useractivate',{'id':c.idUtilisateur} )}}">
+														<i class="mdi mdi-check"></i>
+														<span>activer compte</span>
 													</a>
-													<a class="dropdown-item" href="javascript:void(0);">
-														<i data-feather="trash" class="mr-50"></i>
-														<span>Delete</span>
+														{% endif %}
+													<a class="dropdown-item" href="{{ path('admin_userdelete',{'id':c.idUtilisateur} )}}">
+														<i class="mdi mdi-delete"></i>
+                                                         
+														<span>Supprimer</span>
 													</a>
 												</div>
 											</div>
@@ -409,12 +431,7 @@
 	</div>
 	<!-- Basic Tables end -->
 	<!-- main-panel ends -->
-</body></div><!-- page-body-wrapper ends --></div><!-- container-scroller --><footer class="footer footer-static footer-light"><p class="clearfix mb-0">
-<span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2021<a class="ml-25" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent</a>
-	<span class="d-none d-sm-inline-block">, All rights Reserved</span>
-</span>
-<span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i data-feather="heart"></i>
-</span></p></footer><button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button><!-- END: Footer--><!-- BEGIN: Vendor JS--><script src="dashboard/app-assets/vendors/js/vendors.min.js"></script><!-- BEGIN Vendor JS--><!-- BEGIN: Page Vendor JS--><!-- END: Page Vendor JS--><!-- BEGIN: Theme JS--><script src="dashboard/app-assets/js/core/app-menu.js"> </script><script src="dashboard/app-assets/js/core/app.js"></script><!-- END: Theme JS--><!-- BEGIN: Page JS--><!-- END: Page JS--><script>
+</body></div><!-- page-body-wrapper ends --></div><!-- container-scroller --><button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button><!-- END: Footer--><!-- BEGIN: Vendor JS--><script src="dashboard/app-assets/vendors/js/vendors.min.js"></script><!-- BEGIN Vendor JS--><!-- BEGIN: Page Vendor JS--><!-- END: Page Vendor JS--><!-- BEGIN: Theme JS--><script src="dashboard/app-assets/js/core/app-menu.js"> </script><script src="dashboard/app-assets/js/core/app.js"></script><!-- END: Theme JS--><!-- BEGIN: Page JS--><!-- END: Page JS--><script>
 $(window).on('load', function () {
 if (feather) {
 feather.replace({width: 14, height: 14});
