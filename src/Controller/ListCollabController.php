@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Form\SuppcollabType;
+use App\Entity\CollabMembers;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class ListCollabController extends AbstractController
@@ -109,15 +110,10 @@ class ListCollabController extends AbstractController
         SessionInterface $session,
         NormalizerInterface $Normalizer
     ): Response {
-        $user1 = $session->get('userdata');
-        if ($user1 == null) {
-            return $this->redirectToRoute('app_auth');
-        }
-
         $collab = new SalleCollaboration();
         $user = $this->getDoctrine()
             ->getRepository(Utilisateurs::class)
-            ->find($user1->getIdUtilisateur());
+            ->find($req->get('id'));
         $collabs = $s->showUserCollabs($user->getIdUtilisateur());
         $form = $this->createForm(SuppcollabType::class, $collab);
         $form->handleRequest($req);
@@ -137,6 +133,71 @@ class ListCollabController extends AbstractController
             'groups' => 'post:read',
         ]);
 
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/CollabCreer", name="app_creerCollab", methods={"POST"})
+     */
+    public function CollabCreer(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        NormalizerInterface $normalizable,
+        SessionInterface $session
+    ): Response {
+        $user = $this->getDoctrine()
+            ->getRepository(Utilisateurs::class)
+            ->find($request->get('id'));
+        $collab = new SalleCollaboration();
+        $collab->setNomCollab($request->get('nom'));
+        $usercollab = $this->getDoctrine()
+            ->getRepository(Utilisateurs::class)
+            ->find($user->getIdUtilisateur());
+        $collab->setIdUtilisateur($usercollab);
+
+        $collab->setUrlCollab('www.' . $request->get('nom') . '.com');
+        $collab_member = new CollabMembers();
+
+        $entityManager->persist($collab);
+        $entityManager->flush();
+
+        $collab = $this->getDoctrine()
+            ->getRepository(SalleCollaboration::class)
+            ->findBy([
+                'nomCollab' => $request->get('nom'),
+            ])[0];
+        $collab_member->setid_collab($collab->getIdCollab());
+        $collab_member->setIdUtilisateur($user->getIdUtilisateur());
+        $entityManager->persist($collab_member);
+        $entityManager->flush();
+        $result = 'creation terminer';
+        $jsonContent = $normalizable->normalize($result, 'json', [
+            'groups' => 'post:read',
+        ]);
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/MobileD", name="deleteMobile",methods={"POST"})
+     */
+    public function deleteMobileC(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        NormalizerInterface $normalizable
+    ): Response {
+        $collab = $this->getDoctrine()
+            ->getRepository(SalleCollaboration::class)
+            ->findBy([
+                'nomCollab' => $request->get('nom'),
+            ])[0];
+
+        $entityManager->remove($collab);
+        $entityManager->flush();
+
+        $result = 'suppression terminer';
+        $jsonContent = $normalizable->normalize($result, 'json', [
+            'groups' => 'post:read',
+        ]);
         return new Response(json_encode($jsonContent));
     }
 }

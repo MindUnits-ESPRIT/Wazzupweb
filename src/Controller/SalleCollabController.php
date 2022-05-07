@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\HttpClient;
 use Endroid\QrCode\Builder\BuilderInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class SalleCollabController extends AbstractController
 {
     /**
@@ -425,5 +426,92 @@ class SalleCollabController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('loadmsg', ['idc' => $idc]);
+    }
+
+    /**
+     * @Route("/PrjtMob", name="PrjtMob" ,methods={"POST"})
+     */
+    public function PrjtMob(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        CollabMembersRepository $s,
+        UtilisateursRepository $u,
+        NormalizerInterface $normalizable
+    ): Response {
+        $collab = $this->getDoctrine()
+            ->getRepository(SalleCollaboration::class)
+            ->find($request->get('idc'));
+
+        $client = HttpClient::create();
+        $response = $client->request(
+            'POST',
+            'https://api.trello.com/1/boards/',
+            [
+                // these values are automatically encoded before including them in the URL
+                'query' => [
+                    'name' => $request->get('nom'),
+                    'key' => $request->get('key'),
+                    'token' => $request->get('token'),
+                ],
+            ]
+        );
+        $statusCode = $response->getStatusCode();
+        /*  $content = $response->toArray();
+         $content = $response->getContent(); */
+        $apierr = '';
+        if ($statusCode == 401) {
+            $apierr = 'Key ou token est non valid';
+            $jsonContent = $normalizable->normalize($apierr, 'json', [
+                'groups' => 'post:read',
+            ]);
+            return new Response(json_encode($jsonContent));
+        } else {
+            $content = $response->toArray();
+
+            foreach ($content as $k => $v) {
+                if ($k == 'shortUrl') {
+                    $var = $v;
+                }
+            }
+
+            $Projet = new Projet();
+            $Projet->setIdCollab($collab);
+            $Projet->setNomProjet($request->get('nom'));
+            $Projet->setDescriptionProjet($request->get('desc'));
+            $Projet->setUrlTrello($var);
+            $entityManager->persist($Projet);
+            $entityManager->flush();
+        }
+
+        $result = 'projet creer';
+        $jsonContent = $normalizable->normalize($result, 'json', [
+            'groups' => 'post:read',
+        ]);
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/affiP", name="affip" ,methods={"GET"})
+     */
+    public function affip(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        CollabMembersRepository $s,
+        UtilisateursRepository $u,
+        NormalizerInterface $normalizable
+    ): Response {
+        $collab = $this->getDoctrine()
+            ->getRepository(SalleCollaboration::class)
+            ->find($request->get('idc'));
+        $Projet = new Projet();
+        $Projet = $this->getDoctrine()
+            ->getRepository(Projet::class)
+            ->findOneBy(['idCollab' => $collab]);
+
+        $result = $Projet;
+        $jsonContent = $normalizable->normalize($result, 'json', [
+            'groups' => 'post:read',
+        ]);
+        return new Response(json_encode($jsonContent));
     }
 }

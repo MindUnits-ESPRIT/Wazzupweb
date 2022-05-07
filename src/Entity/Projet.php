@@ -3,6 +3,7 @@
 namespace App\Entity;
 use App\Repository\ProjetRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Projet
@@ -16,6 +17,7 @@ class Projet
      * @var int
      *
      * @ORM\Column(name="ID_Projet", type="integer", nullable=false)
+     * @Groups("post:read")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -25,6 +27,7 @@ class Projet
      * @var string
      *
      * @ORM\Column(name="Nom_Projet", type="string", length=20, nullable=false)
+     * @Groups("post:read")
      */
     private $nomProjet;
 
@@ -32,6 +35,7 @@ class Projet
      * @var string
      *
      * @ORM\Column(name="Description_Projet", type="string", length=100, nullable=false)
+     * @Groups("post:read")
      */
     private $descriptionProjet;
 
@@ -39,6 +43,7 @@ class Projet
      * @var string
      *
      * @ORM\Column(name="URL_trello", type="string", length=60, nullable=false)
+     * @Groups("post:read")
      */
     private $urlTrello;
 
@@ -46,6 +51,7 @@ class Projet
      * @var \SalleCollaboration
      *
      * @ORM\ManyToOne(targetEntity="SalleCollaboration")
+     * @Groups("post:read")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ID_Collab", referencedColumnName="ID_Collab")
      * })
