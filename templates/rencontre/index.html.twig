@@ -1,0 +1,48 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Vos Rencontres{% endblock %}
+
+{% block body %}
+    <div style="margin-left: 434px;">
+        <a href="{{ path('app_evenement_index',{'user':user.idUtilisateur})}}"class="btn btn-outline-primary" style="font-family: cursive;position: relative;
+    right: 422px;">Retour</a>
+    </div>
+    <center><h1 style="font-family: cursive;">Vos Rencontres</h1></center>
+
+    <table class="table">
+        <thead style="color: teal">
+            <tr>
+                <th>TypeRencontre</th>
+{#                <th>UrlInvitation</th>#}
+                <th>Actions</th>
+                <th>Session Rencontre</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rencontre in rencontres %}
+            <tr>
+                <td>{{ rencontre.typeRencontre }}</td>
+{#                <td>{{ rencontre.urlInvitation }}</td>#}
+                <td>
+                    <a href="{{ path('app_rencontre_show', {'id': rencontre.id}) }}"class="btn btn-primary" style="background-color: teal">Afficher</a>
+                    <a href="{{ path('app_rencontre_edit', {'id': rencontre.id}) }}"class="btn btn-outline-info">Modifier</a>
+                </td>
+                <td>
+                    {% if evenement|date('Y-m-d')>'now'|date('Y-m-d') %}
+                        Session disponible le : {{evenement|date('Y-m-d') }}
+                    {% elseif evenement|date('Y-m-d')<'now'|date('Y-m-d') %}
+                        Session fermé depuis : {{evenement|date('Y-m-d') }}
+                    {% else %}
+                        <a href="{{ path('app_wep_rtc', {'rencontre': rencontre.id}) }}"class="btn btn-outline-danger">Entrez</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucune Rencontre trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

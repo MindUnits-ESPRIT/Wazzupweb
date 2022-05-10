@@ -1,0 +1,60 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Evenement{% endblock %}
+
+{% block body %}
+    <div style="margin-left: 434px;">
+        <a href="{{ path('app_evenement_index',{'user':evenement.idUtilisateur.idUtilisateur})}}"class="btn btn-outline-primary" style="font-family: cursive;position: relative;
+    right: 396px;">Retour</a>
+    </div>
+    <center>
+    <h1 style="font-family: cursive;">Evénement</h1>
+    </center>
+    <br>
+
+    {% if (evenement.typeEvent=='SalleCinema') %}
+        <a href="{{ path('app_salle_cinema_index',{'event': evenement.id}) }}"class="btn btn-outline-primary" style="position: relative; left: 979px;">Afficher Salle Cinema</a>
+    {% else %}
+        <a href="{{ path('app_rencontre_index',{'event': evenement.id}) }}"class="btn btn-outline-primary" style="position: relative; left: 979px;">Afficher Rencontre</a>
+    {% endif %}
+    <br><br>
+    <table class="table" style="font-family: cursive;">
+        <tbody>
+            <tr>
+                <th>Nom événement</th>
+                <td>{{ evenement.nomEvent }}</td>
+            </tr>
+            <tr>
+                <th>Nombre participants</th>
+                <td>{{ evenement.nbrParticipants }}</td>
+            </tr>
+            <tr>
+                <th>Date événement</th>
+                <td>{{ evenement.dateEvent }}</td>
+            </tr>
+            <tr>
+                <th>Type événement</th>
+                <td>{{ evenement.typeEvent }}</td>
+            </tr>
+            <tr>
+                <th>Visibilité</th>
+                <td>{{ evenement.eventVisibilite }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ evenement.description }}</td>
+            </tr>
+            <tr>
+                <th>Date création</th>
+                <td>{{ evenement.dateP ? evenement.dateP|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+<center>
+    <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}"class="btn btn-secondary" style="font-family: cursive;position: relative;
+    right: 45px;">Modifier</a>
+
+    {{ include('evenement/_delete_form.html.twig') }}
+</center>
+{% endblock %}

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\SalleCinemaRepository;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * SalleCinema
@@ -20,6 +21,7 @@ class SalleCinema
      * @ORM\Column(name="ID_Salle", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("post:read")
      */
     private $idSalle;
 
@@ -28,7 +30,7 @@ class SalleCinema
      *
      * @ORM\Column(name="Nom_Salle", type="string", length=50, nullable=false)
      * @Assert\NotBlank(message="Veuillez ajouter le nom de la salle")
-
+     * @Groups("post:read")
      */
     private $nomSalle;
 
@@ -37,6 +39,7 @@ class SalleCinema
      *
      * @ORM\Column(name="URL_Film", type="string", length=50, nullable=false)
      * @Assert\NotBlank(message="Veuillez ajouter l'url du film")
+     * @Groups("post:read")
      */
     private $urlFilm;
 
@@ -44,6 +47,7 @@ class SalleCinema
      * @var string
      *
      * @ORM\Column(name="URL_Salle", type="string", length=50, nullable=false)
+     * @Groups("post:read")
      */
     private $urlSalle;
 
@@ -51,6 +55,7 @@ class SalleCinema
      * @var string
      *
      * @ORM\Column(name="Chat", type="text", length=0, nullable=false)
+     * @Groups("post:read")
      */
     private $chat;
 

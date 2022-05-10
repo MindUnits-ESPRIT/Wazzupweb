@@ -1,0 +1,83 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Vos événements{% endblock %}
+ {% block stylesheets %}
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.css">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.css">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.css">
+ {% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_evenement_list_calendar',{'user':user.idUtilisateur}) }}" class="btn btn-success btn-primary pull-right" style="background-color: teal;font-family: cursive;    right: 47px;
+    position: absolute;">Calendrier</a>
+    <center>
+    <h1 style="font-family: cursive;">Vos événements</h1>
+    </center>
+
+    <table class="table" border="1" style="font-family: cursive;">
+        <thead style="color: teal">
+            <tr>
+                <th>Nom événement</th>
+                <th>Nombre participants</th>
+                <th>Date événement</th>
+                <th>Type événement</th>
+                <th>Visibilité</th>
+                <th>Description</th>
+                <th>Date de création</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.nomEvent }}</td>
+                <td>{{ evenement.nbrParticipants }}</td>
+                <td>{{ evenement.dateEvent }}</td>
+                <td>{{ evenement.typeEvent }}</td>
+                <td>{{ evenement.eventVisibilite }}</td>
+                <td>{{ evenement.description }}</td>
+                <td>{{ evenement.dateP ? evenement.dateP|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_evenement_show', {'id': evenement.id}) }}"class="btn btn-primary" style="background-color: teal">Afficher </a>
+                    <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}"class="btn btn-outline-info">Modifier </a>
+                    {% if (evenement.typeEvent=='SalleCinema') %}
+                    <a href="{{ path('app_salle_cinema_index',{'event': evenement.id}) }}"class="btn btn-outline-primary" >Afficher Salle Cinema</a>
+                    {% else %}
+                    <a href="{{ path('app_rencontre_index',{'event': evenement.id}) }}"class="btn btn-outline-primary">Afficher Rencontre</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">Aucun événement trouvé</td>
+            </tr>
+        {% endfor %}
+        <div class="navigation">
+        {{ knp_pagination_render(evenements) }}
+        </div>
+        </tbody>
+    </table>
+
+<center>
+    <a href="{{ path('app_evenement_new') }}" class="btn btn-success btn-primary" style="background-color: teal;font-family: cursive;">Créer un nouvel événement</a>
+</center>
+
+        <div id="calendar-holder"></div>
+
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'calendar-holder'
+            });
+            calendar.render();
+        });
+
+    </script>
+{% endblock %}

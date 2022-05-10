@@ -1,0 +1,5 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate','style':'font-family: cursive;width: 370px;'}}) }}
+    {{ form_widget(form) }}
+<br>
+    <button class="btn btn-primary" style="font-family: cursive;">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}
