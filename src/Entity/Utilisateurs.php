@@ -111,7 +111,7 @@ class Utilisateurs implements UserInterface
      *     message = "Votre email '{{ value }}' n'est pas un email valide.",
      *     groups={"registration","Editprofile_general"},
      * )
-     * @Groups("getusergrp","registermobile","authmobile","mobileregverif")
+     * @Groups("getusergrp","registermobile","authmobile","mobileregverif","forgotpasswordmobile")
      */
     private $email;
 

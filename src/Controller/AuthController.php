@@ -286,7 +286,48 @@ class AuthController extends AbstractController
         return new Response(json_encode($jsonContent));
     }
 
-
+ ////////////////////////////////////////////////
+ ////////// RECUPERATION MOT DE PASSE API //////
+     /**
+     * @Route("api/forgotpassword", name="forgotpassword", methods={"GET","POST"})
+     */
+    public function forgotpwMobile(
+        Request $request,
+        NormalizerInterface $normalizable,
+        MailerInterface $mailer,
+        EntityManagerInterface $entityManager,
+        UtilisateursRepository $userrepo,
+        UserPasswordEncoderInterface $encoder
+        ):Response
+        {
+            $email_recuperation=$request->query->get('email');
+            $user = $userrepo->findOneBy(['email' => $email_recuperation]);
+            $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+            $newpass = substr(str_shuffle($permitted_chars), 0, 7);
+            $hashedpw = $encoder->encodePassword($user, $newpass);
+            if ($user){
+            $user->setMdp($hashedpw);
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $email = (new TemplatedEmail())
+                ->from(new Address('wazzupverif@gmail.com', 'Wazzup'))
+                ->to($email_recuperation)
+                ->subject('Recupération mot de passe')
+                ->htmlTemplate('Mail_templates/newpass.html.twig')
+                ->context([
+                    'nom' => $user->getNom(),
+                    'type' => 'Votre nouveau mot de passe',
+                    'code' => $newpass,
+                ]);
+            $mailer->send($email);
+            $recuperation=true;
+        }
+        else {
+            $recuperation=false;
+        }
+            $jsonContent=$normalizable->normalize($recuperation,'json',['groups'=>'forgotpasswordmobile']);
+            return new Response(json_encode($jsonContent));
+        }
 
 
 
