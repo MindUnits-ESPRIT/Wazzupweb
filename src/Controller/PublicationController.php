@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -25,12 +26,13 @@ class PublicationController extends AbstractController
     /**
      * @Route("/", name="app_publication_index", methods={"GET"})
      */
-    public function index(Request $request,SessionInterface $session,EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
+    public function index(Request $request,SessionInterface $session,EntityManagerInterface $entityManager, PaginatorInterface $paginator,NormalizerInterface $Normalizer): Response
     {
         $user = $session->get('userdata');
         if ($user == null) {
             return $this->redirectToRoute('app_auth');
         } else {
+            //EDITED HERE
 //            $commentaire = new Commentaire();
 //            $form = $this->createForm(CommentaireType::class, $commentaire);
             $publications = $entityManager
@@ -47,7 +49,8 @@ class PublicationController extends AbstractController
             $eventCinema=$this->getDoctrine()->getRepository(Evenement::class)
                 ->findBy(['typeEvent'=>'SalleCinema','eventVisibilite'=>'Salle_publique'],['dateP'=>'DESC'],5);
             $data = $paginator->paginate($publications,$request->query->getInt('page',1),
-            4);
+                4);
+            $jsonContent = $Normalizer->normalize($publications,'json',['groups'=>'post:read']);
             return $this->render('publication/index.html.twig', [
                 'publications' => $data,
                 'commentaires' => $commentaire,
@@ -94,9 +97,9 @@ class PublicationController extends AbstractController
     {
         $user = $session->get('userdata');
         $publication = new Publication();
-            $publication->setDatePublication((new \DateTime('now')));
-            $publication->setVisibilite("True");
-            $publication->setPriority(1);
+        $publication->setDatePublication((new \DateTime('now')));
+        $publication->setVisibilite("True");
+        $publication->setPriority(1);
         $userr = $entityManager
             ->getRepository(Utilisateurs::class)
             ->find($user);
@@ -105,21 +108,21 @@ class PublicationController extends AbstractController
 
         $desc=$request->request->get("description");
         $img=$request->files->get("publication")['imageFile'];
-      //  dd($img);
+        //  dd($img);
         if (strlen($desc)>0)
             $publication->setDescription($desc);
         else
             $publication->setDescription("ERROR FILLED BADLY");
         if($img != null)
-        $publication->setImageFile($request->files->get("publication")['imageFile']);
+            $publication->setImageFile($request->files->get("publication")['imageFile']);
         else if (str_contains($request->request->get("publication")['fichier'],'.gif'))
             $publication->setFichier($request->request->get("publication")['fichier']);
         else
-        $publication->setFichier("NULL");
-            $entityManager->persist($publication);
-            $entityManager->flush();
+            $publication->setFichier("NULL");
+        $entityManager->persist($publication);
+        $entityManager->flush();
 
-            return $this->redirectToRoute('app_publication_index');
+        return $this->redirectToRoute('app_publication_index');
 
     }
 //    /**
@@ -141,7 +144,7 @@ class PublicationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           // dd($request);
+            // dd($request);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_publication_index', [], Response::HTTP_SEE_OTHER);
@@ -249,5 +252,103 @@ class PublicationController extends AbstractController
         return $this->render('publication/searchby.html.twig', [
             'utilisateurs'=>$utilisateurs
         ]);
+    }
+    /**
+     * @Route("/Mob", name="app_publication_indexMob", methods={"GET", "POST"})
+     */
+    public function indexMob(Request $request,SessionInterface $session,EntityManagerInterface $entityManager, PaginatorInterface $paginator,NormalizerInterface $Normalizer): Response
+    {
+
+//            $commentaire = new Commentaire();
+//            $form = $this->createForm(CommentaireType::class, $commentaire);
+        $publications = $entityManager
+            ->getRepository(Publication::class)
+            ->findBy(['visibilite'=>'True'],['datePublication'=>'DESC']);
+        $users = $entityManager
+            ->getRepository(Utilisateurs::class)
+            ->findBy(array(), null, 5);
+        $commentaire = $entityManager
+            ->getRepository(Commentaire::class)
+            ->findAll();
+        $eventFace2Face=$this->getDoctrine()->getRepository(Evenement::class)
+            ->findBy(['typeEvent'=>'Rencontre','eventVisibilite'=>'Salle_publique'],['dateP'=>'DESC'],5);
+        $eventCinema=$this->getDoctrine()->getRepository(Evenement::class)
+            ->findBy(['typeEvent'=>'SalleCinema','eventVisibilite'=>'Salle_publique'],['dateP'=>'DESC'],5);
+        $data = $paginator->paginate($publications,$request->query->getInt('page',1),
+            4);
+        $jsonContent = $Normalizer->normalize($publications,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+        // }
+    }
+
+    /**
+     * @Route("/deleteMob/{id}", name="app_publication_deletee" , methods={"GET", "POST"})
+     */
+    public function deletee($id,EntityManagerInterface $em,PublicationRepository $rep,NormalizerInterface $Normalizer):Response{
+        $pub=$rep->find($id);
+
+        $em->remove($pub);
+        $em->flush();
+        $jsonContent=$Normalizer->normalize($pub,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/LoadPub/{id}", name="MobPubLoad", methods={"GET", "POST"})
+     */
+    public function LoadPub($id,Request $request, Publication $publication, EntityManagerInterface $entityManager,NormalizerInterface $Normalizer): Response
+    {
+        $publications = $entityManager
+            ->getRepository(Publication::class)
+            ->findBy(['idPublication'=>$id]);
+        $jsonContent = $Normalizer->normalize($publications,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/{idPublication}/editLEMob", name="app_publication_editLEMob", methods={"POST","GET"})
+     */
+    public function LoadFormeMob(Request $request, Publication $publication,SessionInterface $session ,EntityManagerInterface $entityManager,NormalizerInterface $Normalizer): Response
+    {
+        //   $user = $session->get('userdata');
+        $pub=new Publication();
+
+        $publication->setDescription($request->query->get("description"));
+        $publication->setFichier($request->query->get("imageFile"));
+        $pub->setVisibilite("True");
+        $userr = $entityManager
+            ->getRepository(Utilisateurs::class)
+            ->find(60);
+        $publication->setIdUtilisateur($userr);
+        $publication->setDatePublication((new \DateTime('now')));
+        //    dd($publication);
+        $entityManager->flush();
+        $jsonContent = $Normalizer->normalize($publication,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+
+    /**
+     * @Route("/AddMob", name="app_publication_AddMob", methods={"POST","GET"})
+     */
+    public function AddMobb(Request $request,SessionInterface $session ,EntityManagerInterface $entityManager,NormalizerInterface $Normalizer): Response
+    {
+        $user = $session->get('userdata');
+        $publication = new Publication();
+        $publication->setDatePublication((new \DateTime('now')));
+        $publication->setVisibilite("True");
+        $publication->setPriority(1);
+        $userr = $entityManager
+            ->getRepository(Utilisateurs::class)
+            ->find(60);
+        $publication->setIdUtilisateur($userr);
+
+        $publication->setDescription($request->query->get("description"));
+        $publication->setFichier($request->query->get("imageFile"));
+        $entityManager->persist($publication);
+        $entityManager->flush();
+
+        $jsonContent = $Normalizer->normalize($publication,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
     }
 }
