@@ -1,5 +1,6 @@
 <?php
 namespace App\Repository;
+use App\Entity\SalleCinema;
 use App\Entity\Evenement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

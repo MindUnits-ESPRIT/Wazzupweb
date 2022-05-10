@@ -1,0 +1,40 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Rencontre{% endblock %}
+
+{% block body %}
+    <div style="margin-left: 434px;">
+        <a href="{{ path('app_evenement_index',{'user':user.idUtilisateur})}}"class="btn btn-outline-primary" style="font-family: cursive;position: relative;
+    right: 422px;">Retour</a>
+    </div>
+   <center><h1 style="font-family: cursive;">Rencontre</h1></center>
+
+    <table class="table" style="font-family: cursive;">
+        <tbody>
+{#            <tr>#}
+{#                <th>IdRen</th>#}
+{#                <td>{{ rencontre.id }}</td>#}
+{#            </tr>#}
+            <tr>
+                <th>TypeRencontre</th>
+                <td>{{ rencontre.typeRencontre }}</td>
+            </tr>
+            <tr>
+                <th>Accés rencontre</th>
+            <td>
+                {% if evenement|date('Y-m-d')>'now'|date('Y-m-d') %}
+                    Session disponible le : {{evenement|date('Y-m-d') }}
+                {% elseif evenement|date('Y-m-d')<'now'|date('Y-m-d') %}
+                    Session fermé depuis : {{evenement|date('Y-m-d') }}
+                {% else %}
+                    <a href="{{ path('app_wep_rtc', {'rencontre': rencontre.id}) }}"class="btn btn-outline-danger">Entrez</a>
+                {% endif %}
+            </td>
+            </tr>
+        </tbody>
+    </table>
+<center>
+    <a href="{{ path('app_rencontre_edit', {'id': rencontre.id}) }}"class="btn btn-secondary" style="font-family: cursive;">Modifier</a>
+    {{ include('rencontre/_delete_form.html.twig') }}
+</center>
+{% endblock %}

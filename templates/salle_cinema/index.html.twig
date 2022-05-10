@@ -1,0 +1,48 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Vos Salles Cinéma{% endblock %}
+
+{% block body %}
+    <div style="margin-left: 434px;">
+        <a href="{{ path('app_evenement_index',{'user':user.idUtilisateur})}}"class="btn btn-outline-primary" style="font-family: cursive;position: relative;
+    right: 432px;">Retour</a>
+    </div>
+ <center><h1 style="font-family: cursive;">Vos Salles Cinéma</h1></center>
+<br>
+    <table class="table" style="font-family: cursive;">
+        <thead style="color: teal">
+            <tr>
+                <th>NomSalle</th>
+                <th>UrlFilm</th>
+                <th>UrlSalle</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for salle_cinema in salle_cinemas %}
+            <tr>
+                <td>{{ salle_cinema.nomSalle }}</td>
+                <td>{{ salle_cinema.urlFilm }}</td>
+                <td>
+                    {% if evenement|date('Y-m-d')>'now'|date('Y-m-d') %}
+                        Salle disponible le : {{evenement|date('Y-m-d') }}
+                        {% elseif evenement|date('Y-m-d')<'now'|date('Y-m-d') %}
+                            Salle fermé depuis : {{evenement|date('Y-m-d') }}
+                    {% else %}
+                        <a href="{{ salle_cinema.urlSalle }}" target="_blank">{{ salle_cinema.urlSalle }}</a>
+                        {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_salle_cinema_show', {'idSalle': salle_cinema.idSalle}) }}"class="btn btn-primary" style="background-color: teal;font-family: cursive;">Afficher</a>
+                    <a href="{{ path('app_salle_cinema_edit', {'idSalle': salle_cinema.idSalle}) }}"class="btn btn-outline-info" style="font-family: cursive;">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Aucune Salle trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
