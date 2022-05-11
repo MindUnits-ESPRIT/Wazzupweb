@@ -40,7 +40,7 @@ class Utilisateurs implements UserInterface
 
     /**
      * @var int
-     *
+     * @Groups("post:read")
      * @ORM\Column(name="ID_Utilisateur", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -55,6 +55,7 @@ class Utilisateurs implements UserInterface
     *     groups={"registration","Editprofile_general","registermobile"},
     * )
      * @Groups("getusergrp")
+     * @Groups("post:read")
      */
     private $nom;
 
@@ -66,6 +67,7 @@ class Utilisateurs implements UserInterface
     *     groups={"registration","Editprofile_general","registermobile"},
     * )  
     * @Groups("getusergrp")
+     * @Groups("post:read")
       */
     private $prenom;
 
@@ -76,7 +78,8 @@ class Utilisateurs implements UserInterface
      * @Assert\NotBlank(message="Veuillez insérer votre date de naissance ",
     *     groups={"registration","registermobile","getusergrp"},
      * )
-    * @Groups("getusergrp")
+    * @Groups("getusergrp","mobileregverifdb")
+     * @Groups("post:read")
      */
     private $datenaissance;
 
@@ -86,6 +89,7 @@ class Utilisateurs implements UserInterface
      * @ORM\Column(name="genre", type="string", length=0, nullable=true)
      * groups={"registermobile","getusergrp"},
     * @Groups("getusergrp")
+     * @Groups("post:read")
      */
     private $genre;
 
@@ -109,9 +113,9 @@ class Utilisateurs implements UserInterface
      * )
      * @Assert\Email(
      *     message = "Votre email '{{ value }}' n'est pas un email valide.",
-     *     groups={"registration","Editprofile_general","authmobile","registermobile","getusergrp"},
+     *     groups={"registration","Editprofile_general"},
      * )
-     * @Groups("getusergrp")
+     * @Groups("getusergrp","registermobile","authmobile","mobileregverif","forgotpasswordmobile")
      */
     private $email;
 
@@ -120,6 +124,7 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="avatar", type="string", length=200, nullable=true)
      * @Groups("getusergrp")
+     * @Groups("post:read")
      */
     private $avatar;
 
@@ -133,7 +138,7 @@ class Utilisateurs implements UserInterface
      * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*\d).{6,}$/i", message="Votre mot de passe doit comporter au moins 6 caractères et inclure au moins une lettre et un chiffre.", groups={"registration","Editprofile_pwd"})
      * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe ne correspond pas a votre confirmation", groups={"registration","Editprofile_pwd"})
      * @Groups("getusergrp")
-    *
+    * @Groups("post:read")
      */
     private $mdp;
     /**

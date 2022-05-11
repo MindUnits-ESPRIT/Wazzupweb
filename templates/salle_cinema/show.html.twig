@@ -1,0 +1,44 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}SalleCinema{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_salle_cinema_index',{'event': event}) }}"class="btn btn-outline-primary">Retour</a>
+    <center>
+    <h1>SalleCinema</h1>
+    </center>
+    <br>
+    <table class="table">
+        <tbody>
+{#            <tr>#}
+{#                <th>IdSalle</th>#}
+{#                <td>{{ salle_cinema.idSalle }}</td>#}
+{#            </tr>#}
+            <tr>
+                <th>NomSalle</th>
+                <td>{{ salle_cinema.nomSalle }}</td>
+            </tr>
+            <tr>
+                <th>UrlFilm</th>
+                <td>{{ salle_cinema.urlFilm }}</td>
+            </tr>
+            <tr>
+                <th>UrlSalle</th>
+                <td>
+                    {% if evenement|date('Y-m-d')>'now'|date('Y-m-d') %}
+                        Salle disponible le : {{evenement|date('Y-m-d') }}
+                    {% elseif evenement|date('Y-m-d')<'now'|date('Y-m-d') %}
+                        Salle fermé depuis : {{evenement|date('Y-m-d') }}
+                    {% else %}
+                        <a href="{{ salle_cinema.urlSalle }}" target="_blank">{{ salle_cinema.urlSalle }}</a>
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+<center>
+
+    <a href="{{ path('app_salle_cinema_edit', {'idSalle': salle_cinema.idSalle}) }}"class="btn btn-secondary">Modifier</a>
+    {{ include('salle_cinema/_delete_form.html.twig') }}
+</center>
+{% endblock %}

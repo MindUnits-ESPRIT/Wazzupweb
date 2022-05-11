@@ -1,0 +1,50 @@
+<div id="chat">
+
+    </div>
+    <div>
+        <div class="form-group">
+            <label for="message" >Message:</label><input type="text" id="message" class="form-control form-control" style="width: 393px; position: relative;
+            left: 87px;">
+        </div>
+        <button type="button" id="sendBtn" class="btn btn-success btn-primary pull-right waves-effect waves-float waves-light">Send</button>
+    </div>
+    <script type="text/javascript">
+        const socket = new WebSocket("ws://localhost:3001");
+
+        socket.addEventListener("open", function() {
+            console.log("CONNECTED");
+        });
+
+        function addMessage(name, message) {
+            document.getElementById("chat").innerHTML +=  '<div class="chat-message-group">'+
+                '<div class="chat-messages">'+
+                '<div class="message">'+message+'</div>'+
+                ' <div class="from">'+name+'</div>'+
+                '  </div>'+
+                '  </div>';
+
+        socket.addEventListener("message", function(e) {
+            console.log(e.data);
+            try
+            {
+                const message = JSON.parse(e.data);
+                addMessage(message.name, message.message);
+            }
+            catch(e)
+            {
+                // Catch any errors
+            }
+        });
+
+
+        document.getElementById("sendBtn").addEventListener("click", function() {
+
+            const message = {
+                // chatRoom:,
+                name: '{{ user.getPrenom() }} {{ user.getNom() }}',
+                message: document.getElementById("message").value
+            };
+            socket.send(JSON.stringify(message));
+            addMessage(message.name, message.message);
+        });
+    </script>

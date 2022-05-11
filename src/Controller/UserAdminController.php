@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Utilisateurs;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\UtilisateursRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use App\Entity\Utilisateurs;
-use App\Repository\UtilisateursRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 class UserAdminController extends AbstractController
 {
     /**
@@ -36,5 +38,45 @@ class UserAdminController extends AbstractController
             'picture' => $user->getAvatar(),
             'users' => $users,
         ]);
+    }
+/**
+     * @Route("/user/admin/activate/{id}", name="admin_useractivate")
+     */
+    public function ActiverCompte(     
+    $id,
+    EntityManagerInterface $em,
+    UtilisateursRepository $userrep){
+        $u = $userrep->findOneBy([
+            'idUtilisateur' => $id,
+        ]);
+          if ($u) {
+            $u->setActivated(true);
+            $u->setToken(null);
+            $em->persist($u);
+            $em->flush();
+        }
+        $this->addFlash('success', 'Le compte utilisateur a été bien activé !');
+        return $this->redirectToRoute('app_user_admin');
+    }
+
+    /**
+     * @Route("/user/admin/delete/{id}", name="admin_userdelete")
+     */
+    public function SupprimerUser(
+        $id,
+        EntityManagerInterface $em,
+        UtilisateursRepository $userrep
+    ) {
+        $u = $userrep->findOneBy([
+            'idUtilisateur' => $id,
+        ]);
+        
+    
+        if ($u) {
+            $em->remove($u);
+            $em->flush();
+        }
+        $this->addFlash('success', 'L\'utilisateur a été bien supprimé !');
+        return $this->redirectToRoute('app_user_admin');
     }
 }

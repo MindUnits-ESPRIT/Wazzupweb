@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * Evenement
  *
@@ -17,6 +18,7 @@ class Evenement
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer",name="ID_Event")
+     * @Groups("post:read")
      */
     private $id;
 
@@ -30,6 +32,7 @@ class Evenement
      *     maxMessage="Le nom de l'événement doit êter inférieur à 15",
      *     minMessage ="Le nom de l'événement doit être supérieur à 2"
      * )
+     * @Groups("post:read")
      */
     private $nomEvent;
 
@@ -41,6 +44,7 @@ class Evenement
      * @Assert\Length(max=2,
      *                maxMessage="Le nombre de participants ne dépasse passe pas les deux chiffres"
      * )
+     * @Groups("post:read")
      */
     private $nbrParticipants;
 
@@ -49,6 +53,7 @@ class Evenement
      *
      * @ORM\Column(name="Date_Event", type="string", length=50, nullable=false)
      * @Assert\LessThanOrEqual("today", message="Veuillez choisir une date convenable")
+     * @Groups("post:read")
      */
     private $dateEvent;
 
@@ -57,6 +62,7 @@ class Evenement
      *
      * @ORM\Column(name="Type_Event", type="string", length=0, nullable=false)
      * @Assert\NotBlank(message="Veuillez choisir le type de l'evenement")
+     * @Groups("post:read")
      */
     private $typeEvent;
 
@@ -65,6 +71,7 @@ class Evenement
      *
      * @ORM\Column(name="Event_Visibilite", type="string", length=0, nullable=false)
      * @Assert\NotBlank(message="Veuillez choisir la visivilité de l'evenement")
+     * @Groups("post:read")
      */
     private $eventVisibilite;
 
@@ -73,6 +80,7 @@ class Evenement
      *
      * @ORM\Column(name="Description", type="string", length=50, nullable=false)
      *@Assert\NotBlank(message="Veuillez ajouter une description de l'evenement")
+     * @Groups("post:read")
      */
     private $description;
 
@@ -81,7 +89,7 @@ class Evenement
      * @ORM\Column(name="Date_P", type="datetime", nullable=false)
      *  @Assert\DateTime(message="type invalid")
      * @var string A "Y-m-d H:i:s" formatted value,
-     *
+     *@Groups("post:read")
      *
      */
     private $dateP;

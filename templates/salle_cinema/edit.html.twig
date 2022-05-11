@@ -1,0 +1,15 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Edit SalleCinema{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_salle_cinema_index',{'event': event}) }}"class="btn btn-outline-primary" style="font-family: cursive;">Retour</a>
+
+    <center><h1 style="font-family: cursive;">Edit SalleCinema</h1>
+
+    {{ include('salle_cinema/_form.html.twig', {'button_label': 'Update'}) }}
+
+
+    {{ include('salle_cinema/_delete_form.html.twig') }}
+   </center>
+{% endblock %}

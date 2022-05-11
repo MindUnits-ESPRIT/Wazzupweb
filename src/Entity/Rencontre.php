@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity; 
 use App\Repository\RencontreRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * Rencontre
  *
@@ -16,6 +17,7 @@ class Rencontre
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer",name="ID_Ren")
+     * @Groups("post:read")
      */
     private $id;
 
@@ -24,6 +26,7 @@ class Rencontre
      *
      * @ORM\Column(name="Type_Rencontre", type="string", length=0, nullable=false)
      * @Assert\NotBlank(message="Veuillez ajouter le Type de la rencontre")
+     * @Groups("post:read")
      */
     private $typeRencontre;
 
@@ -31,8 +34,9 @@ class Rencontre
      * @var string
      *
      * @ORM\Column(name="URL_Invitation", type="string", length=50, nullable=false)
+     * @Groups("post:read")
      */
-    private $urlInvitation;
+    private $urlInvitation; 
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Evenement", inversedBy="rencontres")
@@ -81,5 +85,15 @@ class Rencontre
 
         return $this;
     }
+    public function getIdEvent(): ?Evenement
+    {
+        return $this->ID_Event;
+    }
 
+    public function setIdEvent(?Evenement $idEvent): self
+    {
+        $this->ID_Event = $idEvent;
+
+        return $this;
+    }
 }
