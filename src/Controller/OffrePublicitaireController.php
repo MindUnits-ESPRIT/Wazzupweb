@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 /**
  * @Route("/Offre")
  */
@@ -54,7 +55,6 @@ class OffrePublicitaireController extends AbstractController
             $offrePublicitaire->setnbrMaxOffre($R['nbrMaxOffre']) ;
             $offrePublicitaire->setIdUtilisateur($user);
             $entityManager->persist($offrePublicitaire);
-     
             $entityManager->flush();
 
 //            return $this->redirectToRoute('app_offre_publicitaire_index', [], Response::HTTP_SEE_OTHER);
@@ -126,7 +126,6 @@ class OffrePublicitaireController extends AbstractController
             $entityManager->remove($offrePublicitaire);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('app_offre_publicitaire_index', [
             'nom' => $user->getNom(),
             'prenom' => $user->getPrenom(),
@@ -135,4 +134,59 @@ class OffrePublicitaireController extends AbstractController
             'user' => $user,
         ], Response::HTTP_SEE_OTHER);
     }
+    /**
+     * @Route("/mobile/json", name="app_offre_publicitaire_index_mobile", methods={"GET"})
+     */
+    public function indexmobile(EntityManagerInterface $entityManager,SessionInterface $session,NormalizerInterface $Normalizer): Response
+    { 
+        
+        $user = $session->get('userdata');
+        $offrePublicitaires = $entityManager
+            ->getRepository(OffrePublicitaire::class)
+            ->findAll();
+                $jsonCentent=$Normalizer->normalize($offrePublicitaires,'json',['groups'=>'post:read']);
+                /*return $this->render('offre_publicitaire/indexJSON.html.twig', [
+            'offre_publicitaires' => $offrePublicitaires,
+            'nom' => $user->getNom(),
+            'prenom' => $user->getPrenom(),
+            'role' => $user->getTypeUser(),
+            'picture' => $user->getAvatar(),
+            'user' => $user,
+            'data'=>$jsonCentent,
+        ]); */
+        return new Response(json_encode($jsonCentent));
+    }
+
+     /**
+     * @Route("/new/mobile", name="app_offre_publicitaire_new_mobile", methods={"GET", "POST"})
+     */
+    public function newJSON(Request $request, EntityManagerInterface $entityManager,SessionInterface $session,NormalizerInterface $Normalizer): Response
+    { $user = $session->get('userdata');
+        $offrePublicitaire = new OffrePublicitaire();
+            $user=$entityManager->getRepository(Utilisateurs::class)->find($user);
+             $R2=$request->query->get('name');
+             $R1=$request->query->get('qte');
+            $offrePublicitaire->setnomOffre("Offre Premium");//BECH ITBADEL EL NAME LI 7ACHTEK BIHHHH
+            $offrePublicitaire->setcontenuOffre($R2);
+            $offrePublicitaire->setnbrMaxOffre($R1) ;
+            $offrePublicitaire->setIdUtilisateur($user);
+             $entityManager->persist($offrePublicitaire);
+            $entityManager->flush();
+            $jsonCentent=$Normalizer->normalize($offrePublicitaire,'json',['groups'=>'post:read']);
+            return new Response(json_encode($jsonCentent));
+
+    }
+    /**
+     * @Route("/{idOffre}/edit/mobile", name="app_offre_publicitaire_edit_mobile", methods={"GET", "POST"})
+     */
+    public function editJSON(Request $request, OffrePublicitaire $offrePublicitaire, EntityManagerInterface $entityManager,SessionInterface $session,NormalizerInterface $Normalizer): Response
+    { 
+        $user = $session->get('userdata');
+            $entityManager->flush();
+            $jsonCentent=$Normalizer->normalize($offrePublicitaire,'json',['groups'=>'post:read']);
+            return new Response(json_encode($jsonCentent));
+
+        }
+
+
 }

@@ -25,9 +25,9 @@ class AppInvoicePrintController extends AbstractController
             ])[0];
         $paiement = $this->getDoctrine()
             ->getRepository(Paiement::class)
-            ->findOneBy([], ['idPaiement' => 'DESC'], 1, 0);
+            ->findOneBy([], ['' => 'DESC'], 1, 0);
 
-        return $this->render('app_invoice_print/index.html.twig', [
+        return $this->render('app_invoice_pidPaiementrint/index.html.twig', [
             'controller_name' => 'AppInvoicePrintController',
             'nom' => $user->getNom(),
             'prenom' => $user->getPrenom(),
