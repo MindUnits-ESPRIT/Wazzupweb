@@ -140,6 +140,7 @@ class EditProfileController extends AbstractController
            
         return $this->render('edit_profile/index.html.twig', [
             'controller_name' => 'EditProfileController',
+
             'nom'=>$user->getNom(),
             'prenom'=>$user->getPrenom(),
             'email' => $user->getEmail(),
@@ -153,7 +154,7 @@ class EditProfileController extends AbstractController
             // 'pwd_form' => $form ->createView()
             'invalid_oldpw'=> $invalid_oldpw,
             'interets_dispo'=>$interets_dispo,
-            
+            'user'=>$user
             
         ]);
     }
