@@ -491,7 +491,7 @@ class SalleCollabController extends AbstractController
     }
 
     /**
-     * @Route("/affiP", name="affip" ,methods={"GET"})
+     * @Route("/affiP", name="affip" )
      */
     public function affip(
         Request $request,
@@ -500,13 +500,10 @@ class SalleCollabController extends AbstractController
         UtilisateursRepository $u,
         NormalizerInterface $normalizable
     ): Response {
-        $collab = $this->getDoctrine()
-            ->getRepository(SalleCollaboration::class)
-            ->find($request->get('idc'));
         $Projet = new Projet();
         $Projet = $this->getDoctrine()
             ->getRepository(Projet::class)
-            ->findOneBy(['idCollab' => $collab]);
+            ->findAll();
 
         $result = $Projet;
         $jsonContent = $normalizable->normalize($result, 'json', [

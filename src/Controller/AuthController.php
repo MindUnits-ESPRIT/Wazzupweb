@@ -276,7 +276,7 @@ class AuthController extends AbstractController
     public function ShowConnUser(
         Request $request,
         NormalizerInterface $normalizable,
-        UtilisateursRepository $userrepo,
+        UtilisateursRepository $userrepo
     ): Response //mail
     {    
         $user = $userrepo->findOneBy(['email' => $request->query->get('email')]);
