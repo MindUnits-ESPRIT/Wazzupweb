@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -19,7 +20,7 @@ class Publication
 {
     /**
      * @var int
-     *
+     * @Groups("post:read")
      * @ORM\Column(name="Id_Publication", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -34,6 +35,7 @@ class Publication
      *      minMessage ="écrivez plus que 2 lettres"
      *    )
      * @ORM\Column(name="Description", type="string", length=150, nullable=false)
+     * @Groups("post:read")
      * @Assert\NotBlank(message="Veuillez écrivez quelque chose !")
      *
      */
@@ -41,21 +43,21 @@ class Publication
 
     /**
      * @var string
-     *
+     * @Groups("post:read")
      * @ORM\Column(name="Fichier", type="string", length=150, nullable=true)
      */
     private $fichier;
 
     /**
      * @var string|null
-     *
+     * @Groups("post:read")
      * @ORM\Column(name="Visibilite", type="string", length=10, nullable=true)
      */
     private $visibilite = 'True';
 
     /**
      * @var int
-     *
+     * @Groups("post:read")
      * @ORM\Column(name="Priority", type="integer", nullable=false, options={"default"="1"})
      */
     private $priority = 1;
@@ -63,13 +65,14 @@ class Publication
     /**
      * @Assert\DateTime
      * @var \DateTime|null
+     * @Groups("post:read")
      * @ORM\Column(name="Date_Publication", type="datetime", nullable=false)
      */
     private $datePublication;
 
     /**
      * @var \Utilisateurs
-     *
+     * @Groups("post:read")
      * @ORM\ManyToOne(targetEntity="Utilisateurs")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Id_Utilisateur", referencedColumnName="ID_Utilisateur")
