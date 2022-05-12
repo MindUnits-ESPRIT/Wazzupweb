@@ -67,7 +67,7 @@ class SignupController extends AbstractController
              $user->setToken(sha1(uniqid()));
              $user->setActivated(false);
              
-             dd($user);
+             
             $entityManager->persist($user);
             $entityManager->flush();
             // L'envoi de token
