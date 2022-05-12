@@ -75,7 +75,7 @@ class AuthController extends AbstractController
                             
                             // $this->SendSMS("+21624664880",$code);
 
-                            $this->SendSMS("+21624664880", $code);
+                            $this->SendSMS($user->getFullNumber(), $code);
                         }
                     } else {
                         $wrongpw = true;
@@ -205,6 +205,7 @@ class AuthController extends AbstractController
         return $this->render('forgotpassword/index.html.twig', [
             'controller_name' => 'AuthController',
             'forgotpw_form' => $form->createView(),
+            
         ]);
     }
     /**
@@ -289,7 +290,7 @@ class AuthController extends AbstractController
  ////////////////////////////////////////////////
  ////////// RECUPERATION MOT DE PASSE API //////
      /**
-     * @Route("api/forgotpassword", name="forgotpassword", methods={"GET","POST"})
+     * @Route("api/forgotpassword", name="forgotpasswordmobile", methods={"GET","POST"})
      */
     public function forgotpwMobile(
         Request $request,
