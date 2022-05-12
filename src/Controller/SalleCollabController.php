@@ -441,7 +441,10 @@ class SalleCollabController extends AbstractController
         $collab = $this->getDoctrine()
             ->getRepository(SalleCollaboration::class)
             ->find($request->get('idc'));
-
+        $key = 'e0efb3bcbe6f5dbf936f8c2e883a9580';
+        $token =
+            '2a89c09006d3976b9bf7270130220a2af827e5fb1170cca94c0520b08ba08f8c';
+        $desc = 'example';
         $client = HttpClient::create();
         $response = $client->request(
             'POST',
@@ -450,8 +453,8 @@ class SalleCollabController extends AbstractController
                 // these values are automatically encoded before including them in the URL
                 'query' => [
                     'name' => $request->get('nom'),
-                    'key' => $request->get('key'),
-                    'token' => $request->get('token'),
+                    'key' => $key,
+                    'token' => $token,
                 ],
             ]
         );
@@ -467,31 +470,24 @@ class SalleCollabController extends AbstractController
             return new Response(json_encode($jsonContent));
         } else {
             $content = $response->toArray();
-
-            foreach ($content as $k => $v) {
-                if ($k == 'shortUrl') {
-                    $var = $v;
-                }
-            }
-
             $Projet = new Projet();
             $Projet->setIdCollab($collab);
             $Projet->setNomProjet($request->get('nom'));
-            $Projet->setDescriptionProjet($request->get('desc'));
-            $Projet->setUrlTrello($var);
+            $Projet->setDescriptionProjet($desc);
+            $Projet->setUrlTrello($content['shortUrl']);
             $entityManager->persist($Projet);
             $entityManager->flush();
         }
 
         $result = 'projet creer';
-        $jsonContent = $normalizable->normalize($result, 'json', [
+        $jsonContent = $normalizable->normalize($content['shortUrl'], 'json', [
             'groups' => 'post:read',
         ]);
         return new Response(json_encode($jsonContent));
     }
 
     /**
-     * @Route("/affiP", name="affip" ,methods={"GET"})
+     * @Route("/affiP", name="affip" )
      */
     public function affip(
         Request $request,
@@ -500,15 +496,35 @@ class SalleCollabController extends AbstractController
         UtilisateursRepository $u,
         NormalizerInterface $normalizable
     ): Response {
-        $collab = $this->getDoctrine()
-            ->getRepository(SalleCollaboration::class)
-            ->find($request->get('idc'));
         $Projet = new Projet();
         $Projet = $this->getDoctrine()
             ->getRepository(Projet::class)
-            ->findOneBy(['idCollab' => $collab]);
+            ->findAll();
 
         $result = $Projet;
+        $jsonContent = $normalizable->normalize($result, 'json', [
+            'groups' => 'post:read',
+        ]);
+        return new Response(json_encode($jsonContent));
+    }
+    /**
+     * @Route("/PrD", name="prjdel",methods={"POST"})
+     */
+    public function deleteMobileP(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        NormalizerInterface $normalizable
+    ): Response {
+        $Projet = $this->getDoctrine()
+            ->getRepository(projet::class)
+            ->findBy([
+                'nomProjet' => $request->get('nom'),
+            ])[0];
+
+        $entityManager->remove($Projet);
+        $entityManager->flush();
+
+        $result = 'suppression terminer';
         $jsonContent = $normalizable->normalize($result, 'json', [
             'groups' => 'post:read',
         ]);

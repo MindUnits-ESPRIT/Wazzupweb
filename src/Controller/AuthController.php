@@ -71,8 +71,8 @@ class AuthController extends AbstractController
                             if ($session->get('validotp')) {
                                 sleep(3000 / 1000);
                                 return $this->redirectToRoute('app_admin');
-                           }
-                            
+                            }
+
                             // $this->SendSMS("+21624664880",$code);
 
                             $this->SendSMS($user->getFullNumber(), $code);
@@ -217,9 +217,9 @@ class AuthController extends AbstractController
         $this->addFlash('success', 'Vous avez été déconnecté avec succès. !');
         return $this->redirectToRoute('app_auth');
     }
-//////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////// Mobile API /////////////////////////////////////////////
-    /// Authentification // 
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////// Mobile API /////////////////////////////////////////////
+    /// Authentification //
     /**
      * @Route("api/mobile-auth", name="app_mobileauth", methods={"GET","POST"})
      */
@@ -228,16 +228,16 @@ class AuthController extends AbstractController
         NormalizerInterface $normalizable,
         UtilisateursRepository $userrepo,
         UserPasswordEncoderInterface $encoder
-        
-    ): Response //mail
-    {    
-        $result=-1;
+    ): Response {
+        //mail
+        //mail
+        $result = -1;
         $email = $request->query->get('email');
         $password = $request->query->get('mdp');
-        
+
         if ($this->EmailExists($email, $request, $userrepo)) {
             $emailexist = true;
-           
+
             $user = $userrepo->findOneBy(['email' => $email]);
             $isActivated = $user->getActivated();
             $PasswordCheck = $encoder->isPasswordValid($user, $password);
@@ -246,31 +246,32 @@ class AuthController extends AbstractController
             if ($isActivated) {
                 if ($PasswordCheck) {
                     if ($user->getTypeUser() == 'User') {
-                    $result=1;
-                    new Response("User identified");
+                        $result = 1;
+                        new Response('User identified');
                     } elseif ($user->getTypeUser() == 'Admin') {
-                        $result=2;
-                    new Response("Admin identified");
+                        $result = 2;
+                        new Response('Admin identified');
                     }
                 } else {
-                    $result=0;
+                    $result = 0;
                 }
             } else {
                 $activated = true;
-                $result=-2;
+                $result = -2;
             }
         } else {
             $login = false;
             $emailexist = false;
-            $result=-3;
+            $result = -3;
         }
-    
 
-        $jsonContent=$normalizable->normalize($result,'json',['groups'=>'authmobile']);
+        $jsonContent = $normalizable->normalize($result, 'json', [
+            'groups' => 'authmobile',
+        ]);
         return new Response(json_encode($jsonContent));
     }
-////////////////////////////////////////
-    /// GET CONNECTED USER DATA // 
+    ////////////////////////////////////////
+    /// GET CONNECTED USER DATA //
     /**
      * @Route("api/getuser", name="app_getconuser", methods={"GET","POST"})
      */
@@ -278,12 +279,17 @@ class AuthController extends AbstractController
         Request $request,
         NormalizerInterface $normalizable,
         UtilisateursRepository $userrepo
-    ): Response //mail
-    {    
-        $user = $userrepo->findOneBy(['email' => $request->query->get('email')]);
+    ): Response {
+        //mail
+        //mail
+        $user = $userrepo->findOneBy([
+            'email' => $request->query->get('email'),
+        ]);
 
-        $jsonContent=$normalizable->normalize($user,'json',['groups'=>'getusergrp']);
-       
+        $jsonContent = $normalizable->normalize($user, 'json', [
+            'groups' => 'getusergrp',
+        ]);
+
         return new Response(json_encode($jsonContent));
     }
 
@@ -299,14 +305,13 @@ class AuthController extends AbstractController
         EntityManagerInterface $entityManager,
         UtilisateursRepository $userrepo,
         UserPasswordEncoderInterface $encoder
-        ):Response
-        {
-            $email_recuperation=$request->query->get('email');
-            $user = $userrepo->findOneBy(['email' => $email_recuperation]);
-            $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
-            $newpass = substr(str_shuffle($permitted_chars), 0, 7);
-            $hashedpw = $encoder->encodePassword($user, $newpass);
-            if ($user){
+    ): Response {
+        $email_recuperation = $request->query->get('email');
+        $user = $userrepo->findOneBy(['email' => $email_recuperation]);
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $newpass = substr(str_shuffle($permitted_chars), 0, 7);
+        $hashedpw = $encoder->encodePassword($user, $newpass);
+        if ($user) {
             $user->setMdp($hashedpw);
             $entityManager->persist($user);
             $entityManager->flush();
@@ -321,17 +326,13 @@ class AuthController extends AbstractController
                     'code' => $newpass,
                 ]);
             $mailer->send($email);
-            $recuperation=true;
+            $recuperation = true;
+        } else {
+            $recuperation = false;
         }
-        else {
-            $recuperation=false;
-        }
-            $jsonContent=$normalizable->normalize($recuperation,'json',['groups'=>'forgotpasswordmobile']);
-            return new Response(json_encode($jsonContent));
-        }
-
-
-
-
+        $jsonContent = $normalizable->normalize($recuperation, 'json', [
+            'groups' => 'forgotpasswordmobile',
+        ]);
+        return new Response(json_encode($jsonContent));
+    }
 }
-
