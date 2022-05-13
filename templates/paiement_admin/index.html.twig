@@ -17,7 +17,8 @@
 	<!-- Layout styles -->
 	<link
 	rel="stylesheet" href="{{ asset('UIAdmin/assets/css/style.css') }}"> <!-- End layout styles -->
-<link rel="shortcut icon" href="{{ asset('login/img/favicon.ico') }}">
+	<link
+	rel="shortcut icon" href="{{ asset('UIAdmin/assets/images/favicon.png') }}"/>
 
 
 	<!-- BEGIN: Vendor CSS-->
@@ -40,20 +41,107 @@
 	<!-- BEGIN: Custom CSS-->
 <link
 	rel="stylesheet" type="text/css" href="{{asset('dashboard/assets/css/style.css')}}"> <!-- END: Custom CSS-->
-			<script src="{{ asset('login/js/Jquery.js') }}"></script>
 
-<style>
-.sidebar {
-    position: relative;
-    height: 100%;
-}
-</style>
+
 </head>
 <body>
 	<div
 		class="container-scroller">
 		<!-- partial:partials/_sidebar.html -->
-			{% include 'UIAdmin/sidebar.html.twig' %}
+		<nav class="sidebar sidebar-offcanvas" id="sidebar" style="max-width:200px;height:800px">
+			<div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+				<a class="sidebar-brand brand-logo" href="index.html"><img src="{{ asset('UIAdmin/assets/images/logo.svg') }}" alt="logo"/></a>
+				<a class="sidebar-brand brand-logo-mini" href="index.html"><img src="{{ asset('UIAdmin/assets/images/logo-mini.svg') }}" alt="logo"/></a>
+			</div>
+			<ul class="nav">
+				<li class="nav-item profile">
+					<div class="profile-desc">
+						<div class="profile-pic">
+							<div class="count-indicator">
+								<img class="img-xs rounded-circle " src="{{picture}}" alt="">
+								<span class="count bg-success"></span>
+							</div>
+							<div class="profile-name">
+								<h5 class="mb-0 font-weight-normal">{{prenom}}
+									{{nom}}</h5>
+								<span>Admin</span>
+							</div>
+						</div>
+						<div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
+							<a href="#" class="dropdown-item preview-item">
+								<div class="preview-thumbnail">
+									<div class="preview-icon bg-dark rounded-circle">
+										<i class="mdi mdi-settings text-primary"></i>
+									</div>
+								</div>
+								<div class="preview-item-content">
+									<p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
+								</div>
+							</a>
+							<div class="dropdown-divider"></div>
+							<a href="#" class="dropdown-item preview-item">
+								<div class="preview-thumbnail">
+									<div class="preview-icon bg-dark rounded-circle">
+										<i class="mdi mdi-onepassword  text-info"></i>
+									</div>
+								</div>
+								<div class="preview-item-content">
+									<p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
+								</div>
+							</a>
+							<div class="dropdown-divider"></div>
+							<a href="#" class="dropdown-item preview-item">
+								<div class="preview-thumbnail">
+									<div class="preview-icon bg-dark rounded-circle">
+										<i class="mdi mdi-calendar-today text-success"></i>
+									</div>
+								</div>
+								<div class="preview-item-content">
+									<p class="preview-subject ellipsis mb-1 text-small">To-do list</p>
+								</div>
+							</a>
+						</div>
+					</div>
+				</li>
+				<li class="nav-item nav-category">
+					<span class="nav-link">Navigation</span>
+				</li>
+				<li class="nav-item menu-items">
+					<a class="nav-link" href="index.html">
+						<span class="menu-icon">
+							<i class="mdi mdi-speedometer"></i>
+						</span>
+						<span class="menu-title">Dashboard</span>
+					</a>
+				</li>
+				<li class="nav-item menu-items">
+					<a class="nav-link" href="{{ path('app_user_admin') }}">
+						<span class="menu-icon">
+							<i class="mdi mdi-speedometer"></i>
+						</span>
+						<span class="menu-title">Utilisateurs</span>
+					</a>
+				</li>
+				<li class="nav-item menu-items">
+					<a class="nav-link" href="{{ path('app_collab_admin') }}">
+						<span class="menu-icon">
+							<i class="mdi mdi-speedometer"></i>
+						</span>
+						<span class="menu-title">Collaborations</span>
+					</a>
+				</li>
+                <li class="nav-item menu-items">
+					<a class="nav-link" href="{{ path('app_paiement_admin') }}">
+						<span class="menu-icon">
+							<i class="mdi mdi-speedometer"></i>
+						</span>
+						<span class="menu-title">OffrePublicitaires</span>
+					</a>
+				</li>
+
+
+			</ul>
+		</nav>
 		<!-- partial -->
 		<div
 			class="container-fluid page-body-wrapper">
@@ -267,88 +355,83 @@
 			<br><br><br><br>
 
 			<!-- Basic Tables start -->
-		
 			<div class="row" id="basic-table" style="margin-top:8%;width:100%">
 				<div class="col-12">
-					{% for msg in app.session.flashBag.get('success') %}
-					<div style="padding:12px" class="alert alert-success">
-						{{ msg }}
-					</div>
-					{% endfor %}
-					<script>
-						$(document).ready(function () {
-                   $(".alert-success").delay(3000).slideUp(300);
-                         });
-					</script>
 					<div class="card">
 						<div class="card-header">
-							<h4 class="card-title" style="color:black">Utilisateurs</h4>
-							
+							<h4 class="card-title" style="color:black">OffrePublicitaires</h4>
 						</div>
 						<div class="card-body"></div>
 						<div class="table-responsive">
 							<table class="table">
 								<thead>
-									<tr></tr>
 									<tr>
-										<th>Utilisateur</th>
-										<th>Email</th>
-										<th>Activé</th>
-										<th>Action</th>
+										<th>IdOffre</th>
+										<th>NomOffre</th>
+										<th>ContenuOffre</th>
+										<th>Nbr des jrs</th>
+
 									</tr>
 								</thead>
-							</tr>
-						</thead>
-						<tbody>
-							{% for c in users %}
-								{% if c.typeUser == 'User' %}
-									<tr>
-										<td>
-											<img src="{{c.getAvatar()}}" class="mr-75" height="20" width="20" alt="Angular"/>
-											<span class="font-weight-bold">{{c.prenom}}
-												{{c.nom}}</span>
-										</td>
-										<td><span class="badge badge-pill badge-primary">{{c.email}}</span></td>
+								<tbody>
+									{% for c in offre_publicitaire  %}
+										<tr>
+											<td>
+												<img src="{{c.idUtilisateur.getAvatar()}}" class="mr-75" height="20" width="20" alt="Angular"/>
+												<span class="font-weight-bold">{{c.idUtilisateur.prenom}}
+													{{c.idUtilisateur.nom}}</span>
+											</td>
+											<td>{{c.nomOffre}}</td>
 
-										<td>
-										{% if c.activated == true  %}
-											<span class="badge badge-pill badge-success">Activé</span>
-										{% else %}
-											<span class="badge badge-pill badge-danger">Innactif</span>
-                                        {% endif %}
-										</td>
-										<td>
-											<div class="dropdown">
-												<button type="button" class="btn btn-sm- dropdown-toggle hide-arrow" data-toggle="dropdown">
-													<i class="mdi mdi-account-edit"></i>
-												</button>
-												<div class="dropdown-menu">
-												{% if c.activated == false  %}
-													<a class="dropdown-item" href="{{ path('admin_useractivate',{'id':c.idUtilisateur} )}}">
-														<i class="mdi mdi-check"></i>
-														<span>activer compte</span>
-													</a>
-														{% endif %}
-													<a class="dropdown-item" href="{{ path('admin_userdelete',{'id':c.idUtilisateur} )}}">
-														<i class="mdi mdi-delete"></i>
-                                                         
-														<span>Supprimer</span>
-													</a>
+											<td>
+												<span class="badge badge-pill badge-light-primary mr-1">{{c.contenuOffre}}</span>
+											</td>
+											<td>
+                                            {{c.nbrMaxOffre}}
+												{# <div class="dropdown">
+													<button type="button" class="btn btn-sm- dropdown-toggle hide-arrow" data-toggle="dropdown">
+														<i data-feather="more-vertical" style="color:green">...</i>
+													</button> #}
+{# 													<div class="dropdown-menu">
+														<a class="dropdown-item" href="javascript:void(0);">
+															<i data-feather="edit-2" class="mr-50"></i>
+															<span>Edit</span>
+														</a>
+														<a class="dropdown-item" href="javascript:void(0);">
+															<i data-feather="trash" class="mr-50"></i>
+															<span>Delete</span>
+														</a>
+													</div> #}
 												</div>
-											</div>
-										</td>
-									</tr>
-								{% endif %}
-							{% endfor %}
-						</tbody>
-					</table>
+											</td>
+										</tr>
+									{% endfor %}
+
+
+								</tbody>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
+		<!-- Basic Tables end -->
+
+
+		<!-- main-panel ends -->
 	</div>
-	<!-- Basic Tables end -->
-	<!-- main-panel ends -->
-</body></div><!-- page-body-wrapper ends --></div><!-- container-scroller --><button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button><!-- END: Footer--><!-- BEGIN: Vendor JS--><script src="dashboard/app-assets/vendors/js/vendors.min.js"></script><!-- BEGIN Vendor JS--><!-- BEGIN: Page Vendor JS--><!-- END: Page Vendor JS--><!-- BEGIN: Theme JS--><script src="dashboard/app-assets/js/core/app-menu.js"> </script><script src="dashboard/app-assets/js/core/app.js"></script><!-- END: Theme JS--><!-- BEGIN: Page JS--><!-- END: Page JS--><script>
+	<!-- page-body-wrapper ends -->
+</body></div><!-- container-scroller --><footer class="footer footer-static footer-light">
+<p class="clearfix mb-0">
+	<span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2021<a class="ml-25" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent</a>
+		<span class="d-none d-sm-inline-block">, All rights Reserved</span>
+	</span>
+	<span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i data-feather="heart"></i>
+	</span>
+</p></footer><button class="btn btn-primary btn-icon scroll-top" type="button">
+<i data-feather="arrow-up"></i></button><!-- END: Footer--><!-- BEGIN: Vendor JS--><script src="dashboard/app-assets/vendors/js/vendors.min.js"></script><!-- BEGIN Vendor JS--><!-- BEGIN: Page Vendor JS--><!-- END: Page Vendor JS--><!-- BEGIN: Theme JS--><script src="dashboard/app-assets/js/core/app-menu.js"> </script><script src="dashboard/app-assets/js/core/app.js"></script><!-- END: Theme JS--><!-- BEGIN: Page JS--><!-- END: Page JS-->
+
+<script>
 $(window).on('load', function () {
 if (feather) {
 feather.replace({width: 14, height: 14});
