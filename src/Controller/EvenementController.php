@@ -21,7 +21,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class EvenementController extends AbstractController
 {
     /**
-     * @Route("/list/json/{user}", name="app_evenement_json", methods={"GET"})
+     * @Route("/list/json/{user}", name="app_evenement_json", methods={"Post"})
      */
    public function index_json(EntityManagerInterface $entityManager, Utilisateurs $user, PaginatorInterface $paginator,Request $request,NormalizerInterface $Normalizer): Response
    {
@@ -35,6 +35,51 @@ class EvenementController extends AbstractController
        $jsonContent = $Normalizer->normalize($evenements,'json',['groups'=>'post:read']);
        return new Response(json_encode($jsonContent));
    }
+    /**
+     * @Route("/new/json", name="app_evenement_new_json", methods={"GET", "POST"})
+     */
+    public function new_json(Request $request, EntityManagerInterface $entityManager,NormalizerInterface $Normalizer): Response
+    {
+     //   $user=$request->getSession()->get('userdata');
+        $evenement = new Evenement();
+
+            $evenement->setDateP(new \DateTime());
+            $evenement->setNomEvent($request->query->get('nom'));
+            $evenement->setNbrParticipants($request->query->get('nbr'));
+            $evenement->setDateEvent($request->query->get('date'));
+            $evenement->setTypeEvent($request->query->get('type'));
+            $evenement->setEventVisibilite($request->query->get('event'));
+            $evenement->setDescription($request->query->get('desc'));
+          //  $evenement->setIdUtilisateur($entityManager->getRepository(Utilisateurs::class)->find($user->getIdUtilisateur()));
+          $evenement->setIdUtilisateur($entityManager->getRepository(Utilisateurs::class)->find(60));
+            $entityManager->persist($evenement);
+            $entityManager->flush(); 
+
+        
+
+        $jsonContent = $Normalizer->normalize($evenement,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+    /**
+     * @Route("/edit/json/{id}", name="app_evenement_edit_json", methods={"GET", "POST"})
+     */
+    public function edit_json($id,Request $request, EntityManagerInterface $entityManager,NormalizerInterface $Normalizer): Response
+    {
+        //$user=$request->getSession()->get('userdata');
+        $evenement = new Evenement();
+        $evenement=$entityManager->getRepository(Evenement::class)->find($id);
+        $evenement->setNomEvent($request->query->get('nom'));
+        $evenement->setNbrParticipants($request->query->get('nbr'));
+        $evenement->setDateEvent($request->query->get('date'));
+        $evenement->setTypeEvent($request->query->get('type'));
+        $evenement->setEventVisibilite($request->query->get('event'));
+        $evenement->setDescription($request->query->get('desc'));
+            $entityManager->flush();
+
+            $jsonContent = $Normalizer->normalize($evenement,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+        
+    }
     /**
      * @Route("/eventlist/Json/{user}", name="app_evenement_list_calendar_data")
      */
@@ -198,5 +243,43 @@ class EvenementController extends AbstractController
     }
 
 
+  /**
+     * @Route("/delete/json/{evenement}", name="app_evenement_deletejson", methods={"GET", "POST"})
+     */
+    public function deletejson(Request $request, Evenement $evenement, EntityManagerInterface $entityManager,NormalizerInterface $Normalizer): Response
+    {
+        $user=$request->getSession()->get('userdata');
 
+            $salles=$entityManager->getRepository(SalleCinema::class)->findBy(['ID_Event'=> $evenement->getId()]);
+            $rencontres=$entityManager->getRepository(Rencontre::class)->findBy(['ID_Event'=> $evenement->getId()]);
+            foreach ($salles as $salle) {
+
+                $entityManager->remove($salle);
+                $entityManager->flush();
+            }
+            foreach ($rencontres as $rencontre){
+                $entityManager->remove($rencontre);
+                $entityManager->flush();
+            }
+            $entityManager->remove($evenement);
+            $entityManager->flush();
+        
+
+        $jsonContent = $Normalizer->normalize($evenement,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+        /**
+     * @Route("/listid/json/{id}", name="app_evenement_jsonid", methods={"Post","GET"})
+     */
+   public function index_jsonid(EntityManagerInterface $entityManager,$id,Request $request,NormalizerInterface $Normalizer): Response
+   {
+       $evenements = $entityManager
+        ->getRepository(Evenement::class)
+        ->findby(['id'=>$id],['dateEvent' => 'DESC']
+
+        );
+       $jsonContent = $Normalizer->normalize($evenements,'json',['groups'=>'post:read']);
+       return new Response(json_encode($jsonContent));
+   }
 }
