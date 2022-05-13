@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\OffrePublicitaire;
 use App\Entity\Utilisateurs;
+use App\Entity\Paiement;
 use App\Form\OffrePublicitaireType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -158,35 +159,65 @@ class OffrePublicitaireController extends AbstractController
     }
 
      /**
-     * @Route("/new/mobile", name="app_offre_publicitaire_new_mobile", methods={"GET", "POST"})
+     * @Route("/new/mobile/{userid}", name="app_offre_publicitaire_new_mobile", methods={"GET", "POST"})
      */
-    public function newJSON(Request $request, EntityManagerInterface $entityManager,SessionInterface $session,NormalizerInterface $Normalizer): Response
-    { $user = $session->get('userdata');
+    public function newJSON(Request $request,$userid, EntityManagerInterface $entityManager,SessionInterface $session,NormalizerInterface $Normalizer): Response
+    {  
+      //  $user = $session->get('userdata');
+        $paiement = new Paiement();
+        $user=$entityManager->getRepository(Utilisateurs::class)->find($userid);
+        $R2=$request->query->get('prix');
+        $R1=$request->query->get('methodePaiement');
+        $paiement->setPrix($R2);
+        $paiement->setMethodePaiement($R1) ;
         $offrePublicitaire = new OffrePublicitaire();
-            $user=$entityManager->getRepository(Utilisateurs::class)->find($user);
-             $R2=$request->query->get('name');
+             $R2=$request->query->get('contenu');
              $R1=$request->query->get('qte');
             $offrePublicitaire->setnomOffre("Offre Premium");//BECH ITBADEL EL NAME LI 7ACHTEK BIHHHH
             $offrePublicitaire->setcontenuOffre($R2);
             $offrePublicitaire->setnbrMaxOffre($R1) ;
             $offrePublicitaire->setIdUtilisateur($user);
+            $entityManager->persist($paiement);
              $entityManager->persist($offrePublicitaire);
             $entityManager->flush();
             $jsonCentent=$Normalizer->normalize($offrePublicitaire,'json',['groups'=>'post:read']);
             return new Response(json_encode($jsonCentent));
 
     }
+
     /**
      * @Route("/{idOffre}/edit/mobile", name="app_offre_publicitaire_edit_mobile", methods={"GET", "POST"})
      */
-    public function editJSON(Request $request, OffrePublicitaire $offrePublicitaire, EntityManagerInterface $entityManager,SessionInterface $session,NormalizerInterface $Normalizer): Response
+    public function editJSON($idOffre ,Request $request, EntityManagerInterface $entityManager,SessionInterface $session,NormalizerInterface $Normalizer): Response
     { 
-        $user = $session->get('userdata');
+
+        $offrePublicitaire = new OffrePublicitaire();
+        $R2=$request->query->get('name');
+        $R1=$request->query->get('qte');
+        $offrePublicitaire->setnomOffre("Offre Premium");//BECH ITBADEL EL NAME LI 7ACHTEK BIHHHH
+        $offrePublicitaire->setcontenuOffre($R2);
+        $offrePublicitaire->setnbrMaxOffre($R1) ;
+        $entityManager->flush();
+            $jsonCentent=$Normalizer->normalize($offrePublicitaire,'json',['groups'=>'post:read']);
+            return new Response(json_encode($jsonCentent));
+        }
+
+     /**
+     * @Route("/{idOffre}/delete/mobile", name="app_offre_publicitaire_delete_mobile", methods={"POST","GET"})
+     */
+    public function deleteJSON(Request $request,$idOffre, EntityManagerInterface $entityManager,SessionInterface $session,NormalizerInterface $Normalizer): Response
+    { 
+        //$user = $session->get('userdata');
+            $offrePublicitaire=$entityManager
+            ->getRepository(OffrePublicitaire::class)
+            ->find($idOffre);
+            $entityManager->remove($offrePublicitaire);
             $entityManager->flush();
             $jsonCentent=$Normalizer->normalize($offrePublicitaire,'json',['groups'=>'post:read']);
             return new Response(json_encode($jsonCentent));
-
-        }
+        
+        
+    }
 
 
 }

@@ -3,6 +3,7 @@
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * OffrePublicitaire
@@ -14,7 +15,7 @@ class OffrePublicitaire
 {
     /**
      * @var int
-     *
+     * @Groups("post:read")
      * @ORM\Column(name="id_offre", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -24,7 +25,7 @@ class OffrePublicitaire
     /**
      * @Assert\NotBlank(message="nomOffre doit etre non vide")
      * @var string|null
-     *
+     * @Groups("post:read")
      * @ORM\Column(name="nom_offre", type="string", length=30, nullable=true)
      */
     private $nomOffre;
@@ -33,6 +34,7 @@ class OffrePublicitaire
      * @var string|null
      *@Assert\NotBlank(message="ContenuOffre doit etre non vide")
      * @ORM\Column(name="contenu_offre", type="text", length=65535, nullable=true)
+     * @Groups("post:read")
      */
     private $contenuOffre;
 
@@ -40,11 +42,12 @@ class OffrePublicitaire
      * @var int|null
      *@Assert\NotBlank(message="Durée doit etre non vide")
      * @ORM\Column(name="nbr_max_offre", type="integer", nullable=true)
+     * @Groups("post:read")
      */
     private $nbrMaxOffre;
 
     /**
-     *
+     *@Groups("post:read")
      * @var \Utilisateurs
      *
      *@Assert\NotBlank
