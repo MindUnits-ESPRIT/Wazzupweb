@@ -134,4 +134,22 @@ class PaiementController extends AbstractController
         ], Response::HTTP_SEE_OTHER);
     }
 
+       /**
+     * @Route("/new/mobile", name="app_paiement_new_mobile", methods={"GET", "POST"})
+     */
+    public function newPJSON(Request $request, EntityManagerInterface $entityManager,SessionInterface $session): Response
+    {   
+       /*  $user = $session->get('userdata'); */
+            $paiement = new Paiement();
+            $user=$entityManager->getRepository(Utilisateurs::class)->find(59);
+            $R2=$request->query->get('prix');
+            $R1=$request->query->get('methodePaiement');
+            $paiement->setPrix($R2);
+            $paiement->setMethodePaiement($R1) ;
+            $entityManager->persist($paiement);
+            $entityManager->flush();
+
+        
+    }
+
 }
