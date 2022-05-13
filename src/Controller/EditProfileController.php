@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -204,4 +205,41 @@ public function AddInt($values,Request $request,SessionInterface $session,Entity
         return $this->redirectToRoute('app_edit_profile', [
         ]);
     }
+    //////////////////////////// MOBILE API /////////////////////////////////////
+     /**
+     * @Route("api/users/edit", name="app_mobile_edit", methods={"POST","GET"})
+     */
+    public function MobileEditUser(Request $request, EntityManagerInterface $em,NormalizerInterface $normalizable,UtilisateursRepository $userrepo): Response
+    {
+    // Remplissage des champs
+    $user = $userrepo->findOneBy(['email' => $request->get('email')]);
+    $user->setNom($request->get('nom'));
+    $user->setPrenom($request->get('prenom'));
+    $user->setEmail($request->get('email'));
+    $user->setFullNumber($request->get('full_number'));
+    $user->setGenre($request->get('genre'));
+    $date = $request->get('datenaissance');
+    $formatedate = date("m/d/Y", strtotime($date));
+    $user->setDB($formatedate);
+    // La mise à jour de la session
+    $em->flush();
+    $jsonContent=$normalizable->normalize($edited,'json',['groups'=>'EditMobile']);
+    return new Response(json_encode($jsonContent));
+}
+
+ /**
+     * @Route("api/users/edit/passwordcheck", name="app_mobile_pwcheck", methods={"POST","GET"})
+     */
+    public function MobileVerifyPassword(Request $request, EntityManagerInterface $em,NormalizerInterface $normalizable,UtilisateursRepository $userrepo,UserPasswordEncoderInterface $encoder): Response
+    {
+$user = $userrepo->findOneBy(['email' => $request->get('email')]);
+$PasswordCheck=$encoder->isPasswordValid($user, $request->get('mdp'));
+if ($PasswordCheck){
+    $valid=true;
+}else{
+    $valid=false;
+}
+$jsonContent=$normalizable->normalize($valid,'json',['groups'=>'EditMobileVerifyPw']);
+return new Response(json_encode($jsonContent));
+}
 }

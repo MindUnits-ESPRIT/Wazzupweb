@@ -51,7 +51,7 @@ class Utilisateurs implements UserInterface
      * @Assert\NotBlank(message="Veuillez insérer votre nom",
      *     groups={"registration","Editprofile_general","registermobile"},
      * )
-     * @Groups("getusergrp")
+     * @Groups("getusergrp","EditMobile")
      * @Groups("post:read")
      */
     private $nom;
@@ -63,7 +63,7 @@ class Utilisateurs implements UserInterface
      * @Assert\NotBlank(message="Veuillez insérer votre Prenom",
      *     groups={"registration","Editprofile_general","registermobile"},
      * )
-     * @Groups("getusergrp")
+     * @Groups("getusergrp","EditMobile")
      * @Groups("post:read")
      */
     private $prenom;
@@ -75,7 +75,7 @@ class Utilisateurs implements UserInterface
      * @Assert\NotBlank(message="Veuillez insérer votre date de naissance ",
      *     groups={"registration","registermobile","getusergrp"},
      * )
-     * @Groups("getusergrp","mobileregverifdb")
+     * @Groups("getusergrp","mobileregverifdb","EditMobile")
      * @Groups("post:read")
      */
     private $datenaissance;
@@ -85,7 +85,7 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="genre", type="string", length=0, nullable=true)
      * groups={"registermobile","getusergrp"},
-     * @Groups("getusergrp")
+     * @Groups("getusergrp","EditMobile")
      * @Groups("post:read")
      */
     private $genre;
@@ -97,7 +97,7 @@ class Utilisateurs implements UserInterface
      * @Assert\NotBlank(message="Veuillez insérer votre numero de telephone ",
      *     groups={"registration","registermobile","getusergrp"},
      * )
-     * @Groups("getusergrp")
+     * @Groups("getusergrp","EditMobile")
      */
     private $full_number;
 
@@ -112,7 +112,7 @@ class Utilisateurs implements UserInterface
      *     message = "Votre email '{{ value }}' n'est pas un email valide.",
      *     groups={"registration","Editprofile_general"},
      * )
-     * @Groups("getusergrp","registermobile","authmobile","mobileregverif","forgotpasswordmobile")
+     * @Groups("getusergrp","registermobile","authmobile","mobileregverif","forgotpasswordmobile","EditMobile")
      */
     private $email;
 
@@ -134,7 +134,7 @@ class Utilisateurs implements UserInterface
      * @Assert\NotCompromisedPassword(message="Veuillez choisir un mot de passe plus fort", groups={"registration","Editprofile_pwd"}))
      * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*\d).{6,}$/i", message="Votre mot de passe doit comporter au moins 6 caractères et inclure au moins une lettre et un chiffre.", groups={"registration","Editprofile_pwd"})
      * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe ne correspond pas a votre confirmation", groups={"registration","Editprofile_pwd"})
-     * @Groups("getusergrp")
+     * @Groups("getusergrp","EditMobileVerifyPw")
      * @Groups("post:read")
      */
     private $mdp;
