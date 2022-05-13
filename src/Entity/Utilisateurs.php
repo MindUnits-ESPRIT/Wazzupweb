@@ -12,9 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
-
-
 /**
  * Utilisateurs
  *
@@ -36,12 +33,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 class Utilisateurs implements UserInterface
 {
-
-
     /**
      * @var int
      * @Groups("post:read")
      * @ORM\Column(name="ID_Utilisateur", type="integer", nullable=false)
+     * @Groups("getusergrp")
+     * @Groups("post:read")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -52,9 +49,9 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="nom", type="string", length=30)
      * @Assert\NotBlank(message="Veuillez insérer votre nom",
-    *     groups={"registration","Editprofile_general","registermobile"},
-    * )
-     * @Groups("getusergrp")
+     *     groups={"registration","Editprofile_general","registermobile"},
+     * )
+     * @Groups("getusergrp","EditMobile")
      * @Groups("post:read")
      */
     private $nom;
@@ -63,12 +60,12 @@ class Utilisateurs implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="prenom", type="string", length=30)
-    * @Assert\NotBlank(message="Veuillez insérer votre Prenom",
-    *     groups={"registration","Editprofile_general","registermobile"},
-    * )  
-    * @Groups("getusergrp")
+     * @Assert\NotBlank(message="Veuillez insérer votre Prenom",
+     *     groups={"registration","Editprofile_general","registermobile"},
+     * )
+     * @Groups("getusergrp","EditMobile")
      * @Groups("post:read")
-      */
+     */
     private $prenom;
 
     /**
@@ -76,9 +73,9 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="datenaissance", type="string", length=30, nullable=true)
      * @Assert\NotBlank(message="Veuillez insérer votre date de naissance ",
-    *     groups={"registration","registermobile","getusergrp"},
+     *     groups={"registration","registermobile","getusergrp"},
      * )
-    * @Groups("getusergrp","mobileregverifdb")
+     * @Groups("getusergrp","mobileregverifdb","EditMobile")
      * @Groups("post:read")
      */
     private $datenaissance;
@@ -88,7 +85,7 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="genre", type="string", length=0, nullable=true)
      * groups={"registermobile","getusergrp"},
-    * @Groups("getusergrp")
+     * @Groups("getusergrp","EditMobile")
      * @Groups("post:read")
      */
     private $genre;
@@ -98,9 +95,9 @@ class Utilisateurs implements UserInterface
      *
      * @ORM\Column(name="num_tel", type="string", length=13, nullable=false)
      * @Assert\NotBlank(message="Veuillez insérer votre numero de telephone ",
-    *     groups={"registration","registermobile","getusergrp"},
+     *     groups={"registration","registermobile","getusergrp"},
      * )
-     * @Groups("getusergrp")
+     * @Groups("getusergrp","EditMobile")
      */
     private $full_number;
 
@@ -115,7 +112,7 @@ class Utilisateurs implements UserInterface
      *     message = "Votre email '{{ value }}' n'est pas un email valide.",
      *     groups={"registration","Editprofile_general"},
      * )
-     * @Groups("getusergrp","registermobile","authmobile","mobileregverif","forgotpasswordmobile")
+     * @Groups("getusergrp","registermobile","authmobile","mobileregverif","forgotpasswordmobile","EditMobile")
      */
     private $email;
 
@@ -137,8 +134,8 @@ class Utilisateurs implements UserInterface
      * @Assert\NotCompromisedPassword(message="Veuillez choisir un mot de passe plus fort", groups={"registration","Editprofile_pwd"}))
      * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*\d).{6,}$/i", message="Votre mot de passe doit comporter au moins 6 caractères et inclure au moins une lettre et un chiffre.", groups={"registration","Editprofile_pwd"})
      * @Assert\EqualTo(propertyPath="mdpconfirm",message="Votre mot de passe ne correspond pas a votre confirmation", groups={"registration","Editprofile_pwd"})
-     * @Groups("getusergrp")
-    * @Groups("post:read")
+     * @Groups("getusergrp","EditMobileVerifyPw")
+     * @Groups("post:read")
      */
     private $mdp;
     /**
@@ -146,7 +143,6 @@ class Utilisateurs implements UserInterface
      */
 
     public $mdpconfirm;
-
 
     public $oldmdp;
 
@@ -286,8 +282,6 @@ class Utilisateurs implements UserInterface
 
         return $this;
     }
-
-
 
     public function getGenre(): ?string
     {
@@ -468,7 +462,6 @@ class Utilisateurs implements UserInterface
         return $this;
     }
 
-
     /**
      * @return Collection<int, SalleCollaboration>
      */
@@ -496,23 +489,22 @@ class Utilisateurs implements UserInterface
         return $this;
     }
     public function eraseCredentials()
-{
-}
-public function getSalt()
-{
-    return null;
-}
-public function getRoles()
-{
-    return ['ROLE_USER'];
-}
-public function getUsername()
-{
-}
+    {
+    }
+    public function getSalt()
+    {
+        return null;
+    }
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+    public function getUsername()
+    {
+    }
 
-public function __toString()
-{
-    return $this->nom;
-}
-
+    public function __toString()
+    {
+        return $this->nom;
+    }
 }

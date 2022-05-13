@@ -306,9 +306,9 @@ class PublicationController extends AbstractController
     }
 
     /**
-     * @Route("/{idPublication}/editLEMob", name="app_publication_editLEMob", methods={"POST","GET"})
+     * @Route("/{idPublication}/editLEMob/{userid}", name="app_publication_editLEMob", methods={"POST","GET"})
      */
-    public function LoadFormeMob(Request $request, Publication $publication,SessionInterface $session ,EntityManagerInterface $entityManager,NormalizerInterface $Normalizer): Response
+    public function LoadFormeMob(Request $request,$userid, Publication $publication,SessionInterface $session ,EntityManagerInterface $entityManager,NormalizerInterface $Normalizer): Response
     {
         //   $user = $session->get('userdata');
         $pub=new Publication();
@@ -318,7 +318,7 @@ class PublicationController extends AbstractController
         $pub->setVisibilite("True");
         $userr = $entityManager
             ->getRepository(Utilisateurs::class)
-            ->find(60);
+            ->find($userid);
         $publication->setIdUtilisateur($userr);
         $publication->setDatePublication((new \DateTime('now')));
         //    dd($publication);
@@ -329,9 +329,9 @@ class PublicationController extends AbstractController
 
 
     /**
-     * @Route("/AddMob", name="app_publication_AddMob", methods={"POST","GET"})
+     * @Route("/AddMob/{userid}", name="app_publication_AddMob", methods={"POST","GET"})
      */
-    public function AddMobb(Request $request,SessionInterface $session ,EntityManagerInterface $entityManager,NormalizerInterface $Normalizer): Response
+    public function AddMobb(Request $request,$userid,SessionInterface $session ,EntityManagerInterface $entityManager,NormalizerInterface $Normalizer): Response
     {
         $user = $session->get('userdata');
         $publication = new Publication();
@@ -340,7 +340,7 @@ class PublicationController extends AbstractController
         $publication->setPriority(1);
         $userr = $entityManager
             ->getRepository(Utilisateurs::class)
-            ->find(60);
+            ->find($userid);
         $publication->setIdUtilisateur($userr);
 
         $publication->setDescription($request->query->get("description"));
